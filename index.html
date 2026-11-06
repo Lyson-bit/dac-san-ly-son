@@ -2,6 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
 <meta name="theme-color" content="#0D6B72">
@@ -259,10 +261,17 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .framed-only{display:none!important}
 .framed .direct-only{display:none!important}
 .framed .framed-only{display:grid!important}
+/* Có Sổ đơn (ORDER_URL): nút Gửi đơn hàng gửi thẳng, Zalo thành nút phụ */
+#sendBtn[hidden]{display:none!important}
+#sendBtn:disabled{opacity:.7;cursor:default;filter:none}
+.auto-only{display:none!important}
+.auto .auto-only{display:block!important}
+.auto .manual-only{display:none!important}
 .how li::marker{font-weight:700}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .inapp{display:grid;gap:4px;padding:12px 14px;margin-bottom:20px;border-radius:8px;border:1px solid #D99A1E;background:color-mix(in srgb,#D99A1E 20%,var(--fg));font-size:.92rem}
 .inapp[hidden]{display:none}
+.contact .safe{border-left:3px solid #D99A1E;padding-left:10px;border-radius:0}
 .contact a.tel{color:inherit;text-decoration:none;font-size:1.15rem;font-weight:700}
 section[id]{scroll-margin-top:60px}
 
@@ -342,7 +351,7 @@ section[id]{scroll-margin-top:60px}
       <div class="steps">
         <div class="step"><span class="n">1</span><div><h3>Chọn hàng</h3><p>Bấm “Chọn đặt hàng” trên sản phẩm hoặc chọn số lượng trong mẫu đơn.</p></div></div>
         <div class="step"><span class="n">2</span><div><h3>Tạo đơn hàng</h3><p>Điền họ tên, số điện thoại, địa chỉ rồi bấm “Tạo đơn hàng”.</p></div></div>
-        <div class="step"><span class="n">3</span><div><h3>Gửi qua Zalo</h3><p>Bấm “Gửi đơn qua Zalo”. Trong Zalo, giữ ngón tay ở ô gõ tin nhắn, bấm <b>Dán</b> rồi bấm <b>➤</b>. Người bán gọi lại báo giá và phí gửi.</p></div></div>
+        <div class="step"><span class="n">3</span><div><h3 id="step3h">Gửi qua Zalo</h3><p id="step3">Bấm “Gửi đơn qua Zalo”. Trong Zalo, giữ ngón tay ở ô gõ tin nhắn, bấm <b>Dán</b> rồi bấm <b>➤</b>. Người bán gọi lại báo giá và phí gửi.</p></div></div>
       </div>
     </div>
   </section>
@@ -520,7 +529,7 @@ section[id]{scroll-margin-top:60px}
       <div class="sec-head">
         <p class="eyebrow">Đặt hàng</p>
         <h2>Gửi đơn qua Zalo hoặc tin nhắn</h2>
-        <p>Điền thông tin, bấm “Tạo đơn hàng”, rồi bấm “Gửi đơn qua Zalo”. Người bán sẽ gọi lại báo giá và phí gửi.</p>
+        <p id="orderLead">Điền thông tin, bấm “Tạo đơn hàng”, rồi bấm “Gửi đơn qua Zalo”. Người bán sẽ gọi lại báo giá và phí gửi.</p>
       </div>
       <div class="inapp" id="inapp" hidden>
         <b>Anh chị đang mở trang trong ứng dụng <span id="inappName">khác</span>.</b>
@@ -529,15 +538,15 @@ section[id]{scroll-margin-top:60px}
       <div class="order-grid">
         <form id="orderForm" novalidate>
           <div class="row">
-            <label for="name">Họ tên<input id="name" name="name" autocomplete="name" placeholder="Nguyễn Văn A" required></label>
-            <label for="phone">Số điện thoại<input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="09xx xxx xxx" required></label>
+            <label for="name">Họ tên<input id="name" name="name" maxlength="80" autocomplete="name" placeholder="Nguyễn Văn A" required></label>
+            <label for="phone">Số điện thoại<input id="phone" name="phone" type="tel" maxlength="15" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" required></label>
           </div>
-          <label for="addr">Địa chỉ nhận hàng<input id="addr" name="addr" autocomplete="street-address" placeholder="Số nhà, đường, phường/xã, tỉnh/thành"></label>
+          <label for="addr">Địa chỉ nhận hàng<input id="addr" name="addr" maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, phường/xã, tỉnh/thành"></label>
           <fieldset style="border:0;padding:0;margin:0;display:grid;gap:8px">
             <legend style="font-size:.88rem;font-weight:600;margin-bottom:6px">Sản phẩm và số lượng</legend>
             <div class="items" id="items"></div>
           </fieldset>
-          <label for="note">Ghi chú<textarea id="note" name="note" rows="2" placeholder="Thời gian nhận hàng, yêu cầu đóng gói…"></textarea></label>
+          <label for="note">Ghi chú<textarea id="note" name="note" rows="2" maxlength="300" placeholder="Thời gian nhận hàng, yêu cầu đóng gói…"></textarea></label>
           <p class="status" id="formStatus" role="status"></p>
           <div style="display:flex;gap:12px;flex-wrap:wrap">
             <button class="btn primary" type="submit" id="createBtn">Tạo đơn hàng</button>
@@ -547,6 +556,7 @@ section[id]{scroll-margin-top:60px}
           <div class="out" id="out" hidden>
             <label for="msg">Nội dung đơn (kiểm tra lại trước khi gửi)<textarea id="msg" readonly rows="7"></textarea></label>
             <div class="send-btns">
+              <button class="btn primary big" type="button" id="sendBtn" hidden>Gửi đơn hàng</button>
               <a class="btn primary big" id="zaloBtn" href="https://zalo.me/0363594167" target="_blank" rel="noopener">Gửi đơn qua Zalo</a>
             </div>
             <p class="send-status" id="sendStatus" role="status" aria-live="polite"></p>
@@ -555,14 +565,15 @@ section[id]{scroll-margin-top:60px}
               <a class="btn ghost sm" id="smsBtn" href="sms:0363594167">Nhắn SMS</a>
               <a class="btn ghost sm" href="tel:0363594167">Gọi điện</a>
             </div>
-            <p class="manual"><b>Cách gửi qua Zalo:</b></p>
+            <p class="manual auto-only">Bấm <b>Gửi đơn hàng</b> là xong: đơn tới người bán ngay, không cần mở Zalo. Các nút Zalo, SMS, Gọi điện để anh chị liên hệ thêm nếu muốn.</p>
+            <p class="manual manual-only"><b>Cách gửi qua Zalo:</b></p>
             <ol class="manual how framed-only">
               <li>Bấm <b>Sao chép đơn để gửi Zalo</b>.</li>
               <li>Thoát trang này, mở <b>app Zalo</b>, gõ tìm số <b>0363 594 167</b> rồi bấm <b>Nhắn tin</b>.</li>
               <li>Chạm vào ô gõ tin nhắn, <b>giữ ngón tay</b> khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào.</li>
               <li>Bấm nút gửi <b>➤</b>. Xong.</li>
             </ol>
-            <ol class="manual how direct-only">
+            <ol class="manual how direct-only manual-only">
               <li>Bấm <b>Gửi đơn qua Zalo</b>. Đơn tự được sao chép, Zalo mở ra khung chat với số 0363 594 167.</li>
               <li>Trong Zalo, chạm vào <b>ô gõ tin nhắn</b> ở cuối màn hình (chỗ thường gõ chữ).</li>
               <li><b>Chạm và giữ</b> ngón tay trong ô đó khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào. Nội dung đơn hiện ra trong ô.</li>
@@ -577,6 +588,7 @@ section[id]{scroll-margin-top:60px}
           <div><small>Địa chỉ</small><b>[Địa chỉ cửa hàng / kho]</b></div>
           <div><small>Giờ nhận đơn</small><b>[Giờ làm việc]</b></div>
           <p class="hint">Bấm vào số để gọi. Nhắn Zalo cùng số này.</p>
+          <p class="hint safe"><b>Cẩn thận lừa đảo:</b> người bán <b>không</b> gửi link, file cài đặt hay xin mã OTP. Chỉ đặt hàng tại trang này và Zalo 0363 594 167.</p>
         </aside>
       </div>
     </div>
@@ -605,7 +617,7 @@ section[id]{scroll-margin-top:60px}
       <a href="#hoi-dap">Hỏi đáp</a>
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
-    <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh.</p>
+    <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Trang chính thức duy nhất: nguyenvandanh2210lyson-bit.github.io/dac-san-ly-son. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
   </div>
 </footer>
 
@@ -646,16 +658,18 @@ section[id]{scroll-margin-top:60px}
     if(!name||!phone){status.textContent="Cần nhập họ tên và số điện thoại để người bán gọi lại.";return;}
     if(!/^(0|\+84)\d{9}$/.test(phone.replace(/[\s.\-]/g,""))){status.textContent="Số điện thoại chưa đúng. Nhập 10 số, bắt đầu bằng 0 (ví dụ 0363 594 167).";return;}
     if(!lines.length){status.textContent="Chọn số lượng cho ít nhất một sản phẩm.";return;}
-    var addr=document.getElementById("addr").value.trim(),note=document.getElementById("note").value.trim();
+    name=name.slice(0,80);phone=phone.slice(0,15);
+    var addr=document.getElementById("addr").value.trim().slice(0,300),note=document.getElementById("note").value.trim().slice(0,300);
     if(!orderCode)orderCode=newCode();
-    saveOrder({code:orderCode,name:name,phone:phone,addr:addr,items:lines.join("\n"),note:note,web:document.getElementById("web").value});
+    lastOrder={code:orderCode,name:name,phone:phone,addr:addr,items:lines.join("\n"),note:note,web:document.getElementById("web").value};
     msg.value="ĐƠN HÀNG "+orderCode+" – ĐẶC SẢN LÝ SƠN QUÊ TÔI\nHọ tên: "+name+"\nSĐT: "+phone+(addr?"\nĐịa chỉ: "+addr:"")+"\nSản phẩm:\n"+lines.join("\n")+(note?"\nGhi chú: "+note:"");
     out.hidden=false;fit();
     status.textContent="";
     document.getElementById("createBtn").textContent="Cập nhật đơn";
     smsBtn.href="sms:0363594167"+(isIOS?"&":"?")+"body="+encodeURIComponent(msg.value);
     ready=false;zaloBtn.textContent=LABEL;
-    show("Đã tạo đơn. Kiểm tra lại rồi bấm “"+LABEL+"”.","ok");
+    if(auto){sendBtn.disabled=false;sendBtn.textContent=sent?"Gửi lại đơn đã sửa":"Gửi đơn hàng";}
+    show("Đã tạo đơn. Kiểm tra lại rồi bấm “"+(auto?"Gửi đơn hàng":LABEL)+"”.","ok");
     out.scrollIntoView({block:"start",behavior:reduce?"auto":"smooth"});
   });
   /* Sổ đơn Google Sheet: dán link Ứng dụng web (…/exec) vào ORDER_URL. Để trống = không lưu.
@@ -666,9 +680,22 @@ section[id]{scroll-margin-top:60px}
     var d=new Date(),p=function(n){return (n<10?"0":"")+n;};
     return "LS"+String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate())+"-"+Math.random().toString(36).slice(2,5).toUpperCase();
   }
-  function saveOrder(o){
-    if(!ORDER_URL||/claude/.test(location.hostname))return;
-    try{fetch(ORDER_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)}).catch(function(){});}catch(e){}
+  var lastOrder=null,sent=false;
+  /* Gửi đơn về Sổ đơn (Apps Script trả "ok" / "bad"). Đọc được kết quả nhờ Apps Script cho CORS; lỗi CORS thì gửi lại kiểu no-cors (cùng mã đơn nên không trùng dòng) */
+  function sendOrder(){
+    if(!lastOrder)return;
+    var o=lastOrder,body=JSON.stringify(o);
+    sendBtn.disabled=true;sendBtn.textContent="Đang gửi…";show("Đang gửi đơn "+o.code+"…","");
+    function done(){sent=true;sendBtn.textContent="Đã gửi ✓";show("✅ Đã gửi đơn "+o.code+" thành công. Người bán sẽ gọi lại số "+o.phone+" để xác nhận, báo giá và phí gửi. Cảm ơn anh chị!","ok");}
+    function fail(t){sendBtn.disabled=false;sendBtn.textContent="Gửi lại";show(t||"Chưa gửi được đơn (mạng yếu hoặc lỗi). Bấm “Gửi lại”, hoặc bấm “Nhắn thêm qua Zalo” để gửi bằng Zalo.","warn");}
+    fetch(ORDER_URL,{method:"POST",body:body}).then(function(r){return r.text();}).then(function(t){
+      t=String(t||"").trim();
+      if(t==="ok")done();
+      else if(t==="bad")fail("Thông tin đơn chưa hợp lệ. Kiểm tra lại họ tên, số điện thoại rồi bấm “Cập nhật đơn” và gửi lại.");
+      else fail();
+    }).catch(function(){
+      fetch(ORDER_URL,{method:"POST",mode:"no-cors",body:body}).then(done,function(){fail();});
+    });
   }
   var ua=navigator.userAgent||"",isIOS=/iP(hone|ad|od)/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
   var zaloBtn=document.getElementById("zaloBtn"),smsBtn=document.getElementById("smsBtn"),sendStatus=document.getElementById("sendStatus"),ready=false;
@@ -696,6 +723,17 @@ section[id]{scroll-margin-top:60px}
   var framed=true;try{framed=window.self!==window.top;}catch(e){}
   var LABEL=framed?"Sao chép đơn để gửi Zalo":"Gửi đơn qua Zalo";
   if(framed){document.documentElement.classList.add("framed");zaloBtn.textContent=LABEL;}
+  var auto=!!ORDER_URL&&!framed&&!/claude/.test(location.hostname);
+  var sendBtn=document.getElementById("sendBtn");
+  if(auto){
+    document.documentElement.classList.add("auto");
+    sendBtn.hidden=false;sendBtn.addEventListener("click",sendOrder);
+    zaloBtn.classList.remove("primary");zaloBtn.classList.add("ghost");
+    LABEL="Nhắn thêm qua Zalo";zaloBtn.textContent=LABEL;
+    document.getElementById("orderLead").textContent="Điền thông tin, bấm “Tạo đơn hàng”, kiểm tra lại rồi bấm “Gửi đơn hàng”. Đơn tới người bán ngay, người bán sẽ gọi lại báo giá và phí gửi.";
+    document.getElementById("step3h").textContent="Gửi đơn";
+    document.getElementById("step3").textContent="Bấm “Gửi đơn hàng” là xong. Người bán nhận đơn ngay và gọi lại báo giá, phí gửi.";
+  }
   var OK_FRAMED="Đã sao chép đơn. Làm tiếp: (1) Thoát trang, mở app Zalo, tìm số 0363 594 167, bấm Nhắn tin. (2) Chạm ô gõ tin nhắn → giữ ngón tay 1 giây → bấm Dán. (3) Bấm ➤ để gửi.";
   function failFramed(){
     show("Máy chưa cho tự sao chép, anh chị làm tay giúp: giữ ngón tay trên ô Nội dung đơn → Chọn tất cả → Sao chép. Rồi mở app Zalo, tìm số 0363 594 167, dán vào ô tin nhắn và bấm ➤.","warn");
