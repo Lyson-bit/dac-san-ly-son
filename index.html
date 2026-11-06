@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
+<meta name="theme-color" content="#0D6B72">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Đặc sản Lý Sơn">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+.install-btn{padding:8px 14px!important;font-size:.88rem!important;white-space:nowrap}
+.install-tip{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--fg);color:var(--bg);padding:14px 16px;border-radius:10px;font-size:.92rem;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+</style>
+<title>Đặc Sản Lý Sơn Quê Tôi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+/* Bố cục: đảo núi lửa – dải đất bazan + lớp cát biển làm “nhịp” chia mục; nội dung 1 cột rộng ~1080px, lưới sản phẩm tự gãy cột */
+:root{
+  --bg:#F3F5F1;        /* cát biển dưới trời nắng */
+  --surface:#FFFFFF;
+  --fg:#1E2422;        /* đá bazan */
+  --muted:#5B6662;
+  --line:#D7DDD7;
+  --sea:#0D6B72;       /* nước biển Lý Sơn */
+  --sea-soft:#DCEDEC;
+  --shallot:#7C3A68;   /* hành tím */
+  --basalt:#3A2A24;    /* đất bazan đỏ sẫm */
+  --sand:#E9E2CF;
+  --on-sea:#FFFFFF;
+  --f-display:"Fraunces", "Georgia", "Times New Roman", serif;
+  --f-body:"Be Vietnam Pro", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111614; --surface:#1A201E; --fg:#E5E9E4; --muted:#A1ACA7; --line:#2E3733;
+    --sea:#5BBFC3; --sea-soft:#163234; --shallot:#D59AC4; --basalt:#6B4A3E; --sand:#3B3627; --on-sea:#0B1A1B;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111614; --surface:#1A201E; --fg:#E5E9E4; --muted:#A1ACA7; --line:#2E3733;
+  --sea:#5BBFC3; --sea-soft:#163234; --shallot:#D59AC4; --basalt:#6B4A3E; --sand:#3B3627; --on-sea:#0B1A1B;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.65;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,3.6vw,2.4rem);font-weight:700}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+a{color:var(--sea)}
+:focus-visible{outline:3px solid var(--sea);outline-offset:2px;border-radius:4px}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sea)}
+
+/* Thanh điều hướng */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.brand{font-family:var(--f-display);font-weight:900;font-size:1.05rem;letter-spacing:.02em;text-decoration:none;color:var(--fg)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-size:.92rem;font-weight:500}
+nav a:hover{color:var(--sea)}
+@media (max-width:640px){nav a:not(.cta-link){display:none}}
+.cta-link{color:var(--sea)!important;font-weight:700!important}
+
+/* Hero */
+.hero{padding-block:clamp(40px,7vw,84px) 0}
+.hero .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,5vw,56px);align-items:center}
+.hero h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:900;letter-spacing:-.01em}
+.hero h1 span{display:block;color:var(--sea)}
+.hero .lead{margin-top:18px;font-size:1.12rem;color:var(--muted);max-width:34em}
+.hero .actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font:600 .98rem var(--f-body);text-decoration:none;border:1.5px solid var(--sea);cursor:pointer}
+.btn.primary{background:var(--sea);color:var(--on-sea)}
+.btn.ghost{background:transparent;color:var(--sea)}
+.btn:hover{filter:brightness(1.08)}
+.hero-art{max-width:100%}
+.hero-art svg{width:100%;height:auto;display:block}
+@media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero-art{max-width:360px;margin:0 auto}}
+
+/* Dải đất: bazan + cát */
+.strata{margin-top:clamp(36px,6vw,64px);height:34px;background:
+  linear-gradient(var(--sand),var(--sand)) top/100% 12px no-repeat,
+  repeating-linear-gradient(90deg,var(--basalt) 0 18px,color-mix(in srgb,var(--basalt) 80%,var(--bg)) 18px 30px) bottom/100% 22px no-repeat}
+
+section{padding-block:clamp(48px,7vw,80px)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;max-width:42em}
+.sec-head p{color:var(--muted)}
+
+/* Đảo */
+.island{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,56px);align-items:start}
+.island .text{display:grid;gap:14px;min-width:0}
+.layers{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.layer{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:14px 16px;align-items:center;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:0}
+.swatch{height:40px;border-radius:6px}
+.layer b{display:block;font-size:.98rem}
+.layer small{color:var(--muted);font-size:.88rem;line-height:1.45;display:block}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.fact{padding:8px 14px;border-radius:999px;background:var(--sea-soft);color:var(--fg);font-size:.9rem}
+.fact b{color:var(--sea)}
+@media (max-width:760px){.island{grid-template-columns:1fr}}
+
+/* Sản phẩm */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;min-width:0}
+.card .ico{width:52px;height:52px}
+.card p{color:var(--muted);font-size:.95rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.card.star{border-color:var(--sea);box-shadow:0 0 0 1px var(--sea)}
+.card.star .tag.hl{background:var(--sea);color:var(--on-sea);border-color:var(--sea)}
+
+/* Tiêu điểm tỏi cô đơn */
+.spot{background:var(--sea-soft)}
+.spot-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(24px,5vw,56px);align-items:start}
+.spec{background:var(--surface);border-radius:var(--r);border:1px solid var(--line);overflow:hidden}
+.spec dl{margin:0;display:grid;grid-template-columns:auto 1fr}
+.spec dt,.spec dd{margin:0;padding:12px 16px;border-bottom:1px solid var(--line);font-size:.95rem}
+.spec dt{color:var(--muted);font-weight:500}
+.spec dd{font-weight:600}
+.spec dt:nth-last-of-type(1),.spec dd:last-of-type{border-bottom:0}
+.points{display:grid;gap:16px;min-width:0}
+.point{display:grid;grid-template-columns:28px 1fr;gap:12px}
+.point .dot{width:28px;height:28px;border-radius:50%;background:var(--sea);color:var(--on-sea);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.point p{color:var(--muted)}
+.note{margin-top:18px;font-size:.86rem;color:var(--muted);border-left:3px solid var(--shallot);padding-left:12px}
+@media (max-width:760px){.spot-grid{grid-template-columns:1fr}}
+
+/* Dùng & bảo quản */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;min-width:0}
+.panel h3{margin-bottom:12px}
+.panel ul{margin:0;padding-left:20px;display:grid;gap:8px}
+.panel li::marker{color:var(--sea)}
+
+/* So sánh */
+.cmp-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:.95rem;vertical-align:top}
+th{font-family:var(--f-display);font-size:1rem}
+thead th:nth-child(2){color:var(--sea)}
+tbody tr:last-child td{border-bottom:0}
+td:first-child{color:var(--muted);font-weight:500;white-space:nowrap}
+
+/* Đặt hàng */
+.order{background:var(--fg);color:var(--bg)}
+.order .eyebrow{color:var(--sea-soft)}
+.order .sec-head p{color:color-mix(in srgb,var(--bg) 75%,var(--fg))}
+.order-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,4vw,48px);align-items:start}
+form{display:grid;gap:14px;min-width:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.row{grid-template-columns:1fr}.order-grid{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-size:.88rem;font-weight:600}
+input,select,textarea{font:inherit;font-size:16px;padding:10px 12px;border-radius:8px;border:1px solid color-mix(in srgb,var(--bg) 30%,var(--fg));background:color-mix(in srgb,var(--bg) 8%,var(--fg));color:var(--bg);width:100%;min-width:0}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--bg) 50%,var(--fg))}
+.items{display:grid;gap:8px}
+.item{display:grid;grid-template-columns:1fr 92px;gap:10px;align-items:center;font-size:.95rem}
+.order .btn.primary{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
+.order .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,var(--fg))}
+#msg{min-height:150px;font-size:16px;line-height:1.5;resize:none;overflow:hidden}
+.out{display:grid;gap:12px;scroll-margin-top:72px}
+.out[hidden]{display:none!important}
+.status{font-size:.88rem;color:var(--sea-soft);min-height:1.3em}
+.contact{display:grid;gap:14px;padding:22px;border-radius:var(--r);border:1px solid color-mix(in srgb,var(--bg) 25%,var(--fg))}
+.contact div{display:grid;gap:2px}
+.contact small{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in srgb,var(--bg) 60%,var(--fg))}
+.contact b{font-size:1.05rem;user-select:all}
+.contact .hint{font-size:.85rem;color:color-mix(in srgb,var(--bg) 65%,var(--fg))}
+
+footer{padding-block:36px 28px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px}
+footer h3{font-size:1rem;color:var(--fg);margin-bottom:8px}
+.foot-links{display:grid;gap:6px;align-content:start}
+.foot-links a{color:var(--muted);text-decoration:none}
+.foot-links a:hover{color:var(--sea)}
+.foot-bottom{grid-column:1/-1;border-top:1px solid var(--line);padding-top:14px;font-size:.84rem}
+@media (max-width:640px){footer .wrap{grid-template-columns:1fr 1fr}footer .wrap>div:first-child{grid-column:1/-1}}
+
+/* Hero bổ sung */
+.hero-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.badge{display:inline-flex;align-items:center;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--shallot);color:var(--surface)}
+.btn.big{padding:15px 28px;font-size:1.08rem}
+.perks{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;max-width:34em}
+.perks li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;font-weight:500}
+.perks li::before{content:"";flex:none;width:6px;height:11px;margin:4px 6px 0 4px;border-right:2.5px solid var(--sea);border-bottom:2.5px solid var(--sea);transform:rotate(45deg)}
+@media (max-width:420px){.perks{grid-template-columns:1fr}}
+
+/* Đặt hàng 3 bước */
+.steps-band{background:var(--surface);border-block:1px solid var(--line);padding-block:clamp(28px,4vw,40px)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:760px){.steps{grid-template-columns:1fr;gap:16px}}
+.step{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.step .n{font-family:var(--f-display);font-weight:900;font-size:2.6rem;line-height:1;color:var(--sea);font-variant-numeric:tabular-nums}
+.step h3{font-size:1.05rem;margin-bottom:4px}
+.step p{color:var(--muted);font-size:.93rem}
+
+/* Nút chọn trên thẻ sản phẩm */
+.card{grid-template-rows:auto auto 1fr auto auto}
+.pick{margin-top:4px;justify-self:start;font:600 .9rem var(--f-body);padding:9px 16px;border-radius:999px;border:1.5px solid var(--sea);background:transparent;color:var(--sea);cursor:pointer}
+.pick:hover,.card.star .pick{background:var(--sea);color:var(--on-sea)}
+.item{padding:4px 6px;border-radius:6px}
+.item.flash{animation:flash 1.8s ease-out}
+@keyframes flash{0%{background:color-mix(in srgb,var(--sea) 45%,transparent)}100%{background:transparent}}
+
+/* Câu chuyện sản phẩm */
+.card-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.card-actions .pick{margin-top:0}
+.pick.ghosty{background:transparent!important;color:var(--sea)!important}
+dialog.story{width:min(560px,calc(100% - 32px));max-height:calc(100% - 48px);border:0;border-radius:14px;padding:0;background:var(--surface);color:var(--fg);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+dialog.story::backdrop{background:rgba(10,20,20,.55)}
+.story-head{background:var(--sea-soft);padding:22px 24px 18px;display:grid;gap:6px}
+.story-head h3{font-size:clamp(1.35rem,4vw,1.7rem);line-height:1.2}
+.story-body{padding:18px 24px 6px;display:grid;gap:12px;font-size:1rem;line-height:1.7}
+.story-body p:last-child{font-family:var(--f-display);font-style:italic;font-size:1.08rem;color:var(--sea)}
+.story-src{padding:0 24px;font-size:.8rem;color:var(--muted)}
+.story-actions{padding:16px 24px 22px;display:flex;flex-wrap:wrap;gap:10px}
+.story-actions .btn{padding:10px 18px}
+
+/* Hỏi đáp */
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0 18px}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-family:var(--f-display);font-size:1.4rem;line-height:1;color:var(--sea)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 16px;color:var(--muted)}
+
+/* Nút Zalo nổi */
+.fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;background:var(--sea);color:var(--on-sea);font-weight:700;font-size:.95rem;text-decoration:none;box-shadow:0 6px 20px rgba(0,0,0,.22)}
+.fab svg{width:20px;height:20px;flex:none}
+.fab:hover{filter:brightness(1.08)}
+.fab{transition:opacity .25s,transform .25s}
+.fab.away{opacity:0;transform:translateY(16px);pointer-events:none}
+
+/* Gửi đơn */
+.send-btns,.send-alt{display:flex;gap:10px;flex-wrap:wrap}
+.btn.sm{padding:9px 16px;font-size:.9rem}
+.send-status{font-size:.92rem;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid transparent}
+.send-status:empty{display:none}
+.send-status.ok{background:color-mix(in srgb,#2E9E6A 24%,var(--fg));border-color:#2E9E6A}
+.send-status.warn{background:color-mix(in srgb,#D99A1E 24%,var(--fg));border-color:#D99A1E}
+.manual{font-size:.86rem;opacity:.85}
+.how{margin:0;padding-left:22px;display:grid;gap:6px}
+/* Xem trong khung claude.ai: khung chặn mở Zalo/SMS/gọi, chỉ cho sao chép */
+.framed-only{display:none!important}
+.framed .direct-only{display:none!important}
+.framed .framed-only{display:grid!important}
+.how li::marker{font-weight:700}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.inapp{display:grid;gap:4px;padding:12px 14px;margin-bottom:20px;border-radius:8px;border:1px solid #D99A1E;background:color-mix(in srgb,#D99A1E 20%,var(--fg));font-size:.92rem}
+.inapp[hidden]{display:none}
+.contact a.tel{color:inherit;text-decoration:none;font-size:1.15rem;font-weight:700}
+section[id]{scroll-margin-top:60px}
+
+/* Điện thoại */
+@media (max-width:640px){
+  footer{padding-bottom:96px}
+  .fab{width:56px;height:56px;padding:0;justify-content:center}
+  .fab span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .fab svg{width:26px;height:26px}
+  .hero .actions .btn,.send-btns .btn,#createBtn{flex:1 1 100%;justify-content:center}
+  .send-alt .btn{flex:1 1 auto;justify-content:center}
+  .sec-head{margin-bottom:22px}
+  .card,.contact{padding:18px}
+  .layer{grid-template-columns:64px 1fr;padding:12px 14px}
+  table{min-width:0}
+  th,td{padding:10px;font-size:.88rem}
+  td:first-child{white-space:normal}
+  .facts .fact{font-size:.86rem}
+}
+@media (prefers-reduced-motion:reduce){.item.flash{animation:none}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
+    <nav aria-label="Mục lục">
+      <a href="#dao">Đảo tỏi</a>
+      <a href="#san-pham">Sản phẩm</a>
+      <a href="#toi-co-don">Tỏi cô đơn</a>
+      <a href="#phan-biet">Phân biệt</a>
+      <a href="#hoi-dap">Hỏi đáp</a>
+      <a class="cta-link" href="#dat-hang">Đặt hàng</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <div class="hero-top"><span class="badge">Mùa mới</span><p class="eyebrow">Đảo Lý Sơn · Quảng Ngãi</p></div>
+        <h1>ĐẶC SẢN LÝ SƠN <span>QUÊ TÔI</span></h1>
+        <p class="lead">Tỏi, hành tím và hải sản khô từ hòn đảo núi lửa giữa biển miền Trung. Hàng nhà trồng và làm trên đảo, gửi về đất liền theo từng đợt.</p>
+        <div class="actions">
+          <a class="btn primary big" href="#dat-hang">Đặt hàng ngay</a>
+          <a class="btn ghost big" href="#san-pham">Xem sản phẩm</a>
+        </div>
+        <ul class="perks" aria-label="Cam kết">
+          <li>Hàng nhà trồng trên đảo</li>
+          <li>Gửi hàng toàn quốc</li>
+          <li>Kiểm hàng khi nhận</li>
+          <li>Đổi hàng nếu lỗi</li>
+        </ul>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="180" cy="150" r="140" fill="var(--sea-soft)"/>
+          <path d="M40 210 Q90 150 140 172 Q175 120 214 150 Q262 128 320 210 Z" fill="var(--basalt)"/>
+          <path d="M40 210 Q180 196 320 210 L320 222 Q180 210 40 222 Z" fill="var(--sand)"/>
+          <path d="M40 224 Q110 214 180 224 T320 224 L320 262 Q180 290 40 262 Z" fill="var(--sea)" opacity=".85"/>
+          <g transform="translate(180 92)">
+            <path d="M0 -58 C6 -44 10 -38 10 -30 C34 -22 44 0 40 22 C36 46 18 58 0 58 C-18 58 -36 46 -40 22 C-44 0 -34 -22 -10 -30 C-10 -38 -6 -44 0 -58 Z" fill="var(--surface)" stroke="var(--fg)" stroke-width="3"/>
+            <path d="M0 -26 C10 0 10 34 0 54 M-20 -16 C-26 6 -22 34 -10 50 M20 -16 C26 6 22 34 10 50" fill="none" stroke="var(--line)" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="strata" aria-hidden="true"></div>
+  </div>
+
+  <section class="steps-band" aria-labelledby="steps-title">
+    <div class="wrap">
+      <h2 id="steps-title" class="eyebrow" style="font-family:var(--f-body);font-size:.78rem;margin-bottom:18px">Đặt hàng 3 bước</h2>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div><h3>Chọn hàng</h3><p>Bấm “Chọn đặt hàng” trên sản phẩm hoặc chọn số lượng trong mẫu đơn.</p></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Tạo đơn hàng</h3><p>Điền họ tên, số điện thoại, địa chỉ rồi bấm “Tạo đơn hàng”.</p></div></div>
+        <div class="step"><span class="n">3</span><div><h3>Gửi qua Zalo</h3><p>Bấm “Gửi đơn qua Zalo”. Trong Zalo, giữ ngón tay ở ô gõ tin nhắn, bấm <b>Dán</b> rồi bấm <b>➤</b>. Người bán gọi lại báo giá và phí gửi.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dao">
+    <div class="wrap island">
+      <div class="text">
+        <p class="eyebrow">Vì sao tỏi Lý Sơn khác</p>
+        <h2>Trồng trên đất núi lửa, phủ cát biển</h2>
+        <p>Lý Sơn là đảo hình thành từ núi lửa. Bà con đào đất đỏ bazan trên núi Thới Lới, núi Giếng Tiền chở về rải lên ruộng, trộn phân chuồng, rồi phủ lớp cát san hô lấy từ biển. Lớp cát giữ ẩm, thoát nước nhanh và làm củ tỏi, củ hành chắc, thơm. Cát thay sau vài vụ, đất bazan thay sau vài năm.</p>
+        <p>Nước tưới lấy từ giếng trên đảo. Phân chủ yếu là phân chuồng ủ hoai với lá cây và rong. Mỗi năm thường chỉ có một vụ chính.</p>
+        <div class="facts">
+          <span class="fact">Cách đất liền gần <b>18 hải lý</b></span>
+          <span class="fact">Xuống giống tỏi <b>tháng 9</b></span>
+          <span class="fact">Nhổ tỏi <b>tháng 2–3</b> năm sau</span>
+        </div>
+      </div>
+      <div class="layers" role="list" aria-label="Các lớp đất trên ruộng tỏi Lý Sơn">
+        <div class="layer" role="listitem">
+          <div class="swatch" style="background:linear-gradient(var(--surface),var(--sand))"></div>
+          <div><b>Lớp cát biển</b><small>Phủ trên mặt ruộng, thay mới định kỳ. Giữ ẩm và hạn chế cỏ dại.</small></div>
+        </div>
+        <div class="layer" role="listitem">
+          <div class="swatch" style="background:repeating-linear-gradient(135deg,var(--basalt) 0 8px,color-mix(in srgb,var(--basalt) 70%,var(--sand)) 8px 12px)"></div>
+          <div><b>Đất bazan</b><small>Đất đỏ núi lửa, nhiều khoáng chất. Rễ tỏi hút dinh dưỡng từ lớp này.</small></div>
+        </div>
+        <div class="layer" role="listitem">
+          <div class="swatch" style="background:var(--fg)"></div>
+          <div><b>Đá nền núi lửa</b><small>Đá bazan bên dưới, chỗ mạch nước ngầm của giếng trên đảo.</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="san-pham" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Sản phẩm</p>
+        <h2>Hàng của đảo</h2>
+        <p>Giá theo mùa và theo đợt hàng. Nhắn đặt hàng để được báo giá và lịch gửi.</p>
+      </div>
+      <div class="grid">
+        <article class="card star">
+          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--sea)" stroke-width="2.5"/></svg>
+          <h3>Tỏi cô đơn Lý Sơn</h3>
+          <p>Mỗi củ chỉ một tép tròn. Hiếm, sản lượng mỗi năm rất ít. Vị đậm, thơm, hợp ngâm rượu, ngâm mật ong hoặc ăn sống.</p>
+          <div class="tags"><span class="tag hl">Nổi bật</span><span class="tag">Túi lưới 500 g</span><span class="tag">1 kg</span></div>
+        </article>
+        <article class="card">
+          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5"/><path d="M26 18v26M19 21c-3 7-2 16 2 21M33 21c3 7 2 16-2 21" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Tỏi Lý Sơn nhiều tép</h3>
+          <p>Củ nhỏ, tép đều, vỏ trắng ngà. Dùng nấu ăn hằng ngày, phi thơm, làm nước chấm, làm tỏi ớt.</p>
+          <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span><span class="tag">Bó / chùm</span></div>
+        </article>
+        <article class="card">
+          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M26 4c1 6 2 9 2 12 8 3 13 10 12 18-1 8-7 13-14 13s-13-5-14-13c-1-8 4-15 12-18 0-3 1-6 2-12z" fill="var(--shallot)" opacity=".9"/><path d="M22 47c1 2 3 3 4 3s3-1 4-3" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round"/></svg>
+          <h3>Hành tím Lý Sơn</h3>
+          <p>Củ chắc, vỏ tím đỏ, mùi thơm. Hợp phi hành, làm dưa hành, ướp đồ nướng.</p>
+          <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span></div>
+        </article>
+        <article class="card">
+          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M6 26c8-10 22-12 32-4l8-6v20l-8-6c-10 8-24 6-32-4z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="15" cy="25" r="2" fill="var(--fg)"/></svg>
+          <h3>Hải sản khô</h3>
+          <p>Mực khô, mực một nắng, cá khô và rong biển phơi trên đảo. Hàng theo con nước, có đợt mới báo sau.</p>
+          <div class="tags"><span class="tag">Theo mùa</span><span class="tag">Báo giá theo đợt</span></div>
+        </article>
+        <article class="card">
+          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M20 4h12v8l4 6v26a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18l4-6z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 28h20v14H16z" fill="var(--sand)"/><circle cx="26" cy="35" r="4" fill="var(--surface)" stroke="var(--fg)" stroke-width="1.5"/></svg>
+          <h3>Tỏi ngâm &amp; rượu tỏi</h3>
+          <p>Tỏi cô đơn ngâm rượu, ngâm mật ong, tỏi ngâm chua ngọt. Làm theo đơn, cần đặt trước.</p>
+          <div class="tags"><span class="tag">Đặt trước</span><span class="tag">Hũ / chai</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="toi-co-don" class="spot">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Sản phẩm chính</p>
+        <h2>Tỏi cô đơn Lý Sơn</h2>
+        <p>Tỏi cô đơn không phải một giống riêng. Trong ruộng tỏi thường, một số cây chỉ tạo một tép duy nhất. Tép này gom hết dưỡng chất của cả củ nên thơm và đậm hơn tỏi nhiều tép.</p>
+      </div>
+      <div class="spot-grid">
+        <div class="spec">
+          <dl>
+            <dt>Xuất xứ</dt><dd>Đảo Lý Sơn, Quảng Ngãi</dd>
+            <dt>Quy cách</dt><dd>Túi lưới 500 g · 1 kg</dd>
+            <dt>Hình dạng</dt><dd>Một tép, củ tròn, đều</dd>
+            <dt>Canh tác</dt><dd>Phân chuồng ủ hoai, nhổ cỏ bằng tay</dd>
+            <dt>Sản lượng</dt><dd>Khoảng 1% mỗi vụ tỏi</dd>
+            <dt>Giá</dt><dd>Báo theo đợt hàng</dd>
+          </dl>
+        </div>
+        <div class="points">
+          <div class="point"><span class="dot">1</span><div><h3>Chọn từng củ</h3><p>Tỏi cô đơn được nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới cho thoáng.</p></div></div>
+          <div class="point"><span class="dot">2</span><div><h3>Vị đậm, ít hăng gắt</h3><p>Ăn sống có vị cay ấm, hậu ngọt. Mùi thơm rõ hơn tỏi nhập khẩu củ to.</p></div></div>
+          <div class="point"><span class="dot">3</span><div><h3>Dùng như bài thuốc dân gian</h3><p>Người trên đảo quen ăn vài củ mỗi ngày hoặc ngâm rượu để dùng dần khi trời trở lạnh.</p></div></div>
+          <p class="note">Công dụng nêu trên là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người đang điều trị bệnh, đặc biệt đang dùng thuốc chống đông máu, nên hỏi bác sĩ trước khi dùng nhiều tỏi.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cach-dung">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Hướng dẫn</p>
+        <h2>Cách dùng và bảo quản</h2>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <h3>Cách dùng</h3>
+          <ul>
+            <li>Ăn sống: bóc vỏ, đập dập, để 10 phút cho dậy mùi rồi ăn kèm bữa.</li>
+            <li>Ngâm mật ong: tỏi bóc vỏ cho vào hũ thủy tinh, đổ mật ong ngập mặt, đậy kín.</li>
+            <li>Ngâm rượu: tỏi bóc vỏ ngâm với rượu trắng trong bình thủy tinh, để nơi mát.</li>
+            <li>Nấu ăn: phi thơm, làm nước chấm, ướp thịt cá, xào rau.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Bảo quản</h3>
+          <ul>
+            <li>Để nguyên túi lưới, treo nơi khô, thoáng, tránh nắng trực tiếp.</li>
+            <li>Không để trong túi nilon kín vì dễ ẩm, mốc.</li>
+            <li>Không cần để tủ lạnh. Để lâu trong ngăn mát tỏi dễ mọc mầm.</li>
+            <li>Tỏi đã bóc vỏ nên dùng trong vài ngày hoặc đem ngâm.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="phan-biet" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Mua đúng hàng</p>
+        <h2>Phân biệt tỏi Lý Sơn với tỏi nhập</h2>
+        <p>Trên thị trường có nhiều tỏi cô đơn trồng nơi khác nhưng ghi là Lý Sơn. Một số dấu hiệu bà con hay dùng để nhận biết:</p>
+      </div>
+      <div class="cmp-scroll">
+        <table>
+          <thead><tr><th scope="col">Đặc điểm</th><th scope="col">Tỏi Lý Sơn</th><th scope="col">Tỏi nhập củ to</th></tr></thead>
+          <tbody>
+            <tr><td>Kích thước</td><td>Củ nhỏ, chắc tay</td><td>Củ to, đều, nhẹ hơn so với kích thước</td></tr>
+            <tr><td>Vỏ</td><td>Trắng ngà, mỏng, đôi khi lẫn vết đất cát</td><td>Trắng bóng, sạch, dày hơn</td></tr>
+            <tr><td>Mùi</td><td>Thơm nồng ngay khi bóc</td><td>Mùi nhẹ hơn</td></tr>
+            <tr><td>Vị khi ăn sống</td><td>Cay ấm rồi ngọt hậu</td><td>Cay gắt, ít hậu ngọt</td></tr>
+            <tr><td>Khi đập dập</td><td>Tinh dầu nhiều, dính tay</td><td>Ít tinh dầu, khô hơn</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="hoi-dap" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Hỏi đáp</p>
+        <h2>Câu hỏi khách hay hỏi</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Có gửi hàng đi tỉnh khác không?</summary><p>Có. Hàng gửi toàn quốc qua bưu điện hoặc dịch vụ chuyển phát. Phí gửi tùy nơi nhận và khối lượng, người bán báo khi xác nhận đơn.</p></details>
+        <details><summary>Có được kiểm hàng trước khi trả tiền không?</summary><p>Có. Anh chị được mở xem hàng khi nhận, thấy đúng hàng rồi mới trả tiền.</p></details>
+        <details><summary>Hàng bị lỗi thì sao?</summary><p>Tỏi bị mốc, hỏng hoặc gửi sai hàng thì được đổi. Anh chị chụp ảnh hàng lúc nhận và nhắn Zalo 0363 594 167.</p></details>
+        <details><summary>Hàng lấy từ đâu?</summary><p>Hàng nhà trồng và làm trên đảo Lý Sơn, gửi về đất liền theo từng đợt thu hoạch.</p></details>
+        <details><summary>Vì sao trang không ghi giá?</summary><p>Giá tỏi và hành thay đổi theo vụ và sản lượng từng đợt. Nhắn Zalo để được báo giá đúng đợt hàng đang có.</p></details>
+        <details><summary>Tỏi cô đơn có phải giống tỏi riêng không?</summary><p>Không. Đó là những cây tỏi thường chỉ tạo một tép, được nhặt riêng khi thu hoạch nên số lượng ít.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="dat-hang" class="order">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Đặt hàng</p>
+        <h2>Gửi đơn qua Zalo hoặc tin nhắn</h2>
+        <p>Điền thông tin, bấm “Tạo đơn hàng”, rồi bấm “Gửi đơn qua Zalo”. Người bán sẽ gọi lại báo giá và phí gửi.</p>
+      </div>
+      <div class="inapp" id="inapp" hidden>
+        <b>Anh chị đang mở trang trong ứng dụng <span id="inappName">khác</span>.</b>
+        <span>Nếu nút gửi đơn không chạy, bấm dấu <b>⋯</b> ở góc trên, chọn <b>Mở bằng trình duyệt</b> (Safari hoặc Chrome) rồi đặt lại.</span>
+      </div>
+      <div class="order-grid">
+        <form id="orderForm" novalidate>
+          <div class="row">
+            <label for="name">Họ tên<input id="name" name="name" autocomplete="name" placeholder="Nguyễn Văn A" required></label>
+            <label for="phone">Số điện thoại<input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="09xx xxx xxx" required></label>
+          </div>
+          <label for="addr">Địa chỉ nhận hàng<input id="addr" name="addr" autocomplete="street-address" placeholder="Số nhà, đường, phường/xã, tỉnh/thành"></label>
+          <fieldset style="border:0;padding:0;margin:0;display:grid;gap:8px">
+            <legend style="font-size:.88rem;font-weight:600;margin-bottom:6px">Sản phẩm và số lượng</legend>
+            <div class="items" id="items"></div>
+          </fieldset>
+          <label for="note">Ghi chú<textarea id="note" name="note" rows="2" placeholder="Thời gian nhận hàng, yêu cầu đóng gói…"></textarea></label>
+          <p class="status" id="formStatus" role="status"></p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn primary" type="submit" id="createBtn">Tạo đơn hàng</button>
+          </div>
+          <input class="hp" id="web" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="manual">Thông tin đơn chỉ dùng để người bán gọi xác nhận và gửi hàng.</p>
+          <div class="out" id="out" hidden>
+            <label for="msg">Nội dung đơn (kiểm tra lại trước khi gửi)<textarea id="msg" readonly rows="7"></textarea></label>
+            <div class="send-btns">
+              <a class="btn primary big" id="zaloBtn" href="https://zalo.me/0363594167" target="_blank" rel="noopener">Gửi đơn qua Zalo</a>
+            </div>
+            <p class="send-status" id="sendStatus" role="status" aria-live="polite"></p>
+            <div class="send-alt direct-only">
+              <button class="btn ghost sm" type="button" id="copyBtn">Sao chép đơn</button>
+              <a class="btn ghost sm" id="smsBtn" href="sms:0363594167">Nhắn SMS</a>
+              <a class="btn ghost sm" href="tel:0363594167">Gọi điện</a>
+            </div>
+            <p class="manual"><b>Cách gửi qua Zalo:</b></p>
+            <ol class="manual how framed-only">
+              <li>Bấm <b>Sao chép đơn để gửi Zalo</b>.</li>
+              <li>Thoát trang này, mở <b>app Zalo</b>, gõ tìm số <b>0363 594 167</b> rồi bấm <b>Nhắn tin</b>.</li>
+              <li>Chạm vào ô gõ tin nhắn, <b>giữ ngón tay</b> khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào.</li>
+              <li>Bấm nút gửi <b>➤</b>. Xong.</li>
+            </ol>
+            <ol class="manual how direct-only">
+              <li>Bấm <b>Gửi đơn qua Zalo</b>. Đơn tự được sao chép, Zalo mở ra khung chat với số 0363 594 167.</li>
+              <li>Trong Zalo, chạm vào <b>ô gõ tin nhắn</b> ở cuối màn hình (chỗ thường gõ chữ).</li>
+              <li><b>Chạm và giữ</b> ngón tay trong ô đó khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào. Nội dung đơn hiện ra trong ô.</li>
+              <li>Bấm nút gửi <b>➤</b> bên phải ô. Xong.</li>
+            </ol>
+            <p class="manual direct-only"><b>Nhắn SMS:</b> đơn được điền sẵn vào tin nhắn, chỉ cần bấm gửi (tính cước SMS thường của nhà mạng).</p>
+          </div>
+        </form>
+        <aside class="contact" aria-label="Thông tin liên hệ">
+          <div><small>Điện thoại / Zalo</small><a class="tel" href="tel:0363594167">0363 594 167</a></div>
+          <div><small>Người bán</small><b>[Tên người bán]</b></div>
+          <div><small>Địa chỉ</small><b>[Địa chỉ cửa hàng / kho]</b></div>
+          <div><small>Giờ nhận đơn</small><b>[Giờ làm việc]</b></div>
+          <p class="hint">Bấm vào số để gọi. Nhắn Zalo cùng số này.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h3>ĐẶC SẢN LÝ SƠN QUÊ TÔI</h3>
+      <p>Tỏi, hành tím và hải sản khô đảo Lý Sơn, Quảng Ngãi. Gửi hàng toàn quốc, kiểm hàng khi nhận.</p>
+      <p style="margin-top:8px">Zalo / điện thoại: <b style="color:var(--fg);user-select:all">0363 594 167</b></p>
+    </div>
+    <nav class="foot-links" aria-label="Sản phẩm">
+      <h3>Sản phẩm</h3>
+      <a href="#toi-co-don">Tỏi cô đơn</a>
+      <a href="#san-pham">Tỏi nhiều tép</a>
+      <a href="#san-pham">Hành tím</a>
+      <a href="#san-pham">Hải sản khô</a>
+    </nav>
+    <nav class="foot-links" aria-label="Thông tin">
+      <h3>Thông tin</h3>
+      <a href="#dao">Đảo tỏi</a>
+      <a href="#cach-dung">Cách dùng</a>
+      <a href="#phan-biet">Phân biệt</a>
+      <a href="#hoi-dap">Hỏi đáp</a>
+      <a href="#dat-hang">Đặt hàng</a>
+    </nav>
+    <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh.</p>
+  </div>
+</footer>
+
+<dialog class="story" id="storyBox" aria-labelledby="storyTitle">
+  <div class="story-head"><p class="eyebrow" id="storyProduct"></p><h3 id="storyTitle"></h3></div>
+  <div class="story-body" id="storyBody"></div>
+  <p class="story-src">Tư liệu tham khảo: báo Văn Hóa, VnExpress, Tiền Phong, Sài Gòn Giải Phóng. Nội dung tự viết lại.</p>
+  <div class="story-actions">
+    <button class="btn primary" type="button" id="storyOrder">Đặt sản phẩm này</button>
+    <button class="btn ghost" type="button" id="storyClose">Đóng</button>
+  </div>
+</dialog>
+
+<a class="fab direct-only" href="https://zalo.me/0363594167" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0363 594 167">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+  <span>Zalo 0363 594 167</span>
+</a>
+
+<script>
+(function(){
+  var products=["Tỏi cô đơn Lý Sơn","Tỏi Lý Sơn nhiều tép","Hành tím Lý Sơn","Hải sản khô (ghi rõ loại ở ghi chú)","Tỏi ngâm / rượu tỏi"];
+  var opts=["0","500 g","1 kg","2 kg","3 kg","5 kg","Khác"];
+  var itemsBox=document.getElementById("items");
+  products.forEach(function(p,i){
+    var row=document.createElement("div");row.className="item";
+    var id="qty"+i;
+    row.innerHTML='<label for="'+id+'" style="font-weight:500;font-size:.95rem">'+p+'</label>';
+    var sel=document.createElement("select");sel.id=id;sel.setAttribute("aria-label","Số lượng "+p);
+    opts.forEach(function(o){var op=document.createElement("option");op.value=o;op.textContent=o==="0"?"—":o;sel.appendChild(op);});
+    row.appendChild(sel);itemsBox.appendChild(row);
+  });
+  var form=document.getElementById("orderForm"),status=document.getElementById("formStatus"),out=document.getElementById("out"),msg=document.getElementById("msg");
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim();
+    var lines=[];
+    products.forEach(function(p,i){var v=document.getElementById("qty"+i).value;if(v!=="0")lines.push("- "+p+": "+v);});
+    if(!name||!phone){status.textContent="Cần nhập họ tên và số điện thoại để người bán gọi lại.";return;}
+    if(!/^(0|\+84)\d{9}$/.test(phone.replace(/[\s.\-]/g,""))){status.textContent="Số điện thoại chưa đúng. Nhập 10 số, bắt đầu bằng 0 (ví dụ 0363 594 167).";return;}
+    if(!lines.length){status.textContent="Chọn số lượng cho ít nhất một sản phẩm.";return;}
+    var addr=document.getElementById("addr").value.trim(),note=document.getElementById("note").value.trim();
+    if(!orderCode)orderCode=newCode();
+    saveOrder({code:orderCode,name:name,phone:phone,addr:addr,items:lines.join("\n"),note:note,web:document.getElementById("web").value});
+    msg.value="ĐƠN HÀNG "+orderCode+" – ĐẶC SẢN LÝ SƠN QUÊ TÔI\nHọ tên: "+name+"\nSĐT: "+phone+(addr?"\nĐịa chỉ: "+addr:"")+"\nSản phẩm:\n"+lines.join("\n")+(note?"\nGhi chú: "+note:"");
+    out.hidden=false;fit();
+    status.textContent="";
+    document.getElementById("createBtn").textContent="Cập nhật đơn";
+    smsBtn.href="sms:0363594167"+(isIOS?"&":"?")+"body="+encodeURIComponent(msg.value);
+    ready=false;zaloBtn.textContent=LABEL;
+    show("Đã tạo đơn. Kiểm tra lại rồi bấm “"+LABEL+"”.","ok");
+    out.scrollIntoView({block:"start",behavior:reduce?"auto":"smooth"});
+  });
+  /* Sổ đơn Google Sheet: dán link Ứng dụng web (…/exec) vào ORDER_URL. Để trống = không lưu.
+     Chỉ chạy trên bản GitHub; trên claude.ai trình duyệt chặn gửi ra ngoài nên bỏ qua. Hướng dẫn: so_don/HUONG_DAN_SO_DON.md */
+  var ORDER_URL="";
+  var orderCode="";
+  function newCode(){
+    var d=new Date(),p=function(n){return (n<10?"0":"")+n;};
+    return "LS"+String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate())+"-"+Math.random().toString(36).slice(2,5).toUpperCase();
+  }
+  function saveOrder(o){
+    if(!ORDER_URL||/claude/.test(location.hostname))return;
+    try{fetch(ORDER_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)}).catch(function(){});}catch(e){}
+  }
+  var ua=navigator.userAgent||"",isIOS=/iP(hone|ad|od)/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+  var zaloBtn=document.getElementById("zaloBtn"),smsBtn=document.getElementById("smsBtn"),sendStatus=document.getElementById("sendStatus"),ready=false;
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* Khung đơn tự cao theo nội dung */
+  function fit(){msg.style.height="auto";msg.style.height=(msg.scrollHeight+2)+"px";}
+  window.addEventListener("resize",function(){if(!out.hidden)fit();});
+  function show(t,kind){sendStatus.textContent=t;sendStatus.className="send-status "+(kind||"");}
+  /* Sao chép: thử cách đồng bộ trước (chạy được trong lúc bấm), không được thì dùng Clipboard API */
+  function copySync(){
+    var ok=false;
+    try{msg.readOnly=false;msg.focus({preventScroll:true});msg.setSelectionRange(0,msg.value.length);ok=document.execCommand("copy");}catch(e){}
+    msg.readOnly=true;if(ok){try{msg.setSelectionRange(0,0);}catch(e){}msg.blur();}
+    return ok;
+  }
+  function copyAsync(done,fail){
+    try{navigator.clipboard.writeText(msg.value).then(done,fail);}catch(e){fail();}
+  }
+  function failCopy(){
+    show("Máy chưa cho tự sao chép, anh chị làm tay giúp: giữ ngón tay trên ô Nội dung đơn ở trên → bấm Chọn tất cả → bấm Sao chép. Sau đó bấm “Mở Zalo và dán đơn”, trong Zalo chạm ô gõ tin nhắn → giữ 1 giây → Dán → ➤. Hoặc bấm Nhắn SMS bên dưới cho nhanh.","warn");
+    try{msg.focus({preventScroll:true});msg.setSelectionRange(0,msg.value.length);}catch(e){}
+  }
+  var OK_ZALO="Đã sao chép đơn. Trong Zalo: chạm vào ô gõ tin nhắn ở cuối màn hình → giữ ngón tay 1 giây → bấm Dán → bấm nút gửi ➤.";
+  /* Trang nằm trong khung (claude.ai): khung không cho mở link ngoài, nên nút chỉ sao chép và hướng dẫn tự mở Zalo */
+  var framed=true;try{framed=window.self!==window.top;}catch(e){}
+  var LABEL=framed?"Sao chép đơn để gửi Zalo":"Gửi đơn qua Zalo";
+  if(framed){document.documentElement.classList.add("framed");zaloBtn.textContent=LABEL;}
+  var OK_FRAMED="Đã sao chép đơn. Làm tiếp: (1) Thoát trang, mở app Zalo, tìm số 0363 594 167, bấm Nhắn tin. (2) Chạm ô gõ tin nhắn → giữ ngón tay 1 giây → bấm Dán. (3) Bấm ➤ để gửi.";
+  function failFramed(){
+    show("Máy chưa cho tự sao chép, anh chị làm tay giúp: giữ ngón tay trên ô Nội dung đơn → Chọn tất cả → Sao chép. Rồi mở app Zalo, tìm số 0363 594 167, dán vào ô tin nhắn và bấm ➤.","warn");
+    try{msg.focus({preventScroll:true});msg.setSelectionRange(0,msg.value.length);}catch(e){}
+  }
+  zaloBtn.addEventListener("click",function(e){
+    if(framed){
+      e.preventDefault();
+      if(copySync())show(OK_FRAMED,"ok");else copyAsync(function(){show(OK_FRAMED,"ok");},failFramed);
+      return;
+    }
+    if(ready)return;                      /* lần bấm thứ hai: chỉ mở Zalo */
+    if(copySync()){show(OK_ZALO,"ok");ready=true;return;}
+    e.preventDefault();ready=true;zaloBtn.textContent="Mở Zalo và dán đơn";
+    copyAsync(function(){show("Đã sao chép đơn. Bấm “Mở Zalo và dán đơn”. Trong Zalo: chạm vào ô gõ tin nhắn → giữ ngón tay 1 giây → bấm Dán → bấm ➤.","ok");},failCopy);
+  });
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var okT="Đã sao chép đơn. Mở Zalo, vào chat với 0363 594 167, chạm ô gõ tin nhắn → giữ 1 giây → Dán → ➤.";
+    if(copySync()){show(okT,"ok");return;}
+    copyAsync(function(){show(okT,"ok");},failCopy);
+  });
+  /* Nhận biết trình duyệt gắn trong app (Zalo, Facebook…) */
+  var app=/Zalo/i.test(ua)?"Zalo":/FBAN|FBAV|FB_IAB|FBIOS/i.test(ua)?"Facebook":/Messenger/i.test(ua)?"Messenger":/Instagram/i.test(ua)?"Instagram":/TikTok|musical_ly|BytedanceWebview/i.test(ua)?"TikTok":/\bLine\//.test(ua)?"LINE":"";
+  if(app){document.getElementById("inappName").textContent=app;document.getElementById("inapp").hidden=false;}
+  /* Ẩn nút Zalo nổi khi đang ở khu đặt hàng để không che chữ */
+  var fab=document.querySelector(".fab");
+  if(fab&&"IntersectionObserver" in window){
+    new IntersectionObserver(function(en){fab.classList.toggle("away",en[0].isIntersecting);},{threshold:0.08}).observe(document.getElementById("dat-hang"));
+  }
+  /* Câu chuyện từng sản phẩm – cùng thứ tự với mảng products */
+  var stories=[
+    {t:"Một phần trăm của mùa tỏi",p:[
+      "Giữa ruộng tỏi nhiều tép, thỉnh thoảng mới có một cây chỉ nuôi đúng một tép tròn. Người trồng tỏi gọi đó là tỏi cô đơn. Cả vụ, loại củ này chỉ chừng một phần trăm sản lượng: một sào cho năm, sáu trăm ký tỏi, tỏi cô đơn nhặt được có khi chưa tới một ký.",
+      "Lạ một điều: năm được mùa, tỏi cô đơn lại càng hiếm. Phải gặp năm đất cằn, trời khắc nghiệt, cây tỏi mới dồn hết sức vào một tép. Người đảo quý nó như vị thuốc từ thời ông bà khai hoang, nhặt từng củ nhỏ bằng đầu ngón tay, phơi khô, cất dành ngâm rượu.",
+      "Mỗi túi tỏi cô đơn là một mùa nắng gió Lý Sơn, gói gọn trong lòng bàn tay."]},
+    {t:"Ruộng tỏi trên lưng núi lửa",p:[
+      "Ở Lý Sơn, ruộng tỏi không tự nhiên mà có. Người nông dân đào đất đỏ bazan trên núi Thới Lới, núi Giếng Tiền chở về rải lên ruộng, trộn phân chuồng, rồi phủ lớp cát san hô lấy từ biển. Vài vụ thay cát, vài năm thay đất, tất cả bằng sức người.",
+      "Tháng chín xuống giống, tháng hai, tháng ba năm sau mới nhổ. Năm trúng mùa, sân không đủ chỗ, nhà nhà phơi tỏi lên cả nóc nhà. Tỏi khô được cho vào túi lưới, theo tàu vào đất liền.",
+      "Vị cay ấm, hậu ngọt của tép tỏi nhỏ là công của những người đội nắng làm ruộng giữa biển."]},
+    {t:"Ngọc tím hai mùa",p:[
+      "Người Lý Sơn gọi hành tím là “ngọc tím”, vì gần như nhà nào trên đảo cũng sống nhờ những củ hành nhỏ này. Hành trồng trên đất cát, mỗi năm hai vụ: một vụ thu vào tháng tám, một vụ thu sát Tết.",
+      "Có năm bão về sớm, cả đảo đổ ra đồng nhổ hành chạy bão, chấp nhận củ chưa kịp lớn còn hơn mất trắng. Nhổ hành xong, ruộng lại được làm đất để xuống giống tỏi, mùa này nối mùa kia.",
+      "Hành đảo thơm, ngọt, ít nồng. Phi một chảo hành tím Lý Sơn, mùi thơm lan khắp gian bếp."]},
+    {t:"Phần của biển",p:[
+      "Trên đảo, đàn ông theo thuyền ra khơi, nhiều người là hậu duệ của những hùng binh Hoàng Sa năm xưa. Ở nhà, hết mùa tỏi, phụ nữ ra gành đá hái rong.",
+      "Họ lặn bộ, không bình dưỡng khí, mỗi hơi chưa tới một phút. Một tay bám san hô cho sóng khỏi cuốn, tay kia cầm liềm cạy từng bụi rong. Rong mang về phơi ba đến năm ngày dưới nắng đảo cho thật khô.",
+      "Mỗi gói mực khô, cá khô, rong biển là phần biển trả công cho những chuyến đi xa và những buổi trưa lặn ngụp ven gành."]},
+    {t:"Hũ rượu tỏi trong nhà",p:[
+      "Nhiều nhà trên đảo vẫn giữ thói quen ngâm tỏi cô đơn với rượu. Theo kinh nghiệm truyền miệng, chén rượu tỏi để dành cho những ngày trở gió, lúc bụng khó tiêu hay khi bị cảm.",
+      "Tỏi được bóc vỏ, ngâm trong bình thủy tinh, để nơi mát và dùng dần. Chúng tôi ngâm theo đơn, theo cách nhà làm, để anh chị mang một chút Lý Sơn về bếp nhà mình. (Kinh nghiệm dân gian, không thay thuốc chữa bệnh.)",
+      "Một hũ rượu nhỏ, giữ cả mùa tỏi của gia đình trên đảo."]}
+  ];
+  var box=document.getElementById("storyBox"),current=0;
+  function pick(i){
+    var sel=document.getElementById("qty"+i);
+    if(sel.value==="0")sel.value=(i<3)?"1 kg":"Khác";
+    var row=sel.closest(".item");
+    document.getElementById("dat-hang").scrollIntoView({behavior:reduce?"auto":"smooth"});
+    row.classList.remove("flash");void row.offsetWidth;row.classList.add("flash");
+    setTimeout(function(){sel.focus({preventScroll:true});},600);
+    status.textContent="Đã chọn "+products[i]+". Đổi số lượng nếu cần.";
+  }
+  function openStory(i){
+    current=i;
+    document.getElementById("storyProduct").textContent=products[i].replace(/ \(.*\)$/,"");
+    document.getElementById("storyTitle").textContent=stories[i].t;
+    var body=document.getElementById("storyBody");body.innerHTML="";
+    stories[i].p.forEach(function(t){var p=document.createElement("p");p.textContent=t;body.appendChild(p);});
+    if(box.showModal)box.showModal();else box.setAttribute("open","");
+  }
+  function closeStory(){if(box.close)box.close();else box.removeAttribute("open");}
+  document.getElementById("storyClose").addEventListener("click",closeStory);
+  document.getElementById("storyOrder").addEventListener("click",function(){closeStory();pick(current);});
+  box.addEventListener("click",function(e){if(e.target===box)closeStory();});
+  document.querySelectorAll("#san-pham .card").forEach(function(card,i){
+    if(!products[i])return;
+    var row=document.createElement("div");row.className="card-actions";
+    var b=document.createElement("button");
+    b.type="button";b.className="pick";b.textContent="Chọn đặt hàng";
+    b.addEventListener("click",function(){pick(i);});
+    row.appendChild(b);
+    if(stories[i]){
+      var s=document.createElement("button");
+      s.type="button";s.className="pick ghosty";s.textContent="Đọc chuyện";
+      s.addEventListener("click",function(){openStory(i);});
+      row.appendChild(s);
+    }
+    card.appendChild(row);
+  });
+})();
+</script>
+
+<script>
+(function(){
+  if("serviceWorker" in navigator){
+    window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});
+  }
+  var bar=document.querySelector("header.top .wrap");
+  var btn=document.createElement("button");
+  btn.type="button";btn.className="btn primary install-btn";btn.textContent="Cài app";btn.hidden=true;
+  bar.appendChild(btn);
+  var tip=document.createElement("div");
+  tip.className="install-tip";tip.hidden=true;tip.setAttribute("role","status");
+  document.body.appendChild(tip);
+  var deferred=null;
+  var standalone=window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;
+  var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferred=e;if(!standalone)btn.hidden=false;});
+  if(ios&&!standalone)btn.hidden=false;
+  function showTip(t){tip.textContent=t;tip.hidden=false;clearTimeout(showTip.t);showTip.t=setTimeout(function(){tip.hidden=true;},10000);}
+  btn.addEventListener("click",function(){
+    if(deferred){
+      deferred.prompt();
+      deferred.userChoice.then(function(){deferred=null;btn.hidden=true;});
+      return;
+    }
+    if(ios){showTip("Trên iPhone: mở trang bằng Safari, bấm nút Chia sẻ (ô vuông có mũi tên lên), chọn “Thêm vào MH chính”.");}
+    else{showTip("Mở menu trình duyệt (dấu ⋮), chọn “Cài đặt ứng dụng” hoặc “Thêm vào màn hình chính”.");}
+  });
+  window.addEventListener("appinstalled",function(){btn.hidden=true;showTip("Đã cài app. Icon Đặc sản Lý Sơn nằm trên màn hình chính.");});
+})();
+</script>
+</body>
+</html>
