@@ -628,7 +628,7 @@ section[id]{scroll-margin-top:60px}
             <div class="progress" id="prog" role="slider" aria-label="Vị trí bài hát" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="progBar"></i></div>
           </div>
           <div class="time-row"><span id="musicMsg"></span><span class="time" id="time">0:00 / 0:00</span></div>
-          <p class="music-note framed-only">Bản xem trước trên claude.ai có thể không phát được nhạc. Nghe đầy đủ tại lyson-bit.github.io/dac-san-ly-son</p>
+          <p class="music-note framed-only">Bản xem trước trên claude.ai có thể không phát được nhạc. Mở trang web chính (quét mã QR) để nghe đầy đủ.</p>
         </div>
         <div>
           <div class="chips" role="group" aria-label="Lọc theo chủ đề">
@@ -897,7 +897,7 @@ section[id]{scroll-margin-top:60px}
       <a href="#phan-biet">Phân biệt</a>
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
-    <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Trang chính thức duy nhất: lyson-bit.github.io/dac-san-ly-son. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
+    <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
   </div>
 </footer>
 
@@ -1375,6 +1375,9 @@ section[id]{scroll-margin-top:60px}
   }
   function gLink(q){return "https://maps.google.com/?q="+encodeURIComponent(q);}
   function gDir(q){return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(q);}
+  /* Luôn mở bản đồ ở tab/cửa sổ mới, trang web vẫn giữ nguyên phía sau (không chuyển trang hiện tại) */
+  function openNewTab(u){var w=null;try{w=window.open(u,"_blank");if(w){try{w.opener=null;}catch(e){}}}catch(e){}return w;}
+  document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a#islandOpen,#pinInfo a,.tspot a");if(!a)return;e.stopPropagation();if(openNewTab(a.href))e.preventDefault();},true);
   function frameIn(box,src,title){
     var f=box.querySelector("iframe");
     if(!f){box.innerHTML="";f=document.createElement("iframe");f.loading="lazy";f.referrerPolicy="no-referrer-when-downgrade";f.allowFullscreen=true;box.appendChild(f);}
@@ -1403,7 +1406,7 @@ section[id]{scroll-margin-top:60px}
     var li=document.createElement("li");li.className="tspot";li.tabIndex=0;
     var n=document.createElement("span");n.className="n";n.textContent=i+1;
     var b=document.createElement("div"),t=document.createElement("b"),p=document.createElement("p"),a=document.createElement("a");
-    t.textContent=s.n;p.textContent=s.d;a.textContent="Chỉ đường";a.target="_blank";a.rel="noopener";a.href=gDir(key);
+    t.textContent=s.n;p.textContent=s.d;a.textContent="Chỉ đường ↗";a.target="_blank";a.rel="noopener noreferrer";a.href=gDir(key);a.title="Mở Google Maps ở tab mới";
     a.addEventListener("click",function(e){e.stopPropagation();});
     b.appendChild(t);b.appendChild(p);li.appendChild(n);li.appendChild(b);li.appendChild(a);li.title=s.n+" – "+s.d;
     function go(){showIsland(key,s.far?12:(s.ll?16:15),"Bản đồ: "+s.n);document.querySelectorAll(".tspot").forEach(function(x){x.classList.toggle("on",x===li);});if(window.innerWidth<860)islandEl.scrollIntoView({block:"center",behavior:reduce?"auto":"smooth"});}
