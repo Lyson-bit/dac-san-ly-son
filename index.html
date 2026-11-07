@@ -113,13 +113,13 @@ nav a:hover{color:var(--sea)}
 /* 2: giống tên trang ĐẶC SẢN LÝ SƠN */
 .hp-brand{margin-top:4px;font:900 clamp(1.4rem,3vw,1.9rem)/1.05 var(--f-display);letter-spacing:.02em;text-shadow:0 2px 12px rgba(0,0,0,.4)}
 /* 3: giống dòng nghiêng "Lý Sơn – nhà của Đạt" */
-.hp-line{font:italic 500 clamp(1.02rem,2vw,1.2rem)/1.25 var(--f-display);color:#F2B8E0;letter-spacing:.01em;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.hp-line{margin-top:4px;font:italic 500 .86rem/1.25 var(--f-display);color:#F5EBD3;letter-spacing:.02em;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 /* dòng "Lý Sơn – nhà của Đạt" ngay dưới tên, giống .brand-tag ở đầu trang */
 .hp-tag{margin-top:-2px;font:italic 500 .9rem/1.2 var(--f-display);color:#F2B8E0;letter-spacing:.01em;text-shadow:0 1px 8px rgba(0,0,0,.45)}
 .hp-tag::before,.hp-tag::after{content:"—";margin:0 .4em;opacity:.6;font-style:normal}
 /* 4: số điện thoại trải nghiệm: nghiêng, cùng tông hồng tím */
-.hp-tel{margin-top:2px;font:italic 500 .95rem/1.3 var(--f-display);color:#F2B8E0;text-decoration:none;border-bottom:1px dashed rgba(242,184,224,.55);text-shadow:0 1px 8px rgba(0,0,0,.45)}
-.hp-tel b{font:italic 700 1.02rem var(--f-display);color:#FFD9F0;letter-spacing:.03em}
+.hp-tel{margin-top:2px;font:italic 500 .84rem/1.3 var(--f-display);color:#9BE7EA;text-decoration:none;border-bottom:1px dashed rgba(155,231,234,.5);text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hp-tel b{font:italic 700 .9rem var(--f-display);color:#fff;letter-spacing:.04em}
 .hp-tel:hover{border-bottom-style:solid}
 /* Mã QR cố định của trang, góc phải cột chữ hero */
 .hero-text{position:relative}
@@ -376,6 +376,27 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .note>p:not(.dat-says){font-size:.93rem}
 .dat-says{margin:0;padding:10px 14px;border-left:3px solid var(--shallot);border-radius:0 10px 10px 0;background:color-mix(in srgb,var(--shallot) 9%,transparent);font-size:.9rem}
 .dat-says::before{content:"Đạt kể";display:block;font:italic 500 .82rem var(--f-display);color:var(--shallot);margin-bottom:2px}
+/* Ở homestay nhà Đạt + Món nhà Đạt nấu */
+.nha-dat{margin-top:22px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;scroll-margin-top:110px}
+@media (max-width:860px){.nha-dat{grid-template-columns:minmax(0,1fr)}}
+.nd-card{padding:18px;border-radius:16px;border:1px solid var(--line);background:var(--bg);display:grid;gap:12px;align-content:start}
+.nd-stay{border-top:3px solid var(--shallot)}
+.nd-food{border-top:3px solid var(--sea)}
+.nd-kicker{font:600 .78rem var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--sea)}
+.nd-stay .nd-kicker{color:var(--shallot)}
+.nd-card h3{font-family:var(--f-display);font-size:1.25rem;margin-top:-6px}
+.nd-pics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.nd-pics a{display:grid;gap:5px;text-decoration:none;color:var(--muted);font-size:.8rem}
+.nd-pics img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:12px;background:var(--line)}
+.nd-list{margin:0;padding-left:18px;display:grid;gap:4px;font-size:.92rem}
+.nd-call{justify-self:start;display:inline-flex;gap:6px;align-items:center;padding:9px 16px;border-radius:999px;background:var(--shallot);color:#fff;font-weight:600;font-size:.92rem;text-decoration:none}
+.nd-call b{letter-spacing:.03em}
+.nd-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media (max-width:1000px){.nd-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:640px){.nd-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.nd-grid li{display:grid;gap:4px;min-width:0}
+.nd-grid img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:10px;background:var(--line)}
+.nd-grid span{font-size:.74rem;line-height:1.25;color:var(--muted)}
 .checkin{margin-top:26px;padding-top:22px;border-top:1px dashed var(--line);display:grid;gap:18px}
 .ck-head h3{font-family:var(--f-display);font-size:1.2rem;margin-bottom:2px}
 .ck-group h4{display:flex;align-items:center;gap:8px;font-size:.98rem;margin-bottom:10px}
@@ -713,6 +734,7 @@ section[id]{scroll-margin-top:100px}
         <ol class="route" aria-label="Lộ trình 3 ngày, từ trái qua phải">
           <li class="stop day-start"><figure data-day="Ngày 1"><img src="images/hanh_trinh/d1_may_bay.jpg" width="720" height="960" loading="lazy" alt="Cánh máy bay trên vịnh biển miền Trung"></figure><p><b>✈️ Bay về miền Trung</b>Nhìn xuống là biển, là bắt đầu chuyến đi.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_da_nang.jpg" width="676" height="960" loading="lazy" alt="Quán cà phê nhìn ra ngã tư đường Nguyễn Văn Linh, Đà Nẵng"></figure><p><b>☕ Cà phê Đà Nẵng</b>Ly sáng ở góc Nguyễn Văn Linh rồi xuống cảng Sa Kỳ đón tàu.</p></li>
+          <li class="stop"><figure><img src="images/hanh_trinh/nha_san.jpg" width="720" height="960" loading="lazy" alt="Sân cát nhà Đạt, rổ cua ghẹ ốc vừa luộc"></figure><p><b>🏡 Về homestay nhà Đạt</b>Sân cát, hoa giấy, rổ hải sản vừa luộc chờ sẵn.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_mam_com_nha.jpg" width="720" height="960" loading="lazy" alt="Mâm cơm nhà trên chiếu: gà luộc, gỏi gà, cháo, chả"></figure><p><b>🍽️ Mâm cơm nhà Đạt</b>Gà luộc, gỏi gà trộn hành, cháo gà, chả, nước chấm tỏi đảo.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_ke_bien.jpg" width="960" height="720" loading="lazy" alt="Kè biển Lý Sơn nhìn ra cầu cảng"></figure><p><b>📍 Kè biển</b>Chiều đầu tiên, gió biển và cầu cảng xa xa.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_tuong_ly_son.jpg" width="960" height="720" loading="lazy" alt="Mọi người giơ tay trên bức tường vẽ chữ LY SON ISLAND"></figure><p><b>📍 Tường "LY SON ISLAND"</b>Tấm ảnh check-in đầu tiên trên đảo.</p></li>
@@ -754,10 +776,45 @@ section[id]{scroll-margin-top:100px}
         </article>
       </div>
 
+      <div class="nha-dat" id="nha-dat">
+        <article class="nd-card nd-stay">
+          <p class="nd-kicker">🏡 Ở homestay nhà Đạt</p>
+          <h3>Về đảo là về nhà</h3>
+          <div class="nd-pics">
+            <a href="images/hanh_trinh/nha_san.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_san.jpg" width="720" height="960" loading="lazy" alt="Sân cát nhà Đạt, rổ cua ghẹ ốc vừa luộc, hoa giấy và xe máy"><span>Sân cát, rổ hải sản vừa luộc</span></a>
+            <a href="images/hanh_trinh/nha_phong_khach.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_phong_khach.jpg" width="720" height="960" loading="lazy" alt="Phòng khách nhà với cây quất và bộ bàn ghế gỗ"><span>Phòng khách nhà Đạt</span></a>
+          </div>
+          <ul class="nd-list">
+            <li>Ở cùng nhà như người thân, ăn cơm chung mâm.</li>
+            <li>Sân cát rộng, hoa giấy, ngồi ăn hải sản ngay trước hiên.</li>
+            <li>Muốn đi đâu, ăn gì, Đạt chỉ chỗ như người trong nhà.</li>
+          </ul>
+          <a class="nd-call" href="tel:0333216563">📞 Hỏi phòng, lịch đón: <b>0333 216 563</b></a>
+        </article>
+
+        <article class="nd-card nd-food">
+          <p class="nd-kicker">🍲 Ăn món nhà Đạt nấu</p>
+          <h3>Cơm nhà, hải sản vừa lên bờ</h3>
+          <ul class="nd-grid">
+            <li><img src="images/hanh_trinh/d1_mam_com_nha.jpg" width="720" height="960" loading="lazy" alt="Mâm cơm đón khách: gà luộc, gỏi gà, cháo, chả"><span>Mâm cơm đón khách</span></li>
+            <li><img src="images/hanh_trinh/g_mam_co.jpg" width="480" height="640" loading="lazy" alt="Mâm cỗ bày trên chiếu với nhiều món"><span>Mâm cỗ đông đủ</span></li>
+            <li><img src="images/hanh_trinh/g_mam_com_2.jpg" width="480" height="640" loading="lazy" alt="Mâm cơm với thịt xào, ram, tôm luộc"><span>Thịt xào, ram, tôm</span></li>
+            <li><img src="images/hanh_trinh/g_ram.jpg" width="640" height="320" loading="lazy" alt="Đĩa ram chiên và chén nước chấm"><span>Ram chiên giòn</span></li>
+            <li><img src="images/hanh_trinh/g_oc_mat_meo_noi.jpg" width="480" height="640" loading="lazy" alt="Nồi ốc mắt mèo luộc trên bếp"><span>Ốc mắt mèo luộc</span></li>
+            <li><img src="images/hanh_trinh/g_nau_an.jpg" width="480" height="640" loading="lazy" alt="Bếp nấu nghêu, tôm hấp sả"><span>Nghêu, tôm hấp sả</span></li>
+            <li><img src="images/hanh_trinh/g_bach_tuoc.jpg" width="320" height="640" loading="lazy" alt="Nồi bạch tuộc luộc và rổ rau thơm"><span>Bạch tuộc luộc</span></li>
+            <li><img src="images/hanh_trinh/g_goi.jpg" width="480" height="640" loading="lazy" alt="Gỏi trộn hành tây và rau quế"><span>Gỏi hành tây, rau quế</span></li>
+            <li><img src="images/hanh_trinh/g_com_bach_tuoc.jpg" width="640" height="480" loading="lazy" alt="Cơm canh mướp và chén bạch tuộc rim"><span>Canh mướp, bạch tuộc rim</span></li>
+            <li><img src="images/hanh_trinh/d3_toi_co_don.jpg" width="720" height="960" loading="lazy" alt="Chảo bắp xào bên túi tỏi cô đơn Lý Sơn"><span>Bắp xào, tỏi đảo</span></li>
+          </ul>
+          <p class="dat-says">Món nào cũng có tỏi đảo: đập dập vào nước chấm, phi thơm vào món xào. Hải sản đảo chỉ cần luộc, chấm muối tiêu chanh là ngon.</p>
+        </article>
+      </div>
+
       <div class="checkin">
         <div class="ck-head">
           <h3>Hình check-in trải nghiệm</h3>
-          <p class="map-note">Thêm những khoảnh khắc trong chuyến đi, chia theo 3 nhóm. Bấm ảnh để xem lớn.</p>
+          <p class="map-note">Thêm những khoảnh khắc trong chuyến đi. Bấm ảnh để xem lớn.</p>
         </div>
 
         <div class="ck-group">
@@ -774,26 +831,12 @@ section[id]{scroll-margin-top:100px}
         </div>
 
         <div class="ck-group">
-          <h4><span aria-hidden="true">🦑</span>Hải sản đảo <small>8 ảnh</small></h4>
+          <h4><span aria-hidden="true">🦑</span>Hải sản &amp; quà quê <small>6 ảnh</small></h4>
           <ul class="ck-grid">
-            <li><a href="images/hanh_trinh/g_oc_mat_meo_noi.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_oc_mat_meo_noi.jpg" width="480" height="640" loading="lazy" alt="Nồi ốc mắt mèo luộc và chén muối ớt"></a><span>Nồi ốc mắt mèo</span></li>
             <li><a href="images/hanh_trinh/g_oc_le.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_oc_le.jpg" width="320" height="640" loading="lazy" alt="Chén ốc đã lể và muối ớt"></a><span>Ốc lể, chấm muối ớt</span></li>
-            <li><a href="images/hanh_trinh/g_bach_tuoc.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bach_tuoc.jpg" width="320" height="640" loading="lazy" alt="Nồi bạch tuộc luộc và rổ rau thơm"></a><span>Bạch tuộc luộc</span></li>
-            <li><a href="images/hanh_trinh/g_goi.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_goi.jpg" width="480" height="640" loading="lazy" alt="Gỏi trộn hành tây và rau quế"></a><span>Gỏi hành tây, rau quế</span></li>
             <li><a href="images/hanh_trinh/g_muc_kho.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_kho.jpg" width="383" height="640" loading="lazy" alt="Đĩa mực khô nướng xé"></a><span>Mực khô nướng xé</span></li>
             <li><a href="images/hanh_trinh/g_muc_hap.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_hap.jpg" width="480" height="640" loading="lazy" alt="Mực hấp hành, tôm luộc và đậu phộng rang"></a><span>Mực hấp hành, tôm</span></li>
             <li><a href="images/hanh_trinh/g_tiec_hai_san.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_tiec_hai_san.jpg" width="640" height="480" loading="lazy" alt="Bàn tiệc tôm nướng, mực xào"></a><span>Tôm nướng, mực xào</span></li>
-            <li><a href="images/hanh_trinh/g_nau_an.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nau_an.jpg" width="480" height="640" loading="lazy" alt="Bếp nấu nghêu, tôm hấp sả"></a><span>Nghêu, tôm hấp sả</span></li>
-          </ul>
-        </div>
-
-        <div class="ck-group">
-          <h4><span aria-hidden="true">🍚</span>Cơm nhà &amp; quà quê <small>6 ảnh</small></h4>
-          <ul class="ck-grid">
-            <li><a href="images/hanh_trinh/g_mam_co.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_mam_co.jpg" width="480" height="640" loading="lazy" alt="Mâm cỗ bày trên chiếu với nhiều món"></a><span>Mâm cỗ đông đủ</span></li>
-            <li><a href="images/hanh_trinh/g_mam_com_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_mam_com_2.jpg" width="480" height="640" loading="lazy" alt="Mâm cơm với thịt xào, ram, tôm luộc"></a><span>Thịt xào, ram, tôm</span></li>
-            <li><a href="images/hanh_trinh/g_com_bach_tuoc.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_com_bach_tuoc.jpg" width="640" height="480" loading="lazy" alt="Cơm canh mướp và chén bạch tuộc rim"></a><span>Cơm canh mướp, bạch tuộc</span></li>
-            <li><a href="images/hanh_trinh/g_ram.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_ram.jpg" width="640" height="320" loading="lazy" alt="Đĩa ram chiên và chén nước chấm"></a><span>Ram chiên giòn</span></li>
             <li><a href="images/hanh_trinh/g_banh.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_banh.jpg" width="320" height="640" loading="lazy" alt="Những chiếc bánh vuông nhà làm"></a><span>Bánh nhà làm</span></li>
             <li><a href="images/hanh_trinh/g_nuoc_quan.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_quan.jpg" width="640" height="480" loading="lazy" alt="Hai ly nước đá ở quán ven biển"></a><span>Ly nước mát quán biển</span></li>
           </ul>
