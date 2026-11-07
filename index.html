@@ -140,6 +140,8 @@ nav a:hover{color:var(--sea)}
 .zh-foot a{color:var(--sea);font-weight:700}
 .zh-x{position:absolute;top:8px;right:10px;border:0;background:none;color:var(--muted);font-size:1rem;cursor:pointer;line-height:1}
 .welcome-back{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:12px;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--shallot) 12%,transparent);border:1px dashed color-mix(in srgb,var(--shallot) 55%,transparent);font-size:.9rem}
+.privacy-note{margin-top:12px;font-size:.8rem;line-height:1.5;opacity:.85}
+.privacy-note button{border:0;background:none;padding:0;color:inherit;text-decoration:underline;font:inherit;font-weight:600;cursor:pointer}
 .welcome-back button{border:0;background:none;color:var(--muted);text-decoration:underline;font-size:.8rem;cursor:pointer;padding:0}
 /* Nút chia sẻ / sao chép mã QR */
 .qr-acts{display:flex;gap:5px;margin-top:6px}
@@ -778,7 +780,7 @@ section[id]{scroll-margin-top:100px}
         <ol class="route" aria-label="Lộ trình 3 ngày, từ trái qua phải">
           <li class="stop day-start"><figure data-day="Ngày 1"><img src="images/hanh_trinh/d1_may_bay.jpg" width="720" height="960" loading="lazy" alt="Cánh máy bay trên vịnh biển miền Trung"></figure><p><b>✈️ Bay về miền Trung</b>Nhìn xuống là biển, là bắt đầu chuyến đi.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_da_nang.jpg" width="676" height="960" loading="lazy" alt="Quán cà phê nhìn ra ngã tư đường Nguyễn Văn Linh, Đà Nẵng"></figure><p><b>☕ Cà phê Đà Nẵng</b>Ly sáng ở góc Nguyễn Văn Linh rồi xuống cảng Sa Kỳ đón tàu.</p></li>
-          <li class="stop"><figure><img src="images/hanh_trinh/nha_san.jpg" width="720" height="960" loading="lazy" alt="Sân cát nhà Đạt, rổ cua ghẹ ốc vừa luộc"></figure><p><b>🏡 Về homestay nhà Đạt</b>Sân cát, hoa giấy, rổ hải sản vừa luộc chờ sẵn.</p></li>
+          <li class="stop"><figure><img src="images/hanh_trinh/nha_san.jpg" width="720" height="960" loading="lazy" alt="Sân cát nhà Đạt, rổ cua ghẹ ốc vừa luộc"></figure><p><b>🏡 Về nhà Đạt</b>Sân cát, hoa giấy, rổ hải sản vừa luộc chờ sẵn.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_mam_com_nha.jpg" width="720" height="960" loading="lazy" alt="Mâm cơm nhà trên chiếu: gà luộc, gỏi gà, cháo, chả"></figure><p><b>🍽️ Mâm cơm nhà Đạt</b>Gà luộc, gỏi gà trộn hành, cháo gà, chả, nước chấm tỏi đảo.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_ke_bien.jpg" width="960" height="720" loading="lazy" alt="Kè biển Lý Sơn nhìn ra cầu cảng"></figure><p><b>📍 Kè biển</b>Chiều đầu tiên, gió biển và cầu cảng xa xa.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d1_tuong_ly_son.jpg" width="960" height="720" loading="lazy" alt="Mọi người giơ tay trên bức tường vẽ chữ LY SON ISLAND"></figure><p><b>📍 Tường "LY SON ISLAND"</b>Tấm ảnh check-in đầu tiên trên đảo.</p></li>
@@ -822,18 +824,18 @@ section[id]{scroll-margin-top:100px}
 
       <div class="nha-dat" id="nha-dat">
         <article class="nd-card nd-stay">
-          <p class="nd-kicker">🏡 Ở homestay nhà Đạt</p>
+          <p class="nd-kicker">🏡 Ghé nhà Đạt</p>
           <h3>Về đảo là về nhà</h3>
           <div class="nd-pics">
             <a href="images/hanh_trinh/nha_san.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_san.jpg" width="720" height="960" loading="lazy" alt="Sân cát nhà Đạt, rổ cua ghẹ ốc vừa luộc, hoa giấy và xe máy"><span>Sân cát, rổ hải sản vừa luộc</span></a>
             <a href="images/hanh_trinh/nha_phong_khach.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_phong_khach.jpg" width="720" height="960" loading="lazy" alt="Phòng khách nhà với cây quất và bộ bàn ghế gỗ"><span>Phòng khách nhà Đạt</span></a>
           </div>
           <ul class="nd-list">
-            <li>Ở cùng nhà như người thân, ăn cơm chung mâm.</li>
+            <li>Ghé chơi như người thân, ăn cơm chung mâm.</li>
             <li>Sân cát rộng, hoa giấy, ngồi ăn hải sản ngay trước hiên.</li>
             <li>Muốn đi đâu, ăn gì, Đạt chỉ chỗ như người trong nhà.</li>
           </ul>
-          <a class="nd-call" href="tel:0333216563">📞 Hỏi phòng, lịch đón: <b>0333 216 563</b></a>
+          <a class="nd-call" href="tel:0333216563">📞 Liên hệ trải nghiệm cùng nhà Đạt: <b>0333 216 563</b></a>
         </article>
 
         <article class="nd-card nd-food">
@@ -1033,7 +1035,7 @@ section[id]{scroll-margin-top:100px}
         <div class="points">
           <div class="point"><span class="dot">1</span><div><h3>Chọn từng củ</h3><p>Tỏi cô đơn được nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới cho thoáng.</p></div></div>
           <div class="point"><span class="dot">2</span><div><h3>Vị đậm, ít hăng gắt</h3><p>Ăn sống có vị cay ấm, hậu ngọt. Mùi thơm rõ hơn tỏi nhập khẩu củ to.</p></div></div>
-          <div class="point"><span class="dot">3</span><div><h3>Dùng như bài thuốc dân gian</h3><p>Người trên đảo quen ăn vài củ mỗi ngày hoặc ngâm rượu để dùng dần khi trời trở lạnh.</p></div></div>
+          <div class="point"><span class="dot">3</span><div><h3>Ăn theo kinh nghiệm dân gian</h3><p>Người trên đảo quen ăn vài củ trong bữa cơm hoặc ngâm rượu để dùng dần khi trời trở lạnh. Đây là thói quen ăn uống, không phải thuốc.</p></div></div>
           <p class="note">Công dụng nêu trên là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người đang điều trị bệnh, đặc biệt đang dùng thuốc chống đông máu, nên hỏi bác sĩ trước khi dùng nhiều tỏi.</p>
         </div>
       </div>
@@ -1127,6 +1129,7 @@ section[id]{scroll-margin-top:100px}
           <div style="display:flex;gap:12px;flex-wrap:wrap">
             <button class="btn primary" type="submit" id="createBtn">Tạo đơn hàng</button>
           </div>
+          <p class="privacy-note">🔒 <b>Bảo vệ thông tin của anh/chị:</b> họ tên, số điện thoại, địa chỉ chỉ dùng để người bán liên hệ và giao hàng. Trang <b>không tự gửi đi đâu</b>, chỉ lưu trên chính máy của anh/chị để lần sau điền nhanh. Đơn tới người bán khi anh/chị tự gửi qua Zalo hoặc SMS. Bấm “Tạo đơn hàng” là anh/chị đồng ý cho người bán dùng thông tin này để liên hệ, giao hàng; người bán không chia sẻ cho bên khác. <button type="button" id="forgetMe">Xóa thông tin đã lưu trên máy</button></p>
           <input class="hp" id="web" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
           <p class="manual">Thông tin đơn chỉ dùng để người bán gọi xác nhận và gửi hàng.</p>
           <div class="out" id="out" hidden>
@@ -1367,6 +1370,12 @@ section[id]{scroll-margin-top:100px}
     x.addEventListener("click",function(){try{localStorage.removeItem("lsd_khach");}catch(e){}fn.value="";fp.value="";fa.value="";wb.hidden=true;});
     wb.appendChild(t);wb.appendChild(x);wb.hidden=false;
   })();
+  document.getElementById("forgetMe").addEventListener("click",function(){
+    try{localStorage.removeItem("lsd_khach");}catch(e){}
+    ["name","phone","addr","note"].forEach(function(id){var el=document.getElementById(id);if(el)el.value="";});
+    var wb=document.getElementById("welcomeBack");if(wb)wb.hidden=true;
+    this.textContent="✓ Đã xóa thông tin lưu trên máy";
+  });
   zaloBtn.addEventListener("click",function(e){
     if(framed){
       e.preventDefault();
@@ -1457,7 +1466,7 @@ section[id]{scroll-margin-top:100px}
   var stories=[
     {t:"Một phần trăm của mùa tỏi",p:[
       "Giữa ruộng tỏi nhiều tép, thỉnh thoảng mới có một cây chỉ nuôi đúng một tép tròn. Người trồng tỏi gọi đó là tỏi cô đơn. Cả vụ, loại củ này chỉ chừng một phần trăm sản lượng: một sào cho năm, sáu trăm ký tỏi, tỏi cô đơn nhặt được có khi chưa tới một ký.",
-      "Lạ một điều: năm được mùa, tỏi cô đơn lại càng hiếm. Phải gặp năm đất cằn, trời khắc nghiệt, cây tỏi mới dồn hết sức vào một tép. Người đảo quý nó như vị thuốc từ thời ông bà khai hoang, nhặt từng củ nhỏ bằng đầu ngón tay, phơi khô, cất dành ngâm rượu.",
+      "Lạ một điều: năm được mùa, tỏi cô đơn lại càng hiếm. Phải gặp năm đất cằn, trời khắc nghiệt, cây tỏi mới dồn hết sức vào một tép. Người đảo quý nó như món quà của đất từ thời ông bà khai hoang, nhặt từng củ nhỏ bằng đầu ngón tay, phơi khô, cất dành ngâm rượu.",
       "Mỗi túi tỏi cô đơn là một mùa nắng gió Lý Sơn, gói gọn trong lòng bàn tay."]},
     {t:"Ruộng tỏi trên lưng núi lửa",p:[
       "Ở Lý Sơn, ruộng tỏi không tự nhiên mà có. Người nông dân đào đất đỏ bazan trên núi Thới Lới, núi Giếng Tiền chở về rải lên ruộng, trộn phân chuồng, rồi phủ lớp cát san hô lấy từ biển. Vài vụ thay cát, vài năm thay đất, tất cả bằng sức người.",
