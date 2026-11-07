@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.met.no https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
@@ -317,6 +317,38 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 #faqChips{margin-bottom:14px}
 .faq details[hidden]{display:none}
 
+/* Thời tiết dưới tên trang */
+.brand-box{display:grid;gap:1px;min-width:0}
+.wx{justify-self:start;display:inline-flex;align-items:center;gap:5px;padding:1px 0;border:0;background:none;color:var(--muted);font:500 .78rem/1.3 var(--f-body);cursor:pointer;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.wx[hidden]{display:none}
+.wx b{color:var(--fg);font-weight:700}
+.wx .wx-i{font-size:.95rem;line-height:1}
+.wx svg{width:11px;height:11px;flex:none;transition:transform .2s}
+.wx[aria-expanded="true"] svg{transform:rotate(180deg)}
+@media (max-width:420px){.wx .wx-more{display:none}}
+.wx-panel{position:absolute;left:0;right:0;top:100%;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:0 14px 30px rgba(0,0,0,.18);max-height:calc(100vh - 70px);overflow:auto}
+.wx-panel[hidden]{display:none}
+.wx-in{max-width:1080px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-left,0px)) 14px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.wx-in>*{min-width:0}
+.wx-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wx-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.wx-close{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:1.3rem;line-height:1;cursor:pointer}
+.wx-now{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;align-items:center}
+.wx-now .big{grid-row:span 2;font-size:2.6rem;line-height:1}
+.wx-now .tmp{font-family:var(--f-display);font-size:1.9rem;font-weight:700;line-height:1.1}
+.wx-now .tmp small{font-family:var(--f-body);font-size:.95rem;font-weight:500;color:var(--muted);margin-left:6px}
+.wx-now .det{font-size:.86rem;color:var(--muted)}
+.wx-warn{padding:8px 12px;border-radius:10px;border:1px solid #D99A1E;background:color-mix(in srgb,#D99A1E 14%,var(--surface));font-size:.86rem}
+.wx-days{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(74px,1fr);gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}
+.wx-day{border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center;font-size:.8rem;background:var(--bg);display:grid;gap:2px}
+.wx-day b{font-size:.82rem}
+.wx-day .i{font-size:1.35rem;line-height:1.2}
+.wx-day .hi{font-weight:700;color:var(--fg)}
+.wx-day .lo{color:var(--muted)}
+.wx-day .r{color:var(--sea);font-size:.74rem}
+.wx-foot{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:space-between;font-size:.76rem;color:var(--muted);margin:0}
+.wx-foot a{font-weight:600}
+
 /* Thanh nhạc nổi */
 .mini{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:14;display:flex;align-items:center;gap:8px;width:min(330px,calc(100vw - 100px));padding:6px 6px 6px 6px;border-radius:999px;background:color-mix(in srgb,var(--fg) 94%,transparent);color:var(--bg);box-shadow:0 8px 24px rgba(0,0,0,.28);backdrop-filter:blur(6px);transition:opacity .25s,transform .25s}
 .mini[hidden]{display:none}
@@ -423,7 +455,10 @@ section[id]{scroll-margin-top:60px}
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
+    <div class="brand-box">
+      <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
+      <button class="wx" id="wx" type="button" aria-expanded="false" aria-controls="wxPanel" hidden><span class="wx-i" id="wxIco" aria-hidden="true">⛅</span><span id="wxTxt">Lý Sơn</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
     <nav aria-label="Mục lục">
       <a href="#dao">Đảo tỏi</a>
       <a href="#du-lich">Du lịch</a>
@@ -434,6 +469,19 @@ section[id]{scroll-margin-top:60px}
       <a href="#phan-biet">Phân biệt</a>
       <a class="cta-link" href="#dat-hang">Đặt hàng</a>
     </nav>
+  </div>
+  <div class="wx-panel" id="wxPanel" role="region" aria-label="Thời tiết Lý Sơn, Quảng Ngãi" hidden>
+    <div class="wx-in">
+      <div class="wx-head">
+        <div class="wx-tabs" role="group" aria-label="Chọn nơi">
+          <button class="chip" type="button" data-p="0" aria-pressed="true">Đảo Lý Sơn</button>
+          <button class="chip" type="button" data-p="1" aria-pressed="false">TP Quảng Ngãi</button>
+        </div>
+        <button class="wx-close" type="button" id="wxClose" aria-label="Đóng thời tiết">×</button>
+      </div>
+      <div id="wxBody"><p class="wx-foot">Đang tải thời tiết…</p></div>
+      <div class="wx-foot"><span id="wxSrc">Nguồn: MET Norway (yr.no)</span><a href="https://www.windy.com/?15.380,109.120,9" target="_blank" rel="noopener" id="wxWindy">Xem gió, sóng biển trên Windy ↗</a></div>
+    </div>
   </div>
 </header>
 
@@ -1222,6 +1270,91 @@ section[id]{scroll-margin-top:60px}
     cur=0;showSong(0);renderList();ui();
     loadApi(function(){if(!yt)makePlayer(cur);});
   }
+
+  /* ===== Thời tiết Lý Sơn, Quảng Ngãi – MET Norway (yr.no), miễn phí, dùng được cho trang bán hàng (CC BY 4.0) =====
+     Lưu tạm 30 phút trên máy khách để không gọi lại liên tục. Lỗi mạng hoặc bị chặn (khung claude.ai) thì ẩn đi. */
+  var WX_PLACES=[{k:"ly-son",n:"Lý Sơn",lat:15.38,lon:109.12,w:"15.380,109.120,10"},{k:"quang-ngai",n:"TP Quảng Ngãi",lat:15.12,lon:108.80,w:"15.120,108.800,10"}];
+  var wxBtn=document.getElementById("wx"),wxPanel=document.getElementById("wxPanel"),wxIco=document.getElementById("wxIco"),wxTxt=document.getElementById("wxTxt"),wxBody=document.getElementById("wxBody"),wxSrc=document.getElementById("wxSrc"),wxWindy=document.getElementById("wxWindy");
+  var wxPick=0,wxData={};
+  var WX_SYM={clearsky:["☀️","Trời quang"],fair:["🌤️","Ít mây"],partlycloudy:["⛅","Có mây"],cloudy:["☁️","Nhiều mây"],fog:["🌫️","Sương mù"],
+    lightrain:["🌦️","Mưa nhỏ"],rain:["🌧️","Mưa"],heavyrain:["🌧️","Mưa to"],lightrainshowers:["🌦️","Mưa rào nhẹ"],rainshowers:["🌦️","Mưa rào"],heavyrainshowers:["🌧️","Mưa rào to"]};
+  function wxSym(code){
+    if(!code)return["🌡️",""];
+    var c=code.replace(/_(day|night|polartwilight)$/,"");
+    if(WX_SYM[c])return WX_SYM[c];
+    if(/thunder/.test(c))return["⛈️",/heavy/.test(c)?"Dông mạnh":"Mưa dông"];
+    if(/rain|sleet|snow/.test(c))return["🌧️","Mưa"];
+    return["⛅","Có mây"];
+  }
+  var DOW=["CN","T2","T3","T4","T5","T6","T7"];
+  function vnTime(t){return new Date(new Date(t).getTime()+7*3600e3);} /* giờ Việt Nam, đọc bằng getUTC* */
+  function wxParse(j){
+    var ts=j.properties.timeseries,t0=ts[0],i=t0.data.instant.details,n1=t0.data.next_1_hours,n6=t0.data.next_6_hours;
+    var cur={t:Math.round(i.air_temperature),w:Math.round(i.wind_speed*10)/10,h:Math.round(i.relative_humidity),s:((n1||n6||{}).summary||{}).symbol_code,r:n6&&n6.details?n6.details.precipitation_amount:null,upd:j.properties.meta.updated_at};
+    var days={},order=[];
+    ts.forEach(function(e){
+      var L=vnTime(e.time),k=L.toISOString().slice(0,10),h=L.getUTCHours(),d=e.data.instant.details;
+      if(!days[k]){days[k]={k:k,dow:L.getUTCDay(),dd:L.getUTCDate(),mm:L.getUTCMonth()+1,mx:-99,mn:99,r:0,s:null,sh:99,wmax:0};order.push(k);}
+      var D=days[k];D.mx=Math.max(D.mx,d.air_temperature);D.mn=Math.min(D.mn,d.air_temperature);D.wmax=Math.max(D.wmax,d.wind_speed);
+      var x6=e.data.next_6_hours;if(x6&&x6.details&&[1,7,13,19].indexOf(h)>=0)D.r+=x6.details.precipitation_amount||0;
+      var sm=e.data.next_6_hours||e.data.next_1_hours||e.data.next_12_hours;
+      if(sm&&sm.summary&&Math.abs(h-13)<D.sh){D.sh=Math.abs(h-13);D.s=sm.summary.symbol_code;}
+    });
+    return{cur:cur,days:order.slice(0,7).map(function(k){return days[k];})};
+  }
+  function wxGet(p,cb){
+    var key="lyson-wx-"+p.k,now=Date.now();
+    try{var c=JSON.parse(localStorage.getItem(key)||"null");if(c&&c.d&&now-c.at<30*60e3){cb(c.d);return;}}catch(e){}
+    fetch("https://api.met.no/weatherapi/locationforecast/2.0/compact?lat="+p.lat+"&lon="+p.lon)
+      .then(function(r){if(!r.ok)throw 0;return r.json();})
+      .then(function(j){var d=wxParse(j);try{localStorage.setItem(key,JSON.stringify({at:now,d:d}));}catch(e){}cb(d);})
+      .catch(function(){cb(null);});
+  }
+  function wxMini(d){
+    if(!d){wxBtn.hidden=true;return;}
+    var s=wxSym(d.cur.s);wxIco.textContent=s[0];
+    wxTxt.innerHTML="";var a=document.createElement("span");a.textContent="Lý Sơn ";var b=document.createElement("b");b.textContent=d.cur.t+"°C";
+    var m=document.createElement("span");m.className="wx-more";m.textContent=" · "+s[1]+" · gió "+d.cur.w+" m/s";
+    wxTxt.appendChild(a);wxTxt.appendChild(b);wxTxt.appendChild(m);
+    wxBtn.setAttribute("aria-label","Thời tiết Lý Sơn "+d.cur.t+" độ, "+s[1]+". Bấm để xem dự báo");
+    wxBtn.hidden=false;
+  }
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+  function wxRender(){
+    var p=WX_PLACES[wxPick],d=wxData[p.k];
+    wxWindy.href="https://www.windy.com/?"+p.w;
+    wxBody.innerHTML="";
+    if(!d){wxBody.appendChild(el("p","wx-foot",d===null?"Chưa tải được thời tiết. Kiểm tra mạng rồi thử lại.":"Đang tải thời tiết…"));return;}
+    var s=wxSym(d.cur.s),now=el("div","wx-now");
+    now.appendChild(el("span","big",s[0]));
+    var tmp=el("div","tmp",d.cur.t+"°C");tmp.appendChild(el("small",null,p.n+" · "+s[1]));now.appendChild(tmp);
+    now.appendChild(el("div","det","Gió "+d.cur.w+" m/s · Độ ẩm "+d.cur.h+"%"+(d.cur.r!=null?" · Mưa 6 giờ tới "+d.cur.r+" mm":"")));
+    wxBody.appendChild(now);
+    var soon=d.days.slice(0,2),rough=soon.some(function(x){return x.wmax>=10||/thunder|heavyrain/.test(x.s||"");});
+    if(rough)wxBody.appendChild(el("p","wx-warn","Lưu ý: gió mạnh hoặc mưa dông trong 1–2 ngày tới, biển có thể động. Nếu đi đảo, hỏi trước lịch tàu ở cảng Sa Kỳ."));
+    var row=el("div","wx-days"),today=vnTime(Date.now()).toISOString().slice(0,10);
+    d.days.forEach(function(x,i){
+      var c=el("div","wx-day"),ds=wxSym(x.s);
+      c.appendChild(el("b",null,x.k===today?"Hôm nay":(i===1&&d.days[0].k===today?"Ngày mai":DOW[x.dow])));
+      c.appendChild(el("span",null,x.dd+"/"+x.mm));
+      var ic=el("span","i",ds[0]);ic.title=ds[1];c.appendChild(ic);
+      c.appendChild(el("span","hi",Math.round(x.mx)+"°"));c.appendChild(el("span","lo",Math.round(x.mn)+"°"));
+      c.appendChild(el("span","r",x.r>=0.1?(Math.round(x.r*10)/10)+" mm":"—"));
+      row.appendChild(c);
+    });
+    wxBody.appendChild(row);
+    var u=vnTime(d.cur.upd);wxSrc.textContent="Nguồn: MET Norway (yr.no) · cập nhật "+(u.getUTCHours()<10?"0":"")+u.getUTCHours()+":"+(u.getUTCMinutes()<10?"0":"")+u.getUTCMinutes()+" "+u.getUTCDate()+"/"+(u.getUTCMonth()+1);
+  }
+  function wxLoad(i){var p=WX_PLACES[i];if(wxData[p.k])return wxRender();wxGet(p,function(d){wxData[p.k]=d;if(i===0)wxMini(d);if(i===wxPick)wxRender();});}
+  function wxOpen(on){wxPanel.hidden=!on;wxBtn.setAttribute("aria-expanded",on?"true":"false");if(on)wxLoad(wxPick);}
+  wxBtn.addEventListener("click",function(e){e.stopPropagation();wxOpen(wxPanel.hidden);});
+  document.getElementById("wxClose").addEventListener("click",function(){wxOpen(false);});
+  document.querySelectorAll(".wx-tabs .chip").forEach(function(c){c.addEventListener("click",function(){
+    wxPick=+c.getAttribute("data-p");document.querySelectorAll(".wx-tabs .chip").forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false");});wxLoad(wxPick);wxRender();
+  });});
+  document.addEventListener("click",function(e){if(!wxPanel.hidden&&!wxPanel.contains(e.target)&&!wxBtn.contains(e.target))wxOpen(false);});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!wxPanel.hidden)wxOpen(false);});
+  if(!framed)wxLoad(0);
 
   /* ===== Hỏi đáp theo chủ đề ===== */
   document.querySelectorAll("#faqChips .chip").forEach(function(c){
