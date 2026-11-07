@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
@@ -261,6 +261,50 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .framed-only{display:none!important}
 .framed .direct-only{display:none!important}
 .framed .framed-only{display:grid!important}
+/* Nhạc quê hương */
+.music{background:var(--sea-soft)}
+#hoi-dap{padding-top:clamp(48px,7vw,80px)!important}
+.music-grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:clamp(20px,4vw,40px);align-items:start}
+@media (max-width:760px){.music-grid{grid-template-columns:1fr}}
+.now{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;position:sticky;top:72px}
+@media (max-width:760px){.now{position:static}}
+.screen{position:relative;aspect-ratio:16/9;min-height:200px;border-radius:10px;overflow:hidden;background:var(--sea)}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.cover{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;padding:16px;text-align:center;color:var(--on-sea)}
+.cover[hidden]{display:none}
+.cover svg{width:120px;height:48px}
+.cover b{font-family:var(--f-display);font-size:1.2rem}
+.cover span{font-size:.85rem;opacity:.85}
+.now-title{font-family:var(--f-display);font-weight:700;font-size:1.15rem;line-height:1.3}
+.now-artist{color:var(--muted);font-size:.92rem}
+.controls{display:flex;align-items:center;gap:10px}
+.ctl{flex:none;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--sea);background:transparent;color:var(--sea);display:grid;place-items:center;cursor:pointer;padding:0}
+.ctl.main{width:54px;height:54px;background:var(--sea);color:var(--on-sea)}
+.ctl svg{width:18px;height:18px}
+.ctl.main svg{width:22px;height:22px}
+.progress{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden;cursor:pointer;min-width:40px}
+.progress i{display:block;height:100%;width:0;background:var(--sea);transition:width .4s linear}
+.time-row{display:flex;justify-content:space-between;gap:10px;font-size:.82rem;color:var(--muted)}
+.time{font-variant-numeric:tabular-nums;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:600 .88rem var(--f-body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
+.tracks{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.tracks li+li{border-top:1px solid var(--line)}
+.track{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:12px 16px;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.track:hover,.track.on{background:color-mix(in srgb,var(--sea-soft) 70%,var(--surface))}
+.track .no{color:var(--muted);text-align:center;font-variant-numeric:tabular-nums;font-size:.9rem}
+.track b{display:block;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track small{display:block;color:var(--muted);font-size:.84rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track .dur{color:var(--muted);font-size:.84rem;font-variant-numeric:tabular-nums}
+.track.on b{color:var(--sea)}
+.eq{display:none;gap:2px;align-items:flex-end;justify-content:center;height:14px}
+.eq i{width:3px;height:45%;background:var(--sea);border-radius:1px}
+.track.on .no{display:none}
+.track.on .eq{display:flex}
+@media (prefers-reduced-motion:no-preference){.music.playing .track.on .eq i{animation:eq .9s ease-in-out infinite}.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}}
+@keyframes eq{0%,100%{height:30%}50%{height:100%}}
+.music-note{font-size:.82rem;color:var(--muted);margin:12px 0 0}
 /* Có Sổ đơn (ORDER_URL): nút Gửi đơn hàng gửi thẳng, Zalo thành nút phụ */
 #sendBtn[hidden]{display:none!important}
 #sendBtn:disabled{opacity:.7;cursor:default;filter:none}
@@ -305,6 +349,7 @@ section[id]{scroll-margin-top:60px}
       <a href="#san-pham">Sản phẩm</a>
       <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#phan-biet">Phân biệt</a>
+      <a href="#nhac">Nghe nhạc</a>
       <a href="#hoi-dap">Hỏi đáp</a>
       <a class="cta-link" href="#dat-hang">Đặt hàng</a>
     </nav>
@@ -507,6 +552,46 @@ section[id]{scroll-margin-top:60px}
     </div>
   </section>
 
+  <section id="nhac" class="music">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Nhạc quê hương</p>
+        <h2>Nghe một khúc Quảng Ngãi</h2>
+        <p>Những bài hát về Lý Sơn, Quảng Ngãi và biển đảo, phát từ kênh chính thức của ca sĩ, nhạc sĩ. Bấm một bài để nghe, hết bài tự chuyển bài sau.</p>
+      </div>
+      <div class="music-grid">
+        <div class="now">
+          <div class="screen" id="screen">
+            <div class="cover" id="cover">
+              <svg viewBox="0 0 120 48" aria-hidden="true"><path d="M2 30 Q17 14 32 30 T62 30 T92 30 T118 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".9"/><path d="M2 40 Q17 26 32 40 T62 40 T92 40 T118 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/><circle cx="90" cy="12" r="6" fill="currentColor" opacity=".8"/></svg>
+              <b>Chọn một bài để nghe</b>
+              <span>12 bài · Lý Sơn · Quảng Ngãi · Biển đảo</span>
+            </div>
+          </div>
+          <div aria-live="polite"><div class="now-title" id="nowTitle">Chưa phát bài nào</div><div class="now-artist" id="nowArtist">Bấm vào một bài trong danh sách</div></div>
+          <div class="controls">
+            <button class="ctl" type="button" id="prevBtn" aria-label="Bài trước"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 9 12l10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <button class="ctl main" type="button" id="playBtn" aria-label="Phát"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="playIco" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+            <button class="ctl" type="button" id="nextBtn" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <div class="progress" id="prog" role="slider" aria-label="Vị trí bài hát" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="progBar"></i></div>
+          </div>
+          <div class="time-row"><span id="musicMsg"></span><span class="time" id="time">0:00 / 0:00</span></div>
+          <p class="music-note framed-only">Bản xem trước trên claude.ai có thể không phát được nhạc. Nghe đầy đủ tại nguyenvandanh2210lyson-bit.github.io/dac-san-ly-son</p>
+        </div>
+        <div>
+          <div class="chips" role="group" aria-label="Lọc theo chủ đề">
+            <button class="chip" type="button" data-g="all" aria-pressed="true">Tất cả</button>
+            <button class="chip" type="button" data-g="ly-son" aria-pressed="false">Lý Sơn</button>
+            <button class="chip" type="button" data-g="quang-ngai" aria-pressed="false">Quảng Ngãi</button>
+            <button class="chip" type="button" data-g="bien-dao" aria-pressed="false">Biển đảo</button>
+          </div>
+          <ol class="tracks" id="tracks"></ol>
+          <p class="music-note">Nhạc phát qua trình phát YouTube từ kênh chính thức của ca sĩ, nhạc sĩ. Bản quyền thuộc tác giả và đơn vị phát hành. Trang không lưu hay tải file nhạc.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="hoi-dap" style="padding-top:0">
     <div class="wrap">
       <div class="sec-head">
@@ -614,6 +699,7 @@ section[id]{scroll-margin-top:60px}
       <a href="#dao">Đảo tỏi</a>
       <a href="#cach-dung">Cách dùng</a>
       <a href="#phan-biet">Phân biệt</a>
+      <a href="#nhac">Nhạc quê hương</a>
       <a href="#hoi-dap">Hỏi đáp</a>
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
@@ -823,6 +909,101 @@ section[id]{scroll-margin-top:60px}
     }
     card.appendChild(row);
   });
+
+  /* ===== Nhạc quê hương: trình phát YouTube (kênh chính thức), chỉ tải khi khách bấm nghe ===== */
+  var songs=[
+    {g:"ly-son",t:"Lý Sơn Quê Hương Em",a:"Sa Huỳnh",id:"dmxaabI_9l8",d:"4:37"},
+    {g:"ly-son",t:"Lý Sơn Quê Hương Anh",a:"Đoàn Minh",id:"KYtLRnTzpjk",d:"4:54"},
+    {g:"ly-son",t:"Lý Sơn, Vùng Đất Trồng Tỏi",a:"Chu Du",id:"BNTN1EtPpJ0",d:"3:15"},
+    {g:"ly-son",t:"Trở Về Lý Sơn",a:"Đăng Anh, Thùy Hương",id:"-QxrUoY1dss",d:"5:33"},
+    {g:"ly-son",t:"Mẹ Lý Sơn",a:"Trường Kha",id:"rGqgxgkgdss",d:"6:33"},
+    {g:"quang-ngai",t:"Quảng Ngãi Nhớ Thương",a:"Trường Kha, Giang Mỹ Huyền",id:"9oU57bh-mhg",d:"5:30"},
+    {g:"quang-ngai",t:"Quảng Ngãi Ta Về",a:"Lưu Ánh Loan",id:"GpvW_XiqoUY",d:"4:50"},
+    {g:"quang-ngai",t:"Quảng Ngãi Nghĩa Tình",a:"Lê Thu Uyên",id:"6i1Pa04aCgs",d:"5:20"},
+    {g:"quang-ngai",t:"Quảng Ngãi Niềm Nhớ Trong Tim Ta",a:"Trường Kha",id:"JgaRVFNKw2g",d:"4:26"},
+    {g:"quang-ngai",t:"Quảng Ngãi Quê Em",a:"Tuyết Thanh",id:"ohG0gzhw7dM",d:"2:40"},
+    {g:"bien-dao",t:"Nơi Đảo Xa",a:"Trọng Tấn",id:"IK8lClTiyC4",d:"4:14"},
+    {g:"bien-dao",t:"Hoàng Sa, Trường Sa Là Của Việt Nam",a:"NSƯT Hương Giang, Vương Xuân Nguyên",id:"NMEoA4dK-Xw",d:"3:51"}
+  ];
+  var musicSec=document.getElementById("nhac"),list=document.getElementById("tracks"),screen=document.getElementById("screen"),cover=document.getElementById("cover");
+  var nowTitle=document.getElementById("nowTitle"),nowArtist=document.getElementById("nowArtist"),playBtn=document.getElementById("playBtn"),playIco=document.getElementById("playIco");
+  var prog=document.getElementById("prog"),progBar=document.getElementById("progBar"),timeEl=document.getElementById("time"),musicMsg=document.getElementById("musicMsg");
+  var yt=null,cur=-1,group="all",timer=null,apiLoading=false,pending=null;
+  var ICO_PLAY="M8 5v14l11-7z",ICO_PAUSE="M7 5h4v14H7zM13 5h4v14h-4z";
+  function fmt(s){s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+":"+(s%60<10?"0":"")+(s%60);}
+  function visible(){var r=[];songs.forEach(function(s,i){if(group==="all"||s.g===group)r.push(i);});return r;}
+  function renderList(){
+    list.innerHTML="";
+    visible().forEach(function(i,k){
+      var s=songs[i],li=document.createElement("li"),b=document.createElement("button");
+      b.type="button";b.className="track"+(i===cur?" on":"");b.setAttribute("aria-label","Nghe "+s.t+" – "+s.a);
+      var no=document.createElement("span");no.className="no";no.textContent=k+1;
+      var eq=document.createElement("span");eq.className="eq";eq.innerHTML="<i></i><i></i><i></i>";
+      var mid=document.createElement("span"),tb=document.createElement("b"),ts=document.createElement("small");tb.textContent=s.t;ts.textContent=s.a;mid.appendChild(tb);mid.appendChild(ts);
+      var du=document.createElement("span");du.className="dur";du.textContent=s.d;
+      b.appendChild(no);b.appendChild(eq);b.appendChild(mid);b.appendChild(du);
+      b.addEventListener("click",function(){if(i===cur&&yt){toggle();}else{play(i);}});
+      li.appendChild(b);list.appendChild(li);
+    });
+  }
+  function setPlaying(on){musicSec.classList.toggle("playing",on);playIco.setAttribute("d",on?ICO_PAUSE:ICO_PLAY);playBtn.setAttribute("aria-label",on?"Tạm dừng":"Phát");}
+  function loadApi(cb){
+    if(window.YT&&YT.Player){cb();return;}
+    pending=cb;if(apiLoading)return;apiLoading=true;
+    window.onYouTubeIframeAPIReady=function(){if(pending)pending();};
+    var sc=document.createElement("script");sc.src="https://www.youtube.com/iframe_api";
+    sc.onerror=function(){apiLoading=false;musicMsg.textContent="Chưa tải được trình phát. Kiểm tra mạng rồi bấm lại.";};
+    document.head.appendChild(sc);
+  }
+  function play(i){
+    cur=i;var s=songs[i];
+    nowTitle.textContent=s.t;nowArtist.textContent=s.a;musicMsg.textContent="Đang mở bài…";
+    renderList();
+    if(yt&&yt.loadVideoById){yt.loadVideoById(s.id);return;}
+    loadApi(function(){
+      if(yt){yt.loadVideoById(songs[cur].id);return;}
+      var holder=document.createElement("div");holder.id="ytHolder";screen.appendChild(holder);
+      yt=new YT.Player("ytHolder",{host:"https://www.youtube-nocookie.com",videoId:songs[cur].id,
+        playerVars:{autoplay:1,playsinline:1,rel:0,modestbranding:1},
+        events:{
+          onReady:function(e){cover.hidden=true;e.target.playVideo();startTimer();},
+          onStateChange:function(e){
+            if(e.data===1){setPlaying(true);musicMsg.textContent="";}
+            else if(e.data===2){setPlaying(false);}
+            else if(e.data===0){setPlaying(false);step(1);}
+            else if(e.data===5||e.data===-1){musicMsg.textContent="Bấm ▶ nếu nhạc chưa tự phát.";}
+          },
+          onError:function(){musicMsg.textContent="Bài này tạm không phát được, chuyển bài sau.";setTimeout(function(){step(1);},1200);}
+        }});
+    });
+  }
+  function toggle(){
+    if(!yt||!yt.getPlayerState){var v=visible();play(cur>=0?cur:v[0]);return;}
+    if(yt.getPlayerState()===1)yt.pauseVideo();else yt.playVideo();
+  }
+  function step(d){var v=visible();if(!v.length)return;var k=v.indexOf(cur);k=k<0?0:(k+d+v.length)%v.length;play(v[k]);}
+  function startTimer(){
+    if(timer)return;
+    timer=setInterval(function(){
+      if(!yt||!yt.getDuration)return;
+      var t=yt.getCurrentTime()||0,du=yt.getDuration()||0,p=du?t/du*100:0;
+      progBar.style.width=p+"%";prog.setAttribute("aria-valuenow",Math.round(p));timeEl.textContent=fmt(t)+" / "+fmt(du);
+    },500);
+  }
+  function seekTo(frac){if(yt&&yt.getDuration){yt.seekTo(yt.getDuration()*Math.min(1,Math.max(0,frac)),true);}}
+  prog.addEventListener("click",function(e){var r=prog.getBoundingClientRect();seekTo((e.clientX-r.left)/r.width);});
+  prog.addEventListener("keydown",function(e){if(!yt||!yt.getCurrentTime)return;var t=yt.getCurrentTime();if(e.key==="ArrowRight"){yt.seekTo(t+10,true);e.preventDefault();}if(e.key==="ArrowLeft"){yt.seekTo(Math.max(0,t-10),true);e.preventDefault();}});
+  playBtn.addEventListener("click",toggle);
+  document.getElementById("prevBtn").addEventListener("click",function(){step(-1);});
+  document.getElementById("nextBtn").addEventListener("click",function(){step(1);});
+  document.querySelectorAll(".chip").forEach(function(c){
+    c.addEventListener("click",function(){
+      group=c.getAttribute("data-g");
+      document.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false");});
+      renderList();
+    });
+  });
+  renderList();
 })();
 </script>
 
