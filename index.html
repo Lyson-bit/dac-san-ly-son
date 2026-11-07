@@ -312,6 +312,34 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .trip-cta{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:12px;background:var(--sea);color:var(--on-sea)}
 .trip-cta p{font-weight:500;max-width:40em}
 .trip-cta .btn.primary{background:var(--on-sea);color:var(--sea);border-color:var(--on-sea)}
+/* Hành trình 3 ngày: du khách kể + Đạt kể */
+.journey{background:var(--surface);border-block:1px solid var(--line)}
+.journey .sec-head h2 em{font-style:italic;font-weight:500;color:var(--shallot)}
+.days{display:grid;gap:18px;counter-reset:day}
+.day{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--bg)}
+@media (max-width:860px){.day{grid-template-columns:minmax(0,1fr);padding:16px}}
+.day-h{display:flex;align-items:baseline;gap:12px;margin-bottom:10px}
+.day-n{font:900 2.4rem/1 var(--f-display);color:var(--sea)}
+.day-h h3{font-size:1.15rem;line-height:1.3}
+.day-h small{display:block;color:var(--muted);font-size:.82rem;font-weight:500}
+.day-txt>p{color:var(--fg);margin-bottom:12px}
+.tags{display:grid;gap:8px;margin:0 0 12px;padding:0;list-style:none;font-size:.92rem}
+.tags li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:6px;align-items:start}
+.tags b{font-weight:600}
+.dat-says{margin:0;padding:10px 14px;border-left:3px solid var(--shallot);border-radius:0 10px 10px 0;background:color-mix(in srgb,var(--shallot) 9%,transparent);font-size:.93rem}
+.dat-says::before{content:"Đạt kể";display:block;font:italic 500 .82rem var(--f-display);color:var(--shallot);margin-bottom:2px}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;min-width:0;align-self:start;scrollbar-width:thin}
+.strip figure{flex:0 0 72%;margin:0;scroll-snap-align:start}
+@media (max-width:860px){.strip figure{flex-basis:82%}}
+.strip img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--line)}
+.strip figcaption{margin-top:6px;font-size:.8rem;color:var(--muted)}
+.letter-end{margin-top:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:860px){.letter-end{grid-template-columns:minmax(0,1fr)}}
+.letter-end>div{padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg)}
+.letter-end h3{font-size:1rem;margin-bottom:6px}
+.letter-end .reply{background:var(--sea);color:var(--on-sea);border-color:var(--sea)}
+.letter-end .reply h3{font-family:var(--f-display);font-style:italic;font-weight:500}
+.letter-end .reply .btn.primary{margin-top:12px;background:var(--on-sea);color:var(--sea);border-color:var(--on-sea)}
 
 /* Bản đồ chọn nơi nhận */
 .pin-box{display:grid;gap:8px}
@@ -611,6 +639,89 @@ section[id]{scroll-margin-top:100px}
         <a class="btn primary" href="#san-pham">Xem đặc sản mang về</a>
       </div>
       <p class="map-note">Thông tin tham khảo từ báo Văn Hóa, SGGP, VnExpress và các trang du lịch. Lịch tàu, giá vé, thời tiết thay đổi theo mùa, nên kiểm tra lại trước khi đi.</p>
+    </div>
+  </section>
+
+  <section id="hanh-trinh" class="journey" aria-labelledby="hanh-trinh-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Hành trình 3 ngày · Đà Nẵng → Lý Sơn</p>
+        <h2 id="hanh-trinh-title">Gửi Đạt, <em>ba ngày ở nhà bạn</em></h2>
+        <p>Thư của một gia đình du khách kể lại chuyến đi, kèm vài lời Đạt kể thêm như người nhà trên đảo. Ảnh do gia đình chụp.</p>
+      </div>
+      <div class="days">
+
+        <article class="day">
+          <div class="day-txt">
+            <div class="day-h"><span class="day-n">01</span><h3>Từ phố ra đảo<small>Đà Nẵng → cảng Sa Kỳ → Lý Sơn</small></h3></div>
+            <p>Đạt ơi, ly cà phê sáng ở Đà Nẵng còn chưa nguội, cả nhà đã lên đường ra cảng Sa Kỳ. Tàu rẽ sóng, hòn đảo hiện dần màu đá đen và cát trắng. Tới nhà, mâm cơm đã dọn sẵn. Chiều ra kè biển hóng gió, chụp tấm ảnh đầu tiên bên bức tường LY SON ISLAND.</p>
+            <ul class="tags">
+              <li><span aria-hidden="true">📍</span><span><b>Check-in:</b> Cảng Sa Kỳ · Kè biển nhìn ra cầu cảng · Tường "LY SON ISLAND"</span></li>
+              <li><span aria-hidden="true">🍽️</span><span><b>Món ăn:</b> Mâm cơm nhà: gà luộc, gỏi gà trộn hành, cháo gà, chả, ram, chén nước chấm có tỏi đảo</span></li>
+            </ul>
+            <p class="dat-says">Nhà mình khách tới là dọn cơm trước, chuyện để sau. Chén nước chấm không thể thiếu mấy tép tỏi đập dập.</p>
+          </div>
+          <div class="strip" aria-label="Ảnh ngày 1">
+            <figure><img src="images/hanh_trinh/d1_mam_com_nha.jpg" width="720" height="960" loading="lazy" alt="Mâm cơm nhà trên chiếu: gà luộc, gỏi gà, cháo, chả"><figcaption>🍽️ Mâm cơm đón khách</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d1_tuong_ly_son.jpg" width="960" height="720" loading="lazy" alt="Mọi người giơ tay trên bức tường vẽ chữ LY SON ISLAND"><figcaption>📍 Tường "LY SON ISLAND"</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d1_ke_bien.jpg" width="960" height="720" loading="lazy" alt="Kè biển Lý Sơn nhìn ra cầu cảng"><figcaption>📍 Kè biển, chiều đầu tiên</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d1_da_nang.jpg" width="676" height="960" loading="lazy" alt="Quán cà phê nhìn ra ngã tư đường Nguyễn Văn Linh, Đà Nẵng"><figcaption>📍 Cà phê sáng ở Đà Nẵng</figcaption></figure>
+          </div>
+        </article>
+
+        <article class="day">
+          <div class="day-txt">
+            <div class="day-h"><span class="day-n">02</span><h3>Một vòng núi lửa<small>Thới Lới · Chùa Hang · Hang Câu · ruộng tỏi</small></h3></div>
+            <p>Trời chưa sáng đã leo đỉnh Thới Lới đón mặt trời, dưới chân là những ô ruộng tỏi phủ lưới xanh. Ghé Cột cờ Tổ quốc trên vách núi, xuống Chùa Hang nghe sóng vỗ, rồi tới Hang Câu, nơi vách đá xếp lớp như những trang sách. Trưa ăn gỏi rong biển với tỏi cô đơn sống: cay nồng mà ngọt hậu. Tối cả nhà ngồi quanh rổ cua, ghẹ, ốc vừa luộc, chấm muối tiêu chanh, thêm đĩa gỏi mực bẻ bánh tráng mè.</p>
+            <ul class="tags">
+              <li><span aria-hidden="true">📍</span><span><b>Check-in:</b> Đỉnh Thới Lới lúc bình minh · Cột cờ Tổ quốc · Chùa Hang · Hang Câu · Ruộng tỏi trên cát</span></li>
+              <li><span aria-hidden="true">🍽️</span><span><b>Món ăn:</b> Gỏi rong biển, bánh tráng, tỏi cô đơn · Cua, ghẹ, ốc luộc chấm muối tiêu chanh ớt · Ốc mắt mèo luộc · Gỏi mực, bánh tráng mè nướng</span></li>
+            </ul>
+            <p class="dat-says">Thới Lới là miệng núi lửa cũ, đất bazan đỏ. Ruộng tỏi nhà mình phải gánh cát biển phủ lên rồi tưới mỗi ngày. Củ tỏi nhỏ mà cay đậm là nhờ đất với gió biển đó.</p>
+          </div>
+          <div class="strip" aria-label="Ảnh ngày 2">
+            <figure><img src="images/hanh_trinh/d2_binh_minh_thoi_loi.jpg" width="960" height="720" loading="lazy" alt="Bình minh trên đường lên đỉnh Thới Lới, nhìn xuống ruộng tỏi và biển"><figcaption>📍 Bình minh trên Thới Lới</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_hang_cau.jpg" width="960" height="640" loading="lazy" alt="Vách đá xếp lớp và bãi cát trắng ở Hang Câu"><figcaption>📍 Hang Câu</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_chua_hang.jpg" width="720" height="960" loading="lazy" alt="Chùa Hang với tượng Quan Âm bên vách núi sát biển"><figcaption>📍 Chùa Hang</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_cot_co_to_quoc.jpg" width="960" height="640" loading="lazy" alt="Cột cờ Tổ quốc trên đỉnh vách núi nhìn ra biển"><figcaption>📍 Cột cờ Tổ quốc</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_goi_rong_bien.jpg" width="960" height="720" loading="lazy" alt="Đĩa gỏi rong biển với rau thơm, đậu phộng, bánh tráng và chén tỏi cô đơn"><figcaption>🍽️ Gỏi rong biển + tỏi cô đơn</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_ruong_toi.jpg" width="960" height="720" loading="lazy" alt="Bà con chăm ruộng hành tỏi trên cát"><figcaption>📍 Ruộng tỏi trên cát</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_cua_ghe_oc.jpg" width="720" height="960" loading="lazy" alt="Rổ cua, ghẹ, ốc luộc và chén muối tiêu chanh ớt"><figcaption>🍽️ Cua, ghẹ, ốc luộc</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_oc_mat_meo.jpg" width="720" height="960" loading="lazy" alt="Nồi ốc mắt mèo luộc và chén muối ớt"><figcaption>🍽️ Ốc mắt mèo luộc</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d2_goi_muc.jpg" width="720" height="960" loading="lazy" alt="Đĩa gỏi mực, bánh tráng mè nướng, dưa leo và rau sống"><figcaption>🍽️ Gỏi mực, bánh tráng mè</figcaption></figure>
+          </div>
+        </article>
+
+        <article class="day">
+          <div class="day-txt">
+            <div class="day-h"><span class="day-n">03</span><h3>Biển san hô, rồi về<small>Ghềnh đá · đua thuyền · quán võng</small></h3></div>
+            <p>Sáng cuối ngồi trên ghềnh đá nhìn rạn san hô xanh ngọc, xa xa là Đảo Bé. May mắn gặp hội đua thuyền tứ linh, cả bờ biển reo theo nhịp mái chèo. Trưa nằm võng ở quán ven biển, ly nước đá mát lạnh trên tay, rồi lên tàu về đất liền. Hành lý nặng thêm mấy túi tỏi, hành, và lòng thì muốn quay lại.</p>
+            <ul class="tags">
+              <li><span aria-hidden="true">📍</span><span><b>Check-in:</b> Ghềnh san hô nhìn ra Đảo Bé · Hội đua thuyền tứ linh · Quán võng ven biển</span></li>
+              <li><span aria-hidden="true">🍽️</span><span><b>Món ăn:</b> Ly nước giải khát đá mát ở quán võng</span></li>
+              <li><span aria-hidden="true">🎁</span><span><b>Mang về:</b> Tỏi cô đơn, hành tím của đảo</span></li>
+            </ul>
+            <p class="dat-says">Thuyền tứ linh là bốn thuyền Long, Lân, Quy, Phụng. Muốn xem hội thì hỏi lịch trước. Còn ra Đảo Bé thì nên đi buổi sáng, lúc biển êm.</p>
+          </div>
+          <div class="strip" aria-label="Ảnh ngày 3">
+            <figure><img src="images/hanh_trinh/d3_san_ho_dao_be.jpg" width="960" height="720" loading="lazy" alt="Rạn san hô xanh ngọc, xa xa là Đảo Bé"><figcaption>📍 Rạn san hô, xa là Đảo Bé</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d3_dua_thuyen.jpg" width="960" height="720" loading="lazy" alt="Các thuyền đua tứ linh trên biển Lý Sơn"><figcaption>📍 Hội đua thuyền tứ linh</figcaption></figure>
+            <figure><img src="images/hanh_trinh/d3_quan_vong.jpg" width="960" height="720" loading="lazy" alt="Ly nước đá mát cầm tay, nằm võng ở quán ven biển"><figcaption>🍽️ Quán võng ven biển</figcaption></figure>
+          </div>
+        </article>
+      </div>
+
+      <div class="letter-end">
+        <div>
+          <h3>Du khách viết</h3>
+          <p>Ba ngày ngắn mà đủ: một bình minh trên núi lửa, một bữa cơm nhà, một rổ hải sản vừa luộc. Cảm ơn Đạt đã cho cả nhà mình được làm khách của Lý Sơn.</p>
+        </div>
+        <div class="reply">
+          <h3>Đạt hồi âm</h3>
+          <p>Lý Sơn là nhà của Đạt, cũng là nhà của khách. Lần sau về, mâm cơm vẫn dọn sẵn. Chưa về được thì Đạt gửi tỏi, hành vào bờ cho cả nhà.</p>
+          <a class="btn primary" href="#san-pham">Mang Lý Sơn về nhà</a>
+        </div>
+      </div>
     </div>
   </section>
 
