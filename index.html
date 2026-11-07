@@ -520,7 +520,7 @@ section[id]{scroll-margin-top:60px}
       <div class="trip-grid">
         <div class="map-box">
           <div class="map" id="islandMap" role="region" aria-label="Bản đồ đảo Lý Sơn, Quảng Ngãi"><button class="btn primary map-load" type="button" id="islandMapBtn">Xem bản đồ đảo</button></div>
-          <div class="map-bar"><button class="btn ghost sm" type="button" id="islandAll">Xem toàn đảo</button><span class="map-note">Bấm một điểm bên cạnh để xem trên bản đồ.</span></div>
+          <div class="map-bar"><button class="btn ghost sm" type="button" id="islandAll">Xem toàn đảo</button><a class="btn ghost sm" id="islandOpen" href="https://maps.google.com/?q=%C4%90%E1%BA%A3o%20L%C3%BD%20S%C6%A1n%2C%20Qu%E1%BA%A3ng%20Ng%C3%A3i" target="_blank" rel="noopener">Mở Google Maps</a><span class="map-note">Bấm một điểm trong danh sách để xem trên bản đồ.</span></div>
         </div>
         <ol class="tspots" id="spots" aria-label="Điểm tham quan Lý Sơn"></ol>
       </div>
@@ -1139,7 +1139,13 @@ section[id]{scroll-margin-top:60px}
   });
 
   /* ===== Bản đồ: Google Maps nhúng (tiếng Việt, miễn phí, không cần khóa API), chỉ tải khi cần ===== */
-  function gEmbed(q,z){return "https://www.google.com/maps?q="+encodeURIComponent(q)+"&z="+(z||15)+"&hl=vi&output=embed";}
+  /* Dùng thẳng địa chỉ nhúng /maps/embed (không chuyển hướng). Địa chỉ cũ ?output=embed chuyển hướng 301 kèm X-Frame-Options,
+     Chrome Android chặn (ERR_BLOCKED_BY_RESPONSE). Tọa độ: !1s<lat,lng>; chữ: !1z<base64 url-safe, bỏ dấu => */
+  function b64u(s){return btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
+  function gEmbed(q,z){
+    var key=/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/.test(q)?"!1s"+q:"!1z"+b64u(q);
+    return "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1"+key+"!6i"+(z||15)+"!3m1!1svi!5m1!1svi";
+  }
   function gLink(q){return "https://maps.google.com/?q="+encodeURIComponent(q);}
   function gDir(q){return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(q);}
   function frameIn(box,src,title){
@@ -1163,7 +1169,8 @@ section[id]{scroll-margin-top:60px}
   ];
   var ISLAND="Đảo Lý Sơn, Quảng Ngãi, Việt Nam";
   var spotList=document.getElementById("spots"),islandEl=document.getElementById("islandMap"),islandOn=false;
-  function showIsland(q,z,title){islandOn=true;frameIn(islandEl,gEmbed(q||ISLAND,z||12),title||"Bản đồ đảo Lý Sơn");}
+  var islandOpen=document.getElementById("islandOpen");
+  function showIsland(q,z,title){islandOn=true;frameIn(islandEl,gEmbed(q||ISLAND,z||12),title||"Bản đồ đảo Lý Sơn");islandOpen.href=gLink(q||ISLAND);}
   spots.forEach(function(s,i){
     var key=s.ll||s.q;
     var li=document.createElement("li");li.className="tspot";li.tabIndex=0;
@@ -1187,7 +1194,9 @@ section[id]{scroll-margin-top:60px}
   var pinEl=document.getElementById("pinMap"),pinInfo=document.getElementById("pinInfo"),addrEl=document.getElementById("addr");
   function setMap(q,label){
     mapQ=q;pinEl.hidden=false;frameIn(pinEl,gEmbed(q,17),"Bản đồ nơi nhận hàng");
-    pinInfo.textContent=label+" Đơn sẽ kèm link bản đồ để người giao hàng tìm đường. Nếu bản đồ chỉ chưa đúng, anh chị ghi rõ hơn địa chỉ (thôn/xóm, phường/xã, tỉnh) rồi bấm xem lại.";
+    pinInfo.textContent=label+" Đơn sẽ kèm link bản đồ để người giao hàng tìm đường. Nếu bản đồ chỉ chưa đúng, anh chị ghi rõ hơn địa chỉ (thôn/xóm, phường/xã, tỉnh) rồi bấm xem lại. ";
+    var a=document.createElement("a");a.href=gLink(q);a.target="_blank";a.rel="noopener";a.textContent="Mở trong Google Maps";a.style.color="inherit";a.style.fontWeight="600";
+    pinInfo.appendChild(a);
   }
   document.getElementById("pinOpen").addEventListener("click",function(){
     var a=addrEl.value.trim();
