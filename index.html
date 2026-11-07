@@ -254,6 +254,13 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .fab svg{width:20px;height:20px;flex:none}
 .fab:hover{filter:brightness(1.08)}
 .fab{transition:opacity .25s,transform .25s}
+/* Nút gọi nổi 0333 216 563, nằm trên nút Zalo */
+.fab-call{bottom:calc(76px + env(safe-area-inset-bottom,0px));background:#E5484D;color:#fff;padding:6px 18px 6px 6px}
+.fab-call .ring{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#fff;color:#E5484D;animation:ring-pulse 1.8s infinite}
+.fab-call .ring svg{width:20px;height:20px;animation:ring-shake 1.8s infinite}
+@keyframes ring-pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}70%{box-shadow:0 0 0 10px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+@keyframes ring-shake{0%,50%,100%{transform:rotate(0)}10%,30%{transform:rotate(-14deg)}20%,40%{transform:rotate(14deg)}}
+@media (prefers-reduced-motion:reduce){.fab-call .ring,.fab-call .ring svg{animation:none}}
 .fab.away{opacity:0;transform:translateY(16px);pointer-events:none}
 
 /* Gửi đơn */
@@ -337,13 +344,17 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .note>p:not(.dat-says){font-size:.93rem}
 .dat-says{margin:0;padding:10px 14px;border-left:3px solid var(--shallot);border-radius:0 10px 10px 0;background:color-mix(in srgb,var(--shallot) 9%,transparent);font-size:.9rem}
 .dat-says::before{content:"Đạt kể";display:block;font:italic 500 .82rem var(--f-display);color:var(--shallot);margin-bottom:2px}
-.checkin{margin-top:26px}
-.checkin h3{font-family:var(--f-display);font-size:1.2rem;margin-bottom:4px}
-.ck-grid{margin-top:12px;columns:4 180px;column-gap:10px}
-.ck-grid a{display:block;margin-bottom:10px;break-inside:avoid;border-radius:10px;overflow:hidden;background:var(--line)}
-.ck-grid img{display:block;width:100%;height:auto;transition:transform .3s}
-.ck-grid a:hover img{transform:scale(1.03)}
-@media (max-width:640px){.ck-grid{columns:2 140px;column-gap:8px}.ck-grid a{margin-bottom:8px}}
+.checkin{margin-top:26px;padding-top:22px;border-top:1px dashed var(--line);display:grid;gap:18px}
+.ck-head h3{font-family:var(--f-display);font-size:1.2rem;margin-bottom:2px}
+.ck-group h4{display:flex;align-items:center;gap:8px;font-size:.98rem;margin-bottom:10px}
+.ck-group h4 small{margin-left:auto;font-size:.76rem;font-weight:500;color:var(--muted)}
+.ck-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.ck-grid li{display:grid;gap:5px;min-width:0}
+.ck-grid a{display:block;border-radius:10px;overflow:hidden;background:var(--line)}
+.ck-grid img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;transition:transform .3s}
+.ck-grid a:hover img{transform:scale(1.04)}
+.ck-grid span{font-size:.8rem;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:640px){.ck-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ck-grid span{font-size:.74rem;white-space:normal}}
 .letter-end{margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
 @media (max-width:860px){.letter-end{grid-template-columns:minmax(0,1fr)}}
 .letter-end>div{padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:var(--bg)}
@@ -484,6 +495,9 @@ section[id]{scroll-margin-top:100px}
   .fab{width:56px;height:56px;padding:0;justify-content:center}
   .fab span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
   .fab svg{width:26px;height:26px}
+  .fab-call{bottom:calc(84px + env(safe-area-inset-bottom,0px));padding:0}
+  .fab-call .ring{width:56px;height:56px;background:none;color:#fff}
+  .fab-call .ring svg{width:24px;height:24px}
   .hero .actions .btn,.send-btns .btn,#createBtn{flex:1 1 100%;justify-content:center}
   .send-alt .btn{flex:1 1 auto;justify-content:center}
   .sec-head{margin-bottom:22px}
@@ -708,30 +722,48 @@ section[id]{scroll-margin-top:100px}
       </div>
 
       <div class="checkin">
-        <h3>Hình check-in trải nghiệm</h3>
-        <p class="map-note">Những khoảnh khắc khác trong chuyến đi: món ăn, bữa cơm, góc biển. Bấm vào ảnh để xem lớn.</p>
-        <div class="ck-grid">
-          <a href="images/hanh_trinh/g_nuoc_trong.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_trong.jpg" width="640" height="640" loading="lazy" alt="Nước biển trong xanh, khối kè đá dưới nước"></a>
-          <a href="images/hanh_trinh/g_dua_thuyen_doan.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_dua_thuyen_doan.jpg" width="640" height="480" loading="lazy" alt="Các đội thuyền đua trên biển"></a>
-          <a href="images/hanh_trinh/g_mam_co.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_mam_co.jpg" width="480" height="640" loading="lazy" alt="Mâm cỗ bày trên chiếu với nhiều món"></a>
-          <a href="images/hanh_trinh/g_vach_da.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_vach_da.jpg" width="640" height="427" loading="lazy" alt="Vách đá và bãi cát nhìn từ trên cao"></a>
-          <a href="images/hanh_trinh/g_bach_tuoc.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bach_tuoc.jpg" width="320" height="640" loading="lazy" alt="Nồi bạch tuộc luộc và rổ rau thơm"></a>
-          <a href="images/hanh_trinh/g_ram.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_ram.jpg" width="640" height="320" loading="lazy" alt="Đĩa ram chiên và chén nước chấm"></a>
-          <a href="images/hanh_trinh/g_hang_cau_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hang_cau_2.jpg" width="640" height="427" loading="lazy" alt="Vách đá lớn bên bãi cát và hồ nước"></a>
-          <a href="images/hanh_trinh/g_oc_le.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_oc_le.jpg" width="320" height="640" loading="lazy" alt="Chén ốc đã lể và muối ớt"></a>
-          <a href="images/hanh_trinh/g_mam_com_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_mam_com_2.jpg" width="480" height="640" loading="lazy" alt="Mâm cơm với thịt xào, chả ram, tôm luộc"></a>
-          <a href="images/hanh_trinh/g_goi.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_goi.jpg" width="480" height="640" loading="lazy" alt="Gỏi trộn hành tây và rau quế"></a>
-          <a href="images/hanh_trinh/g_muc_kho.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_kho.jpg" width="383" height="640" loading="lazy" alt="Đĩa mực khô nướng xé"></a>
-          <a href="images/hanh_trinh/g_com_bach_tuoc.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_com_bach_tuoc.jpg" width="640" height="480" loading="lazy" alt="Cơm canh mướp và chén bạch tuộc"></a>
-          <a href="images/hanh_trinh/g_hoang_hon_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hoang_hon_2.jpg" width="480" height="640" loading="lazy" alt="Hoàng hôn đỏ trên cánh đồng xanh"></a>
-          <a href="images/hanh_trinh/g_nuoc_quan.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_quan.jpg" width="640" height="480" loading="lazy" alt="Hai ly nước đá ở quán ven biển"></a>
-          <a href="images/hanh_trinh/g_oc_mat_meo_noi.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_oc_mat_meo_noi.jpg" width="480" height="640" loading="lazy" alt="Nồi ốc mắt mèo luộc và chén muối ớt"></a>
-          <a href="images/hanh_trinh/g_tiec_hai_san.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_tiec_hai_san.jpg" width="640" height="480" loading="lazy" alt="Bàn tiệc tôm nướng, mực xào"></a>
-          <a href="images/hanh_trinh/g_muc_hap.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_hap.jpg" width="480" height="640" loading="lazy" alt="Mực hấp hành, tôm và đậu phộng rang"></a>
-          <a href="images/hanh_trinh/g_banh.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_banh.jpg" width="320" height="640" loading="lazy" alt="Những chiếc bánh vuông phủ bột"></a>
-          <a href="images/hanh_trinh/g_nau_an.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nau_an.jpg" width="480" height="640" loading="lazy" alt="Bếp nấu nghêu, tôm hấp sả"></a>
-          <a href="images/hanh_trinh/g_may_bay_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_may_bay_2.jpg" width="480" height="640" loading="lazy" alt="Cánh máy bay trên bờ biển và cảng"></a>
-          <a href="images/hanh_trinh/g_phao_hoa.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_phao_hoa.jpg" width="420" height="640" loading="lazy" alt="Pháo hoa trên bầu trời thành phố"></a>
+        <div class="ck-head">
+          <h3>Hình check-in trải nghiệm</h3>
+          <p class="map-note">Thêm những khoảnh khắc trong chuyến đi, chia theo 3 nhóm. Bấm ảnh để xem lớn.</p>
+        </div>
+
+        <div class="ck-group">
+          <h4><span aria-hidden="true">🌊</span>Biển &amp; cảnh đẹp <small>7 ảnh</small></h4>
+          <ul class="ck-grid">
+            <li><a href="images/hanh_trinh/g_nuoc_trong.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_trong.jpg" width="640" height="640" loading="lazy" alt="Nước biển trong xanh thấy đáy, khối kè dưới nước"></a><span>Nước trong thấy đáy</span></li>
+            <li><a href="images/hanh_trinh/g_hang_cau_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hang_cau_2.jpg" width="640" height="427" loading="lazy" alt="Vách đá Hang Câu bên bãi cát"></a><span>Vách đá Hang Câu</span></li>
+            <li><a href="images/hanh_trinh/g_vach_da.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_vach_da.jpg" width="640" height="427" loading="lazy" alt="Vách đá và bãi cát nhìn từ trên cao"></a><span>Bãi cát dưới vách núi</span></li>
+            <li><a href="images/hanh_trinh/g_dua_thuyen_doan.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_dua_thuyen_doan.jpg" width="640" height="480" loading="lazy" alt="Các đội thuyền đua trên biển"></a><span>Các đội đua thuyền</span></li>
+            <li><a href="images/hanh_trinh/g_hoang_hon_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hoang_hon_2.jpg" width="480" height="640" loading="lazy" alt="Hoàng hôn đỏ trên cánh đồng xanh"></a><span>Hoàng hôn trên đồng</span></li>
+            <li><a href="images/hanh_trinh/g_may_bay_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_may_bay_2.jpg" width="480" height="640" loading="lazy" alt="Cánh máy bay trên bờ biển và cảng"></a><span>Cánh bay qua vịnh</span></li>
+            <li><a href="images/hanh_trinh/g_phao_hoa.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_phao_hoa.jpg" width="420" height="640" loading="lazy" alt="Pháo hoa trên bầu trời thành phố"></a><span>Pháo hoa thành phố</span></li>
+          </ul>
+        </div>
+
+        <div class="ck-group">
+          <h4><span aria-hidden="true">🦑</span>Hải sản đảo <small>8 ảnh</small></h4>
+          <ul class="ck-grid">
+            <li><a href="images/hanh_trinh/g_oc_mat_meo_noi.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_oc_mat_meo_noi.jpg" width="480" height="640" loading="lazy" alt="Nồi ốc mắt mèo luộc và chén muối ớt"></a><span>Nồi ốc mắt mèo</span></li>
+            <li><a href="images/hanh_trinh/g_oc_le.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_oc_le.jpg" width="320" height="640" loading="lazy" alt="Chén ốc đã lể và muối ớt"></a><span>Ốc lể, chấm muối ớt</span></li>
+            <li><a href="images/hanh_trinh/g_bach_tuoc.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bach_tuoc.jpg" width="320" height="640" loading="lazy" alt="Nồi bạch tuộc luộc và rổ rau thơm"></a><span>Bạch tuộc luộc</span></li>
+            <li><a href="images/hanh_trinh/g_goi.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_goi.jpg" width="480" height="640" loading="lazy" alt="Gỏi trộn hành tây và rau quế"></a><span>Gỏi hành tây, rau quế</span></li>
+            <li><a href="images/hanh_trinh/g_muc_kho.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_kho.jpg" width="383" height="640" loading="lazy" alt="Đĩa mực khô nướng xé"></a><span>Mực khô nướng xé</span></li>
+            <li><a href="images/hanh_trinh/g_muc_hap.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_hap.jpg" width="480" height="640" loading="lazy" alt="Mực hấp hành, tôm luộc và đậu phộng rang"></a><span>Mực hấp hành, tôm</span></li>
+            <li><a href="images/hanh_trinh/g_tiec_hai_san.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_tiec_hai_san.jpg" width="640" height="480" loading="lazy" alt="Bàn tiệc tôm nướng, mực xào"></a><span>Tôm nướng, mực xào</span></li>
+            <li><a href="images/hanh_trinh/g_nau_an.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nau_an.jpg" width="480" height="640" loading="lazy" alt="Bếp nấu nghêu, tôm hấp sả"></a><span>Nghêu, tôm hấp sả</span></li>
+          </ul>
+        </div>
+
+        <div class="ck-group">
+          <h4><span aria-hidden="true">🍚</span>Cơm nhà &amp; quà quê <small>6 ảnh</small></h4>
+          <ul class="ck-grid">
+            <li><a href="images/hanh_trinh/g_mam_co.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_mam_co.jpg" width="480" height="640" loading="lazy" alt="Mâm cỗ bày trên chiếu với nhiều món"></a><span>Mâm cỗ đông đủ</span></li>
+            <li><a href="images/hanh_trinh/g_mam_com_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_mam_com_2.jpg" width="480" height="640" loading="lazy" alt="Mâm cơm với thịt xào, ram, tôm luộc"></a><span>Thịt xào, ram, tôm</span></li>
+            <li><a href="images/hanh_trinh/g_com_bach_tuoc.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_com_bach_tuoc.jpg" width="640" height="480" loading="lazy" alt="Cơm canh mướp và chén bạch tuộc rim"></a><span>Cơm canh mướp, bạch tuộc</span></li>
+            <li><a href="images/hanh_trinh/g_ram.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_ram.jpg" width="640" height="320" loading="lazy" alt="Đĩa ram chiên và chén nước chấm"></a><span>Ram chiên giòn</span></li>
+            <li><a href="images/hanh_trinh/g_banh.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_banh.jpg" width="320" height="640" loading="lazy" alt="Những chiếc bánh vuông nhà làm"></a><span>Bánh nhà làm</span></li>
+            <li><a href="images/hanh_trinh/g_nuoc_quan.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_quan.jpg" width="640" height="480" loading="lazy" alt="Hai ly nước đá ở quán ven biển"></a><span>Ly nước mát quán biển</span></li>
+          </ul>
         </div>
       </div>
 
@@ -1007,10 +1039,11 @@ section[id]{scroll-margin-top:100px}
         </form>
         <aside class="contact" aria-label="Thông tin liên hệ">
           <div><small>Điện thoại / Zalo</small><a class="tel" href="tel:0363594167">0363 594 167</a></div>
+          <div><small>Gọi điện liên hệ</small><a class="tel" href="tel:0333216563">0333 216 563</a></div>
           <div><small>Người bán</small><b>Dân địa phương</b></div>
           <div><small>Địa chỉ</small><b>An Hải - Lý Sơn</b></div>
           <div><small>Giờ nhận đơn</small><b>Full time</b></div>
-          <p class="hint">Bấm vào số để gọi. Nhắn Zalo cùng số này.</p>
+          <p class="hint">Bấm vào số để gọi. Nhắn Zalo số 0363 594 167.</p>
           <p class="hint safe"><b>Cẩn thận lừa đảo:</b> người bán <b>không</b> gửi link, file cài đặt hay xin mã OTP. Chỉ đặt hàng tại trang này và Zalo 0363 594 167.</p>
         </aside>
       </div>
@@ -1024,6 +1057,7 @@ section[id]{scroll-margin-top:100px}
       <h3>ĐẶC SẢN LÝ SƠN QUÊ TÔI</h3>
       <p>Tỏi, hành tím và hải sản khô đảo Lý Sơn, Quảng Ngãi. Gửi hàng toàn quốc, kiểm hàng khi nhận.</p>
       <p style="margin-top:8px">Zalo / điện thoại: <b style="color:var(--fg);user-select:all">0363 594 167</b></p>
+      <p>Gọi điện liên hệ: <a href="tel:0333216563" style="color:var(--fg);font-weight:700">0333 216 563</a></p>
     </div>
     <nav class="foot-links" aria-label="Sản phẩm">
       <h3>Sản phẩm</h3>
@@ -1063,6 +1097,10 @@ section[id]{scroll-margin-top:100px}
   <button class="mini-next" type="button" id="miniNext" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
 </div>
 
+<a class="fab fab-call direct-only" href="tel:0333216563" aria-label="Gọi điện 0333 216 563">
+  <i class="ring" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg></i>
+  <span>0333 216 563</span>
+</a>
 <a class="fab direct-only" href="https://zalo.me/0363594167" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0363 594 167">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
   <span>Zalo 0363 594 167</span>
@@ -1193,9 +1231,9 @@ section[id]{scroll-margin-top:100px}
   var app=/Zalo/i.test(ua)?"Zalo":/FBAN|FBAV|FB_IAB|FBIOS/i.test(ua)?"Facebook":/Messenger/i.test(ua)?"Messenger":/Instagram/i.test(ua)?"Instagram":/TikTok|musical_ly|BytedanceWebview/i.test(ua)?"TikTok":/\bLine\//.test(ua)?"LINE":"";
   if(app){document.getElementById("inappName").textContent=app;document.getElementById("inapp").hidden=false;}
   /* Ẩn nút Zalo nổi khi đang ở khu đặt hàng để không che chữ */
-  var fab=document.querySelector(".fab");
-  if(fab&&"IntersectionObserver" in window){
-    new IntersectionObserver(function(en){fab.classList.toggle("away",en[0].isIntersecting);var m=document.getElementById("mini");if(m)m.classList.toggle("away",en[0].isIntersecting);},{threshold:0.08}).observe(document.getElementById("dat-hang"));
+  var fabs=document.querySelectorAll(".fab");
+  if(fabs.length&&"IntersectionObserver" in window){
+    new IntersectionObserver(function(en){for(var i=0;i<fabs.length;i++)fabs[i].classList.toggle("away",en[0].isIntersecting);var m=document.getElementById("mini");if(m)m.classList.toggle("away",en[0].isIntersecting);},{threshold:0.08}).observe(document.getElementById("dat-hang"));
   }
   /* Câu chuyện từng sản phẩm – cùng thứ tự với mảng products */
   var stories=[
