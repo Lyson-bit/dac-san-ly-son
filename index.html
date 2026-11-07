@@ -273,38 +273,42 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 #dao{padding-top:0}
 
 /* Du lịch */
-.travel{background:var(--surface);border-block:1px solid var(--line)}
-.trip-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.travel{background:var(--bg)}
+.trip-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:18px}
 @media (max-width:860px){.trip-cards{grid-template-columns:1fr}}
-.trip{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--bg)}
-.trip h3{font-size:1.05rem;margin-bottom:6px;color:var(--sea)}
-.trip p{color:var(--muted);font-size:.93rem}
-.trip-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(16px,3vw,28px);align-items:start}
+.trip{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;padding:14px 16px;border-radius:12px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--sea)}
+.t-ico{width:40px;height:40px;border-radius:10px;background:var(--sea-soft);color:var(--sea);display:grid;place-items:center}
+.t-ico svg{width:22px;height:22px}
+.trip h3{font-size:.98rem;margin-bottom:3px}
+.trip p{color:var(--muted);font-size:.88rem;line-height:1.55}
+.trip-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:start;padding:12px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
 @media (max-width:860px){.trip-grid{grid-template-columns:1fr}}
-.map{position:relative;height:420px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--sea-soft);display:grid;place-items:center;z-index:0}
+.map{position:relative;height:300px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--sea-soft);display:grid;place-items:center;z-index:0}
+@media (max-width:640px){.map{height:230px}}
 .map[hidden]{display:none}
 .map .map-load{position:relative;z-index:1}
 .map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.map-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:10px}
+.map-bar{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin-top:8px}
 .map-bar .map-note{margin:0}
-.map-note{font-size:.8rem;color:var(--muted);margin-top:8px}
-.spots{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
-.spot{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);cursor:pointer}
-.spot:hover,.spot.on{border-color:var(--sea)}
-.spot .n{width:30px;height:30px;border-radius:50%;background:var(--sea);color:var(--on-sea);display:grid;place-items:center;font-weight:700;font-size:.85rem}
-.spot .n.off{background:var(--muted)}
-.spot b{display:block}
-.spot p{color:var(--muted);font-size:.88rem;margin:2px 0 6px}
-.spot a{font-size:.85rem;font-weight:600}
-.trip-cta{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding:18px 20px;border-radius:14px;background:var(--sea-soft)}
+.map-note{font-size:.78rem;color:var(--muted);margin-top:8px;line-height:1.5}
+.tspots{list-style:none;margin:0;padding:0 4px 0 0;display:grid;gap:2px;align-content:start;max-height:344px;overflow:auto;scrollbar-width:thin}
+@media (max-width:860px){.tspots{max-height:none;overflow:visible;padding:0}}
+.tspot{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;cursor:pointer}
+.tspot:hover,.tspot.on{background:var(--sea-soft)}
+.tspot.on b{color:var(--sea)}
+.tspot .n{width:26px;height:26px;border-radius:50%;background:var(--sea);color:var(--on-sea);display:grid;place-items:center;font-weight:700;font-size:.78rem}
+.tspot b{display:block;font-size:.93rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tspot p{margin:0;color:var(--muted);font-size:.8rem;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tspot a{font-size:.78rem;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--sea);text-decoration:none;white-space:nowrap;background:var(--surface)}
+.tspot a:hover{border-color:var(--sea)}
+.trip-cta{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:12px;background:var(--sea);color:var(--on-sea)}
 .trip-cta p{font-weight:500;max-width:40em}
-.pin-num{width:26px;height:26px;border-radius:50%;background:#0D6B72;color:#fff;border:2px solid #fff;display:grid;place-items:center;font:700 12px/1 system-ui,sans-serif;box-shadow:0 2px 6px rgba(0,0,0,.35)}
-.pin-num.port{background:#7C3A68}
+.trip-cta .btn.primary{background:var(--on-sea);color:var(--sea);border-color:var(--on-sea)}
 
 /* Bản đồ chọn nơi nhận */
 .pin-box{display:grid;gap:8px}
 .pin-btns{display:flex;flex-wrap:wrap;gap:8px}
-.pin-map{height:300px;background:color-mix(in srgb,var(--bg) 8%,var(--fg));border-color:color-mix(in srgb,var(--bg) 30%,var(--fg))}
+.pin-map{height:240px;background:color-mix(in srgb,var(--bg) 8%,var(--fg));border-color:color-mix(in srgb,var(--bg) 30%,var(--fg))}
 .pin-info{font-size:.86rem;opacity:.9;min-height:1.2em}
 .pin-info button{margin-top:6px}
 .leaflet-container{font:inherit}
@@ -509,16 +513,16 @@ section[id]{scroll-margin-top:60px}
         <p>Đảo núi lửa giữa biển Quảng Ngãi: chùa trong hang đá, miệng núi lửa Thới Lới, Đảo Bé nước trong và những ruộng tỏi phủ cát trắng.</p>
       </div>
       <div class="trip-cards">
-        <div class="trip"><h3>Đi tàu từ cảng Sa Kỳ</h3><p>Tàu cao tốc ra đảo mất khoảng 30–60 phút tùy loại tàu và thời tiết. Tàu thường chạy ban ngày. Mang CCCD, có mặt trước giờ tàu khoảng 30 phút. Giờ tàu, giá vé hỏi trực tiếp cảng hoặc hãng tàu.</p></div>
-        <div class="trip"><h3>Mùa đẹp: tháng 4 – 8</h3><p>Ít mưa, nhiều nắng, biển êm hơn. Từ tháng 9 đến tháng 2 năm sau là mùa mưa bão, biển hay động, nên xem dự báo thời tiết trước khi đi.</p></div>
-        <div class="trip"><h3>Mùa tỏi trên đảo</h3><p>Tỏi xuống giống tháng 9, nhổ tháng 2 – 3 năm sau. Đi đúng mùa sẽ thấy cả cánh đồng tỏi xanh trên nền cát trắng.</p></div>
+        <div class="trip"><span class="t-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 17l2 3h14l2-3H3zM6 17V9h9l3 4v4M9 9V5h4v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M2 21c2 1 4 1 6 0s4-1 6 0 4 1 6 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><div><h3>Đi tàu từ cảng Sa Kỳ</h3><p>Tàu cao tốc khoảng 30–60 phút, chạy ban ngày. Mang CCCD, có mặt trước giờ tàu 30 phút. Giờ tàu, giá vé hỏi cảng hoặc hãng tàu.</p></div></div>
+        <div class="trip"><span class="t-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><h3>Mùa đẹp: tháng 4 – 8</h3><p>Ít mưa, biển êm. Tháng 9 đến tháng 2 năm sau là mùa mưa bão, biển hay động, nên xem dự báo trước khi đi.</p></div></div>
+        <div class="trip"><span class="t-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c1 2.5 1.5 3.5 1.5 4.5 4.5 1.5 6.5 5.5 5.5 9.5-1 4.5-4 6-7 6s-6-1.5-7-6c-1-4 1-8 5.5-9.5 0-1 .5-2 1.5-4.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><h3>Mùa tỏi trên đảo</h3><p>Xuống giống tháng 9, nhổ tháng 2 – 3 năm sau. Đi đúng mùa sẽ thấy đồng tỏi xanh trên nền cát trắng.</p></div></div>
       </div>
       <div class="trip-grid">
         <div class="map-box">
           <div class="map" id="islandMap" role="region" aria-label="Bản đồ đảo Lý Sơn, Quảng Ngãi"><button class="btn primary map-load" type="button" id="islandMapBtn">Xem bản đồ đảo</button></div>
-          <div class="map-bar"><button class="btn ghost sm" type="button" id="islandAll">Xem toàn đảo</button><span class="map-note">Bản đồ Google Maps. Bấm một điểm trong danh sách để xem vị trí, bấm "Chỉ đường" để đi tới.</span></div>
+          <div class="map-bar"><button class="btn ghost sm" type="button" id="islandAll">Xem toàn đảo</button><span class="map-note">Bấm một điểm bên cạnh để xem trên bản đồ.</span></div>
         </div>
-        <ol class="spots" id="spots"></ol>
+        <ol class="tspots" id="spots" aria-label="Điểm tham quan Lý Sơn"></ol>
       </div>
       <div class="trip-cta">
         <p>Đi đảo về, mang theo túi tỏi cô đơn làm quà. Không đi được thì đặt hàng, gửi tận nhà.</p>
@@ -1159,21 +1163,21 @@ section[id]{scroll-margin-top:60px}
   ];
   var ISLAND="Đảo Lý Sơn, Quảng Ngãi, Việt Nam";
   var spotList=document.getElementById("spots"),islandEl=document.getElementById("islandMap"),islandOn=false;
-  function showIsland(q,z,title){islandOn=true;frameIn(islandEl,gEmbed(q||ISLAND,z||13),title||"Bản đồ đảo Lý Sơn");}
+  function showIsland(q,z,title){islandOn=true;frameIn(islandEl,gEmbed(q||ISLAND,z||12),title||"Bản đồ đảo Lý Sơn");}
   spots.forEach(function(s,i){
     var key=s.ll||s.q;
-    var li=document.createElement("li");li.className="spot";li.tabIndex=0;
+    var li=document.createElement("li");li.className="tspot";li.tabIndex=0;
     var n=document.createElement("span");n.className="n";n.textContent=i+1;
     var b=document.createElement("div"),t=document.createElement("b"),p=document.createElement("p"),a=document.createElement("a");
     t.textContent=s.n;p.textContent=s.d;a.textContent="Chỉ đường";a.target="_blank";a.rel="noopener";a.href=gDir(key);
     a.addEventListener("click",function(e){e.stopPropagation();});
-    b.appendChild(t);b.appendChild(p);b.appendChild(a);li.appendChild(n);li.appendChild(b);
-    function go(){showIsland(key,s.far?12:(s.ll?16:15),"Bản đồ: "+s.n);document.querySelectorAll(".spot").forEach(function(x){x.classList.toggle("on",x===li);});if(window.innerWidth<860)islandEl.scrollIntoView({block:"center",behavior:reduce?"auto":"smooth"});}
+    b.appendChild(t);b.appendChild(p);li.appendChild(n);li.appendChild(b);li.appendChild(a);li.title=s.n+" – "+s.d;
+    function go(){showIsland(key,s.far?12:(s.ll?16:15),"Bản đồ: "+s.n);document.querySelectorAll(".tspot").forEach(function(x){x.classList.toggle("on",x===li);});if(window.innerWidth<860)islandEl.scrollIntoView({block:"center",behavior:reduce?"auto":"smooth"});}
     li.addEventListener("click",go);li.addEventListener("keydown",function(e){if(e.key==="Enter")go();});
     spotList.appendChild(li);
   });
   document.getElementById("islandMapBtn").addEventListener("click",function(){showIsland();});
-  document.getElementById("islandAll").addEventListener("click",function(){showIsland();document.querySelectorAll(".spot").forEach(function(x){x.classList.remove("on");});});
+  document.getElementById("islandAll").addEventListener("click",function(){showIsland();document.querySelectorAll(".tspot").forEach(function(x){x.classList.remove("on");});});
   if("IntersectionObserver" in window){
     var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();if(!islandOn)showIsland();}},{rootMargin:"200px"});
     io.observe(islandEl);
