@@ -986,6 +986,8 @@ section[id]{scroll-margin-top:60px}
     if(timer)return;
     timer=setInterval(function(){
       if(!yt||!yt.getDuration)return;
+      var st=yt.getPlayerState?yt.getPlayerState():-1;
+      if(st===1){if(musicMsg.textContent)musicMsg.textContent="";if(!musicSec.classList.contains("playing"))setPlaying(true);}
       var t=yt.getCurrentTime()||0,du=yt.getDuration()||0,p=du?t/du*100:0;
       progBar.style.width=p+"%";prog.setAttribute("aria-valuenow",Math.round(p));timeEl.textContent=fmt(t)+" / "+fmt(du);
     },500);
