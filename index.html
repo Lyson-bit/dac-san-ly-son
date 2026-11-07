@@ -862,9 +862,9 @@ section[id]{scroll-margin-top:60px}
         </form>
         <aside class="contact" aria-label="Thông tin liên hệ">
           <div><small>Điện thoại / Zalo</small><a class="tel" href="tel:0363594167">0363 594 167</a></div>
-          <div><small>Người bán</small><b>[Tên người bán]</b></div>
-          <div><small>Địa chỉ</small><b>[Địa chỉ cửa hàng / kho]</b></div>
-          <div><small>Giờ nhận đơn</small><b>[Giờ làm việc]</b></div>
+          <div><small>Người bán</small><b>Dân địa phương</b></div>
+          <div><small>Địa chỉ</small><b>An Hải - Lý Sơn</b></div>
+          <div><small>Giờ nhận đơn</small><b>Full time</b></div>
           <p class="hint">Bấm vào số để gọi. Nhắn Zalo cùng số này.</p>
           <p class="hint safe"><b>Cẩn thận lừa đảo:</b> người bán <b>không</b> gửi link, file cài đặt hay xin mã OTP. Chỉ đặt hàng tại trang này và Zalo 0363 594 167.</p>
         </aside>
@@ -950,7 +950,8 @@ section[id]{scroll-margin-top:60px}
     if(!orderCode)orderCode=newCode();
     var mapLink=mapQ?"https://maps.google.com/?q="+encodeURIComponent(mapQ):"";
     lastOrder={code:orderCode,name:name,phone:phone,addr:addr+(mapLink?" | "+mapLink:""),items:lines.join("\n"),note:note,web:document.getElementById("web").value};
-    msg.value="ĐƠN HÀNG "+orderCode+" – ĐẶC SẢN LÝ SƠN QUÊ TÔI\nHọ tên: "+name+"\nSĐT: "+phone+(addr?"\nĐịa chỉ: "+addr:"")+(mapLink?"\nVị trí bản đồ: "+mapLink:"")+"\nSản phẩm:\n"+lines.join("\n")+(note?"\nGhi chú: "+note:"");
+    var SEP="──────────────";
+    msg.value="ĐẶC SẢN LÝ SƠN QUÊ TÔI\nĐƠN ĐẶT HÀNG\nMã đơn: "+orderCode+"\n"+SEP+"\n👤 Họ tên: "+name+"\n📞 SĐT: "+phone+(addr?"\n📍 Địa chỉ: "+addr:"")+(mapLink?"\n🗺️ Vị trí bản đồ: "+mapLink:"")+"\n"+SEP+"\n🛒 Sản phẩm:\n"+lines.join("\n")+(note?"\n📝 Ghi chú: "+note:"")+"\n"+SEP+"\nNhờ người bán gọi lại báo giá và phí gửi hàng.";
     out.hidden=false;fit();
     status.textContent="";
     document.getElementById("createBtn").textContent="Cập nhật đơn";
@@ -966,7 +967,7 @@ section[id]{scroll-margin-top:60px}
   var orderCode="",mapQ="";
   function newCode(){
     var d=new Date(),p=function(n){return (n<10?"0":"")+n;};
-    return "LS"+String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate())+"-"+Math.random().toString(36).slice(2,5).toUpperCase();
+    return "LS"+String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate())+"-"+(function(){var a="ABCDEFGHJKLMNPQRSTUVWXYZ",s="";for(var i=0;i<3;i++)s+=a.charAt(Math.floor(Math.random()*a.length));return s;})();
   }
   var lastOrder=null,sent=false;
   /* Gửi đơn về Sổ đơn (Apps Script trả "ok" / "bad"). Đọc được kết quả nhờ Apps Script cho CORS; lỗi CORS thì gửi lại kiểu no-cors (cùng mã đơn nên không trùng dòng) */
