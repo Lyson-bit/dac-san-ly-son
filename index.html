@@ -317,6 +317,23 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 #faqChips{margin-bottom:14px}
 .faq details[hidden]{display:none}
 
+/* Thanh nhạc nổi */
+.mini{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:14;display:flex;align-items:center;gap:8px;width:min(330px,calc(100vw - 100px));padding:6px 6px 6px 6px;border-radius:999px;background:color-mix(in srgb,var(--fg) 94%,transparent);color:var(--bg);box-shadow:0 8px 24px rgba(0,0,0,.28);backdrop-filter:blur(6px);transition:opacity .25s,transform .25s}
+.mini[hidden]{display:none}
+.mini.away{opacity:0;transform:translateY(16px);pointer-events:none}
+.mini-play{flex:none;width:42px;height:42px;border-radius:50%;border:0;background:var(--sea);color:var(--on-sea);display:grid;place-items:center;cursor:pointer;padding:0}
+.mini-play svg{width:20px;height:20px}
+.mini-info{display:flex;align-items:center;gap:8px;min-width:0;flex:1;color:inherit;text-decoration:none}
+.mini-text{display:grid;min-width:0;line-height:1.25}
+.mini-text small{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.mini-text b{font-size:.84rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-next{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:inherit;display:grid;place-items:center;cursor:pointer;padding:0;opacity:.85}
+.mini-next svg{width:16px;height:16px}
+.mini-eq{display:flex;gap:2px;align-items:flex-end;height:14px;flex:none}
+.mini-eq i{width:3px;height:35%;border-radius:1px;background:var(--sea)}
+@media (prefers-reduced-motion:no-preference){.mini.playing .mini-eq i{animation:eq .9s ease-in-out infinite}.mini-eq i:nth-child(2){animation-delay:.2s}.mini-eq i:nth-child(3){animation-delay:.4s}}
+.framed .mini{display:none}
+
 /* Nhạc quê hương */
 .music{background:var(--sea-soft)}
 #hoi-dap{padding-top:clamp(48px,7vw,80px)!important}
@@ -838,6 +855,12 @@ section[id]{scroll-margin-top:60px}
   </div>
 </dialog>
 
+<div class="mini" id="mini" role="region" aria-label="Trình phát nhạc quê hương">
+  <button class="mini-play" type="button" id="miniPlay" aria-label="Phát nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="miniIco" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+  <a class="mini-info" href="#nhac"><span class="mini-eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="mini-text"><small>Nhạc quê hương</small><b id="miniTitle">Chạm vào trang để nghe nhạc Lý Sơn</b></span></a>
+  <button class="mini-next" type="button" id="miniNext" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+</div>
+
 <a class="fab direct-only" href="https://zalo.me/0363594167" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0363 594 167">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
   <span>Zalo 0363 594 167</span>
@@ -969,7 +992,7 @@ section[id]{scroll-margin-top:60px}
   /* Ẩn nút Zalo nổi khi đang ở khu đặt hàng để không che chữ */
   var fab=document.querySelector(".fab");
   if(fab&&"IntersectionObserver" in window){
-    new IntersectionObserver(function(en){fab.classList.toggle("away",en[0].isIntersecting);},{threshold:0.08}).observe(document.getElementById("dat-hang"));
+    new IntersectionObserver(function(en){fab.classList.toggle("away",en[0].isIntersecting);var m=document.getElementById("mini");if(m)m.classList.toggle("away",en[0].isIntersecting);},{threshold:0.08}).observe(document.getElementById("dat-hang"));
   }
   /* Câu chuyện từng sản phẩm – cùng thứ tự với mảng products */
   var stories=[
@@ -1068,7 +1091,18 @@ section[id]{scroll-margin-top:60px}
       li.appendChild(b);list.appendChild(li);
     });
   }
-  function setPlaying(on){musicSec.classList.toggle("playing",on);playIco.setAttribute("d",on?ICO_PAUSE:ICO_PLAY);playBtn.setAttribute("aria-label",on?"Tạm dừng":"Phát");}
+  var mini=document.getElementById("mini"),miniTitle=document.getElementById("miniTitle"),miniPlay=document.getElementById("miniPlay"),miniIco=document.getElementById("miniIco");
+  var ytReady=false,wantPlay=false;
+  function setPlaying(on){
+    musicSec.classList.toggle("playing",on);mini.classList.toggle("playing",on);
+    playIco.setAttribute("d",on?ICO_PAUSE:ICO_PLAY);miniIco.setAttribute("d",on?ICO_PAUSE:ICO_PLAY);
+    var l=on?"Tạm dừng nhạc":"Phát nhạc";playBtn.setAttribute("aria-label",l);miniPlay.setAttribute("aria-label",l);
+  }
+  function showSong(i){var s=songs[i];nowTitle.textContent=s.t;nowArtist.textContent=s.a;miniTitle.textContent=s.t+" · "+s.a;}
+  /* Nhớ lựa chọn tắt nhạc của khách (chỉ là tiện ích trên máy khách; lỗi bộ nhớ thì coi như chưa tắt) */
+  var OFF_KEY="lyson-nhac-tat";
+  function isOff(){try{return localStorage.getItem(OFF_KEY)==="1";}catch(e){return false;}}
+  function setOff(v){try{if(v)localStorage.setItem(OFF_KEY,"1");else localStorage.removeItem(OFF_KEY);}catch(e){}}
   function loadApi(cb){
     if(window.YT&&YT.Player){cb();return;}
     pending=cb;if(apiLoading)return;apiLoading=true;
@@ -1077,31 +1111,36 @@ section[id]{scroll-margin-top:60px}
     sc.onerror=function(){apiLoading=false;musicMsg.textContent="Chưa tải được trình phát. Kiểm tra mạng rồi bấm lại.";};
     document.head.appendChild(sc);
   }
+  /* Tạo trình phát một lần. autoplay=false: tạo sẵn (bài đầu đã nạp) để lần chạm đầu của khách phát được ngay, kể cả iPhone */
+  function makePlayer(autoplay,idx){
+    var holder=document.createElement("div");holder.id="ytHolder";screen.appendChild(holder);
+    yt=new YT.Player("ytHolder",{host:"https://www.youtube-nocookie.com",videoId:songs[idx].id,
+      playerVars:{autoplay:autoplay?1:0,playsinline:1,rel:0,modestbranding:1},
+      events:{
+        onReady:function(e){ytReady=true;cover.hidden=true;startTimer();if(wantPlay){e.target.loadVideoById(songs[cur].id);}},
+        onStateChange:function(e){
+          if(e.data===1){setPlaying(true);musicMsg.textContent="";}
+          else if(e.data===2){setPlaying(false);}
+          else if(e.data===0){setPlaying(false);step(1);}
+          else if(wantPlay&&(e.data===5||e.data===-1)){musicMsg.textContent="Bấm ▶ nếu nhạc chưa tự phát.";}
+        },
+        onError:function(){musicMsg.textContent="Bài này tạm không phát được, chuyển bài sau.";setTimeout(function(){step(1);},1200);}
+      }});
+  }
   function play(i){
-    cur=i;var s=songs[i];
-    nowTitle.textContent=s.t;nowArtist.textContent=s.a;musicMsg.textContent="Đang mở bài…";
-    renderList();
-    if(yt&&yt.loadVideoById){yt.loadVideoById(s.id);return;}
-    loadApi(function(){
-      if(yt){yt.loadVideoById(songs[cur].id);return;}
-      var holder=document.createElement("div");holder.id="ytHolder";screen.appendChild(holder);
-      yt=new YT.Player("ytHolder",{host:"https://www.youtube-nocookie.com",videoId:songs[cur].id,
-        playerVars:{autoplay:1,playsinline:1,rel:0,modestbranding:1},
-        events:{
-          onReady:function(e){cover.hidden=true;e.target.playVideo();startTimer();},
-          onStateChange:function(e){
-            if(e.data===1){setPlaying(true);musicMsg.textContent="";}
-            else if(e.data===2){setPlaying(false);}
-            else if(e.data===0){setPlaying(false);step(1);}
-            else if(e.data===5||e.data===-1){musicMsg.textContent="Bấm ▶ nếu nhạc chưa tự phát.";}
-          },
-          onError:function(){musicMsg.textContent="Bài này tạm không phát được, chuyển bài sau.";setTimeout(function(){step(1);},1200);}
-        }});
-    });
+    cur=i;wantPlay=true;setOff(false);showSong(i);musicMsg.textContent="Đang mở bài…";renderList();
+    if(ytReady){yt.loadVideoById(songs[i].id);return;}
+    if(yt)return; /* đang tạo, onReady sẽ phát bài cur */
+    loadApi(function(){if(!yt)makePlayer(true,cur);});
+  }
+  function prepare(){
+    if(yt||framed||isOff())return;
+    loadApi(function(){if(!yt)makePlayer(false,0);});
   }
   function toggle(){
-    if(!yt||!yt.getPlayerState){var v=visible();play(cur>=0?cur:v[0]);return;}
-    if(yt.getPlayerState()===1)yt.pauseVideo();else yt.playVideo();
+    if(!ytReady){setOff(false);var v=visible();play(cur>=0?cur:v[0]);return;}
+    if(yt.getPlayerState()===1){wantPlay=false;setOff(true);yt.pauseVideo();}
+    else{wantPlay=true;setOff(false);if(cur<0){play(visible()[0]);}else{yt.playVideo();}}
   }
   function step(d){var v=visible();if(!v.length)return;var k=v.indexOf(cur);k=k<0?0:(k+d+v.length)%v.length;play(v[k]);}
   function startTimer(){
@@ -1128,6 +1167,27 @@ section[id]{scroll-margin-top:60px}
     });
   });
   renderList();
+
+  /* ===== Thanh nhạc nổi + tự phát nhạc nền ở lần chạm đầu =====
+     Trình duyệt không cho tự phát có tiếng khi khách chưa chạm vào trang, nên nhạc bắt đầu ngay ở lần chạm/bấm đầu tiên.
+     Khách bấm dừng thì nhớ lại, lần sau không tự phát nữa. */
+  miniPlay.addEventListener("click",function(){toggle();});
+  document.getElementById("miniNext").addEventListener("click",function(){setOff(false);step(1);});
+  var AUTO_EVT=["pointerdown","keydown","touchstart"];
+  function stopAuto(){AUTO_EVT.forEach(function(t){document.removeEventListener(t,autoStart,true);});}
+  function autoStart(e){
+    if(e&&e.target&&(mini.contains(e.target)||musicSec.contains(e.target)))return; /* để nút nhạc tự xử lý */
+    stopAuto();
+    if(isOff()||framed)return;
+    if(ytReady&&yt.getPlayerState&&yt.getPlayerState()===1)return;
+    play(cur>=0?cur:0);
+  }
+  if(framed){mini.hidden=true;}
+  else{
+    if(isOff()){miniTitle.textContent="Bấm ▶ để nghe nhạc quê hương";}
+    else{AUTO_EVT.forEach(function(t){document.addEventListener(t,autoStart,true);});}
+    window.addEventListener("load",function(){setTimeout(prepare,1200);});
+  }
 
   /* ===== Hỏi đáp theo chủ đề ===== */
   document.querySelectorAll("#faqChips .chip").forEach(function(c){
