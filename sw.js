@@ -1,6 +1,6 @@
 // Service worker – Đặc Sản Lý Sơn Quê Tôi
-// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v9, v3...) để app trên điện thoại tự cập nhật.
-const CACHE = "lyson-v9";
+// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v10, v3...) để app trên điện thoại tự cập nhật.
+const CACHE = "lyson-v10";
 const ASSETS = [
   "./",
   "./index.html",
@@ -25,6 +25,9 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
+  // Chỉ lưu file của trang, phông chữ Google và thư viện bản đồ; bỏ qua ô bản đồ, tìm địa chỉ, YouTube
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin && !/fonts\.(googleapis|gstatic)\.com$|cdnjs\.cloudflare\.com$/.test(url.hostname)) return;
 
   // Trang HTML: lấy bản mới từ mạng, mất mạng thì dùng bản đã lưu
   if (req.mode === "navigate") {

@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com https://cdnjs.cloudflare.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://tile.openstreetmap.org https://*.basemaps.cartocdn.com https://cdnjs.cloudflare.com; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdnjs.cloudflare.com https://photon.komoot.io https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
@@ -261,6 +261,55 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .framed-only{display:none!important}
 .framed .direct-only{display:none!important}
 .framed .framed-only{display:grid!important}
+/* Sáu lý do */
+.reason-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:860px){.reason-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.reason-grid{grid-template-columns:1fr}}
+.reason{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.r-ico{width:44px;height:44px;border-radius:12px;background:var(--sea-soft);color:var(--sea);display:grid;place-items:center}
+.r-ico svg{width:24px;height:24px}
+.reason h3{font-size:1.02rem;margin-bottom:4px}
+.reason p{color:var(--muted);font-size:.92rem}
+#dao{padding-top:0}
+
+/* Du lịch */
+.travel{background:var(--surface);border-block:1px solid var(--line)}
+.trip-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:24px}
+@media (max-width:860px){.trip-cards{grid-template-columns:1fr}}
+.trip{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--bg)}
+.trip h3{font-size:1.05rem;margin-bottom:6px;color:var(--sea)}
+.trip p{color:var(--muted);font-size:.93rem}
+.trip-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(16px,3vw,28px);align-items:start}
+@media (max-width:860px){.trip-grid{grid-template-columns:1fr}}
+.map{position:relative;height:420px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--sea-soft);display:grid;place-items:center;z-index:0}
+.map[hidden]{display:none}
+.map .map-load{position:relative;z-index:1}
+.map-note{font-size:.8rem;color:var(--muted);margin-top:8px}
+.spots{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.spot{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);cursor:pointer}
+.spot:hover,.spot.on{border-color:var(--sea)}
+.spot .n{width:30px;height:30px;border-radius:50%;background:var(--sea);color:var(--on-sea);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.spot .n.off{background:var(--muted)}
+.spot b{display:block}
+.spot p{color:var(--muted);font-size:.88rem;margin:2px 0 6px}
+.spot a{font-size:.85rem;font-weight:600}
+.trip-cta{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding:18px 20px;border-radius:14px;background:var(--sea-soft)}
+.trip-cta p{font-weight:500;max-width:40em}
+.pin-num{width:26px;height:26px;border-radius:50%;background:#0D6B72;color:#fff;border:2px solid #fff;display:grid;place-items:center;font:700 12px/1 system-ui,sans-serif;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.pin-num.port{background:#7C3A68}
+
+/* Bản đồ chọn nơi nhận */
+.pin-box{display:grid;gap:8px}
+.pin-btns{display:flex;flex-wrap:wrap;gap:8px}
+.pin-map{height:300px;background:color-mix(in srgb,var(--bg) 8%,var(--fg));border-color:color-mix(in srgb,var(--bg) 30%,var(--fg))}
+.pin-info{font-size:.86rem;opacity:.9;min-height:1.2em}
+.pin-info button{margin-top:6px}
+.leaflet-container{font:inherit}
+
+/* Hỏi đáp theo chủ đề */
+#faqChips{margin-bottom:14px}
+.faq details[hidden]{display:none}
+
 /* Nhạc quê hương */
 .music{background:var(--sea-soft)}
 #hoi-dap{padding-top:clamp(48px,7vw,80px)!important}
@@ -346,6 +395,7 @@ section[id]{scroll-margin-top:60px}
     <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
     <nav aria-label="Mục lục">
       <a href="#dao">Đảo tỏi</a>
+      <a href="#du-lich">Du lịch</a>
       <a href="#nhac">Nghe nhạc</a>
       <a href="#hoi-dap">Hỏi đáp</a>
       <a href="#san-pham">Sản phẩm</a>
@@ -401,6 +451,23 @@ section[id]{scroll-margin-top:60px}
     </div>
   </section>
 
+  <section id="ly-do" class="reasons" aria-labelledby="ly-do-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Vì sao mua ở đây</p>
+        <h2 id="ly-do-title">Sáu điều chúng tôi giữ</h2>
+      </div>
+      <div class="reason-grid">
+        <div class="reason"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 20V10l6-5 6 5v10M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><h3>Hàng nhà trồng trên đảo</h3><p>Tỏi, hành do gia đình trồng và làm trên đảo Lý Sơn.</p></div></div>
+        <div class="reason"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c1 2.5 1.5 3.5 1.5 4.5 4.5 1.5 6.5 5.5 5.5 9.5-1 4.5-4 6-7 6s-6-1.5-7-6c-1-4 1-8 5.5-9.5 0-1 .5-2 1.5-4.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><h3>Tỏi cô đơn nhặt từng củ</h3><p>Nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới.</p></div></div>
+        <div class="reason"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4M8.5 11l1.8 1.8L14 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Kiểm hàng khi nhận</h3><p>Mở xem hàng, thấy đúng rồi mới trả tiền.</p></div></div>
+        <div class="reason"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 14-3l2 2M20 15a8 8 0 0 1-14 3l-2-2M20 4v4h-4M4 20v-4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Đổi hàng nếu lỗi</h3><p>Mốc, hỏng hay gửi sai hàng thì được đổi.</p></div></div>
+        <div class="reason"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span><div><h3>Gửi hàng toàn quốc</h3><p>Gửi bưu điện hoặc chuyển phát, phí báo khi xác nhận đơn.</p></div></div>
+        <div class="reason"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><h3>Đặt nhanh qua Zalo</h3><p>Tạo đơn trên trang, gửi Zalo hoặc SMS, người bán gọi lại.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <section id="dao">
     <div class="wrap island">
       <div class="text">
@@ -428,6 +495,33 @@ section[id]{scroll-margin-top:60px}
           <div><b>Đá nền núi lửa</b><small>Đá bazan bên dưới, chỗ mạch nước ngầm của giếng trên đảo.</small></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="du-lich" class="travel">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Du lịch Lý Sơn</p>
+        <h2>Ghé đảo tỏi một lần</h2>
+        <p>Đảo núi lửa giữa biển Quảng Ngãi: chùa trong hang đá, miệng núi lửa Thới Lới, Đảo Bé nước trong và những ruộng tỏi phủ cát trắng.</p>
+      </div>
+      <div class="trip-cards">
+        <div class="trip"><h3>Đi tàu từ cảng Sa Kỳ</h3><p>Tàu cao tốc ra đảo mất khoảng 30–60 phút tùy loại tàu và thời tiết. Tàu thường chạy ban ngày. Mang CCCD, có mặt trước giờ tàu khoảng 30 phút. Giờ tàu, giá vé hỏi trực tiếp cảng hoặc hãng tàu.</p></div>
+        <div class="trip"><h3>Mùa đẹp: tháng 4 – 8</h3><p>Ít mưa, nhiều nắng, biển êm hơn. Từ tháng 9 đến tháng 2 năm sau là mùa mưa bão, biển hay động, nên xem dự báo thời tiết trước khi đi.</p></div>
+        <div class="trip"><h3>Mùa tỏi trên đảo</h3><p>Tỏi xuống giống tháng 9, nhổ tháng 2 – 3 năm sau. Đi đúng mùa sẽ thấy cả cánh đồng tỏi xanh trên nền cát trắng.</p></div>
+      </div>
+      <div class="trip-grid">
+        <div class="map-box">
+          <div class="map" id="islandMap" role="region" aria-label="Bản đồ điểm tham quan đảo Lý Sơn"><button class="btn primary map-load" type="button" id="islandMapBtn">Xem bản đồ đảo</button></div>
+          <p class="map-note">Bản đồ © OpenStreetMap, CARTO. Vị trí lấy từ dữ liệu OpenStreetMap, mang tính tham khảo. Bấm số trong danh sách để xem trên bản đồ.</p>
+        </div>
+        <ol class="spots" id="spots"></ol>
+      </div>
+      <div class="trip-cta">
+        <p>Đi đảo về, mang theo túi tỏi cô đơn làm quà. Không đi được thì đặt hàng, gửi tận nhà.</p>
+        <a class="btn primary" href="#san-pham">Xem đặc sản mang về</a>
+      </div>
+      <p class="map-note">Thông tin tham khảo từ báo Văn Hóa, SGGP, VnExpress và các trang du lịch. Lịch tàu, giá vé, thời tiết thay đổi theo mùa, nên kiểm tra lại trước khi đi.</p>
     </div>
   </section>
 
@@ -477,13 +571,24 @@ section[id]{scroll-margin-top:60px}
         <p class="eyebrow">Hỏi đáp</p>
         <h2>Câu hỏi khách hay hỏi</h2>
       </div>
-      <div class="faq">
-        <details open><summary>Có gửi hàng đi tỉnh khác không?</summary><p>Có. Hàng gửi toàn quốc qua bưu điện hoặc dịch vụ chuyển phát. Phí gửi tùy nơi nhận và khối lượng, người bán báo khi xác nhận đơn.</p></details>
-        <details><summary>Có được kiểm hàng trước khi trả tiền không?</summary><p>Có. Anh chị được mở xem hàng khi nhận, thấy đúng hàng rồi mới trả tiền.</p></details>
-        <details><summary>Hàng bị lỗi thì sao?</summary><p>Tỏi bị mốc, hỏng hoặc gửi sai hàng thì được đổi. Anh chị chụp ảnh hàng lúc nhận và nhắn Zalo 0363 594 167.</p></details>
-        <details><summary>Hàng lấy từ đâu?</summary><p>Hàng nhà trồng và làm trên đảo Lý Sơn, gửi về đất liền theo từng đợt thu hoạch.</p></details>
-        <details><summary>Vì sao trang không ghi giá?</summary><p>Giá tỏi và hành thay đổi theo vụ và sản lượng từng đợt. Nhắn Zalo để được báo giá đúng đợt hàng đang có.</p></details>
-        <details><summary>Tỏi cô đơn có phải giống tỏi riêng không?</summary><p>Không. Đó là những cây tỏi thường chỉ tạo một tép, được nhặt riêng khi thu hoạch nên số lượng ít.</p></details>
+      <div class="chips" role="group" aria-label="Chủ đề hỏi đáp" id="faqChips">
+        <button class="chip" type="button" data-t="all" aria-pressed="true">Tất cả</button>
+        <button class="chip" type="button" data-t="dat-hang" aria-pressed="false">Đặt hàng</button>
+        <button class="chip" type="button" data-t="giao-hang" aria-pressed="false">Giao hàng</button>
+        <button class="chip" type="button" data-t="san-pham" aria-pressed="false">Sản phẩm</button>
+        <button class="chip" type="button" data-t="du-lich" aria-pressed="false">Du lịch</button>
+      </div>
+      <div class="faq" id="faqList">
+        <details data-t="giao-hang" open><summary>Có gửi hàng đi tỉnh khác không?</summary><p>Có. Hàng gửi toàn quốc qua bưu điện hoặc dịch vụ chuyển phát. Phí gửi tùy nơi nhận và khối lượng, người bán báo khi xác nhận đơn.</p></details>
+        <details data-t="giao-hang"><summary>Có được kiểm hàng trước khi trả tiền không?</summary><p>Có. Anh chị được mở xem hàng khi nhận, thấy đúng hàng rồi mới trả tiền.</p></details>
+        <details data-t="giao-hang"><summary>Làm sao để người giao hàng tìm đúng nhà?</summary><p>Trong mẫu đặt hàng, bấm "Chọn vị trí trên bản đồ" rồi chạm đúng chỗ nhà mình, hoặc bấm "Dùng vị trí hiện tại". Đơn sẽ kèm link bản đồ để người giao hàng tìm đường.</p></details>
+        <details data-t="dat-hang"><summary>Hàng bị lỗi thì sao?</summary><p>Tỏi bị mốc, hỏng hoặc gửi sai hàng thì được đổi. Anh chị chụp ảnh hàng lúc nhận và nhắn Zalo 0363 594 167.</p></details>
+        <details data-t="dat-hang"><summary>Vì sao trang không ghi giá?</summary><p>Giá tỏi và hành thay đổi theo vụ và sản lượng từng đợt. Nhắn Zalo để được báo giá đúng đợt hàng đang có.</p></details>
+        <details data-t="san-pham"><summary>Hàng lấy từ đâu?</summary><p>Hàng nhà trồng và làm trên đảo Lý Sơn, gửi về đất liền theo từng đợt thu hoạch.</p></details>
+        <details data-t="san-pham"><summary>Tỏi cô đơn có phải giống tỏi riêng không?</summary><p>Không. Đó là những cây tỏi thường chỉ tạo một tép, được nhặt riêng khi thu hoạch nên số lượng ít.</p></details>
+        <details data-t="du-lich"><summary>Đi Lý Sơn bằng cách nào?</summary><p>Đến cảng Sa Kỳ (Quảng Ngãi) rồi đi tàu cao tốc ra đảo, khoảng 30–60 phút tùy loại tàu và thời tiết. Tàu thường chạy ban ngày, dịp lễ và cuối tuần nên đặt vé trước.</p></details>
+        <details data-t="du-lich"><summary>Đi tàu cần mang giấy tờ gì?</summary><p>Mang CCCD, hộ chiếu hoặc giấy tờ tùy thân hợp lệ. Trẻ em nên mang giấy khai sinh. Có mặt ở cảng trước giờ tàu khoảng 30 phút.</p></details>
+        <details data-t="du-lich"><summary>Mùa nào đi Lý Sơn đẹp?</summary><p>Khoảng tháng 4 đến tháng 8: ít mưa, biển êm hơn. Tháng 9 đến tháng 2 năm sau là mùa mưa bão, biển hay động, tàu có thể tạm ngưng.</p></details>
       </div>
     </div>
   </section>
@@ -627,6 +732,14 @@ section[id]{scroll-margin-top:60px}
             <label for="phone">Số điện thoại<input id="phone" name="phone" type="tel" maxlength="15" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" required></label>
           </div>
           <label for="addr">Địa chỉ nhận hàng<input id="addr" name="addr" maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, phường/xã, tỉnh/thành"></label>
+          <div class="pin-box">
+            <div class="pin-btns">
+              <button class="btn ghost sm" type="button" id="pinOpen">Chọn vị trí trên bản đồ</button>
+              <button class="btn ghost sm" type="button" id="pinGeo">Dùng vị trí hiện tại</button>
+            </div>
+            <div class="map pin-map" id="pinMap" hidden></div>
+            <p class="pin-info" id="pinInfo" aria-live="polite"></p>
+          </div>
           <fieldset style="border:0;padding:0;margin:0;display:grid;gap:8px">
             <legend style="font-size:.88rem;font-weight:600;margin-bottom:6px">Sản phẩm và số lượng</legend>
             <div class="items" id="items"></div>
@@ -697,6 +810,7 @@ section[id]{scroll-margin-top:60px}
     <nav class="foot-links" aria-label="Thông tin">
       <h3>Thông tin</h3>
       <a href="#dao">Đảo tỏi</a>
+      <a href="#du-lich">Du lịch Lý Sơn</a>
       <a href="#nhac">Nhạc quê hương</a>
       <a href="#hoi-dap">Hỏi đáp</a>
       <a href="#cach-dung">Cách dùng</a>
@@ -747,8 +861,9 @@ section[id]{scroll-margin-top:60px}
     name=name.slice(0,80);phone=phone.slice(0,15);
     var addr=document.getElementById("addr").value.trim().slice(0,300),note=document.getElementById("note").value.trim().slice(0,300);
     if(!orderCode)orderCode=newCode();
-    lastOrder={code:orderCode,name:name,phone:phone,addr:addr,items:lines.join("\n"),note:note,web:document.getElementById("web").value};
-    msg.value="ĐƠN HÀNG "+orderCode+" – ĐẶC SẢN LÝ SƠN QUÊ TÔI\nHọ tên: "+name+"\nSĐT: "+phone+(addr?"\nĐịa chỉ: "+addr:"")+"\nSản phẩm:\n"+lines.join("\n")+(note?"\nGhi chú: "+note:"");
+    var mapLink=pinLat!==null?"https://maps.google.com/?q="+pinLat+","+pinLng:"";
+    lastOrder={code:orderCode,name:name,phone:phone,addr:addr+(mapLink?" | "+mapLink:""),items:lines.join("\n"),note:note,web:document.getElementById("web").value};
+    msg.value="ĐƠN HÀNG "+orderCode+" – ĐẶC SẢN LÝ SƠN QUÊ TÔI\nHọ tên: "+name+"\nSĐT: "+phone+(addr?"\nĐịa chỉ: "+addr:"")+(mapLink?"\nVị trí bản đồ: "+mapLink:"")+"\nSản phẩm:\n"+lines.join("\n")+(note?"\nGhi chú: "+note:"");
     out.hidden=false;fit();
     status.textContent="";
     document.getElementById("createBtn").textContent="Cập nhật đơn";
@@ -761,7 +876,7 @@ section[id]{scroll-margin-top:60px}
   /* Sổ đơn Google Sheet: dán link Ứng dụng web (…/exec) vào ORDER_URL. Để trống = không lưu.
      Chỉ chạy trên bản GitHub; trên claude.ai trình duyệt chặn gửi ra ngoài nên bỏ qua. Hướng dẫn: so_don/HUONG_DAN_SO_DON.md */
   var ORDER_URL="";
-  var orderCode="";
+  var orderCode="",pinLat=null,pinLng=null;
   function newCode(){
     var d=new Date(),p=function(n){return (n<10?"0":"")+n;};
     return "LS"+String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate())+"-"+Math.random().toString(36).slice(2,5).toUpperCase();
@@ -998,14 +1113,137 @@ section[id]{scroll-margin-top:60px}
   playBtn.addEventListener("click",toggle);
   document.getElementById("prevBtn").addEventListener("click",function(){step(-1);});
   document.getElementById("nextBtn").addEventListener("click",function(){step(1);});
-  document.querySelectorAll(".chip").forEach(function(c){
+  document.querySelectorAll("#nhac .chip").forEach(function(c){
     c.addEventListener("click",function(){
       group=c.getAttribute("data-g");
-      document.querySelectorAll(".chip").forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false");});
+      document.querySelectorAll("#nhac .chip").forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false");});
       renderList();
     });
   });
   renderList();
+
+  /* ===== Hỏi đáp theo chủ đề ===== */
+  document.querySelectorAll("#faqChips .chip").forEach(function(c){
+    c.addEventListener("click",function(){
+      var t=c.getAttribute("data-t");
+      document.querySelectorAll("#faqChips .chip").forEach(function(x){x.setAttribute("aria-pressed",x===c?"true":"false");});
+      document.querySelectorAll("#faqList details").forEach(function(d){d.hidden=!(t==="all"||d.getAttribute("data-t")===t);});
+    });
+  });
+
+  /* ===== Bản đồ (Leaflet + OpenStreetMap, tải khi cần; hỏng ô bản đồ thì đổi sang CARTO) ===== */
+  var LEAF="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/",leafQ=null;
+  function loadLeaflet(cb,fail){
+    if(window.L&&L.map){cb();return;}
+    if(leafQ){leafQ.push(cb);return;}
+    leafQ=[cb];
+    var l=document.createElement("link");l.rel="stylesheet";l.href=LEAF+"leaflet.min.css";document.head.appendChild(l);
+    var s=document.createElement("script");s.src=LEAF+"leaflet.min.js";
+    s.onload=function(){var q=leafQ;leafQ=null;q.forEach(function(f){f();});};
+    s.onerror=function(){leafQ=null;if(fail)fail();};
+    document.head.appendChild(s);
+  }
+  /* Ô bản đồ: CARTO (dữ liệu OpenStreetMap) là chính vì nhiều mạng ở VN không vào được tile.openstreetmap.org; lỗi thì đổi sang OSM */
+  function addTiles(map){
+    var errs=0,swapped=false;
+    var main=L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19,attribution:"© OpenStreetMap © CARTO"});
+    main.on("tileerror",function(){
+      if(swapped||++errs<3)return;swapped=true;map.removeLayer(main);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap"}).addTo(map);
+    });
+    main.addTo(map);
+  }
+  function numIcon(txt,cls){return L.divIcon({className:"",html:'<div class="pin-num'+(cls?" "+cls:"")+'">'+txt+"</div>",iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-12]});}
+  function gmDir(lat,lng){return "https://www.google.com/maps/dir/?api=1&destination="+lat+","+lng;}
+  function gmSearch(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
+
+  /* Điểm tham quan – tọa độ lấy từ OpenStreetMap (Photon), 2 điểm chưa có tọa độ thì chỉ mở Google Maps */
+  var spots=[
+    {n:"Cảng Lý Sơn",d:"Nơi tàu từ cảng Sa Kỳ cập đảo Lớn.",ll:[15.37931,109.09535],port:1},
+    {n:"Chùa Hang (Thiên Khổng Thạch Tự)",d:"Chùa nằm trong hang đá dưới chân núi Thới Lới, di tích quốc gia từ năm 1994.",ll:[15.39085,109.12484]},
+    {n:"Núi Thới Lới – cột cờ Tổ quốc",d:"Miệng núi lửa cao khoảng 170 m, có hồ trên đỉnh và cột cờ Tổ quốc.",ll:[15.38424,109.12627]},
+    {n:"Núi Giếng Tiền",d:"Núi lửa phía tây đảo, nơi bà con lấy đất đỏ bazan về làm ruộng tỏi.",ll:[15.38456,109.10344]},
+    {n:"Chùa Đục",d:"Ngôi chùa trên núi Giếng Tiền, nhìn xuống làng và biển.",ll:[15.38920,109.10187]},
+    {n:"Nhà trưng bày Hải đội Hoàng Sa",d:"Tư liệu về Hải đội Hoàng Sa và những người lính Lý Sơn xưa.",ll:[15.37110,109.11770]},
+    {n:"Đảo Bé (Cù Lao Bờ Bãi)",d:"Đảo nhỏ phía bắc: tắm biển, đi thuyền thúng, ngắm san hô. Đi tàu nhỏ từ đảo Lớn.",ll:[15.42982,109.08196]},
+    {n:"Cổng Tò Vò",d:"Vòm đá bên biển, đẹp nhất lúc hoàng hôn.",q:"Cổng Tò Vò Lý Sơn"},
+    {n:"Hang Câu",d:"Vách đá dựng đứng, bãi cát trắng, nước trong.",q:"Hang Câu Lý Sơn"},
+    {n:"Cảng Sa Kỳ (đất liền)",d:"Nơi đi tàu ra đảo, thuộc Quảng Ngãi.",ll:[15.21550,108.91438],port:1,far:1}
+  ];
+  var spotList=document.getElementById("spots"),islandEl=document.getElementById("islandMap"),islandMap=null,marks=[];
+  spots.forEach(function(s,i){
+    var li=document.createElement("li");li.className="spot";li.tabIndex=0;
+    var n=document.createElement("span");n.className="n"+(s.ll?"":" off");n.textContent=s.ll?(i+1):"•";
+    var b=document.createElement("div"),t=document.createElement("b"),p=document.createElement("p"),a=document.createElement("a");
+    t.textContent=s.n;p.textContent=s.d;a.textContent="Chỉ đường";a.target="_blank";a.rel="noopener";
+    a.href=s.ll?gmDir(s.ll[0],s.ll[1]):gmSearch(s.q);
+    a.addEventListener("click",function(e){e.stopPropagation();});
+    b.appendChild(t);b.appendChild(p);b.appendChild(a);li.appendChild(n);li.appendChild(b);
+    function go(){if(!s.ll)return;showIsland(function(){islandMap.flyTo(s.ll,s.far?11:15,{duration:.8});marks[i].openPopup();});document.querySelectorAll(".spot").forEach(function(x){x.classList.toggle("on",x===li);});}
+    li.addEventListener("click",go);li.addEventListener("keydown",function(e){if(e.key==="Enter")go();});
+    spotList.appendChild(li);
+  });
+  function showIsland(cb){
+    if(islandMap){if(cb)cb();return;}
+    islandEl.innerHTML="";
+    loadLeaflet(function(){
+      islandMap=L.map(islandEl,{scrollWheelZoom:false});
+      addTiles(islandMap);
+      var bounds=[];
+      spots.forEach(function(s,i){
+        if(!s.ll){marks[i]=null;return;}
+        var m=L.marker(s.ll,{icon:numIcon(i+1,s.port?"port":""),title:s.n}).addTo(islandMap);
+        m.bindPopup("<b>"+s.n+"</b><br><a href=\""+gmDir(s.ll[0],s.ll[1])+"\" target=\"_blank\" rel=\"noopener\">Chỉ đường</a>");
+        marks[i]=m;if(!s.far)bounds.push(s.ll);
+      });
+      islandMap.fitBounds(bounds,{padding:[24,24]});
+      if(cb)setTimeout(cb,300);
+    },function(){islandEl.innerHTML='<p class="map-note" style="padding:16px">Chưa tải được bản đồ. Kiểm tra mạng rồi tải lại trang.</p>';});
+  }
+  document.getElementById("islandMapBtn").addEventListener("click",function(){showIsland();});
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();showIsland();}},{rootMargin:"200px"});
+    io.observe(islandEl);
+  }
+
+  /* ===== Ghim vị trí nhận hàng ===== */
+  var pinEl=document.getElementById("pinMap"),pinInfo=document.getElementById("pinInfo"),pinMap=null,pinMk=null;
+  function openPin(cb){
+    pinEl.hidden=false;
+    loadLeaflet(function(){
+      if(!pinMap){
+        pinMap=L.map(pinEl).setView([16.0,107.8],5);
+        addTiles(pinMap);
+        pinMap.on("click",function(e){setPin(e.latlng.lat,e.latlng.lng);});
+        if(pinLat===null)pinInfo.textContent="Phóng to bản đồ rồi chạm đúng chỗ nhà anh chị để ghim.";
+      }
+      setTimeout(function(){pinMap.invalidateSize();if(cb)cb();},60);
+    },function(){pinInfo.textContent="Chưa tải được bản đồ. Anh chị ghi rõ địa chỉ vào ô trên là được.";});
+  }
+  function setPin(lat,lng){
+    pinLat=Math.round(lat*1e6)/1e6;pinLng=Math.round(lng*1e6)/1e6;
+    if(!pinMk){pinMk=L.marker([pinLat,pinLng],{draggable:true,icon:numIcon("✓","port")}).addTo(pinMap);pinMk.on("dragend",function(){var p=pinMk.getLatLng();setPin(p.lat,p.lng);});}
+    else pinMk.setLatLng([pinLat,pinLng]);
+    pinMap.setView([pinLat,pinLng],Math.max(pinMap.getZoom(),16));
+    pinInfo.textContent="Đã ghim vị trí nhận hàng, đơn sẽ kèm link bản đồ. Đang tìm địa chỉ gần đó…";
+    fetch("https://photon.komoot.io/reverse?lat="+pinLat+"&lon="+pinLng+"&limit=1").then(function(r){return r.json();}).then(function(j){
+      var p=j&&j.features&&j.features[0]&&j.features[0].properties;if(!p){throw 0;}
+      var line=[(p.housenumber?p.housenumber+" ":"")+(p.street||p.name||""),p.district||p.locality,p.city||p.county,p.state].filter(function(x){return x&&String(x).trim();});
+      var uniq=line.filter(function(x,i){return line.indexOf(x)===i;}).join(", ");
+      pinInfo.textContent="Đã ghim vị trí nhận hàng, đơn sẽ kèm link bản đồ. Gợi ý địa chỉ: "+uniq+" ";
+      var b=document.createElement("button");b.type="button";b.className="btn ghost sm";b.textContent="Điền vào ô địa chỉ";
+      b.addEventListener("click",function(){var a=document.getElementById("addr");a.value=(a.value.trim()?a.value.trim()+" – ":"")+uniq;a.value=a.value.slice(0,300);b.remove();});
+      pinInfo.appendChild(b);
+    }).catch(function(){pinInfo.textContent="Đã ghim vị trí nhận hàng, đơn sẽ kèm link bản đồ. Anh chị ghi thêm số nhà vào ô địa chỉ.";});
+  }
+  document.getElementById("pinOpen").addEventListener("click",function(){openPin();});
+  document.getElementById("pinGeo").addEventListener("click",function(){
+    if(!navigator.geolocation){pinInfo.textContent="Máy không hỗ trợ lấy vị trí. Chạm lên bản đồ để ghim.";openPin();return;}
+    pinInfo.textContent="Đang lấy vị trí… (máy có thể hỏi quyền, bấm Cho phép)";
+    navigator.geolocation.getCurrentPosition(function(pos){openPin(function(){setPin(pos.coords.latitude,pos.coords.longitude);});},
+      function(){pinInfo.textContent="Chưa lấy được vị trí. Bật định vị hoặc chạm lên bản đồ để ghim.";openPin();},
+      {enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+  });
 })();
 </script>
 
