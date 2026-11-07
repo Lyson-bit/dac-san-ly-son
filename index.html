@@ -346,11 +346,11 @@ section[id]{scroll-margin-top:60px}
     <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
     <nav aria-label="Mục lục">
       <a href="#dao">Đảo tỏi</a>
+      <a href="#nhac">Nghe nhạc</a>
+      <a href="#hoi-dap">Hỏi đáp</a>
       <a href="#san-pham">Sản phẩm</a>
       <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#phan-biet">Phân biệt</a>
-      <a href="#nhac">Nghe nhạc</a>
-      <a href="#hoi-dap">Hỏi đáp</a>
       <a class="cta-link" href="#dat-hang">Đặt hàng</a>
     </nav>
   </div>
@@ -427,6 +427,63 @@ section[id]{scroll-margin-top:60px}
           <div class="swatch" style="background:var(--fg)"></div>
           <div><b>Đá nền núi lửa</b><small>Đá bazan bên dưới, chỗ mạch nước ngầm của giếng trên đảo.</small></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="nhac" class="music">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Nhạc quê hương</p>
+        <h2>Nghe một khúc Quảng Ngãi</h2>
+        <p>Những bài hát về Lý Sơn, Quảng Ngãi và biển đảo, phát từ kênh chính thức của ca sĩ, nhạc sĩ. Bấm một bài để nghe, hết bài tự chuyển bài sau.</p>
+      </div>
+      <div class="music-grid">
+        <div class="now">
+          <div class="screen" id="screen">
+            <div class="cover" id="cover">
+              <svg viewBox="0 0 120 48" aria-hidden="true"><path d="M2 30 Q17 14 32 30 T62 30 T92 30 T118 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".9"/><path d="M2 40 Q17 26 32 40 T62 40 T92 40 T118 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/><circle cx="90" cy="12" r="6" fill="currentColor" opacity=".8"/></svg>
+              <b>Chọn một bài để nghe</b>
+              <span>12 bài · Lý Sơn · Quảng Ngãi · Biển đảo</span>
+            </div>
+          </div>
+          <div aria-live="polite"><div class="now-title" id="nowTitle">Chưa phát bài nào</div><div class="now-artist" id="nowArtist">Bấm vào một bài trong danh sách</div></div>
+          <div class="controls">
+            <button class="ctl" type="button" id="prevBtn" aria-label="Bài trước"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 9 12l10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <button class="ctl main" type="button" id="playBtn" aria-label="Phát"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="playIco" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+            <button class="ctl" type="button" id="nextBtn" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <div class="progress" id="prog" role="slider" aria-label="Vị trí bài hát" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="progBar"></i></div>
+          </div>
+          <div class="time-row"><span id="musicMsg"></span><span class="time" id="time">0:00 / 0:00</span></div>
+          <p class="music-note framed-only">Bản xem trước trên claude.ai có thể không phát được nhạc. Nghe đầy đủ tại nguyenvandanh2210lyson-bit.github.io/dac-san-ly-son</p>
+        </div>
+        <div>
+          <div class="chips" role="group" aria-label="Lọc theo chủ đề">
+            <button class="chip" type="button" data-g="all" aria-pressed="true">Tất cả</button>
+            <button class="chip" type="button" data-g="ly-son" aria-pressed="false">Lý Sơn</button>
+            <button class="chip" type="button" data-g="quang-ngai" aria-pressed="false">Quảng Ngãi</button>
+            <button class="chip" type="button" data-g="bien-dao" aria-pressed="false">Biển đảo</button>
+          </div>
+          <ol class="tracks" id="tracks"></ol>
+          <p class="music-note">Nhạc phát qua trình phát YouTube từ kênh chính thức của ca sĩ, nhạc sĩ. Bản quyền thuộc tác giả và đơn vị phát hành. Trang không lưu hay tải file nhạc.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hoi-dap" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Hỏi đáp</p>
+        <h2>Câu hỏi khách hay hỏi</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Có gửi hàng đi tỉnh khác không?</summary><p>Có. Hàng gửi toàn quốc qua bưu điện hoặc dịch vụ chuyển phát. Phí gửi tùy nơi nhận và khối lượng, người bán báo khi xác nhận đơn.</p></details>
+        <details><summary>Có được kiểm hàng trước khi trả tiền không?</summary><p>Có. Anh chị được mở xem hàng khi nhận, thấy đúng hàng rồi mới trả tiền.</p></details>
+        <details><summary>Hàng bị lỗi thì sao?</summary><p>Tỏi bị mốc, hỏng hoặc gửi sai hàng thì được đổi. Anh chị chụp ảnh hàng lúc nhận và nhắn Zalo 0363 594 167.</p></details>
+        <details><summary>Hàng lấy từ đâu?</summary><p>Hàng nhà trồng và làm trên đảo Lý Sơn, gửi về đất liền theo từng đợt thu hoạch.</p></details>
+        <details><summary>Vì sao trang không ghi giá?</summary><p>Giá tỏi và hành thay đổi theo vụ và sản lượng từng đợt. Nhắn Zalo để được báo giá đúng đợt hàng đang có.</p></details>
+        <details><summary>Tỏi cô đơn có phải giống tỏi riêng không?</summary><p>Không. Đó là những cây tỏi thường chỉ tạo một tép, được nhặt riêng khi thu hoạch nên số lượng ít.</p></details>
       </div>
     </div>
   </section>
@@ -552,63 +609,6 @@ section[id]{scroll-margin-top:60px}
     </div>
   </section>
 
-  <section id="nhac" class="music">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Nhạc quê hương</p>
-        <h2>Nghe một khúc Quảng Ngãi</h2>
-        <p>Những bài hát về Lý Sơn, Quảng Ngãi và biển đảo, phát từ kênh chính thức của ca sĩ, nhạc sĩ. Bấm một bài để nghe, hết bài tự chuyển bài sau.</p>
-      </div>
-      <div class="music-grid">
-        <div class="now">
-          <div class="screen" id="screen">
-            <div class="cover" id="cover">
-              <svg viewBox="0 0 120 48" aria-hidden="true"><path d="M2 30 Q17 14 32 30 T62 30 T92 30 T118 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".9"/><path d="M2 40 Q17 26 32 40 T62 40 T92 40 T118 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/><circle cx="90" cy="12" r="6" fill="currentColor" opacity=".8"/></svg>
-              <b>Chọn một bài để nghe</b>
-              <span>12 bài · Lý Sơn · Quảng Ngãi · Biển đảo</span>
-            </div>
-          </div>
-          <div aria-live="polite"><div class="now-title" id="nowTitle">Chưa phát bài nào</div><div class="now-artist" id="nowArtist">Bấm vào một bài trong danh sách</div></div>
-          <div class="controls">
-            <button class="ctl" type="button" id="prevBtn" aria-label="Bài trước"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 9 12l10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-            <button class="ctl main" type="button" id="playBtn" aria-label="Phát"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="playIco" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
-            <button class="ctl" type="button" id="nextBtn" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
-            <div class="progress" id="prog" role="slider" aria-label="Vị trí bài hát" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="progBar"></i></div>
-          </div>
-          <div class="time-row"><span id="musicMsg"></span><span class="time" id="time">0:00 / 0:00</span></div>
-          <p class="music-note framed-only">Bản xem trước trên claude.ai có thể không phát được nhạc. Nghe đầy đủ tại nguyenvandanh2210lyson-bit.github.io/dac-san-ly-son</p>
-        </div>
-        <div>
-          <div class="chips" role="group" aria-label="Lọc theo chủ đề">
-            <button class="chip" type="button" data-g="all" aria-pressed="true">Tất cả</button>
-            <button class="chip" type="button" data-g="ly-son" aria-pressed="false">Lý Sơn</button>
-            <button class="chip" type="button" data-g="quang-ngai" aria-pressed="false">Quảng Ngãi</button>
-            <button class="chip" type="button" data-g="bien-dao" aria-pressed="false">Biển đảo</button>
-          </div>
-          <ol class="tracks" id="tracks"></ol>
-          <p class="music-note">Nhạc phát qua trình phát YouTube từ kênh chính thức của ca sĩ, nhạc sĩ. Bản quyền thuộc tác giả và đơn vị phát hành. Trang không lưu hay tải file nhạc.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="hoi-dap" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Hỏi đáp</p>
-        <h2>Câu hỏi khách hay hỏi</h2>
-      </div>
-      <div class="faq">
-        <details open><summary>Có gửi hàng đi tỉnh khác không?</summary><p>Có. Hàng gửi toàn quốc qua bưu điện hoặc dịch vụ chuyển phát. Phí gửi tùy nơi nhận và khối lượng, người bán báo khi xác nhận đơn.</p></details>
-        <details><summary>Có được kiểm hàng trước khi trả tiền không?</summary><p>Có. Anh chị được mở xem hàng khi nhận, thấy đúng hàng rồi mới trả tiền.</p></details>
-        <details><summary>Hàng bị lỗi thì sao?</summary><p>Tỏi bị mốc, hỏng hoặc gửi sai hàng thì được đổi. Anh chị chụp ảnh hàng lúc nhận và nhắn Zalo 0363 594 167.</p></details>
-        <details><summary>Hàng lấy từ đâu?</summary><p>Hàng nhà trồng và làm trên đảo Lý Sơn, gửi về đất liền theo từng đợt thu hoạch.</p></details>
-        <details><summary>Vì sao trang không ghi giá?</summary><p>Giá tỏi và hành thay đổi theo vụ và sản lượng từng đợt. Nhắn Zalo để được báo giá đúng đợt hàng đang có.</p></details>
-        <details><summary>Tỏi cô đơn có phải giống tỏi riêng không?</summary><p>Không. Đó là những cây tỏi thường chỉ tạo một tép, được nhặt riêng khi thu hoạch nên số lượng ít.</p></details>
-      </div>
-    </div>
-  </section>
-
   <section id="dat-hang" class="order">
     <div class="wrap">
       <div class="sec-head">
@@ -697,10 +697,10 @@ section[id]{scroll-margin-top:60px}
     <nav class="foot-links" aria-label="Thông tin">
       <h3>Thông tin</h3>
       <a href="#dao">Đảo tỏi</a>
-      <a href="#cach-dung">Cách dùng</a>
-      <a href="#phan-biet">Phân biệt</a>
       <a href="#nhac">Nhạc quê hương</a>
       <a href="#hoi-dap">Hỏi đáp</a>
+      <a href="#cach-dung">Cách dùng</a>
+      <a href="#phan-biet">Phân biệt</a>
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Trang chính thức duy nhất: nguyenvandanh2210lyson-bit.github.io/dac-san-ly-son. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
