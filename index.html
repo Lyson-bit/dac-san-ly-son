@@ -327,12 +327,19 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .mini-text{display:grid;min-width:0;line-height:1.25}
 .mini-text small{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
 .mini-text b{font-size:.84rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-text small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-next{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:inherit;display:grid;place-items:center;cursor:pointer;padding:0;opacity:.85}
 .mini-next svg{width:16px;height:16px}
 .mini-eq{display:flex;gap:2px;align-items:flex-end;height:14px;flex:none}
 .mini-eq i{width:3px;height:35%;border-radius:1px;background:var(--sea)}
 @media (prefers-reduced-motion:no-preference){.mini.playing .mini-eq i{animation:eq .9s ease-in-out infinite}.mini-eq i:nth-child(2){animation-delay:.2s}.mini-eq i:nth-child(3){animation-delay:.4s}}
 .framed .mini{display:none}
+.mini-tip{position:absolute;left:0;bottom:calc(100% + 10px);width:min(300px,calc(100vw - 32px));margin:0;padding:10px 12px;border-radius:12px;background:var(--surface);color:var(--fg);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:.82rem;line-height:1.45}
+.mini-tip::after{content:"";position:absolute;left:22px;top:100%;border:7px solid transparent;border-top-color:var(--surface)}
+.mini-tip[hidden]{display:none}
+.mini.muted .mini-play{background:#D99A1E;color:#1E2422}
+@media (prefers-reduced-motion:no-preference){.mini.muted .mini-play{animation:pulse 1.6s ease-in-out infinite}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(217,154,30,.6)}50%{box-shadow:0 0 0 8px rgba(217,154,30,0)}}
 
 /* Nhạc quê hương */
 .music{background:var(--sea-soft)}
@@ -583,6 +590,7 @@ section[id]{scroll-margin-top:60px}
             <button class="chip" type="button" data-g="bien-dao" aria-pressed="false">Biển đảo</button>
           </div>
           <ol class="tracks" id="tracks"></ol>
+          <p class="music-note"><b>Mở trang trên điện thoại chưa nghe tiếng?</b> Điện thoại và trình duyệt (Chrome, Safari, Zalo) không cho trang web tự phát nhạc có tiếng khi anh chị chưa chạm vào trang. Nhạc đã tự chạy ở chế độ tắt tiếng, anh chị <b>chạm vào trang một lần</b> hoặc bấm nút 🔇 trên thanh nhạc là có tiếng. Nhớ bật âm lượng điện thoại và tắt chế độ im lặng. Muốn tắt nhạc thì bấm nút dừng.</p>
           <p class="music-note">Nhạc phát qua trình phát YouTube từ kênh chính thức của ca sĩ, nhạc sĩ. Bản quyền thuộc tác giả và đơn vị phát hành. Trang không lưu hay tải file nhạc.</p>
         </div>
       </div>
@@ -856,8 +864,9 @@ section[id]{scroll-margin-top:60px}
 </dialog>
 
 <div class="mini" id="mini" role="region" aria-label="Trình phát nhạc quê hương">
-  <button class="mini-play" type="button" id="miniPlay" aria-label="Phát nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="miniIco" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
-  <a class="mini-info" href="#nhac"><span class="mini-eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="mini-text"><small>Nhạc quê hương</small><b id="miniTitle">Chạm vào trang để nghe nhạc Lý Sơn</b></span></a>
+  <p class="mini-tip" id="miniTip" hidden>Điện thoại không cho trang tự phát có tiếng. <b>Chạm vào trang một lần</b> hoặc bấm nút 🔇 để nghe nhạc.</p>
+  <button class="mini-play" type="button" id="miniPlay" aria-label="Phát nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="miniIco" d="M8 5v14l11-7z" fill="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <a class="mini-info" id="miniInfo" href="#nhac"><span class="mini-eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="mini-text"><small id="miniHint">Nhạc quê hương</small><b id="miniTitle">Lý Sơn Quê Hương Em · Sa Huỳnh</b></span></a>
   <button class="mini-next" type="button" id="miniNext" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
 </div>
 
@@ -1091,18 +1100,24 @@ section[id]{scroll-margin-top:60px}
       li.appendChild(b);list.appendChild(li);
     });
   }
-  var mini=document.getElementById("mini"),miniTitle=document.getElementById("miniTitle"),miniPlay=document.getElementById("miniPlay"),miniIco=document.getElementById("miniIco");
-  var ytReady=false,wantPlay=false;
-  function setPlaying(on){
-    musicSec.classList.toggle("playing",on);mini.classList.toggle("playing",on);
-    playIco.setAttribute("d",on?ICO_PAUSE:ICO_PLAY);miniIco.setAttribute("d",on?ICO_PAUSE:ICO_PLAY);
-    var l=on?"Tạm dừng nhạc":"Phát nhạc";playBtn.setAttribute("aria-label",l);miniPlay.setAttribute("aria-label",l);
+  var mini=document.getElementById("mini"),miniTitle=document.getElementById("miniTitle"),miniPlay=document.getElementById("miniPlay"),miniIco=document.getElementById("miniIco"),miniHint=document.getElementById("miniHint"),miniTip=document.getElementById("miniTip");
+  var ytReady=false,wantPlay=false,muted=true,isPlaying=false;
+  var ICO_MUTED="M4 9v6h4l5 4V5L8 9H4zM16 9l5 6M21 9l-5 6";
+  /* Cập nhật nút và chữ theo trạng thái: đang phát tắt tiếng / đang phát / dừng */
+  function ui(){
+    musicSec.classList.toggle("playing",isPlaying);mini.classList.toggle("playing",isPlaying);
+    var silent=isPlaying&&muted;
+    mini.classList.toggle("muted",silent);
+    playIco.setAttribute("d",isPlaying?ICO_PAUSE:ICO_PLAY);
+    miniIco.setAttribute("d",silent?ICO_MUTED:(isPlaying?ICO_PAUSE:ICO_PLAY));
+    miniIco.setAttribute("fill",silent?"none":"currentColor");miniIco.setAttribute("stroke",silent?"currentColor":"none");
+    var l=silent?"Bật tiếng nhạc":(isPlaying?"Tạm dừng nhạc":"Phát nhạc");miniPlay.setAttribute("aria-label",l);
+    playBtn.setAttribute("aria-label",isPlaying?"Tạm dừng nhạc":"Phát nhạc");
+    miniHint.textContent=silent?"Đang tắt tiếng · chạm để nghe":(isPlaying?"Đang phát · nhạc quê hương":"Nhạc quê hương");
+    miniTip.hidden=!silent;
   }
+  function setPlaying(on){isPlaying=on;ui();}
   function showSong(i){var s=songs[i];nowTitle.textContent=s.t;nowArtist.textContent=s.a;miniTitle.textContent=s.t+" · "+s.a;}
-  /* Nhớ lựa chọn tắt nhạc của khách (chỉ là tiện ích trên máy khách; lỗi bộ nhớ thì coi như chưa tắt) */
-  var OFF_KEY="lyson-nhac-tat";
-  function isOff(){try{return localStorage.getItem(OFF_KEY)==="1";}catch(e){return false;}}
-  function setOff(v){try{if(v)localStorage.setItem(OFF_KEY,"1");else localStorage.removeItem(OFF_KEY);}catch(e){}}
   function loadApi(cb){
     if(window.YT&&YT.Player){cb();return;}
     pending=cb;if(apiLoading)return;apiLoading=true;
@@ -1111,13 +1126,17 @@ section[id]{scroll-margin-top:60px}
     sc.onerror=function(){apiLoading=false;musicMsg.textContent="Chưa tải được trình phát. Kiểm tra mạng rồi bấm lại.";};
     document.head.appendChild(sc);
   }
-  /* Tạo trình phát một lần. autoplay=false: tạo sẵn (bài đầu đã nạp) để lần chạm đầu của khách phát được ngay, kể cả iPhone */
-  function makePlayer(autoplay,idx){
+  /* Tạo trình phát một lần. Mở trang là phát ngay ở chế độ tắt tiếng (trình duyệt cho phép), chạm lần đầu thì bật tiếng */
+  function makePlayer(idx){
     var holder=document.createElement("div");holder.id="ytHolder";screen.appendChild(holder);
     yt=new YT.Player("ytHolder",{host:"https://www.youtube-nocookie.com",videoId:songs[idx].id,
-      playerVars:{autoplay:autoplay?1:0,playsinline:1,rel:0,modestbranding:1},
+      playerVars:{autoplay:1,mute:muted?1:0,playsinline:1,rel:0,modestbranding:1},
       events:{
-        onReady:function(e){ytReady=true;cover.hidden=true;startTimer();if(wantPlay){e.target.loadVideoById(songs[cur].id);}},
+        onReady:function(e){
+          ytReady=true;cover.hidden=true;startTimer();
+          if(muted)e.target.mute();else{e.target.unMute();e.target.setVolume(100);}
+          if(cur!==idx)e.target.loadVideoById(songs[cur].id);else e.target.playVideo();
+        },
         onStateChange:function(e){
           if(e.data===1){setPlaying(true);musicMsg.textContent="";}
           else if(e.data===2){setPlaying(false);}
@@ -1128,19 +1147,30 @@ section[id]{scroll-margin-top:60px}
       }});
   }
   function play(i){
-    cur=i;wantPlay=true;setOff(false);showSong(i);musicMsg.textContent="Đang mở bài…";renderList();
+    cur=i;wantPlay=true;showSong(i);musicMsg.textContent="Đang mở bài…";renderList();
     if(ytReady){yt.loadVideoById(songs[i].id);return;}
     if(yt)return; /* đang tạo, onReady sẽ phát bài cur */
-    loadApi(function(){if(!yt)makePlayer(true,cur);});
+    loadApi(function(){if(!yt)makePlayer(cur);});
   }
-  function prepare(){
-    if(yt||framed||isOff())return;
-    loadApi(function(){if(!yt)makePlayer(false,0);});
+  /* Bật tiếng – phải gọi trong lúc khách chạm/bấm thì điện thoại mới cho có tiếng */
+  function unmute(){
+    muted=false;
+    if(ytReady){
+      /* Chrome dừng bài khi bỏ tắt tiếng bài đang tự phát; nạp lại đúng giây đang nghe trong lúc khách chạm để có tiếng ngay */
+      var t=0;try{t=yt.getCurrentTime()||0;}catch(e){}
+      yt.unMute();yt.setVolume(100);
+      yt.loadVideoById({videoId:songs[cur>=0?cur:0].id,startSeconds:Math.floor(t)});
+    }
+    else if(!yt){play(cur>=0?cur:0);}
+    ui();
   }
   function toggle(){
-    if(!ytReady){setOff(false);var v=visible();play(cur>=0?cur:v[0]);return;}
-    if(yt.getPlayerState()===1){wantPlay=false;setOff(true);yt.pauseVideo();}
-    else{wantPlay=true;setOff(false);if(cur<0){play(visible()[0]);}else{yt.playVideo();}}
+    if(muted&&isPlaying){unmute();return;}
+    muted=false;
+    if(!ytReady){var v=visible();play(cur>=0?cur:v[0]);return;}
+    yt.unMute();
+    if(yt.getPlayerState()===1){wantPlay=false;yt.pauseVideo();}
+    else{wantPlay=true;if(cur<0){play(visible()[0]);}else{yt.playVideo();}}
   }
   function step(d){var v=visible();if(!v.length)return;var k=v.indexOf(cur);k=k<0?0:(k+d+v.length)%v.length;play(v[k]);}
   function startTimer(){
@@ -1168,25 +1198,24 @@ section[id]{scroll-margin-top:60px}
   });
   renderList();
 
-  /* ===== Thanh nhạc nổi + tự phát nhạc nền ở lần chạm đầu =====
-     Trình duyệt không cho tự phát có tiếng khi khách chưa chạm vào trang, nên nhạc bắt đầu ngay ở lần chạm/bấm đầu tiên.
-     Khách bấm dừng thì nhớ lại, lần sau không tự phát nữa. */
+  /* ===== Thanh nhạc nổi: mở trang là nhạc chạy ngay =====
+     Điện thoại và trình duyệt cấm trang tự phát CÓ TIẾNG khi khách chưa chạm vào trang (luật chung của Chrome, Safari),
+     nên nhạc tự chạy ở chế độ tắt tiếng; khách chạm bất kỳ đâu lần đầu (hoặc nút 🔇) là có tiếng. Muốn tắt thì bấm dừng. */
   miniPlay.addEventListener("click",function(){toggle();});
-  document.getElementById("miniNext").addEventListener("click",function(){setOff(false);step(1);});
+  document.getElementById("miniNext").addEventListener("click",function(){muted=false;step(1);});
+  document.getElementById("miniInfo").addEventListener("click",function(e){if(muted&&isPlaying){e.preventDefault();unmute();}});
   var AUTO_EVT=["pointerdown","keydown","touchstart"];
-  function stopAuto(){AUTO_EVT.forEach(function(t){document.removeEventListener(t,autoStart,true);});}
-  function autoStart(e){
-    if(e&&e.target&&(mini.contains(e.target)||musicSec.contains(e.target)))return; /* để nút nhạc tự xử lý */
+  function stopAuto(){AUTO_EVT.forEach(function(t){document.removeEventListener(t,firstTouch,true);});}
+  function firstTouch(e){
     stopAuto();
-    if(isOff()||framed)return;
-    if(ytReady&&yt.getPlayerState&&yt.getPlayerState()===1)return;
-    play(cur>=0?cur:0);
+    if(e&&e.target&&(miniPlay.contains(e.target)||playBtn.contains(e.target)))return; /* nút phát/dừng tự xử lý */
+    if(muted)unmute();
   }
   if(framed){mini.hidden=true;}
   else{
-    if(isOff()){miniTitle.textContent="Bấm ▶ để nghe nhạc quê hương";}
-    else{AUTO_EVT.forEach(function(t){document.addEventListener(t,autoStart,true);});}
-    window.addEventListener("load",function(){setTimeout(prepare,1200);});
+    AUTO_EVT.forEach(function(t){document.addEventListener(t,firstTouch,true);});
+    cur=0;showSong(0);renderList();ui();
+    loadApi(function(){if(!yt)makePlayer(cur);});
   }
 
   /* ===== Hỏi đáp theo chủ đề ===== */
