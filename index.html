@@ -128,6 +128,19 @@ nav a:hover{color:var(--sea)}
 .hero-qr figcaption{margin-top:5px;font:600 .72rem/1.25 var(--f-body);color:var(--sea)}
 .hero-qr small{display:block;font:italic 500 .66rem var(--f-display);color:var(--shallot)}
 @media (max-width:1100px){.hero-qr{width:116px;top:-4px}}
+/* Lời chào khi gửi đơn Zalo + chào khách quay lại */
+.zalo-hello{position:relative;margin-top:12px;padding:14px 16px 12px;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--sea) 18%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--sea) 45%,transparent);color:var(--fg);display:grid;gap:6px;animation:zh-in .35s ease-out}
+@keyframes zh-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.zalo-hello{animation:none}}
+.zh-hi{font:italic 600 1.05rem/1.35 var(--f-display);color:var(--shallot);padding-right:24px}
+.zh-hi b{font-style:normal;color:var(--fg)}
+.zh-ok{font-size:.92rem;color:var(--sea);font-weight:600}
+.zh-steps{margin:0;padding-left:20px;display:grid;gap:3px;font-size:.92rem}
+.zh-foot{font-size:.84rem;color:var(--muted)}
+.zh-foot a{color:var(--sea);font-weight:700}
+.zh-x{position:absolute;top:8px;right:10px;border:0;background:none;color:var(--muted);font-size:1rem;cursor:pointer;line-height:1}
+.welcome-back{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:12px;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--shallot) 12%,transparent);border:1px dashed color-mix(in srgb,var(--shallot) 55%,transparent);font-size:.9rem}
+.welcome-back button{border:0;background:none;color:var(--muted);text-decoration:underline;font-size:.8rem;cursor:pointer;padding:0}
 /* Nút chia sẻ / sao chép mã QR */
 .qr-acts{display:flex;gap:5px;margin-top:6px}
 .qr-acts button{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:3px;padding:5px 4px;border-radius:999px;border:1px solid var(--sea);background:transparent;color:var(--sea);font:600 .64rem/1.1 var(--f-body);cursor:pointer;white-space:nowrap}
@@ -1091,6 +1104,7 @@ section[id]{scroll-margin-top:100px}
       </div>
       <div class="order-grid">
         <form id="orderForm" novalidate>
+          <p class="welcome-back" id="welcomeBack" hidden></p>
           <div class="row">
             <label for="name">Họ tên<input id="name" name="name" maxlength="80" autocomplete="name" placeholder="Nguyễn Văn A" required></label>
             <label for="phone">Số điện thoại<input id="phone" name="phone" type="tel" maxlength="15" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" required></label>
@@ -1120,6 +1134,17 @@ section[id]{scroll-margin-top:100px}
             <div class="send-btns">
               <button class="btn primary big" type="button" id="sendBtn" hidden>Gửi đơn hàng</button>
               <a class="btn primary big" id="zaloBtn" href="https://zalo.me/0363594167" target="_blank" rel="noopener">Gửi đơn qua Zalo</a>
+            </div>
+            <div class="zalo-hello" id="zaloHello" hidden>
+              <button type="button" class="zh-x" id="zaloHelloX" aria-label="Đóng">✕</button>
+              <p class="zh-hi">🌊 Cám ơn <span id="zhName">bạn</span> đã đến với trang <b>Lý Sơn – nhà của Đạt</b>!</p>
+              <p class="zh-ok">✓ Đơn hàng đã được <b>sao chép sẵn</b>. Giờ chỉ cần dán vào Zalo:</p>
+              <ol class="zh-steps">
+                <li>Trong Zalo, <b>chạm và giữ</b> ô gõ tin nhắn khoảng 1 giây.</li>
+                <li>Bấm <b>Dán</b>, đơn hiện ra trong ô.</li>
+                <li>Bấm nút gửi <b>➤</b>. Xong!</li>
+              </ol>
+              <p class="zh-foot">Đạt sẽ gọi lại báo giá và phí gửi. Cần hỏi ngay: <a href="tel:0333216563">0333 216 563</a></p>
             </div>
             <p class="send-status" id="sendStatus" role="status" aria-live="polite"></p>
             <div class="send-alt direct-only">
@@ -1248,7 +1273,8 @@ section[id]{scroll-margin-top:100px}
     status.textContent="";
     document.getElementById("createBtn").textContent="Cập nhật đơn";
     smsBtn.href="sms:0363594167"+(isIOS?"&":"?")+"body="+encodeURIComponent(msg.value);
-    ready=false;zaloBtn.textContent=LABEL;
+    ready=false;zaloBtn.textContent=LABEL;var zh0=document.getElementById("zaloHello");if(zh0)zh0.hidden=true;
+    try{localStorage.setItem("lsd_khach",JSON.stringify({n:name,p:phone,a:addr}));}catch(e){}
     if(auto){sendBtn.disabled=false;sendBtn.textContent=sent?"Gửi lại đơn đã sửa":"Gửi đơn hàng";}
     show("Đã tạo đơn. Kiểm tra lại rồi bấm “"+(auto?"Gửi đơn hàng":LABEL)+"”.","ok");
     out.scrollIntoView({block:"start",behavior:reduce?"auto":"smooth"});
@@ -1320,16 +1346,37 @@ section[id]{scroll-margin-top:100px}
     show("Máy chưa cho tự sao chép, anh chị làm tay giúp: giữ ngón tay trên ô Nội dung đơn → Chọn tất cả → Sao chép. Rồi mở app Zalo, tìm số 0363 594 167, dán vào ô tin nhắn và bấm ➤.","warn");
     try{msg.focus({preventScroll:true});msg.setSelectionRange(0,msg.value.length);}catch(e){}
   }
+  /* Lời chào khi khách bấm Gửi đơn qua Zalo (web tự hiện, không cần Zalo OA) */
+  var zh=document.getElementById("zaloHello");
+  function hello(){
+    var n=(document.getElementById("name").value||"").trim().split(/\s+/).pop();
+    document.getElementById("zhName").textContent=n?("anh/chị "+n):"bạn";
+    zh.hidden=false;sendStatus.textContent="";sendStatus.className="send-status";
+    try{zh.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});}catch(e){}
+  }
+  document.getElementById("zaloHelloX").addEventListener("click",function(){zh.hidden=true;});
+  /* Khách quay lại: thông tin lần trước lưu ngay trên máy khách (không gửi đi đâu) được điền sẵn, kèm lời chào */
+  (function(){
+    var kh=null;try{kh=JSON.parse(localStorage.getItem("lsd_khach")||"null");}catch(e){}
+    if(!kh||!kh.n)return;
+    var fn=document.getElementById("name"),fp=document.getElementById("phone"),fa=document.getElementById("addr");
+    if(!fn.value)fn.value=String(kh.n).slice(0,80);if(!fp.value)fp.value=String(kh.p||"").slice(0,15);if(!fa.value&&kh.a)fa.value=String(kh.a).slice(0,300);
+    var wb=document.getElementById("welcomeBack"),first=String(kh.n).trim().split(/\s+/).pop();
+    var t=document.createElement("span");t.textContent="👋 Chào mừng anh/chị "+first+" quay lại Lý Sơn – nhà của Đạt! Thông tin lần trước đã được điền sẵn.";
+    var x=document.createElement("button");x.type="button";x.textContent="Không phải tôi";
+    x.addEventListener("click",function(){try{localStorage.removeItem("lsd_khach");}catch(e){}fn.value="";fp.value="";fa.value="";wb.hidden=true;});
+    wb.appendChild(t);wb.appendChild(x);wb.hidden=false;
+  })();
   zaloBtn.addEventListener("click",function(e){
     if(framed){
       e.preventDefault();
-      if(copySync())show(OK_FRAMED,"ok");else copyAsync(function(){show(OK_FRAMED,"ok");},failFramed);
+      if(copySync()){hello();show(OK_FRAMED,"ok");}else copyAsync(function(){hello();show(OK_FRAMED,"ok");},failFramed);
       return;
     }
-    if(ready)return;                      /* lần bấm thứ hai: chỉ mở Zalo */
-    if(copySync()){show(OK_ZALO,"ok");ready=true;return;}
+    if(ready){hello();return;}            /* lần bấm thứ hai: chỉ mở Zalo */
+    if(copySync()){ready=true;hello();return;}
     e.preventDefault();ready=true;zaloBtn.textContent="Mở Zalo và dán đơn";
-    copyAsync(function(){show("Đã sao chép đơn. Bấm “Mở Zalo và dán đơn”. Trong Zalo: chạm vào ô gõ tin nhắn → giữ ngón tay 1 giây → bấm Dán → bấm ➤.","ok");},failCopy);
+    copyAsync(function(){hello();show("Bấm “Mở Zalo và dán đơn” để mở Zalo.","ok");},failCopy);
   });
   document.getElementById("copyBtn").addEventListener("click",function(){
     var okT="Đã sao chép đơn. Mở Zalo, vào chat với 0363 594 167, chạm ô gõ tin nhắn → giữ 1 giây → Dán → ➤.";
