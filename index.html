@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.met.no https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.met.no https://abacus.jasoncameron.dev https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
@@ -276,6 +276,8 @@ footer h3{font-size:1rem;color:var(--fg);margin-bottom:8px}
 .foot-links a{color:var(--muted);text-decoration:none}
 .foot-links a:hover{color:var(--sea)}
 .foot-bottom{grid-column:1/-1;border-top:1px solid var(--line);padding-top:14px;font-size:.84rem}
+.ver{grid-column:1/-1;margin-top:-8px;font:500 .7rem/1.4 var(--f-body);letter-spacing:.06em;color:var(--muted);opacity:.75;text-align:right}
+.ver span{font-variant-numeric:tabular-nums}
 @media (max-width:640px){footer .wrap{grid-template-columns:1fr 1fr}footer .wrap>div:first-child{grid-column:1/-1}}
 
 /* Hero bổ sung */
@@ -1129,7 +1131,7 @@ section[id]{scroll-margin-top:100px}
           <div style="display:flex;gap:12px;flex-wrap:wrap">
             <button class="btn primary" type="submit" id="createBtn">Tạo đơn hàng</button>
           </div>
-          <p class="privacy-note">🔒 <b>Bảo vệ thông tin của anh/chị:</b> họ tên, số điện thoại, địa chỉ chỉ dùng để người bán liên hệ và giao hàng. Trang <b>không tự gửi đi đâu</b>, chỉ lưu trên chính máy của anh/chị để lần sau điền nhanh. Đơn tới người bán khi anh/chị tự gửi qua Zalo hoặc SMS. Bấm “Tạo đơn hàng” là anh/chị đồng ý cho người bán dùng thông tin này để liên hệ, giao hàng; người bán không chia sẻ cho bên khác. <button type="button" id="forgetMe">Xóa thông tin đã lưu trên máy</button></p>
+          <p class="privacy-note">🔒 <b>Bảo vệ thông tin của anh/chị:</b> họ tên, số điện thoại, địa chỉ chỉ dùng để người bán liên hệ và giao hàng. Trang <b>không tự gửi đi đâu</b>, chỉ lưu trên chính máy của anh/chị để lần sau điền nhanh. Đơn tới người bán khi anh/chị tự gửi qua Zalo hoặc SMS. Bấm “Tạo đơn hàng” là anh/chị đồng ý cho người bán dùng thông tin này để liên hệ, giao hàng; người bán không chia sẻ cho bên khác. Trang có đếm số máy đã truy cập (chỉ đếm số, không ghi tên hay số điện thoại). <button type="button" id="forgetMe">Xóa thông tin đã lưu trên máy</button></p>
           <input class="hp" id="web" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
           <p class="manual">Thông tin đơn chỉ dùng để người bán gọi xác nhận và gửi hàng.</p>
           <div class="out" id="out" hidden>
@@ -1214,6 +1216,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.13</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1455,6 +1458,20 @@ section[id]{scroll-margin-top:100px}
       }
       if(blob)go(blob);else makePng(k).then(go,function(){go(null);});
     },true);
+  })();
+
+  /* Đếm số người truy cập (mỗi máy 1 lần) bằng Abacus (miễn phí, không cần tài khoản, chỉ đếm số).
+     Chỉ cộng khi chạy trên web thật lyson-bit.github.io; bản thử/xem trước chỉ đọc số. */
+  (function(){
+    var el=document.getElementById("visits");if(!el||!window.fetch)return;
+    var NS="lyson-bit-dac-san-ly-son",KEY="khach",API="https://abacus.jasoncameron.dev/";
+    var live=location.hostname==="lyson-bit.github.io",seen=false;
+    try{seen=localStorage.getItem("lsd_da_dem")==="1";}catch(e){}
+    var url=API+((live&&!seen)?"hit/":"get/")+NS+"/"+KEY;
+    fetch(url,{cache:"no-store"}).then(function(r){return r.ok?r.json():(r.status===404?{value:0}:null);}).then(function(j){
+      if(j&&typeof j.value==="number"){el.textContent=j.value.toLocaleString("vi-VN");if(live&&!seen){try{localStorage.setItem("lsd_da_dem","1");}catch(e){}}}
+      else el.textContent="–";
+    }).catch(function(){el.textContent="–";});
   })();
 
   /* Ẩn nút Zalo nổi khi đang ở khu đặt hàng để không che chữ */
