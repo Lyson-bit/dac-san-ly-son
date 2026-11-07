@@ -317,25 +317,6 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 #faqChips{margin-bottom:14px}
 .faq details[hidden]{display:none}
 
-/* Màn hình chào: khách bấm 1 lần là vào trang và nhạc có tiếng ngay (trình duyệt chỉ cho phát có tiếng sau khi khách bấm) */
-.welcome{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:#0D6B72;background-image:radial-gradient(circle at 50% 30%,rgba(255,255,255,.14),transparent 60%);color:#fff;overflow:auto}
-.welcome[hidden]{display:none}
-.welcome.out{opacity:0;transition:opacity .35s}
-.w-card{width:100%;max-width:440px;display:grid;justify-items:center;gap:12px;text-align:center}
-.w-art{width:min(220px,60vw);height:auto}
-.w-eyebrow{margin:0;font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#DCEDEC}
-.w-card h2{margin:0;font-family:var(--f-display);font-weight:900;font-size:clamp(2rem,9vw,2.9rem);line-height:1.05;color:#fff}
-.w-card h2 span{display:block;color:#F3E9C6}
-.w-lead{margin:0;color:rgba(255,255,255,.88);font-size:1rem;line-height:1.6}
-.w-go{margin-top:8px;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 22px;border-radius:999px;border:0;background:#fff;color:#0D6B72;font:700 1.06rem var(--f-body);cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-.w-go svg{width:22px;height:22px;flex:none}
-.w-skip{background:none;border:0;padding:8px;color:rgba(255,255,255,.8);font:500 .9rem var(--f-body);text-decoration:underline;cursor:pointer}
-@media (prefers-reduced-motion:no-preference){.welcome:not([hidden]) .w-card{animation:wUp .5s ease-out}.w-go{animation:pulseW 2s ease-in-out infinite 1s}}
-@keyframes wUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@keyframes pulseW{0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.25),0 0 0 0 rgba(255,255,255,.5)}50%{box-shadow:0 10px 30px rgba(0,0,0,.25),0 0 0 10px rgba(255,255,255,0)}}
-body.locked{overflow:hidden}
-.framed .welcome{display:none}
-
 /* Thanh nhạc nổi */
 .mini{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:14;display:flex;align-items:center;gap:8px;width:min(330px,calc(100vw - 100px));padding:6px 6px 6px 6px;border-radius:999px;background:color-mix(in srgb,var(--fg) 94%,transparent);color:var(--bg);box-shadow:0 8px 24px rgba(0,0,0,.28);backdrop-filter:blur(6px);transition:opacity .25s,transform .25s}
 .mini[hidden]{display:none}
@@ -882,23 +863,6 @@ section[id]{scroll-margin-top:60px}
   </div>
 </dialog>
 
-<div class="welcome" id="welcome" role="dialog" aria-modal="true" aria-labelledby="wTitle" hidden>
-  <div class="w-card">
-    <svg class="w-art" viewBox="0 0 360 200" aria-hidden="true">
-      <circle cx="180" cy="100" r="96" fill="rgba(255,255,255,.12)"/>
-      <path d="M40 150 Q90 92 140 112 Q175 62 214 92 Q262 70 320 150 Z" fill="#3A2A24"/>
-      <path d="M40 150 Q180 138 320 150 L320 160 Q180 150 40 162 Z" fill="#E9E2CF"/>
-      <path d="M40 164 Q110 154 180 164 T320 164 L320 186 Q180 206 40 186 Z" fill="#5BBFC3" opacity=".9"/>
-      <g transform="translate(180 52) scale(.62)"><path d="M0 -58 C6 -44 10 -38 10 -30 C34 -22 44 0 40 22 C36 46 18 58 0 58 C-18 58 -36 46 -40 22 C-44 0 -34 -22 -10 -30 C-10 -38 -6 -44 0 -58 Z" fill="#fff" stroke="#1E2422" stroke-width="3"/></g>
-    </svg>
-    <p class="w-eyebrow">Đảo Lý Sơn · Quảng Ngãi</p>
-    <h2 id="wTitle">ĐẶC SẢN LÝ SƠN <span>QUÊ TÔI</span></h2>
-    <p class="w-lead">Tỏi cô đơn, hành tím, hải sản khô từ hòn đảo núi lửa. Mời anh chị vào xem, nghe một khúc nhạc quê hương.</p>
-    <button class="w-go" type="button" id="wGo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" fill="currentColor"/><circle cx="17" cy="16" r="3" fill="currentColor"/></svg>Vào trang · nghe nhạc quê hương</button>
-    <button class="w-skip" type="button" id="wSkip">Vào trang, không mở nhạc</button>
-  </div>
-</div>
-
 <div class="mini" id="mini" role="region" aria-label="Trình phát nhạc quê hương">
   <p class="mini-tip" id="miniTip" hidden>Điện thoại không cho trang tự phát có tiếng. <b>Chạm vào trang một lần</b> hoặc bấm nút 🔇 để nghe nhạc.</p>
   <button class="mini-play" type="button" id="miniPlay" aria-label="Phát nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="miniIco" d="M8 5v14l11-7z" fill="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1137,7 +1101,7 @@ section[id]{scroll-margin-top:60px}
     });
   }
   var mini=document.getElementById("mini"),miniTitle=document.getElementById("miniTitle"),miniPlay=document.getElementById("miniPlay"),miniIco=document.getElementById("miniIco"),miniHint=document.getElementById("miniHint"),miniTip=document.getElementById("miniTip");
-  var ytReady=false,wantPlay=false,muted=true,isPlaying=false,noAuto=false;
+  var ytReady=false,wantPlay=false,muted=true,isPlaying=false;
   var ICO_MUTED="M4 9v6h4l5 4V5L8 9H4zM16 9l5 6M21 9l-5 6";
   /* Cập nhật nút và chữ theo trạng thái: đang phát tắt tiếng / đang phát / dừng */
   function ui(){
@@ -1170,7 +1134,6 @@ section[id]{scroll-margin-top:60px}
       events:{
         onReady:function(e){
           ytReady=true;cover.hidden=true;startTimer();
-          if(noAuto){e.target.pauseVideo();return;}
           if(muted)e.target.mute();else{e.target.unMute();e.target.setVolume(100);}
           if(cur!==idx)e.target.loadVideoById(songs[cur].id);else e.target.playVideo();
         },
@@ -1184,7 +1147,7 @@ section[id]{scroll-margin-top:60px}
       }});
   }
   function play(i){
-    cur=i;wantPlay=true;noAuto=false;showSong(i);musicMsg.textContent="Đang mở bài…";renderList();
+    cur=i;wantPlay=true;showSong(i);musicMsg.textContent="Đang mở bài…";renderList();
     if(ytReady){yt.loadVideoById(songs[i].id);return;}
     if(yt)return; /* đang tạo, onReady sẽ phát bài cur */
     loadApi(function(){if(!yt)makePlayer(cur);});
@@ -1202,7 +1165,6 @@ section[id]{scroll-margin-top:60px}
     ui();
   }
   function toggle(){
-    noAuto=false;
     if(muted&&isPlaying){unmute();return;}
     muted=false;
     if(!ytReady){var v=visible();play(cur>=0?cur:v[0]);return;}
@@ -1239,34 +1201,25 @@ section[id]{scroll-margin-top:60px}
   /* ===== Thanh nhạc nổi: mở trang là nhạc chạy ngay =====
      Điện thoại và trình duyệt cấm trang tự phát CÓ TIẾNG khi khách chưa chạm vào trang (luật chung của Chrome, Safari),
      nên nhạc tự chạy ở chế độ tắt tiếng; khách chạm bất kỳ đâu lần đầu (hoặc nút 🔇) là có tiếng. Muốn tắt thì bấm dừng. */
-  miniPlay.addEventListener("click",function(){toggle();});
+  /* Chạm nút ▶ hoặc tên bài trên thanh nhạc: cuộn tới mục Nhạc quê hương và phát CÓ TIẾNG ngay (lúc khách bấm nên trình duyệt cho phép).
+     Đang phát có tiếng thì nút ❚❚ chỉ dừng nhạc, không cuộn trang. */
+  var miniInfo=document.getElementById("miniInfo");
+  function goMusic(){musicSec.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});}
+  function playHere(){stopAuto();unmute();goMusic();}
+  miniPlay.addEventListener("click",function(){if(isPlaying&&!muted){toggle();return;}playHere();});
+  miniInfo.addEventListener("click",function(e){e.preventDefault();if(isPlaying&&!muted){goMusic();return;}playHere();});
   document.getElementById("miniNext").addEventListener("click",function(){muted=false;step(1);});
-  document.getElementById("miniInfo").addEventListener("click",function(e){if(muted&&isPlaying){e.preventDefault();unmute();}});
   var AUTO_EVT=["pointerdown","keydown","touchstart"];
   function stopAuto(){AUTO_EVT.forEach(function(t){document.removeEventListener(t,firstTouch,true);});}
-  var welcome=document.getElementById("welcome");
   function firstTouch(e){
-    if(e&&e.target&&welcome.contains(e.target))return; /* nút màn hình chào tự xử lý */
     stopAuto();
-    if(e&&e.target&&(miniPlay.contains(e.target)||playBtn.contains(e.target)))return; /* nút phát/dừng tự xử lý */
+    if(e&&e.target&&(miniPlay.contains(e.target)||miniInfo.contains(e.target)||playBtn.contains(e.target)))return; /* các nút này tự xử lý */
     if(muted)unmute();
   }
-  /* Màn hình chào: hiện mỗi lần mở trang mới (một lần trong mỗi phiên/tab) */
-  function closeWelcome(){
-    welcome.classList.add("out");document.body.classList.remove("locked");
-    setTimeout(function(){welcome.hidden=true;welcome.classList.remove("out");},350);
-    try{sessionStorage.setItem("lyson-da-chao","1");}catch(e){}
-  }
-  document.getElementById("wGo").addEventListener("click",function(){stopAuto();noAuto=false;closeWelcome();unmute();});
-  function skipMusic(){stopAuto();noAuto=true;closeWelcome();muted=false;wantPlay=false;if(ytReady)yt.pauseVideo();ui();}
-  document.getElementById("wSkip").addEventListener("click",skipMusic);
-  welcome.addEventListener("keydown",function(e){if(e.key==="Escape")skipMusic();});
   if(framed){mini.hidden=true;}
   else{
     AUTO_EVT.forEach(function(t){document.addEventListener(t,firstTouch,true);});
     cur=0;showSong(0);renderList();ui();
-    var seen=false;try{seen=sessionStorage.getItem("lyson-da-chao")==="1";}catch(e){}
-    if(!seen){welcome.hidden=false;document.body.classList.add("locked");setTimeout(function(){document.getElementById("wGo").focus({preventScroll:true});},60);}
     loadApi(function(){if(!yt)makePlayer(cur);});
   }
 
