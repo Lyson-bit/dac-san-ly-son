@@ -25,7 +25,7 @@ img{max-width:100%}
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
 <style>
 /* Bố cục: đảo núi lửa – dải đất bazan + lớp cát biển làm “nhịp” chia mục; nội dung 1 cột rộng ~1080px, lưới sản phẩm tự gãy cột */
 :root{
@@ -72,6 +72,14 @@ a{color:var(--sea)}
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
 .brand{font-family:var(--f-display);font-weight:900;font-size:1.05rem;letter-spacing:.02em;text-decoration:none;color:var(--fg)}
+/* Lời chào giữa đầu trang + dòng nghiêng dưới tên */
+.welcome{display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 16px 0;font:600 .7rem/1.2 var(--f-body);letter-spacing:.34em;text-transform:uppercase;color:var(--sea);white-space:nowrap}
+.welcome::before,.welcome::after{content:"";height:1px;width:min(64px,12vw);background:linear-gradient(90deg,transparent,currentColor)}
+.welcome::after{background:linear-gradient(90deg,currentColor,transparent)}
+.welcome b{font-weight:700;color:var(--fg);letter-spacing:.34em}
+header.top .welcome+.wrap{padding-top:4px}
+.brand-tag{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:.8rem;line-height:1.2;color:var(--shallot);letter-spacing:.01em;margin-top:-1px}
+@media (max-width:420px){.welcome{font-size:.62rem;letter-spacing:.26em}.welcome b{letter-spacing:.26em}}
 nav{display:flex;gap:18px;flex-wrap:wrap}
 nav a{text-decoration:none;color:var(--muted);font-size:.92rem;font-weight:500}
 nav a:hover{color:var(--sea)}
@@ -174,7 +182,7 @@ input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--bg) 50%,v
 .order .btn.primary{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
 .order .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,var(--fg))}
 #msg{min-height:150px;font-size:16px;line-height:1.5;resize:none;overflow:hidden}
-.out{display:grid;gap:12px;scroll-margin-top:72px}
+.out{display:grid;gap:12px;scroll-margin-top:110px}
 .out[hidden]{display:none!important}
 .status{font-size:.88rem;color:var(--sea-soft);min-height:1.3em}
 .contact{display:grid;gap:14px;padding:22px;border-radius:var(--r);border:1px solid color-mix(in srgb,var(--bg) 25%,var(--fg))}
@@ -429,7 +437,7 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .inapp[hidden]{display:none}
 .contact .safe{border-left:3px solid #D99A1E;padding-left:10px;border-radius:0}
 .contact a.tel{color:inherit;text-decoration:none;font-size:1.15rem;font-weight:700}
-section[id]{scroll-margin-top:60px}
+section[id]{scroll-margin-top:100px}
 
 /* Điện thoại */
 @media (max-width:640px){
@@ -454,9 +462,11 @@ section[id]{scroll-margin-top:60px}
 </head>
 <body>
 <header class="top">
+  <p class="welcome" lang="en">Welcome to <b>Ly Son</b></p>
   <div class="wrap">
     <div class="brand-box">
       <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
+      <span class="brand-tag">Lý Sơn – nhà của Đạt</span>
       <button class="wx" id="wx" type="button" aria-expanded="false" aria-controls="wxPanel" hidden><span class="wx-i" id="wxIco" aria-hidden="true">⛅</span><span id="wxTxt">Lý Sơn</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <nav aria-label="Mục lục">
