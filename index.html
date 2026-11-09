@@ -524,6 +524,9 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .mini-text small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-next{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:transparent;color:inherit;display:grid;place-items:center;cursor:pointer;padding:0;opacity:.85}
 .mini-next svg{width:16px;height:16px}
+#miniShuffle{width:30px;height:30px}
+#miniShuffle[aria-pressed=true]{background:var(--sea);color:var(--on-sea);opacity:1}
+#shuffleBtn[aria-pressed=true]{background:var(--sea);color:var(--on-sea);border-color:var(--sea)}
 .mini-eq{display:flex;gap:2px;align-items:flex-end;height:14px;flex:none}
 .mini-eq i{width:3px;height:35%;border-radius:1px;background:var(--sea)}
 @media (prefers-reduced-motion:no-preference){.mini.playing .mini-eq i{animation:eq .9s ease-in-out infinite}.mini-eq i:nth-child(2){animation-delay:.2s}.mini-eq i:nth-child(3){animation-delay:.4s}}
@@ -913,7 +916,7 @@ section[id]{scroll-margin-top:100px}
       <div class="sec-head">
         <p class="eyebrow">Nhạc quê hương</p>
         <h2>Nghe một khúc Quảng Ngãi</h2>
-        <p>Những bài hát về Lý Sơn, Quảng Ngãi và biển đảo, phát từ kênh chính thức của ca sĩ, nhạc sĩ. Bấm một bài để nghe, hết bài tự chuyển bài sau.</p>
+        <p>Những bài hát về Lý Sơn, Quảng Ngãi, biển đảo và nhạc Tết, phát từ kênh chính thức của ca sĩ, nhạc sĩ. Bấm một bài để nghe, hết bài tự chuyển bài sau.</p>
       </div>
       <div class="music-grid">
         <div class="now">
@@ -929,6 +932,7 @@ section[id]{scroll-margin-top:100px}
             <button class="ctl" type="button" id="prevBtn" aria-label="Bài trước"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 5 9 12l10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
             <button class="ctl main" type="button" id="playBtn" aria-label="Phát"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="playIco" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
             <button class="ctl" type="button" id="nextBtn" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <button class="ctl" type="button" id="shuffleBtn" aria-label="Xáo trộn danh sách nhạc" aria-pressed="false" title="Xáo trộn danh sách nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <div class="progress" id="prog" role="slider" aria-label="Vị trí bài hát" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="progBar"></i></div>
           </div>
           <div class="time-row"><span id="musicMsg"></span><span class="time" id="time">0:00 / 0:00</span></div>
@@ -940,6 +944,7 @@ section[id]{scroll-margin-top:100px}
             <button class="chip" type="button" data-g="ly-son" aria-pressed="false">Lý Sơn</button>
             <button class="chip" type="button" data-g="quang-ngai" aria-pressed="false">Quảng Ngãi</button>
             <button class="chip" type="button" data-g="bien-dao" aria-pressed="false">Biển đảo</button>
+            <button class="chip" type="button" data-g="tet" aria-pressed="false">Nhạc Tết</button>
           </div>
           <ol class="tracks" id="tracks"></ol>
           <p class="music-note"><b>Mở trang trên điện thoại chưa nghe tiếng?</b> Điện thoại và trình duyệt (Chrome, Safari, Zalo) không cho trang web tự phát nhạc có tiếng khi anh chị chưa chạm vào trang. Nhạc đã tự chạy ở chế độ tắt tiếng, anh chị <b>chạm vào trang một lần</b> hoặc bấm nút 🔇 trên thanh nhạc là có tiếng. Nhớ bật âm lượng điện thoại và tắt chế độ im lặng. Muốn tắt nhạc thì bấm nút dừng.</p>
@@ -1226,7 +1231,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.14</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.15</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1245,6 +1250,7 @@ section[id]{scroll-margin-top:100px}
   <button class="mini-play" type="button" id="miniPlay" aria-label="Phát nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="miniIco" d="M8 5v14l11-7z" fill="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <a class="mini-info" id="miniInfo" href="#nhac"><span class="mini-eq" aria-hidden="true"><i></i><i></i><i></i></span><span class="mini-text"><small id="miniHint">Nhạc quê hương</small><b id="miniTitle">Lý Sơn Quê Hương Em · Sa Huỳnh</b></span></a>
   <button class="mini-next" type="button" id="miniNext" aria-label="Bài sau"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 5l10 7-10 7z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <button class="mini-next" type="button" id="miniShuffle" aria-label="Xáo trộn danh sách nhạc" aria-pressed="false" title="Xáo trộn danh sách nhạc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 </div>
 
 <a class="fab fab-call direct-only" href="tel:0333216563" aria-label="Gọi điện 0333 216 563">
@@ -1568,7 +1574,15 @@ section[id]{scroll-margin-top:100px}
     {g:"quang-ngai",t:"Quảng Ngãi Niềm Nhớ Trong Tim Ta",a:"Trường Kha",id:"JgaRVFNKw2g",d:"4:26"},
     {g:"quang-ngai",t:"Quảng Ngãi Quê Em",a:"Tuyết Thanh",id:"ohG0gzhw7dM",d:"2:40"},
     {g:"bien-dao",t:"Nơi Đảo Xa",a:"Trọng Tấn",id:"IK8lClTiyC4",d:"4:14"},
-    {g:"bien-dao",t:"Hoàng Sa, Trường Sa Là Của Việt Nam",a:"NSƯT Hương Giang, Vương Xuân Nguyên",id:"NMEoA4dK-Xw",d:"3:51"}
+    {g:"bien-dao",t:"Hoàng Sa, Trường Sa Là Của Việt Nam",a:"NSƯT Hương Giang, Vương Xuân Nguyên",id:"NMEoA4dK-Xw",d:"3:51"},
+    {g:"tet",t:"Ngày Tết Quê Em",a:"Hương Ly",id:"eYZFRoLOR1E",d:"3:28"},
+    {g:"tet",t:"Xuân Đã Về",a:"Minh Hằng",id:"aI5uJr6N2rI",d:"3:59"},
+    {g:"tet",t:"Mùa Xuân Ơi",a:"Đàm Vĩnh Hưng",id:"vP62zqmucfo",d:"3:43"},
+    {g:"tet",t:"Câu Chúc Đầu Xuân",a:"NSƯT Thoại Mỹ, Phương Mỹ Chi",id:"nP3xtuDCa88",d:"5:14"},
+    {g:"tet",t:"Đoản Xuân Ca",a:"Lê Ngọc Thúy, Lê Thu Uyên",id:"yKVsKsMHf2Q",d:"3:28"},
+    {g:"tet",t:"Cánh Thiệp Đầu Xuân",a:"Phương Anh",id:"bs9glhBF8po",d:"4:56"},
+    {g:"tet",t:"Ước Nguyện Đầu Xuân",a:"Ngọc Diệp",id:"Ql92Xx2d6D4",d:"3:35"},
+    {g:"tet",t:"Con Bướm Xuân",a:"Hồ Quang Hiếu",id:"-41E5B85rTI",d:"3:59"}
   ];
   var musicSec=document.getElementById("nhac"),list=document.getElementById("tracks"),screen=document.getElementById("screen"),cover=document.getElementById("cover");
   var nowTitle=document.getElementById("nowTitle"),nowArtist=document.getElementById("nowArtist"),playBtn=document.getElementById("playBtn"),playIco=document.getElementById("playIco");
@@ -1576,7 +1590,9 @@ section[id]{scroll-margin-top:100px}
   var yt=null,cur=-1,group="all",timer=null,apiLoading=false,pending=null;
   var ICO_PLAY="M8 5v14l11-7z",ICO_PAUSE="M7 5h4v14H7zM13 5h4v14h-4z";
   function fmt(s){s=Math.max(0,Math.floor(s||0));return Math.floor(s/60)+":"+(s%60<10?"0":"")+(s%60);}
-  function visible(){var r=[];songs.forEach(function(s,i){if(group==="all"||s.g===group)r.push(i);});return r;}
+  /* order: thứ tự phát và hiện danh sách; bấm xáo trộn thì đảo order, bài đang nghe lên đầu */
+  var order=songs.map(function(s,i){return i;}),shuffled=false;
+  function visible(){return order.filter(function(i){return group==="all"||songs[i].g===group;});}
   function renderList(){
     list.innerHTML="";
     visible().forEach(function(i,k){
@@ -1680,6 +1696,18 @@ section[id]{scroll-margin-top:100px}
   playBtn.addEventListener("click",toggle);
   document.getElementById("prevBtn").addEventListener("click",function(){step(-1);});
   document.getElementById("nextBtn").addEventListener("click",function(){step(1);});
+  var shuffleBtns=[document.getElementById("shuffleBtn"),document.getElementById("miniShuffle")];
+  function toggleShuffle(){
+    shuffled=!shuffled;
+    order=songs.map(function(s,i){return i;});
+    if(shuffled){
+      for(var i=order.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),x=order[i];order[i]=order[j];order[j]=x;}
+      if(cur>=0){order.splice(order.indexOf(cur),1);order.unshift(cur);}
+    }
+    shuffleBtns.forEach(function(b){b.setAttribute("aria-pressed",shuffled?"true":"false");b.setAttribute("aria-label",shuffled?"Tắt xáo trộn danh sách nhạc":"Xáo trộn danh sách nhạc");b.title=b.getAttribute("aria-label");});
+    renderList();
+  }
+  shuffleBtns.forEach(function(b){b.addEventListener("click",toggleShuffle);});
   document.querySelectorAll("#nhac .chip").forEach(function(c){
     c.addEventListener("click",function(){
       group=c.getAttribute("data-g");
