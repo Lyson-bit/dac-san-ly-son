@@ -25,7 +25,7 @@ img{max-width:100%}
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@400;700&display=swap">
 <style>
 /* Bố cục: đảo núi lửa – dải đất bazan + lớp cát biển làm “nhịp” chia mục; nội dung 1 cột rộng ~1080px, lưới sản phẩm tự gãy cột */
 :root{
@@ -104,23 +104,19 @@ nav a:hover{color:var(--sea)}
 .hero-photo{position:relative;margin:0;border-radius:22px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 18px 40px rgba(0,0,0,.28);background:var(--sea-soft)}
 .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .hero-photo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,22,28,.72) 0%,rgba(4,22,28,.38) 26%,rgba(4,22,28,0) 46%,rgba(4,22,28,0) 78%,rgba(4,22,28,.5) 100%)}
-.hp-top{position:absolute;z-index:2;top:0;left:0;right:0;padding:20px 18px 0;display:grid;justify-items:center;gap:5px;text-align:center;color:#fff}
+.hp-top{position:absolute;z-index:2;top:0;left:0;right:0;padding:10px 18px 0;display:grid;justify-items:center;gap:0;text-align:center;color:#fff}
 /* 1: giống dải WELCOME TO LY SON */
 .hp-welcome{display:flex;align-items:center;gap:10px;font:600 .66rem/1.2 var(--f-body);letter-spacing:.32em;text-transform:uppercase;color:#7FE0E4;white-space:nowrap}
 .hp-welcome::before,.hp-welcome::after{content:"";height:1px;width:34px;background:linear-gradient(90deg,transparent,currentColor)}
 .hp-welcome::after{background:linear-gradient(90deg,currentColor,transparent)}
 .hp-welcome b{color:#fff;font-weight:700}
-/* 2: giống tên trang ĐẶC SẢN LÝ SƠN */
-.hp-brand{margin-top:4px;font:900 clamp(1.4rem,3vw,1.9rem)/1.05 var(--f-display);letter-spacing:.02em;text-shadow:0 2px 12px rgba(0,0,0,.4)}
-/* 3: giống dòng nghiêng "Lý Sơn – nhà của Đạt" */
-.hp-line{margin-top:4px;font:italic 500 .86rem/1.25 var(--f-display);color:#F5EBD3;letter-spacing:.02em;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-/* dòng "Lý Sơn – nhà của Đạt" ngay dưới tên, giống .brand-tag ở đầu trang */
-.hp-tag{margin-top:-2px;font:italic 500 .9rem/1.2 var(--f-display);color:#F2B8E0;letter-spacing:.01em;text-shadow:0 1px 8px rgba(0,0,0,.45)}
-.hp-tag::before,.hp-tag::after{content:"—";margin:0 .4em;opacity:.6;font-style:normal}
-/* 4: số điện thoại trải nghiệm: nghiêng, cùng tông hồng tím */
-.hp-tel{margin-top:2px;font:italic 500 .84rem/1.3 var(--f-display);color:#9BE7EA;text-decoration:none;border-bottom:1px dashed rgba(155,231,234,.5);text-shadow:0 1px 8px rgba(0,0,0,.5)}
-.hp-tel b{font:italic 700 .9rem var(--f-display);color:#fff;letter-spacing:.04em}
-.hp-tel:hover{border-bottom-style:solid}
+/* 2: tên trang, chữ thư pháp Dancing Script (có dấu tiếng Việt) */
+.hp-brand{margin-top:0;font:italic 700 clamp(2.1rem,4.6vw,2.7rem)/1"Dancing Script",cursive;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+/* 3: dòng "Hành trình trải nghiệm là của bạn" */
+.hp-line{margin-top:0;font:italic 400 1.1rem/1.1"Dancing Script",cursive;color:#F5EBD3;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+/* dòng "Lý Sơn – nhà của Đạt" ngay dưới tên */
+.hp-tag{margin-top:0;font:italic 400 1.06rem/1.1"Dancing Script",cursive;color:#F2B8E0;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hp-tag::before,.hp-tag::after{content:"—";margin:0 .4em;opacity:.6}
 /* Mã QR cố định của trang, góc phải cột chữ hero */
 .hero-text{position:relative}
 .hero-qr{position:absolute;top:-6px;right:0;margin:0;width:128px;padding:8px 8px 6px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,.18);text-align:center}
@@ -683,16 +679,14 @@ section[id]{scroll-margin-top:100px}
         </ul>
       </div>
       <figure class="hero-art hero-photo">
-        <img src="images/hanh_trinh/hero_vach_da_ly_son.jpg" width="768" height="960" alt="Vách đá nhiều tầng bên bãi cát trắng và làn nước xanh ở Lý Sơn, vài chiếc thuyền neo gần bờ" fetchpriority="high">
+        <img src="images/hanh_trinh/hero_dao_ly_son_tren_cao.jpg" width="676" height="874" alt="Đảo Lý Sơn nhìn từ trên cao lúc hoàng hôn, rạn san hô rộng giữa biển xanh" fetchpriority="high">
         <figcaption class="hp-top">
           <span class="hp-welcome" lang="en">Welcome to <b>Ly Son</b></span>
-          <span class="hp-brand">ĐẶC SẢN LÝ SƠN</span>
+          <span class="hp-brand">Đặc Sản Lý Sơn</span>
           <span class="hp-tag">Lý Sơn – nhà của Đạt</span>
           <span class="hp-line">Hành trình trải nghiệm là của bạn</span>
-          <a class="hp-tel" href="tel:0333216563">SĐT trải nghiệm: <b>0333 216 563</b></a>
         </figcaption>
         <a class="hp-go" href="#hanh-trinh">Xem hành trình 3 ngày →</a>
-        <span class="hp-credit">Ảnh: photoflyson</span>
       </figure>
     </div>
     <div class="strata" aria-hidden="true"></div>
@@ -1242,7 +1236,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.20</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.21</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
