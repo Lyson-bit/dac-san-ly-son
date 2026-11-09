@@ -598,6 +598,27 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .inapp[hidden]{display:none}
 .contact .safe{border-left:3px solid #D99A1E;padding-left:10px;border-radius:0}
 .contact a.tel{color:inherit;text-decoration:none;font-size:1.15rem;font-weight:700}
+/* Xếp hạng thuyền đua */
+.bt-key{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0 0 10px;padding:0;font-size:.85rem;color:var(--muted)}
+.bt-key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+:root{--bt-t:#008C9C;--bt-l:#C8591A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bt-t:#009AAA;--bt-l:#DE6F24}}
+:root[data-theme="dark"]{--bt-t:#009AAA;--bt-l:#DE6F24}
+.bt-t{background:var(--bt-t)}
+.bt-l{background:var(--bt-l)}
+.bt-list{list-style:none;margin:0;padding:0}
+.bt-row{display:grid;grid-template-columns:30px 64px minmax(0,1fr);gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.bt-rank{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--fg);color:var(--bg);font-weight:700;font-size:.9rem}
+.bt-ico{display:block;width:64px;height:55px;object-fit:cover;border-radius:8px;background:var(--line)}
+.bt-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.95rem}
+.bt-head span{white-space:nowrap;color:var(--muted);font-size:.85rem}
+.bt-head span b{color:var(--fg);font-size:1rem}
+.bt-bar{display:flex;gap:2px;height:12px;margin:5px 0}
+.bt-bar span{display:block;min-width:4px}
+.bt-bar span:last-child{border-radius:0 4px 4px 0}
+.bt-years{margin:0;font-size:.78rem;line-height:1.4;color:var(--muted)}
+.bt-note{margin-top:14px;font-size:.8rem;color:var(--muted)}
+@media (max-width:640px){.bt-row{grid-template-columns:26px 48px minmax(0,1fr);gap:8px}.bt-rank{width:26px;height:26px;font-size:.82rem}.bt-ico{width:48px;height:41px}}
 section[id]{scroll-margin-top:100px}
 
 /* Điện thoại */
@@ -642,6 +663,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#phan-biet">Phân biệt</a>
       <a class="cta-link" href="#dat-hang">Đặt hàng</a>
+      <a href="#thuyen-dua">Xếp hạng thuyền đua</a>
     </nav>
   </div>
   <div class="wx-panel" id="wxPanel" role="region" aria-label="Thời tiết Lý Sơn, Quảng Ngãi" hidden>
@@ -915,6 +937,48 @@ section[id]{scroll-margin-top:100px}
       </div>
     </div>
   </section>
+
+  <section id="thuyen-dua" class="race" aria-labelledby="thuyen-dua-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Hội đua thuyền truyền thống Tứ Linh</p>
+        <h2 id="thuyen-dua-title">Xếp hạng thuyền đua</h2>
+        <p>Số lần vô địch của từng thuyền qua các mùa đua từ 2007 đến 2026, tính cả giải dịp Tết và giải dịp Lễ.</p>
+      </div>
+      <ul class="bt-key" aria-label="Chú giải"><li><i class="bt-t"></i>Giải Tết</li><li><i class="bt-l"></i>Giải Lễ</li></ul>
+      <ol class="bt-list" id="btList"></ol>
+      <p class="bt-note">Số liệu tổng hợp từ Bảng Thành Tích của Thông Tin Đảo Lý Sơn.</p>
+    </div>
+  </section>
+  <script>
+  (function(){
+    /* Mỗi thuyền: tên n, ảnh i, năm vô địch giải Tết t, giải Lễ l. Thứ hạng tự tính theo tổng số cúp. */
+    var B=[
+      {n:"Thuyền Rồng An Hải",i:"rong_an_hai",t:[2014,2019,2022,2024,2025],l:[2013,2018,2023,2024,2025]},
+      {n:"Thuyền Phụng An Vĩnh",i:"phung_an_vinh",t:[2009,2011,2015,2016,2017,2020,2026],l:[2021,2022,2026]},
+      {n:"Thuyền Quy An Hải",i:"quy_an_hai",t:[2007,2012,2013],l:[2014]},
+      {n:"Thuyền Quy An Vĩnh",i:"quy_an_vinh",t:[2023],l:[2008,2025]},
+      {n:"Thuyền Lân An Vĩnh",i:"lan_an_vinh",t:[2010,2019],l:[2010]},
+      {n:"Thuyền Phụng An Hải",i:"phung_an_hai",t:[2008,2018],l:[]},
+      {n:"Thuyền Rồng An Vĩnh",i:"rong_an_vinh",t:[],l:[2026]},
+      {n:"Thuyền Lân An Hải",i:"lan_an_hai",t:[],l:[2007]}
+    ];
+    function sum(b){return b.t.length+b.l.length;}
+    B.sort(function(a,b){return sum(b)-sum(a);});
+    var max=sum(B[0]),rank=0,prev=-1,h="";
+    B.forEach(function(b,k){
+      var s=sum(b);if(s!==prev){rank=k+1;prev=s;}
+      function seg(c,a,lb){return a.length?'<span class="'+c+'" style="width:calc('+(a.length/max*100)+'% - 1px)" title="'+lb+': '+a.join(", ")+'"></span>':"";}
+      var y=[];if(b.t.length)y.push("Tết: "+b.t.join(", "));if(b.l.length)y.push("Lễ: "+b.l.join(", "));
+      h+='<li class="bt-row"><span class="bt-rank" aria-label="Hạng '+rank+'">'+rank+'</span>'+
+        '<img class="bt-ico" src="images/thuyen_dua/'+b.i+'.jpg" width="168" height="144" loading="lazy" alt="">'+
+        '<div><div class="bt-head"><strong>'+b.n+'</strong><span><b>'+s+'</b> cúp</span></div>'+
+        '<div class="bt-bar" role="img" aria-label="'+b.t.length+' giải Tết, '+b.l.length+' giải Lễ">'+seg("bt-t",b.t,"Giải Tết")+seg("bt-l",b.l,"Giải Lễ")+'</div>'+
+        '<p class="bt-years">'+y.join(" · ")+'</p></div></li>';
+    });
+    document.getElementById("btList").innerHTML=h;
+  })();
+  </script>
 
   <section id="nhac" class="music">
     <div class="wrap">
@@ -1236,7 +1300,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.21</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.22</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
