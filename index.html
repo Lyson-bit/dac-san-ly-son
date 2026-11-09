@@ -607,7 +607,10 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .bt-t{background:var(--bt-t)}
 .bt-l{background:var(--bt-l)}
 .bt-list{list-style:none;margin:0;padding:0}
-@media (min-width:641px){.brand-box{flex:none}nav a.nav-race{margin-left:190px}}
+.nav-end{position:relative;display:inline-block}
+nav a.nav-race{position:absolute;top:calc(100% + 3px);right:0;white-space:nowrap;line-height:1.3}
+@media (max-width:640px){nav a.nav-race{display:inline;font-size:.82rem}}
+@media (min-width:641px){.brand-box{flex:none}}
 @media (min-width:641px) and (max-width:1020px){nav{gap:14px}}
 .bt-row{display:grid;grid-template-columns:30px 64px minmax(0,1fr);gap:5px 12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
 .bt-rank,.bt-ico{grid-row:1/span 2}
@@ -666,8 +669,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#san-pham">Sản phẩm</a>
       <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#phan-biet">Phân biệt</a>
-      <a class="cta-link" href="#dat-hang">Đặt hàng</a>
-      <a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a>
+      <span class="nav-end"><a class="cta-link" href="#dat-hang">Đặt hàng</a><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
     </nav>
   </div>
   <div class="wx-panel" id="wxPanel" role="region" aria-label="Thời tiết Lý Sơn, Quảng Ngãi" hidden>
@@ -1303,7 +1305,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.23</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.24</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
