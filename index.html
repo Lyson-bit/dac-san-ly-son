@@ -300,6 +300,9 @@ footer h3{font-size:1rem;color:var(--fg);margin-bottom:8px}
 
 /* Nút chọn trên thẻ sản phẩm */
 .card{grid-template-rows:auto auto 1fr auto auto}
+.title-ico{display:flex;align-items:center;gap:8px}
+.title-ico svg{width:36px;height:28px;flex:none}
+.card-photo{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 60%;border-radius:8px;background:var(--line)}
 .pick{margin-top:4px;justify-self:start;font:600 .9rem var(--f-body);padding:9px 16px;border-radius:999px;border:1.5px solid var(--sea);background:transparent;color:var(--sea);cursor:pointer}
 .pick:hover,.card.star .pick{background:var(--sea);color:var(--on-sea)}
 .item{padding:4px 6px;border-radius:6px}
@@ -983,28 +986,34 @@ section[id]{scroll-margin-top:100px}
       </div>
       <div class="grid">
         <article class="card star">
-          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--sea)" stroke-width="2.5"/></svg>
-          <h3>Tỏi cô đơn Lý Sơn</h3>
+          <img class="card-photo" src="images/san_pham/toi_co_don.jpg" width="800" height="627" loading="lazy" alt="Những củ tỏi cô đơn Lý Sơn trên lòng bàn tay, phía sau là nia tỏi">
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--sea)" stroke-width="2.5"/></svg>Tỏi cô đơn Lý Sơn</h3>
           <p>Mỗi củ chỉ một tép tròn. Hiếm, sản lượng mỗi năm rất ít. Vị đậm, thơm, hợp ngâm rượu, ngâm mật ong hoặc ăn sống.</p>
           <div class="tags"><span class="tag hl">Nổi bật</span><span class="tag">Túi lưới 500 g</span><span class="tag">1 kg</span></div>
         </article>
         <article class="card">
-          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5"/><path d="M26 18v26M19 21c-3 7-2 16 2 21M33 21c3 7 2 16-2 21" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/></svg>
-          <h3>Tỏi Lý Sơn nhiều tép</h3>
+          <img class="card-photo" src="images/san_pham/toi_nhieu_tep.jpg" width="777" height="678" loading="lazy" alt="Những củ tỏi Lý Sơn nhiều tép, vỏ trắng ngà, còn cuống khô">
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5"/><path d="M26 18v26M19 21c-3 7-2 16 2 21M33 21c3 7 2 16-2 21" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/></svg>Tỏi Lý Sơn nhiều tép</h3>
           <p>Củ nhỏ, tép đều, vỏ trắng ngà. Dùng nấu ăn hằng ngày, phi thơm, làm nước chấm, làm tỏi ớt.</p>
           <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span><span class="tag">Bó / chùm</span></div>
         </article>
         <article class="card">
-          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M26 4c1 6 2 9 2 12 8 3 13 10 12 18-1 8-7 13-14 13s-13-5-14-13c-1-8 4-15 12-18 0-3 1-6 2-12z" fill="var(--shallot)" opacity=".9"/><path d="M22 47c1 2 3 3 4 3s3-1 4-3" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round"/></svg>
-          <h3>Hành tím Lý Sơn</h3>
+          <img class="card-photo" src="images/san_pham/hanh_tim.jpg" width="800" height="535" loading="lazy" alt="Hành tím Lý Sơn vừa nhổ, phơi trên ruộng cát">
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 4c1 6 2 9 2 12 8 3 13 10 12 18-1 8-7 13-14 13s-13-5-14-13c-1-8 4-15 12-18 0-3 1-6 2-12z" fill="var(--shallot)" opacity=".9"/><path d="M22 47c1 2 3 3 4 3s3-1 4-3" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round"/></svg>Hành tím Lý Sơn</h3>
           <p>Củ chắc, vỏ tím đỏ, mùi thơm. Hợp phi hành, làm dưa hành, ướp đồ nướng.</p>
           <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span></div>
         </article>
         <article class="card">
-          <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M6 26c8-10 22-12 32-4l8-6v20l-8-6c-10 8-24 6-32-4z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="15" cy="25" r="2" fill="var(--fg)"/></svg>
-          <h3>Hải sản khô</h3>
-          <p>Mực khô, mực một nắng, cá khô và rong biển phơi trên đảo. Hàng theo con nước, có đợt mới báo sau.</p>
+          <img class="card-photo" src="images/san_pham/hai_san.jpg" width="800" height="598" loading="lazy" alt="Đĩa tôm hùm bổ đôi với dưa leo và rau thơm">
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M6 26c8-10 22-12 32-4l8-6v20l-8-6c-10 8-24 6-32-4z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="15" cy="25" r="2" fill="var(--fg)"/></svg>Hải sản tươi/khô</h3>
+          <p>Hải sản tươi theo con nước, cùng mực khô, mực một nắng, cá khô và rong biển phơi trên đảo. Có đợt mới báo sau.</p>
           <div class="tags"><span class="tag">Theo mùa</span><span class="tag">Báo giá theo đợt</span></div>
+        </article>
+        <article class="card">
+          <img class="card-photo" src="images/san_pham/cha_ca.jpg" width="800" height="901" loading="lazy" alt="Tô bún với những lát chả cá chiên vàng, rau sống và chanh">
+          <h3 class="title-ico"><svg viewBox="0 0 42 32" aria-hidden="true"><path d="M29 16 40 7v18z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2" stroke-linejoin="round"/><ellipse cx="17" cy="16" rx="14" ry="11" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2"/><path d="M21 11q3 2 0 5M25 13q2.500 1.500 0 4M21 18q3 2 0 5" fill="none" stroke="var(--sea)" stroke-width="1.500" stroke-linecap="round"/><circle cx="10" cy="13" r="2.600" fill="var(--fg)"/><circle cx="10.900" cy="12.100" r=".9" fill="var(--surface)"/><circle cx="13.500" cy="19" r="2.200" fill="#F29CB2" opacity=".85"/><path d="M5.500 18q2.500 3 5.500 1" fill="none" stroke="var(--sea)" stroke-width="1.800" stroke-linecap="round"/></svg>Chả cá</h3>
+          <p>Chả cá thơm vị cá biển, ăn với bún nóng, chiên giòn hay kho đều hợp. Quy cách và giá báo theo đợt hàng.</p>
+          <div class="tags"><span class="tag">Mới</span><span class="tag">Báo giá theo đợt</span></div>
         </article>
         <article class="card">
           <svg class="ico" viewBox="0 0 52 52" aria-hidden="true"><path d="M20 4h12v8l4 6v26a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18l4-6z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 28h20v14H16z" fill="var(--sand)"/><circle cx="26" cy="35" r="4" fill="var(--surface)" stroke="var(--fg)" stroke-width="1.5"/></svg>
@@ -1203,7 +1212,8 @@ section[id]{scroll-margin-top:100px}
       <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#san-pham">Tỏi nhiều tép</a>
       <a href="#san-pham">Hành tím</a>
-      <a href="#san-pham">Hải sản khô</a>
+      <a href="#san-pham">Hải sản tươi/khô</a>
+      <a href="#san-pham">Chả cá</a>
     </nav>
     <nav class="foot-links" aria-label="Thông tin">
       <h3>Thông tin</h3>
@@ -1216,14 +1226,14 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.13</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.14</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
 <dialog class="story" id="storyBox" aria-labelledby="storyTitle">
   <div class="story-head"><p class="eyebrow" id="storyProduct"></p><h3 id="storyTitle"></h3></div>
   <div class="story-body" id="storyBody"></div>
-  <p class="story-src">Tư liệu tham khảo: báo Văn Hóa, VnExpress, Tiền Phong, Sài Gòn Giải Phóng. Nội dung tự viết lại.</p>
+  <p class="story-src" id="storySrc">Tư liệu tham khảo: báo Văn Hóa, VnExpress, Tiền Phong, Sài Gòn Giải Phóng. Nội dung tự viết lại.</p>
   <div class="story-actions">
     <button class="btn primary" type="button" id="storyOrder">Đặt sản phẩm này</button>
     <button class="btn ghost" type="button" id="storyClose">Đóng</button>
@@ -1248,7 +1258,7 @@ section[id]{scroll-margin-top:100px}
 
 <script>
 (function(){
-  var products=["Tỏi cô đơn Lý Sơn","Tỏi Lý Sơn nhiều tép","Hành tím Lý Sơn","Hải sản khô (ghi rõ loại ở ghi chú)","Tỏi ngâm / rượu tỏi"];
+  var products=["Tỏi cô đơn Lý Sơn","Tỏi Lý Sơn nhiều tép","Hành tím Lý Sơn","Hải sản tươi/khô (ghi rõ loại ở ghi chú)","Chả cá","Tỏi ngâm / rượu tỏi"];
   var opts=["0","500 g","1 kg","2 kg","3 kg","5 kg","Khác"];
   var itemsBox=document.getElementById("items");
   products.forEach(function(p,i){
@@ -1497,6 +1507,10 @@ section[id]{scroll-margin-top:100px}
       "Trên đảo, đàn ông theo thuyền ra khơi, nhiều người là hậu duệ của những hùng binh Hoàng Sa năm xưa. Ở nhà, hết mùa tỏi, phụ nữ ra gành đá hái rong.",
       "Họ lặn bộ, không bình dưỡng khí, mỗi hơi chưa tới một phút. Một tay bám san hô cho sóng khỏi cuốn, tay kia cầm liềm cạy từng bụi rong. Rong mang về phơi ba đến năm ngày dưới nắng đảo cho thật khô.",
       "Mỗi gói mực khô, cá khô, rong biển là phần biển trả công cho những chuyến đi xa và những buổi trưa lặn ngụp ven gành."]},
+    {t:"Mẻ chả sau chuyến biển",noSrc:true,p:[
+      "Thuyền về bến, cá còn tươi rói. Làm chả thì cá phải thật tươi, miếng chả mới dẻo, mới ngọt, nên chúng tôi chọn cá ngay từ lúc còn ở bến.",
+      "Cá được lọc lấy thịt, quết thật dẻo, nêm vừa miệng rồi nắn thành bánh, thả vào chảo dầu đến khi vàng ruộm. Mùi chả thơm lan ra tận sân. Thái lát thả vào tô bún nóng, hay chấm nước mắm tỏi ớt, món nào anh chị ăn cũng thấy vị biển.",
+      "Một miếng chả nhỏ, gói cả con nước và đôi tay người trên đảo."]},
     {t:"Hũ rượu tỏi trong nhà",p:[
       "Nhiều nhà trên đảo vẫn giữ thói quen ngâm tỏi cô đơn với rượu. Theo kinh nghiệm truyền miệng, chén rượu tỏi để dành cho những ngày trở gió, lúc bụng khó tiêu hay khi bị cảm.",
       "Tỏi được bóc vỏ, ngâm trong bình thủy tinh, để nơi mát và dùng dần. Chúng tôi ngâm theo đơn, theo cách nhà làm, để anh chị mang một chút Lý Sơn về bếp nhà mình. (Kinh nghiệm dân gian, không thay thuốc chữa bệnh.)",
@@ -1518,6 +1532,7 @@ section[id]{scroll-margin-top:100px}
     document.getElementById("storyTitle").textContent=stories[i].t;
     var body=document.getElementById("storyBody");body.innerHTML="";
     stories[i].p.forEach(function(t){var p=document.createElement("p");p.textContent=t;body.appendChild(p);});
+    document.getElementById("storySrc").hidden=!!stories[i].noSrc;
     if(box.showModal)box.showModal();else box.setAttribute("open","");
   }
   function closeStory(){if(box.close)box.close();else box.removeAttribute("open");}
@@ -1533,7 +1548,7 @@ section[id]{scroll-margin-top:100px}
     row.appendChild(b);
     if(stories[i]){
       var s=document.createElement("button");
-      s.type="button";s.className="pick ghosty";s.textContent="Đọc chuyện";
+      s.type="button";s.className="pick ghosty";s.textContent="Đọc câu chuyện";
       s.addEventListener("click",function(){openStory(i);});
       row.appendChild(s);
     }
