@@ -22,6 +22,7 @@ img{max-width:100%}
 .install-tip{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--fg);color:var(--bg);padding:14px 16px;border-radius:10px;font-size:.92rem;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.25)}
 </style>
 <title>Đặc Sản Lý Sơn Quê Tôi</title>
+<script>try{var lsdNen=localStorage.getItem("lsd_nen");if(lsdNen==="light"||lsdNen==="dark")document.documentElement.setAttribute("data-theme",lsdNen)}catch(e){}</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -246,7 +247,7 @@ input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--bg) 50%,v
 .order .btn.primary{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
 .order .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,var(--fg))}
 #msg{min-height:150px;font-size:16px;line-height:1.5;resize:none;overflow:hidden}
-.out{display:grid;gap:12px;scroll-margin-top:110px}
+.out{display:grid;gap:12px;scroll-margin-top:140px}
 .out[hidden]{display:none!important}
 .status{font-size:.88rem;color:var(--sea-soft);min-height:1.3em}
 .contact{display:grid;gap:14px;padding:22px;border-radius:var(--r);border:1px solid color-mix(in srgb,var(--bg) 25%,var(--fg))}
@@ -431,7 +432,7 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .dat-says{margin:0;padding:10px 14px;border-left:3px solid var(--shallot);border-radius:0 10px 10px 0;background:color-mix(in srgb,var(--shallot) 9%,transparent);font-size:.9rem}
 .dat-says::before{content:"Đạt kể";display:block;font:italic 500 .82rem var(--f-display);color:var(--shallot);margin-bottom:2px}
 /* Ở homestay nhà Đạt + Món nhà Đạt nấu */
-.nha-dat{margin-top:22px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;scroll-margin-top:110px}
+.nha-dat{margin-top:22px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;scroll-margin-top:140px}
 @media (max-width:860px){.nha-dat{grid-template-columns:minmax(0,1fr)}}
 .nd-card{padding:18px;border-radius:16px;border:1px solid var(--line);background:var(--bg);display:grid;gap:12px;align-content:start}
 .nd-stay{border-top:3px solid var(--shallot)}
@@ -463,6 +464,7 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .ck-grid a{display:block;border-radius:10px;overflow:hidden;background:var(--line)}
 .ck-grid img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;transition:transform .3s}
 .ck-grid a:hover img{transform:scale(1.04)}
+.ck-grid img[src*="g_con_duong_bich_hoa"]{object-position:28% 50%}
 .ck-grid span{font-size:.8rem;line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media (max-width:640px){.ck-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ck-grid span{font-size:.74rem;white-space:normal}}
 .letter-end{margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
@@ -628,7 +630,7 @@ nav a.nav-race{position:absolute;top:calc(100% + 3px);right:0;white-space:nowrap
 .bt-note{margin-top:14px;font-size:.8rem;color:var(--muted)}
 @media (max-width:640px){.bt-row{grid-template-columns:26px 48px minmax(0,1fr);gap:6px 8px}.bt-rank{width:26px;height:26px;font-size:.82rem}.bt-ico{width:48px;height:41px}.bt-rank,.bt-ico{grid-row:auto}.bt-bar{grid-column:1/-1;height:20px}.bt-bar span{font-size:.62rem;line-height:20px}}
 @media (max-width:359px){.bt-bar span{font-size:.54rem}}
-section[id]{scroll-margin-top:100px}
+section[id]{scroll-margin-top:140px}
 
 /* Điện thoại */
 @media (max-width:640px){
@@ -650,6 +652,15 @@ section[id]{scroll-margin-top:100px}
   .facts .fact{font-size:.86rem}
 }
 @media (prefers-reduced-motion:reduce){.item.flash{animation:none}}
+/* Nút chọn nền Sáng/Tối, dưới dòng thời tiết */
+.th{justify-self:start;display:inline-flex;gap:2px;margin-top:3px;padding:2px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.th button{display:inline-flex;align-items:center;gap:4px;min-height:22px;padding:0 9px;border:0;border-radius:999px;background:none;color:var(--muted);font:600 .7rem/1 var(--f-body);cursor:pointer}
+.th i{width:9px;height:9px;border-radius:50%;border:1px solid currentColor}
+.th button[data-th="light"] i{background:#fff}
+.th button[data-th="dark"] i{background:#111614}
+.th button[aria-pressed="true"]{background:var(--sea);color:var(--on-sea)}
+/* 2 dòng thư pháp ở phần dưới ảnh bìa */
+.hp-low{position:absolute;z-index:2;left:0;right:0;bottom:19%;margin:0;padding:0 18px;display:grid;justify-items:center;gap:2px;text-align:center}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 
@@ -662,6 +673,7 @@ section[id]{scroll-margin-top:100px}
       <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
       <span class="brand-tag">Lý Sơn – nhà của Đạt</span>
       <button class="wx" id="wx" type="button" aria-expanded="false" aria-controls="wxPanel" hidden><span class="wx-i" id="wxIco" aria-hidden="true">⛅</span><span id="wxTxt">Lý Sơn</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="th" role="group" aria-label="Chọn nền trang"><button type="button" data-th="light" aria-pressed="false"><i aria-hidden="true"></i>Sáng</button><button type="button" data-th="dark" aria-pressed="false"><i aria-hidden="true"></i>Tối</button></div>
     </div>
     <nav aria-label="Mục lục">
       <a href="#dao">Đảo tỏi</a>
@@ -688,6 +700,13 @@ section[id]{scroll-margin-top:100px}
     </div>
   </div>
 </header>
+<script>
+(function(){var r=document.documentElement,b=[].slice.call(document.querySelectorAll(".th button")),q=window.matchMedia("(prefers-color-scheme: dark)");
+function cur(){return r.getAttribute("data-theme")||(q.matches?"dark":"light");}
+function show(){var c=cur();b.forEach(function(x){x.setAttribute("aria-pressed",x.getAttribute("data-th")===c?"true":"false");});}
+b.forEach(function(x){x.addEventListener("click",function(){var t=x.getAttribute("data-th");r.setAttribute("data-theme",t);try{localStorage.setItem("lsd_nen",t);}catch(e){}show();});});
+if(q.addEventListener)q.addEventListener("change",show);show();})();
+</script>
 
 <main id="top">
   <div class="hero">
@@ -713,9 +732,11 @@ section[id]{scroll-margin-top:100px}
         <figcaption class="hp-top">
           <span class="hp-welcome" lang="en">Welcome to <b>Ly Son</b></span>
           <span class="hp-brand">Đặc Sản Lý Sơn</span>
+        </figcaption>
+        <p class="hp-low">
           <span class="hp-tag">Lý Sơn – nhà của Đạt</span>
           <span class="hp-line">Hành trình trải nghiệm là của bạn</span>
-        </figcaption>
+        </p>
         <a class="hp-go" href="#hanh-trinh">Xem hành trình 3 ngày →</a>
       </figure>
     </div>
@@ -898,7 +919,7 @@ section[id]{scroll-margin-top:100px}
         </div>
 
         <div class="ck-group">
-          <h4><span aria-hidden="true">🌊</span>Biển &amp; cảnh đẹp <small>13 ảnh</small></h4>
+          <h4><span aria-hidden="true">🌊</span>Biển &amp; cảnh đẹp <small>16 ảnh</small></h4>
           <ul class="ck-grid">
             <li><a href="images/hanh_trinh/g_nuoc_trong.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_trong.jpg" width="640" height="640" loading="lazy" alt="Nước biển trong xanh thấy đáy, khối kè dưới nước"></a><span>Nước trong thấy đáy</span></li>
             <li><a href="images/hanh_trinh/g_hang_cau_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hang_cau_2.jpg" width="640" height="427" loading="lazy" alt="Vách đá Hang Câu bên bãi cát"></a><span>Vách đá Hang Câu</span></li>
@@ -913,6 +934,9 @@ section[id]{scroll-margin-top:100px}
             <li><a href="images/hanh_trinh/g_bai_tam_cau_tay.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bai_tam_cau_tay.jpg" width="670" height="868" loading="lazy" alt="Cột biển chỉ dẫn Bãi tắm Cầu Tây bên bờ biển"></a><span>Bãi tắm Cầu Tây</span></li>
             <li><a href="images/hanh_trinh/g_du_bai_cat.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_du_bai_cat.jpg" width="960" height="717" loading="lazy" alt="Dù che nhiều màu trên bãi cát, biển xanh và cầu cảng phía xa"></a><span>Dù che trên bãi cát</span></li>
             <li><a href="images/hanh_trinh/g_cay_ben_bien.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_cay_ben_bien.jpg" width="685" height="885" loading="lazy" alt="Cây xanh tỏa bóng bên bờ biển, phía xa có thuyền và phao vàng"></a><span>Bóng cây bên biển</span></li>
+            <li><a href="images/hanh_trinh/g_bich_hoa_giu_bien.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bich_hoa_giu_bien.jpg" width="960" height="720" loading="lazy" alt="Bích họa trên tường kè biển: đôi bàn tay nâng con cá giữa sóng nước"></a><span>Bích họa giữ biển xanh</span></li>
+            <li><a href="images/hanh_trinh/g_chung_tay_xanh_sach_dep.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chung_tay_xanh_sach_dep.jpg" width="960" height="720" loading="lazy" alt="Bích họa Chung tay giữ gìn biển đảo xanh, sạch, đẹp, các bạn trẻ nhặt rác trên bãi biển"></a><span>Chung tay xanh, sạch, đẹp</span></li>
+            <li><a href="images/hanh_trinh/g_con_duong_bich_hoa.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_con_duong_bich_hoa.jpg" width="960" height="540" loading="lazy" alt="Các bạn đoàn viên cầm bảng công trình Con đường bích họa bên bức tường Lý Sơn Island"></a><span>Con đường bích họa</span></li>
           </ul>
           <p class="ck-src">Một số ảnh trong nhóm: nguồn photoflyson. Ảnh giải chạy: Hachi8 Media.</p>
         </div>
@@ -1315,7 +1339,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.31</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.32</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
