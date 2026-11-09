@@ -418,6 +418,10 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .stop img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:12px;background:var(--line)}
 .stop img[src*="d1_mam_tom_ram"]{object-position:38% 50%}
 .stop img[src*="d1_mam_oc_ca"]{object-position:79% 50%}
+.stop figure.duo{display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:3px;width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden}
+.stop figure.duo img{aspect-ratio:auto;height:100%;min-height:0;border-radius:0}
+.stop figure.duo img:first-child{object-position:50% 19%}
+.stop figure.duo img:last-child{object-position:50% 45%}
 .stop p{font-size:.86rem;color:var(--muted);line-height:1.45}
 .stop p b{display:block;color:var(--fg);font-size:.93rem;margin-bottom:2px}
 @media (max-width:640px){.stop{flex-basis:68%}}
@@ -803,7 +807,7 @@ section[id]{scroll-margin-top:100px}
           <li class="stop"><figure><img src="images/hanh_trinh/d2_hang_cau.jpg" width="960" height="640" loading="lazy" alt="Vách đá xếp lớp và bãi cát trắng ở Hang Câu"></figure><p><b>📍 Hang Câu</b>Vách đá xếp lớp như trang sách, cát trắng mịn.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_goi_rong_bien.jpg" width="960" height="720" loading="lazy" alt="Đĩa gỏi rong biển với rau thơm, đậu phộng, bánh tráng và chén tỏi cô đơn"></figure><p><b>🍽️ Gỏi rong biển</b>Ăn kèm tép tỏi cô đơn sống: cay nồng, ngọt hậu.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_ruong_toi.jpg" width="960" height="720" loading="lazy" alt="Bà con chăm ruộng hành tỏi trên cát"></figure><p><b>🌱 Ruộng trên cát</b>Bà con chăm từng luống hành, tỏi trên nền cát trắng.</p></li>
-          <li class="stop"><figure><img src="images/hanh_trinh/d2_hoang_hon_ruong.jpg" width="540" height="960" loading="lazy" alt="Hoàng hôn trên ruộng hành tỏi, vòi tưới giữa luống"></figure><p><b>🌇 Hoàng hôn trên ruộng</b>Nắng cuối ngày rọi qua những luống xanh.</p></li>
+          <li class="stop"><figure class="duo"><img src="images/hanh_trinh/d2_hoang_hon_ruong.jpg" width="540" height="960" loading="lazy" alt="Mặt trời cuối ngày trên ruộng hành tỏi"><img src="images/hanh_trinh/d2_ruong_hanh_cat.jpg" width="720" height="665" loading="lazy" alt="Những luống hành xanh trên nền cát trắng"></figure><p><b>🌇 Hoàng hôn trên ruộng</b>Nắng cuối ngày rọi qua những luống xanh.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_cua_ghe_oc.jpg" width="720" height="960" loading="lazy" alt="Rổ cua, ghẹ, ốc luộc và chén muối tiêu chanh ớt"></figure><p><b>🍽️ Cua, ghẹ, ốc luộc</b>Chấm muối tiêu chanh ớt, ăn bằng tay mới ngon.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_oc_mat_meo.jpg" width="720" height="960" loading="lazy" alt="Rổ ốc mắt mèo luộc, rau thơm và chén muối ớt"></figure><p><b>🍽️ Ốc mắt mèo</b>Luộc vừa chín, chấm muối ớt, thêm rau thơm.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_goi_muc.jpg" width="720" height="960" loading="lazy" alt="Đĩa gỏi mực, bánh tráng mè nướng, dưa leo và rau sống"></figure><p><b>🍽️ Gỏi mực, bánh tráng mè</b>Bẻ bánh tráng, xúc gỏi, khép lại ngày dài.</p></li>
@@ -1235,7 +1239,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.18</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.19</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
