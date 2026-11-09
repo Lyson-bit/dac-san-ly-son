@@ -607,18 +607,22 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .bt-t{background:var(--bt-t)}
 .bt-l{background:var(--bt-l)}
 .bt-list{list-style:none;margin:0;padding:0}
-.bt-row{display:grid;grid-template-columns:30px 64px minmax(0,1fr);gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+@media (min-width:641px){.brand-box{flex:none}nav a.nav-race{margin-left:190px}}
+@media (min-width:641px) and (max-width:1020px){nav{gap:14px}}
+.bt-row{display:grid;grid-template-columns:30px 64px minmax(0,1fr);gap:5px 12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.bt-rank,.bt-ico{grid-row:1/span 2}
 .bt-rank{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--fg);color:var(--bg);font-weight:700;font-size:.9rem}
 .bt-ico{display:block;width:64px;height:55px;object-fit:cover;border-radius:8px;background:var(--line)}
 .bt-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.95rem}
 .bt-head span{white-space:nowrap;color:var(--muted);font-size:.85rem}
 .bt-head span b{color:var(--fg);font-size:1rem}
-.bt-bar{display:flex;gap:2px;height:12px;margin:5px 0}
-.bt-bar span{display:block;min-width:4px}
+.bt-head,.bt-bar{grid-column:3}
+.bt-bar{display:flex;gap:2px;height:24px}
+.bt-bar span{display:block;min-width:0;overflow:hidden;text-align:center;font:600 .74rem/24px var(--f-body);color:#0B1A1B}
 .bt-bar span:last-child{border-radius:0 4px 4px 0}
-.bt-years{margin:0;font-size:.78rem;line-height:1.4;color:var(--muted)}
 .bt-note{margin-top:14px;font-size:.8rem;color:var(--muted)}
-@media (max-width:640px){.bt-row{grid-template-columns:26px 48px minmax(0,1fr);gap:8px}.bt-rank{width:26px;height:26px;font-size:.82rem}.bt-ico{width:48px;height:41px}}
+@media (max-width:640px){.bt-row{grid-template-columns:26px 48px minmax(0,1fr);gap:6px 8px}.bt-rank{width:26px;height:26px;font-size:.82rem}.bt-ico{width:48px;height:41px}.bt-rank,.bt-ico{grid-row:auto}.bt-bar{grid-column:1/-1;height:20px}.bt-bar span{font-size:.62rem;line-height:20px}}
+@media (max-width:359px){.bt-bar span{font-size:.54rem}}
 section[id]{scroll-margin-top:100px}
 
 /* Điện thoại */
@@ -663,7 +667,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#phan-biet">Phân biệt</a>
       <a class="cta-link" href="#dat-hang">Đặt hàng</a>
-      <a href="#thuyen-dua">Xếp hạng thuyền đua</a>
+      <a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a>
     </nav>
   </div>
   <div class="wx-panel" id="wxPanel" role="region" aria-label="Thời tiết Lý Sơn, Quảng Ngãi" hidden>
@@ -968,13 +972,12 @@ section[id]{scroll-margin-top:100px}
     var max=sum(B[0]),rank=0,prev=-1,h="";
     B.forEach(function(b,k){
       var s=sum(b);if(s!==prev){rank=k+1;prev=s;}
-      function seg(c,a,lb){return a.length?'<span class="'+c+'" style="width:calc('+(a.length/max*100)+'% - 1px)" title="'+lb+': '+a.join(", ")+'"></span>':"";}
+      function seg(c,a,lb){return a.map(function(n){return '<span class="'+c+'" style="width:calc('+(100/max)+'% - 2px)" title="'+lb+' '+n+'">'+n+'</span>';}).join("");}
       var y=[];if(b.t.length)y.push("Tết: "+b.t.join(", "));if(b.l.length)y.push("Lễ: "+b.l.join(", "));
       h+='<li class="bt-row"><span class="bt-rank" aria-label="Hạng '+rank+'">'+rank+'</span>'+
         '<img class="bt-ico" src="images/thuyen_dua/'+b.i+'.jpg" width="168" height="144" loading="lazy" alt="">'+
-        '<div><div class="bt-head"><strong>'+b.n+'</strong><span><b>'+s+'</b> cúp</span></div>'+
-        '<div class="bt-bar" role="img" aria-label="'+b.t.length+' giải Tết, '+b.l.length+' giải Lễ">'+seg("bt-t",b.t,"Giải Tết")+seg("bt-l",b.l,"Giải Lễ")+'</div>'+
-        '<p class="bt-years">'+y.join(" · ")+'</p></div></li>';
+        '<div class="bt-head"><strong>'+b.n+'</strong><span><b>'+s+'</b> cúp</span></div>'+
+        '<div class="bt-bar" role="img" aria-label="'+y.join(". ")+'">'+seg("bt-t",b.t,"Giải Tết")+seg("bt-l",b.l,"Giải Lễ")+'</div></li>';
     });
     document.getElementById("btList").innerHTML=h;
   })();
@@ -1300,7 +1303,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.22</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.23</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
