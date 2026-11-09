@@ -78,7 +78,8 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;g
 .welcome::before,.welcome::after{content:"";height:1px;width:min(64px,12vw);background:linear-gradient(90deg,transparent,currentColor)}
 .welcome::after{background:linear-gradient(90deg,currentColor,transparent)}
 .welcome b{font-weight:700;color:var(--fg);letter-spacing:.34em}
-header.top .welcome+.wrap{padding-top:4px}
+.hd-date{margin:1px 0 0;text-align:center;font:italic 500 .72rem/1.2 var(--f-display);color:var(--muted)}
+header.top .hd-date+.wrap{padding-top:2px}
 .brand-tag{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:.8rem;line-height:1.2;color:var(--shallot);letter-spacing:.01em;margin-top:-1px}
 @media (max-width:420px){.welcome{font-size:.62rem;letter-spacing:.26em}.welcome b{letter-spacing:.26em}}
 nav{display:flex;gap:18px;flex-wrap:wrap}
@@ -112,7 +113,7 @@ nav a:hover{color:var(--sea)}
 .hp-welcome::after{background:linear-gradient(90deg,currentColor,transparent)}
 .hp-welcome b{color:#fff;font-weight:700}
 /* 2: tên trang, chữ thư pháp Dancing Script (có dấu tiếng Việt) */
-.hp-brand{margin-top:9px;font:italic 700 clamp(2.1rem,4.6vw,2.7rem)/1"Dancing Script",cursive;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.hp-brand{margin-top:18px;font:italic 700 clamp(2.1rem,4.6vw,2.7rem)/1"Dancing Script",cursive;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 /* 3: dòng "Hành trình trải nghiệm là của bạn" */
 .hp-line{margin-top:0;font:italic 400 1.1rem/1.1"Dancing Script",cursive;color:#F5EBD3;text-shadow:0 1px 8px rgba(0,0,0,.55)}
 /* dòng "Lý Sơn – nhà của Đạt" ngay dưới tên */
@@ -247,7 +248,7 @@ input::placeholder,textarea::placeholder{color:color-mix(in srgb,var(--bg) 50%,v
 .order .btn.primary{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
 .order .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,var(--fg))}
 #msg{min-height:150px;font-size:16px;line-height:1.5;resize:none;overflow:hidden}
-.out{display:grid;gap:12px;scroll-margin-top:140px}
+.out{display:grid;gap:12px;scroll-margin-top:156px}
 .out[hidden]{display:none!important}
 .status{font-size:.88rem;color:var(--sea-soft);min-height:1.3em}
 .contact{display:grid;gap:14px;padding:22px;border-radius:var(--r);border:1px solid color-mix(in srgb,var(--bg) 25%,var(--fg))}
@@ -432,7 +433,7 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .dat-says{margin:0;padding:10px 14px;border-left:3px solid var(--shallot);border-radius:0 10px 10px 0;background:color-mix(in srgb,var(--shallot) 9%,transparent);font-size:.9rem}
 .dat-says::before{content:"Đạt kể";display:block;font:italic 500 .82rem var(--f-display);color:var(--shallot);margin-bottom:2px}
 /* Ở homestay nhà Đạt + Món nhà Đạt nấu */
-.nha-dat{margin-top:22px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;scroll-margin-top:140px}
+.nha-dat{margin-top:22px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:16px;scroll-margin-top:156px}
 @media (max-width:860px){.nha-dat{grid-template-columns:minmax(0,1fr)}}
 .nd-card{padding:18px;border-radius:16px;border:1px solid var(--line);background:var(--bg);display:grid;gap:12px;align-content:start}
 .nd-stay{border-top:3px solid var(--shallot)}
@@ -630,7 +631,7 @@ nav a.nav-race{position:absolute;top:calc(100% + 3px);right:0;white-space:nowrap
 .bt-note{margin-top:14px;font-size:.8rem;color:var(--muted)}
 @media (max-width:640px){.bt-row{grid-template-columns:26px 48px minmax(0,1fr);gap:6px 8px}.bt-rank{width:26px;height:26px;font-size:.82rem}.bt-ico{width:48px;height:41px}.bt-rank,.bt-ico{grid-row:auto}.bt-bar{grid-column:1/-1;height:20px}.bt-bar span{font-size:.62rem;line-height:20px}}
 @media (max-width:359px){.bt-bar span{font-size:.54rem}}
-section[id]{scroll-margin-top:140px}
+section[id]{scroll-margin-top:156px}
 
 /* Điện thoại */
 @media (max-width:640px){
@@ -660,7 +661,7 @@ section[id]{scroll-margin-top:140px}
 .th button[data-th="dark"] i{background:#111614}
 .th button[aria-pressed="true"]{background:var(--sea);color:var(--on-sea)}
 /* 2 dòng thư pháp ở phần dưới ảnh bìa */
-.hp-low{position:absolute;z-index:2;left:0;right:0;bottom:17.2%;margin:0;padding:0 18px;display:grid;justify-items:center;gap:8px;text-align:center}
+.hp-low{position:absolute;z-index:2;left:0;right:0;bottom:max(15.4%,63px);margin:0;padding:0 18px;display:grid;justify-items:center;gap:8px;text-align:center}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 
@@ -668,6 +669,7 @@ section[id]{scroll-margin-top:140px}
 <body>
 <header class="top">
   <p class="welcome" lang="en">Welcome to <b>Ly Son</b></p>
+  <p class="hd-date" id="hdDate"></p>
   <div class="wrap">
     <div class="brand-box">
       <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
@@ -706,6 +708,8 @@ function cur(){return r.getAttribute("data-theme")||(q.matches?"dark":"light");}
 function show(){var c=cur();b.forEach(function(x){x.setAttribute("aria-pressed",x.getAttribute("data-th")===c?"true":"false");});}
 b.forEach(function(x){x.addEventListener("click",function(){var t=x.getAttribute("data-th");r.setAttribute("data-theme",t);try{localStorage.setItem("lsd_nen",t);}catch(e){}show();});});
 if(q.addEventListener)q.addEventListener("change",show);show();})();
+(function(){var e=document.getElementById("hdDate");function f(){var d=new Date(Date.now()+7*36e5);e.textContent="Ngày "+d.getUTCDate()+" tháng "+(d.getUTCMonth()+1)+" năm "+d.getUTCFullYear();}
+f();document.addEventListener("visibilitychange",function(){if(!document.hidden)f();});})();
 </script>
 
 <main id="top">
@@ -1339,7 +1343,7 @@ if(q.addEventListener)q.addEventListener("change",show);show();})();
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.33</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.34</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
