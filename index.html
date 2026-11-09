@@ -445,6 +445,8 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .nd-pics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .nd-pics a{display:grid;gap:5px;text-decoration:none;color:var(--muted);font-size:.8rem}
 .nd-pics img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:12px;background:var(--line)}
+.nd-pics a.wide{grid-column:1/-1}
+.nd-pics a.wide img{aspect-ratio:4/3;object-position:50% 100%}
 .nd-list{margin:0;padding-left:18px;display:grid;gap:4px;font-size:.92rem}
 .nd-call{justify-self:start;display:inline-flex;gap:6px;align-items:center;padding:9px 16px;border-radius:999px;background:var(--shallot);color:#fff;font-weight:600;font-size:.92rem;text-decoration:none}
 .nd-call b{letter-spacing:.03em}
@@ -551,7 +553,7 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 @media (max-width:760px){.music-grid{grid-template-columns:1fr}}
 .now{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;position:sticky;top:72px}
 @media (max-width:760px){.now{position:static}}
-.screen{position:relative;aspect-ratio:16/9;min-height:200px;border-radius:10px;overflow:hidden;background:var(--sea)}
+.screen{position:relative;width:100%;aspect-ratio:16/9;min-height:200px;border-radius:10px;overflow:hidden;background:var(--sea)}
 .screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .cover{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;padding:16px;text-align:center;color:var(--on-sea)}
 .cover[hidden]{display:none}
@@ -845,6 +847,7 @@ section[id]{scroll-margin-top:100px}
           <div class="nd-pics">
             <a href="images/hanh_trinh/nha_san.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_san.jpg" width="720" height="960" loading="lazy" alt="Sân cát nhà Đạt, rổ cua ghẹ ốc vừa luộc, hoa giấy và xe máy"><span>Sân cát, rổ hải sản vừa luộc</span></a>
             <a href="images/hanh_trinh/nha_phong_khach.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_phong_khach.jpg" width="720" height="960" loading="lazy" alt="Phòng khách nhà với cây quất và bộ bàn ghế gỗ"><span>Phòng khách nhà Đạt</span></a>
+            <a class="wide" href="images/hanh_trinh/nha_ban_com.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_ban_com.jpg" width="683" height="899" loading="lazy" alt="Bàn ăn trong nhà Đạt với tôm luộc, ram chiên, chả, canh rau củ và rau xanh"><span>Bữa cơm trong nhà Đạt</span></a>
           </div>
           <ul class="nd-list">
             <li>Ghé chơi như người thân, ăn cơm chung mâm.</li>
@@ -1239,7 +1242,7 @@ section[id]{scroll-margin-top:100px}
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.19</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.20</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
