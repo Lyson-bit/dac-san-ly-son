@@ -1,6 +1,6 @@
 // Service worker – Đặc Sản Lý Sơn Quê Tôi
-// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v48, v3...) để app trên điện thoại tự cập nhật.
-const CACHE = "lyson-v48";
+// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v49, v3...) để app trên điện thoại tự cập nhật.
+const CACHE = "lyson-v49";
 const ASSETS = [
   "./",
   "./index.html",
