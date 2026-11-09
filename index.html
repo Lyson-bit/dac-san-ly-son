@@ -604,7 +604,7 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .contact .safe{border-left:3px solid #D99A1E;padding-left:10px;border-radius:0}
 .contact a.tel{color:inherit;text-decoration:none;font-size:1.15rem;font-weight:700}
 /* Xếp hạng thuyền đua */
-.bt-key{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0 0 10px;padding:0;font-size:.85rem;color:var(--muted)}
+.bt-key{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0 0 8px;padding:0;font-size:.8rem;color:var(--muted)}
 .bt-key i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 :root{--bt-t:#008C9C;--bt-l:#C8591A}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bt-t:#009AAA;--bt-l:#DE6F24}}
@@ -632,23 +632,25 @@ nav a.nav-race{position:absolute;top:calc(100% + 3px);right:0;white-space:nowrap
 .bt-name{font-size:.88rem;font-weight:700;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bt-sum{text-align:right;font-weight:700;font-size:.95rem;font-variant-numeric:tabular-nums}
 .bt-bar{display:flex;gap:2px;height:18px;min-width:0}
-.bt-bar span{display:block;flex:none;width:calc((100% - 18px) / 10);overflow:hidden;text-align:center;border-radius:3px;font:600 .66rem/18px var(--f-body);color:#0B1A1B;animation:bt-in .35s ease}
+.bt-bar span{display:block;flex:none;width:calc((100% - 18px) / 10);overflow:hidden;text-align:center;border-radius:3px;font:600 .69rem/18px var(--f-body);color:#0B1A1B;animation:bt-in .35s ease}
 .bt-bar span[hidden]{display:none}
 .bt-bar i{font-style:normal}
 @keyframes bt-in{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
-.bt-main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+.bt-main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}
 .bt-panel{max-height:calc(8 * var(--bt-h) + 30px);overflow-y:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
-.bt-log{width:100%;min-width:0;border-collapse:collapse;font-size:.76rem;line-height:1.3}
-.bt-log th,.bt-log td{font-family:var(--f-body);font-size:.76rem;border-bottom:0}
+.bt-log{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;line-height:1.3}
+.bt-log th,.bt-log td{font-family:var(--f-body);font-size:.78rem;border-bottom:0}
+.bt-log th:first-child{width:46px}
 .bt-log thead th{position:sticky;top:0;z-index:1;padding:6px 8px;background:var(--surface);color:var(--muted);font-weight:600;text-align:left;box-shadow:inset 0 -1px 0 var(--line)}
-.bt-log tbody th,.bt-log td{padding:4px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+.bt-log tbody th,.bt-log td{padding:4px 6px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
 .bt-log tbody th{font-weight:700;font-variant-numeric:tabular-nums}
 .bt-log tbody tr{cursor:pointer}
-.bt-log tr.on th,.bt-log tr.on td{background:var(--sea-soft);font-weight:700}
+.bt-log tr.on th,.bt-log tr.on td{background:var(--sea-soft)}
 .bt-log tr.fut{opacity:.4}
-.bt-note{margin-top:12px;font-size:.8rem;color:var(--muted)}
-@media (max-width:1000px){.bt-main{grid-template-columns:minmax(0,1fr);gap:12px}.bt-panel{max-height:216px}}
-@media (max-width:640px){#thuyen-dua{--bt-h:50px}.bt-row{grid-template-columns:22px 30px minmax(0,1fr) 24px;grid-template-rows:auto auto;gap:3px 8px;align-content:center}.bt-rank,.bt-ico,.bt-sum{grid-row:1/span 2}.bt-ico{width:30px;height:26px}.bt-name{grid-column:3;grid-row:1}.bt-bar{grid-column:3;grid-row:2;height:15px}.bt-bar span{font-size:.58rem;line-height:15px}.bt-bar i{display:none}.bt-bar span::before{content:"’"}.bt-sum{grid-column:4}.bt-now{min-height:2.7em}}
+.bt-note{margin-top:12px;font-size:.78rem;color:var(--muted)}
+@media (max-width:1100px){.bt-main{grid-template-columns:minmax(0,1fr);gap:12px}.bt-panel{max-height:216px}}
+@media (max-width:640px){#thuyen-dua{--bt-h:54px}.bt-row{grid-template-columns:22px 28px minmax(0,1fr) 24px;grid-template-rows:auto auto;gap:4px 8px;align-content:center}.bt-ico{width:28px;height:24px}.bt-name{grid-column:3;grid-row:1}.bt-sum{grid-column:4;grid-row:1}.bt-bar{grid-column:1/-1;grid-row:2;height:17px}.bt-bar span{font-size:.66rem;line-height:17px}.bt-year{font-size:1.2rem}.bt-now{min-height:2.7em}.bt-log th,.bt-log td{font-size:.75rem}.bt-log th:first-child{width:42px}.bt-log tbody th,.bt-log td{padding:5px 6px}}
+@media (max-width:359px){.bt-bar span{font-size:.58rem}}
 @media (prefers-reduced-motion:reduce){.bt-row{transition:none}.bt-bar span{animation:none}}
 section[id]{scroll-margin-top:156px}
 
@@ -1009,7 +1011,7 @@ f();document.addEventListener("visibilitychange",function(){if(!document.hidden)
         <p>Số lần vô địch của từng thuyền qua các mùa đua từ 2007 đến 2026, tính cả giải dịp Tết và giải dịp Lễ.</p>
       </div>
       <div class="bt-play">
-        <button class="bt-btn" id="btPlay" type="button" aria-label="Chạy qua các năm"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="btIco" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+        <button class="bt-btn" id="btPlay" type="button" aria-label="Tạm dừng"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="btIco" d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg></button>
         <input class="bt-range" id="btRange" type="range" step="1" aria-label="Chọn năm">
         <output class="bt-year" id="btYear" for="btRange"></output>
       </div>
@@ -1046,14 +1048,14 @@ f();document.addEventListener("visibilitychange",function(){if(!document.hidden)
     function o(c,a,lb){return a.map(function(n){var y=String(n);return '<span class="'+c+'" data-y="'+y+'" title="'+lb+' '+y+'"><i>'+y.slice(0,2)+'</i>'+y.slice(2)+'</span>';}).join("");}
     function ten(b){return b.n;}
     function dem(a,y){return a.filter(function(v){return v<=y;}).length;}
-    function vd(k,y){return B.filter(function(b){return b[k].indexOf(y)>=0;}).map(ten).join(", ")||"–";}
+    function vd(k,y,s){return B.filter(function(b){return b[k].indexOf(y)>=0;}).map(ten).join(s||", ")||"–";}
     B.forEach(function(b,k){
       b.o=k;b.t.concat(b.l).forEach(function(y){if(y<Y0)Y0=y;if(y>Y1)Y1=y;});
       var li=document.createElement("li");li.className="bt-row";
       li.innerHTML='<span class="bt-rank"></span><img class="bt-ico" src="images/thuyen_dua/'+b.i+'.jpg" width="168" height="144" loading="lazy" alt=""><span class="bt-name">'+ten(b)+'</span><div class="bt-bar">'+o("bt-t",b.t,"Giải Tết")+o("bt-l",b.l,"Giải Lễ")+'</div><span class="bt-sum"></span>';
       L.appendChild(li);b.el=li;b.rk=li.querySelector(".bt-rank");b.sm=li.querySelector(".bt-sum");b.cells=[].slice.call(li.querySelectorAll(".bt-bar span"));
     });
-    var tb="";for(var yy=Y0;yy<=Y1;yy++)tb+='<tr data-y="'+yy+'"><th scope="row">'+yy+'</th><td>'+vd("t",yy)+'</td><td>'+vd("l",yy)+'</td></tr>';
+    var tb="";for(var yy=Y0;yy<=Y1;yy++)tb+='<tr data-y="'+yy+'"><th scope="row">'+yy+'</th><td>'+vd("t",yy,"<br>")+'</td><td>'+vd("l",yy,"<br>")+'</td></tr>';
     LOG.innerHTML=tb;R.min=Y0;R.max=Y1;
     function show(y){
       cur=y;R.value=y;YR.textContent=y;
@@ -1067,17 +1069,20 @@ f();document.addEventListener("visibilitychange",function(){if(!document.hidden)
       });
       NOW.innerHTML="Vô địch năm "+y+": <b>Tết</b> "+vd("t",y)+" · <b>Lễ</b> "+vd("l",y);
     }
-    function stop(){clearInterval(tm);tm=0;ICO.setAttribute("d","M8 5v14l11-7z");BTN.setAttribute("aria-label","Chạy qua các năm");}
-    function play(){clearInterval(tm);if(cur>=Y1)show(Y0);ICO.setAttribute("d","M7 5h4v14H7zM13 5h4v14h-4z");BTN.setAttribute("aria-label","Tạm dừng");tm=setInterval(function(){show(cur+1);if(cur>=Y1)stop();},850);}
-    var io=null;
-    function tay(){if(io){io.disconnect();io=null;}}
-    BTN.addEventListener("click",function(){tay();if(tm)stop();else play();});
-    R.addEventListener("input",function(){tay();stop();show(+R.value);});
-    LOG.addEventListener("click",function(e){var tr=e.target.closest("tr");if(tr){tay();stop();show(+tr.getAttribute("data-y"));}});
-    show(Y1);
+    /* Mặc định luôn chạy lặp; chỉ dừng khi khách bấm tạm dừng, kéo thanh hoặc bấm bảng kê. Ra khỏi màn hình thì nghỉ cho nhẹ máy. */
+    var auto=true,nghi=0,dau=true;
+    function ico(){ICO.setAttribute("d",auto?"M7 5h4v14H7zM13 5h4v14h-4z":"M8 5v14l11-7z");BTN.setAttribute("aria-label",auto?"Tạm dừng":"Chạy qua các năm");}
+    function stop(){clearInterval(tm);tm=0;ico();}
+    function play(){clearInterval(tm);nghi=0;ico();tm=setInterval(function(){if(cur>=Y1){if(++nghi<3)return;nghi=0;show(Y0);}else show(cur+1);},850);}
+    function tay(){auto=false;stop();}
+    function vao(){if(dau){dau=false;show(Y0);}play();}
+    BTN.addEventListener("click",function(){if(auto)tay();else{auto=true;dau=false;if(cur>=Y1)show(Y0);play();}});
+    R.addEventListener("input",function(){tay();show(+R.value);});
+    LOG.addEventListener("click",function(e){var tr=e.target.closest("tr");if(tr){tay();show(+tr.getAttribute("data-y"));}});
+    show(Y1);ico();
     if("IntersectionObserver" in window){
-      io=new IntersectionObserver(function(e){if(e[0].isIntersecting){tay();show(Y0);play();}},{threshold:.4});io.observe(L);
-    }
+      new IntersectionObserver(function(e){if(e[0].isIntersecting){if(auto&&!tm)vao();}else if(tm)stop();},{threshold:.4}).observe(L);
+    }else vao();
   })();
   </script>
 
@@ -1401,7 +1406,7 @@ f();document.addEventListener("visibilitychange",function(){if(!document.hidden)
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.36</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.37</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
