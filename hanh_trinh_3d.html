@@ -12,7 +12,7 @@
 <style>
 *{box-sizing:border-box}
 :root{--ink:#1f2d44;--muted:#56657d;--glass:rgba(255,255,255,.88);--line:rgba(31,45,68,.12);--shadow:0 8px 28px rgba(20,40,80,.18);--r:16px;--ctlh:120px}
-html,body{margin:0;height:100%;overflow:hidden;background:#bfe3f7;color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#bfe3f7;color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit}
 #stage{position:fixed;inset:0;touch-action:none;cursor:grab}
 #stage:active{cursor:grabbing}
@@ -23,7 +23,7 @@ button{font:inherit;color:inherit}
 .nt.on{outline:3px solid rgba(255,214,90,.95)}
 .bub{background:#fff;color:var(--ink);border-radius:14px;padding:6px 10px;font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.18);white-space:normal;width:max-content;max-width:230px;text-align:center;border:2px solid var(--c)}
 .bub::after{content:"";position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--c);border-bottom:0}
-.ft{font:600 11px/1.3 Consolas,"Cascadia Mono",monospace;color:#fff;background:var(--c);padding:1px 6px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.ft{font:600 11px/1.3 Consolas,"Cascadia Mono",monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#fff;background:var(--c);padding:1px 6px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
 .ft.s{font-size:10px;padding:0 4px;opacity:.9}
 .fl{font-size:16px;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .bd{font-size:11px;font-weight:700;color:#fff;background:#1f2d44;padding:1px 8px;border-radius:999px}
@@ -50,7 +50,7 @@ button{font:inherit;color:inherit}
 #cap-body .row{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
 #cap-body .k{flex:none;width:46px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;padding-top:3px}
 #cap-body .v{display:flex;flex-wrap:wrap;gap:4px}
-.fc{font:600 11px/1.4 Consolas,"Cascadia Mono",monospace;background:#eef3fa;border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+.fc{font:600 11px/1.4 Consolas,"Cascadia Mono",monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#eef3fa;border:1px solid var(--line);padding:1px 6px;border-radius:6px}
 .fc.w{background:#fff4e6;border-color:#ffd8a8}
 #cap-text{margin:8px 0 0;font-size:13px;color:#2c3a52}
 #cap-now{margin-top:8px;font-size:13px;font-weight:700;color:#0f5aa8;background:#e8f2ff;border-radius:10px;padding:5px 9px;min-height:30px}
@@ -86,7 +86,7 @@ button{font:inherit;color:inherit}
 .ch{background:var(--c);color:#fff;padding:12px 14px;border-radius:var(--r) var(--r) 0 0;display:flex;gap:10px;align-items:center}
 .ch .av{font-size:28px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;flex:none}
 .ch b{font-size:17px;display:block}
-.ch small{opacity:.92;font:11px/1.3 Consolas,monospace;word-break:break-all}
+.ch small{opacity:.92;font:11px/1.3 Consolas,monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";word-break:break-all}
 .ch .x{margin-left:auto;align-self:flex-start;border:0;background:rgba(255,255,255,.25);color:#fff;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:16px;flex:none}
 .cb{padding:10px 14px 14px;font-size:13px}
 .cb h4{margin:10px 0 4px;font-size:11px;text-transform:uppercase;color:var(--muted)}
@@ -123,7 +123,7 @@ button{font:inherit;color:inherit}
 
 /* ===== Kiểu sổ ký họa (urban sketch) ===== */
 :root{--ink:#2b2420;--muted:#6b5d50;--paper:#fbf6ea;--glass:rgba(251,246,234,.95);--shadow:3px 4px 0 rgba(43,36,32,.2);
-  --hand:"Segoe Print","Bradley Hand","Chalkboard SE","Comic Sans MS",cursive;--wob:255px 18px 225px 16px/16px 225px 18px 255px;--wob2:12px 4px 14px 5px/5px 14px 4px 12px}
+  --hand:"Be Vietnam Pro","Segoe UI",Roboto,"Noto Sans",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--wob:255px 18px 225px 16px/16px 225px 18px 255px;--wob2:12px 4px 14px 5px/5px 14px 4px 12px}
 html,body{background:#f3ead8}
 .brand,#cap,#ctl,#toast{background:var(--glass);border:1.6px solid var(--ink);border-radius:var(--wob);box-shadow:var(--shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
 #card{background:var(--paper);border:1.6px solid var(--ink);border-radius:var(--wob2);box-shadow:var(--shadow)}
@@ -166,7 +166,7 @@ select.cbtn{font-size:13px;font-weight:700;padding:0 8px;cursor:pointer;color:va
 /* ===== Kiểu màu nước (sổ tay thực địa): không viền mực, chì phác mảnh, một giọt son ===== */
 body{transition:background-color .8s}
 body.wc{--ink:#2F2922;--muted:#645646;--paper:#FBF8F1;--glass:rgba(251,248,241,.96);--graphite:#7E7871;
-  --hand:"Dancing Script","Segoe Script","Segoe Print",cursive;--serif:"EB Garamond",Garamond,Cambria,Georgia,serif;--mono:"IBM Plex Mono",Consolas,monospace;background:#F3ECDD}
+  --hand:"Be Vietnam Pro","Segoe UI",Roboto,"Noto Sans",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--serif:"EB Garamond",Garamond,Cambria,Georgia,serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--mono:"IBM Plex Mono",Consolas,monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#F3ECDD}
 body.wc .brand,body.wc #cap,body.wc #ctl,body.wc #toast{background:var(--glass);border:1px solid rgba(126,120,113,.6);border-radius:3px;outline:1px solid rgba(126,120,113,.28);outline-offset:3px;box-shadow:2px 3px 0 rgba(126,120,113,.1)}
 body.wc .brand{transform:rotate(-1deg)}
 body.wc #card{border:1px solid rgba(126,120,113,.6);border-radius:3px;background:#FBF8F1}
@@ -201,22 +201,22 @@ body.wc #hint{font-family:var(--hand);border:1px solid var(--graphite);border-ra
 #stylebadge{display:inline-block;margin-top:2px;font-size:11px;color:var(--muted)}
 
 /* ===== Nhân vật kiểu halftone-dossier: nhãn viên thuốc viền navy, bóng lệch đăng, con dấu hai viền ===== */
-body .nt,body.wc .nt,body .chip,body.wc .chip{font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;font-weight:800;color:#fffaf0;background:var(--c);border:2px solid #1b2144;border-radius:999px;box-shadow:3px 3px 0 rgba(27,33,68,.28);text-shadow:1px 1px 0 rgba(27,33,68,.35)}
+body .nt,body.wc .nt,body .chip,body.wc .chip{font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-weight:800;color:#fffaf0;background:var(--c);border:2px solid #1b2144;border-radius:999px;box-shadow:3px 3px 0 rgba(27,33,68,.28);text-shadow:1px 1px 0 rgba(27,33,68,.35)}
 body .nt,body.wc .nt{font-size:12px;padding:1px 9px}
 body .chip.dim,body.wc .chip.dim{opacity:.45}
 body .nt.on{outline:3px solid #ffc82e;outline-offset:1px}
-body .stamp,body.wc .stamp{font-family:"JetBrains Mono",Consolas,monospace;font-weight:800;text-transform:uppercase;letter-spacing:2px;border:5px double;border-radius:8px;padding:2px 14px;background:rgba(255,250,240,.88)}
+body .stamp,body.wc .stamp{font-family:"JetBrains Mono",Consolas,monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-weight:800;text-transform:uppercase;letter-spacing:2px;border:5px double;border-radius:8px;padding:2px 14px;background:rgba(255,250,240,.88)}
 body .stamp.bad,body.wc .stamp.bad{color:#d6352c;border-color:#d6352c}
 body .stamp.ok,body.wc .stamp.ok{color:#1b2144;border-color:#1b2144;background:rgba(255,200,46,.9)}
-body .bd,body.wc .bd{font-family:"JetBrains Mono",Consolas,monospace;font-weight:800;text-transform:uppercase;background:#ffc82e;color:#1b2144;border:2px solid #1b2144;border-radius:999px;box-shadow:2px 2px 0 rgba(27,33,68,.28)}
+body .bd,body.wc .bd{font-family:"JetBrains Mono",Consolas,monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-weight:800;text-transform:uppercase;background:#ffc82e;color:#1b2144;border:2px solid #1b2144;border-radius:999px;box-shadow:2px 2px 0 rgba(27,33,68,.28)}
 
 /* ===== Sa bàn iso-infographic: giải thích quy trình và cách vận chuyển ===== */
 .pin{display:flex;flex-direction:column;align-items:center;pointer-events:none}
-.pin .lab{font:600 12px/1.3 "Be Vietnam Pro","Segoe UI",system-ui,sans-serif;color:#22263A;background:#fff;border:1.5px solid #22263A;border-left:6px solid var(--c,#22263A);border-radius:8px;padding:2px 8px;white-space:nowrap;box-shadow:2px 2px 0 #D3D8E2}
+.pin .lab{font:600 12px/1.3 "Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#22263A;background:#fff;border:1.5px solid #22263A;border-left:6px solid var(--c,#22263A);border-radius:8px;padding:2px 8px;white-space:nowrap;box-shadow:2px 2px 0 #D3D8E2}
 .pin .stem{width:2px;height:14px;background:#22263A}
 .pin .dot{width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #22263A;margin-top:-2px}
 .pin.big .lab{background:#E0644F;color:#fff;border-color:#B0473A}
-.pin.area .lab{font-family:"Lexend","Segoe UI",system-ui,sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.06em;border:0;background:rgba(244,242,236,.85);box-shadow:none;color:#565C72}
+.pin.area .lab{font-family:"Lexend","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-size:13px;text-transform:uppercase;letter-spacing:.06em;border:0;background:rgba(244,242,236,.85);box-shadow:none;color:#565C72}
 .pin.area .stem,.pin.area .dot{display:none}
 #isoPanel{display:none;position:fixed;right:16px;top:16px;width:310px;z-index:5;padding:12px 14px;font-size:12.5px;line-height:1.45}
 #isoPanel h3{margin:0 0 6px;font-size:14px}
@@ -226,15 +226,15 @@ body .bd,body.wc .bd{font-family:"JetBrains Mono",Consolas,monospace;font-weight
 #isoPanel .lg i{flex:none;width:12px;height:12px;border-radius:2px}
 #isoPanel .lg i.dash{height:0;border-top:3px dashed #22263A;border-radius:0}
 #isoPanel .note{color:#565C72;font-size:11.5px}
-#isoPanel b.k{display:inline-block;min-width:68px;font-family:"Lexend","Segoe UI",sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#2B67AD}
-body.iso{--ink:#22263A;--muted:#565C72;--glass:#fff;--lex:"Lexend","Be Vietnam Pro","Segoe UI",system-ui,sans-serif;background:#F4F2EC}
+#isoPanel b.k{display:inline-block;min-width:68px;font-family:"Lexend","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#2B67AD}
+body.iso{--ink:#22263A;--muted:#565C72;--glass:#fff;--lex:"Lexend","Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#F4F2EC}
 body.iso #isoPanel{display:block}
 body.iso .brand,body.iso #cap,body.iso #ctl,body.iso #toast,body.iso #isoPanel,body.iso #card{background:#fff;border:1.5px dashed #A3ABBB;border-radius:14px;box-shadow:5px 6px 0 #D3D8E2;outline:none;transform:none}
 body.iso .brand b,body.iso #cap-title,body.iso #isoPanel h3,body.iso #toast b{font-family:var(--lex);font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:15px}
-body.iso .brand span,body.iso #cap-now{font-family:"Be Vietnam Pro","Segoe UI",sans-serif;font-style:normal}
+body.iso .brand span,body.iso #cap-now{font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-style:normal}
 body.iso #cap-now{background:#EEF4FB;border:0;border-left:4px solid #4A88C8;border-radius:6px;color:#2B67AD}
 body.iso #cap-step{background:#E0644F;font-family:var(--lex);border-radius:6px}
-body.iso .bub{font-family:"Be Vietnam Pro","Segoe UI",sans-serif;font-size:13px;border:1.5px solid #22263A;border-radius:10px;box-shadow:3px 3px 0 #D3D8E2;background:#fff}
+body.iso .bub{font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-size:13px;border:1.5px solid #22263A;border-radius:10px;box-shadow:3px 3px 0 #D3D8E2;background:#fff}
 body.iso .bub::after{border-top-color:#22263A}
 body.iso .st{border:1.5px solid #D3D8E2;border-radius:8px;background:#fff}
 body.iso .st.cur{background:#E0644F;color:#fff;border-color:#B0473A}
@@ -255,15 +255,15 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 .pc{pointer-events:auto;cursor:zoom-in;display:flex;flex-direction:column;align-items:center;transition:opacity .3s}
 .pc .ph{background:#fffaf0;padding:3px 3px 0;border:2px solid #1b2144;border-radius:4px;box-shadow:3px 3px 0 rgba(27,33,68,.28);transform:rotate(var(--rot,-3deg))}
 .pc img{display:block;width:62px;height:62px;object-fit:cover;border-radius:2px;background:#dfe7ee}
-.pc .ph small{display:block;max-width:62px;overflow:hidden;text-overflow:ellipsis;font:700 9.5px/1.6 "Be Vietnam Pro","Segoe UI",sans-serif;color:#1b2144;text-align:center}
+.pc .ph small{display:block;max-width:62px;overflow:hidden;text-overflow:ellipsis;font:700 9.5px/1.6 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#1b2144;text-align:center}
 .pc .stem{width:2px;height:10px;background:#1b2144}
-.pc .d{font:800 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif;color:#fffaf0;background:#0D6B72;border:1.5px solid #1b2144;border-radius:999px;padding:2px 6px;margin-bottom:-6px;position:relative;z-index:1}
+.pc .d{font:800 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#fffaf0;background:#0D6B72;border:1.5px solid #1b2144;border-radius:999px;padding:2px 6px;margin-bottom:-6px;position:relative;z-index:1}
 .pc.hot .ph{outline:3px solid #ffc82e;outline-offset:1px;animation:pcHot 1.2s ease-in-out infinite}
 @keyframes pcHot{50%{transform:rotate(var(--rot,-3deg)) scale(1.08)}}
 /* Ảnh bật ra từ máy ảnh của agent Ảnh */
 .pop{pointer-events:none;background:#fffaf0;padding:4px 4px 14px;border:2px solid #1b2144;border-radius:3px;box-shadow:4px 4px 0 rgba(27,33,68,.25)}
 .pop img{display:block;width:92px;height:92px;object-fit:cover}
-.pop small{position:absolute;left:0;right:0;bottom:1px;text-align:center;font:700 9px/1.2 "Be Vietnam Pro","Segoe UI",sans-serif;color:#1b2144}
+.pop small{position:absolute;left:0;right:0;bottom:1px;text-align:center;font:700 9px/1.2 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#1b2144}
 /* Biểu cảm trên đầu */
 .emo{pointer-events:none;font-size:20px;line-height:1;background:#fffaf0;border:2px solid #1b2144;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 rgba(27,33,68,.28)}
 .emo.bare{background:none;border:0;box-shadow:none;font-size:22px;text-shadow:0 0 3px #fff}
@@ -275,7 +275,7 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 #cap-trip button span{font-size:9.5px;font-weight:700;line-height:1.3;max-width:54px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #cap-trip .none{font-size:12px;color:var(--muted)}
 /* Album lộ trình thật (3 ngày) */
-#album{position:fixed;left:50%;top:16px;transform:translateX(-50%);width:min(760px,calc(100vw - 32px));max-height:calc(100vh - 48px - var(--ctlh));overflow:auto;z-index:8;background:#fffaf0;border:2px solid #1b2144;border-radius:14px;box-shadow:6px 6px 0 rgba(27,33,68,.25);padding:12px 14px;font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif}
+#album{position:fixed;left:50%;top:16px;transform:translateX(-50%);width:min(760px,calc(100vw - 32px));max-height:calc(100vh - 48px - var(--ctlh));overflow:auto;z-index:8;background:#fffaf0;border:2px solid #1b2144;border-radius:14px;box-shadow:6px 6px 0 rgba(27,33,68,.25);padding:12px 14px;font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji"}
 #album[hidden]{display:none}
 #album .ah{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 #album .ah b{font-size:16px;flex:1}
@@ -292,7 +292,7 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 #album.book{animation:albIn .6s cubic-bezier(.2,1.4,.4,1)}
 @keyframes albIn{from{transform:translateX(-50%) scale(.6) rotate(-4deg);opacity:0}}
 /* Dải ảnh "cuốn nhật ký" lật trang ở bước cuối */
-#reel{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:4;background:#fffaf0;border:2px solid #1b2144;border-radius:12px;box-shadow:5px 5px 0 rgba(27,33,68,.25);padding:8px 10px;max-width:calc(100vw - 32px);font-family:"Be Vietnam Pro","Segoe UI",sans-serif;transition:opacity .4s}
+#reel{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:4;background:#fffaf0;border:2px solid #1b2144;border-radius:12px;box-shadow:5px 5px 0 rgba(27,33,68,.25);padding:8px 10px;max-width:calc(100vw - 32px);font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";transition:opacity .4s}
 #reel[hidden]{display:none}
 #reel b{display:block;font-size:12px;color:#ec5a86;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
 #reel .r{display:flex;gap:6px}
@@ -303,7 +303,7 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 @media (max-width:900px){#reel{top:var(--isotop,120px);padding:6px 8px}#reel b{font-size:11px;margin-bottom:3px}#reel img{width:60px;height:44px}}
 @media (prefers-reduced-motion:reduce){#reel button{animation:none}}
 /* Bản công khai trên web: nút về trang chủ, nút chất lượng */
-.brand .home{display:inline-block;margin:0 0 4px;font:800 12px/1.6 "Be Vietnam Pro","Segoe UI",sans-serif;color:#fffaf0;background:#0D6B72;border:2px solid #1b2144;border-radius:999px;padding:1px 10px;text-decoration:none;box-shadow:2px 2px 0 rgba(27,33,68,.25)}
+.brand .home{display:inline-block;margin:0 0 4px;font:800 12px/1.6 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#fffaf0;background:#0D6B72;border:2px solid #1b2144;border-radius:999px;padding:1px 10px;text-decoration:none;box-shadow:2px 2px 0 rgba(27,33,68,.25)}
 .brand .home+b{display:block}
 @media (max-width:900px){.cbtn .tx{display:none}}
 .brand .full{display:none}
@@ -320,7 +320,7 @@ body.embed #cap{width:330px}
 /* Xem ảnh lớn */
 #lb{position:fixed;inset:0;z-index:9;background:rgba(15,20,35,.82);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
 #lb[hidden]{display:none}
-#lb figure{margin:0;max-width:min(92vw,900px);text-align:center;color:#fff;font-family:"Be Vietnam Pro","Segoe UI",sans-serif}
+#lb figure{margin:0;max-width:min(92vw,900px);text-align:center;color:#fff;font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji"}
 #lb img{max-width:100%;max-height:calc(100vh - 110px);border:4px solid #fffaf0;border-radius:6px;display:block;margin:0 auto}
 #lb figcaption{margin-top:8px;font-size:14px}
 #lb figcaption small{display:block;opacity:.8;font-size:12px}
@@ -372,7 +372,8 @@ body.embed #cap{width:330px}
     <button class="cbtn" id="b-iso" hidden title="Sa bàn">📐 Sa bàn</button>
     <button class="cbtn on" id="b-cam" title="Camera tự bay theo nhân vật đang làm việc">🎥 Tự bay</button>
     <button class="cbtn" id="b-album" title="Lộ trình thật 3 ngày, ảnh thật của chuyến đi" aria-label="Lộ trình thật">📸<span class="tx"> Lộ trình thật</span></button>
-    <button class="cbtn" id="b-pins" title="Ẩn / hiện ghim ảnh trên bản đồ" aria-label="Ghim ảnh">📍<span class="tx"> Ghim ảnh</span></button>
+    <button class="cbtn" hidden id="b-pins" title="Ẩn / hiện ghim ảnh trên bản đồ" aria-label="Ghim ảnh">📍<span class="tx"> Ghim ảnh</span></button>
+    <button class="cbtn on" id="b-sound" title="Bật / tắt thuyết minh giọng Hải Đăng" aria-label="Thuyết minh">🔊</button>
     <button class="cbtn" id="b-q" title="Chất lượng hình: Nhẹ cho máy yếu, Đẹp cho máy mạnh" aria-label="Chất lượng hình">✨<span class="tx"> Đẹp</span></button>
   </div>
 </nav>
@@ -380,7 +381,7 @@ body.embed #cap{width:330px}
 <div id="reel" hidden aria-live="polite"></div>
 <div id="lb" hidden role="dialog" aria-label="Xem ảnh lớn"><figure><img alt=""><figcaption></figcaption></figure></div>
 
-<div id="hint">Kéo để xoay · cuộn chuột hoặc chụm 2 ngón để zoom · bấm nhân vật để xem thẻ · bấm ghim ảnh 📍 để xem ảnh thật</div>
+<div id="hint">🔊 Chạm vào màn hình để nghe thuyết minh · kéo để xoay · chụm 2 ngón để zoom · bấm nhân vật xem thẻ</div>
 <div id="toast"><b>🎉 Về bờ an toàn!</b><span>Quà đầy tay, ảnh đầy máy. Bấm từng chặng để xem lại.</span><br><button class="cbtn main" id="b-replay">↺ Xem lại từ đầu</button></div>
 <aside id="card" hidden></aside>
 <aside id="isoPanel" aria-live="polite">
@@ -547,9 +548,9 @@ try{ renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-perf
 /* Chất lượng hình: 2 = Đẹp, 1 = Nhẹ (mặc định điện thoại), 0 = Rất nhẹ (tự hạ khi máy giật).
    Mỗi mức: độ nét màn hình (pixel ratio) và tỷ lệ lớp vẽ ký họa / màu nước. */
 let QLV=MOBILE?1:2,qUser=false;
-try{const s=localStorage.getItem('lsd_3d_q');if(s!==null){QLV=+s;qUser=true;}}catch(e){}
-const QPR=()=>QLV===2?Math.min(window.devicePixelRatio||1,2):QLV===1?1:.85;
-const QPOST=()=>QLV===2?1:QLV===1?.75:.55;
+try{const s=localStorage.getItem('lsd_3d_q');if(s!==null){QLV=Math.max(1,+s);qUser=true;}}catch(e){}
+const QPR=()=>QLV>=2?Math.min(window.devicePixelRatio||1,2):Math.max(1,Math.min(window.devicePixelRatio||1,1.5));
+const QPOST=()=>QLV>=2?1:.9;
 renderer.setPixelRatio(QPR());
 renderer.setSize(innerWidth,innerHeight);
 $('#stage').appendChild(renderer.domElement);
@@ -1356,9 +1357,11 @@ function place(e,p,ax,ay,extra){e.style.transform='translate3d('+p[0].toFixed(1)
 const nameTags={};
 ORDER.forEach(id=>{const e=document.createElement('div');e.className='o nt';e.style.setProperty('--c',DEFS[id].color);e.textContent=DEFS[id].emoji+' '+(DEFS[id].short||DEFS[id].name);e.addEventListener('click',()=>openCard(id));OV.appendChild(e);nameTags[id]=e;});
 const PLACES=[['📍 Đà Nẵng',-31,-47,3.5],['📍 Quảng Ngãi',-30,-8,2.6],['🛬 Sân bay Đà Nẵng',-33,-41.9,2.2],['🖐️ Cầu Vàng · Bà Nà',-45,-49,5.6],['🏢 Trung tâm Hành chính',-25.2,-52.5,10.8],['🐉 Cầu Rồng',-20,-50.5,3.4],['🌉 Cầu sông Hàn',-20,-55,3.2],['⛵ Cầu Trần Thị Lý',-20,-46,7.2],['🌉 Cầu Trà Khúc',-26.6,-15.5,2.8],['🇻🇳 Quần đảo Hoàng Sa (Việt Nam)',150,-84,7,'',2],['🇻🇳 Quần đảo Trường Sa (Việt Nam)',208,150,7,'',2],['🙏 Quan Âm Linh Ứng',-16.8,-59.5,7.4],['🛕 Chùa Minh Đức',-35.5,-11,7.4],['⚓ Cảng Sa Kỳ',-21,24.5,2.4],['≈ 15 hải lý',2,23.5,1.2,'sea'],['🏝️ Đảo Lớn · Lý Sơn',22,14.5,1.8],['🧄 Ruộng tỏi',28,3.5,1.4,'',1],['🌋 Núi Thới Lới',40,1,2.4],['🛕 Chùa Hang',29.4,-4.6,2.4,'',1],['🏝️ Đảo Bé',55,-11,2.2,'',1]];
+// nhìn toàn cảnh chỉ hiện nhãn chính cho đỡ rối
+const MAJOR_PL=new Set(['📍 Đà Nẵng','📍 Quảng Ngãi','⚓ Cảng Sa Kỳ','≈ 15 hải lý','🏝️ Đảo Lớn · Lý Sơn','🇻🇳 Quần đảo Hoàng Sa (Việt Nam)','🇻🇳 Quần đảo Trường Sa (Việt Nam)']);
 const placeEls=PLACES.map(p=>{const e=document.createElement('div');e.className='o pl'+(p[4]?' '+p[4]:'');e.textContent=p[0];OV.appendChild(e);return e;});
 const P_pop=pool('pop'),P_emo=pool('emo');
-let pinsOn=true;
+let pinsOn=false;   // anh yêu cầu bỏ ghim ảnh trên mô hình (ảnh vẫn xem ở dòng Chặng thật, album)
 const PINS=TRIP.filter(t=>t.pin).map((t,i)=>{const e=document.createElement('div');e.className='o pc';e.style.setProperty('--rot',((i%3)-1)*4+'deg');
   e.innerHTML='<span class="d">N'+t.day+'</span><span class="ph"><img loading="lazy" alt="'+tname(t.k)+'" src="'+tthumb(t.k)+'"><small>'+tname(t.k)+'</small></span><i class="stem"></i>';
   e.title=t.t+' – bấm để xem ảnh';e.addEventListener('click',()=>openLB(t.k));OV.appendChild(e);return {t,el:e};});
@@ -1741,7 +1744,7 @@ buildAlbum();
 function onPhotoClick(e){const g=e.target.closest('[data-go]');if(g){e.stopPropagation();goPlace(g.dataset.go);return;}const b=e.target.closest('[data-k]');if(b)openLB(b.dataset.k);}
 ALB.addEventListener('click',onPhotoClick);$('#reel').addEventListener('click',onPhotoClick);$('#cap-trip').addEventListener('click',onPhotoClick);
 $('#b-album').onclick=()=>{ALB.hidden=!ALB.hidden;$('#b-album').classList.toggle('on',!ALB.hidden);if(!ALB.hidden){ALB.classList.remove('book');void ALB.offsetWidth;ALB.classList.add('book');ALB.scrollTop=0;}};
-$('#b-pins').classList.add('on');
+
 $('#b-pins').onclick=()=>{pinsOn=!pinsOn;$('#b-pins').classList.toggle('on',pinsOn);};
 // Chất lượng: nút Nhẹ/Đẹp + tự hạ khi máy giật
 const qBtn=$('#b-q');
@@ -1751,11 +1754,36 @@ qBtn.onclick=()=>{QLV=QLV===2?1:2;qUser=true;try{localStorage.setItem('lsd_3d_q'
 const fps={n:0,t:0,done:qUser,tries:0};
 function measureFps(dt){if(fps.done||document.hidden)return;if(dt>1){fps.n=0;fps.t=0;return;}   // bỏ khoảng chuyển tab / tải trang
   fps.n++;fps.t+=dt;if(fps.t<2.2)return;const f=fps.n/fps.t;fps.n=0;fps.t=0;fps.tries++;
-  if(f<30&&QLV>0){QLV--;applyQuality();}else fps.done=true;if(fps.tries>=3)fps.done=true;}
+  if(f<24&&QLV>1){QLV=1;applyQuality();}fps.done=true;}   // chỉ hạ một bậc (Đẹp → Nhẹ), không bao giờ xuống mức vỡ hạt
 applyQuality();
 // Không vẽ khi không cần: đang dừng và không ai chạm thì chỉ vẽ 1 khung/giây
 let lastInput=performance.now(),lastDraw=0;
 ['pointerdown','pointermove','wheel','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{lastInput=performance.now();},{passive:true,capture:true}));
+// Thuyết minh giọng Hải Đăng (VieNeu, bộ VideoMotion): mỗi chặng một file mp3, chỉ tải khi tới lượt; khớp tạm dừng và tốc độ phát
+const VO=STEPS.map((s,i)=>'audio/tm1_c'+i+'.mp3');
+let soundOn=true,gest=false,voEl=null,voIdx=-1;
+try{if(localStorage.getItem('lsd_3d_sound')==='0')soundOn=false;}catch(e){}
+const sBtn=$('#b-sound');
+function drawSound(){sBtn.innerHTML=soundOn?'🔊<span class="tx"> Thuyết minh</span>':'🔇<span class="tx"> Tắt tiếng</span>';sBtn.classList.toggle('on',soundOn);}
+sBtn.onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('lsd_3d_sound',soundOn?'1':'0');}catch(e){}drawSound();syncVoice(true);};
+['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{if(!gest){gest=true;setTimeout(()=>syncVoice(true),0);}},{passive:true,capture:true}));
+document.addEventListener('visibilitychange',()=>syncVoice(true));
+function syncVoice(force){
+  if(voIdx!==si){if(voEl)voEl.pause();voIdx=si;voEl=new Audio(VO[si]);voEl.preload='auto';force=true;if(VO[si+1]){const nx=new Audio(VO[si+1]);nx.preload='auto';}}
+  if(!voEl)return;
+  const want=soundOn&&gest&&playing&&!document.hidden;
+  try{voEl.playbackRate=speed;}catch(e){}
+  if(!want){if(!voEl.paused)voEl.pause();return;}
+  if(voEl.duration&&lt>voEl.duration-.05){if(!voEl.paused)voEl.pause();return;}
+  if(force||Math.abs(voEl.currentTime-lt)>.6){try{voEl.currentTime=lt;}catch(e){}}
+  if(voEl.paused){const p=voEl.play();if(p&&p.catch)p.catch(()=>{});}
+}
+drawSound();
+// Điện thoại: mặc định kiểu 3D màu (nét, nhẹ, không qua lớp vẽ ký họa); khách vẫn đổi được ở ô Kiểu vẽ
+setTimeout(()=>setStyleMode('3d'),0);   // mặc định 3D màu (nét nhất) trên mọi thiết bị; chạy sau khi dựng xong (tránh lỗi TDZ)
+// Chặng nào lời thuyết minh dài hơn hoạt cảnh thì kéo dài chặng để giọng không bị cắt
+const VO_LEN=[17.7,15.9,11.9,12.6,10.5,17.2,16.1];
+STEPS.forEach((s,i)=>{if(VO_LEN[i])s.dur=Math.max(s.dur,VO_LEN[i]+1.5);});
 let viewShift=0,topLimit=0;
 function measure(){document.documentElement.style.setProperty('--ctlh',$('#ctl').offsetHeight+'px');
   topLimit=$('#top').getBoundingClientRect().bottom;
@@ -1920,6 +1948,7 @@ function frame(now){
   lastDraw=now;
   const rawDt=Math.max(0,(now-last)/1000),dt=Math.min(.25,rawDt);last=now;T+=dt;
   if(playing)measureFps(rawDt);
+  syncVoice(false);
   if(playing){lt+=dt*speed;const st=STEPS[si];if(lt>=st.dur){if(si<STEPS.length-1){si++;lt=0;renderCaption();}else{lt=st.dur;playing=false;updatePlay();$('#toast').style.display='block';}}}
   const u=Math.min(1,lt/STEPS[si].dur);
   $('#prog').style.width=(u*100).toFixed(1)+'%';
@@ -2038,7 +2067,7 @@ function renderOverlay(){
   const camD=cam.d;
   ORDER.forEach(id=>{const r=actors[id].root.position,e=nameTags[id];const p=(isoOn||F.hideAll)?null:scr(r.x,r.y+2.2,r.z);if(!p||camD>60){e.style.display='none';return;}e.style.display='';place(e,p,-50,-100);});
   PLACES.forEach((pl,i)=>{const e=placeEls[i];const y=pl[4]==='sea'?pl[3]:groundY(pl[1],pl[2])+pl[3];const dist=camera.position.distanceTo(_a.set(pl[1],y,pl[2]));const o=pl[5]===2?Math.min(1,(F.far||0)*1.4):Math.max(0,Math.min(1,(dist-9)/10));const p=scr(pl[1],y,pl[2]);
-    if(isoOn||!p||o<=0||(pl[5]===1&&pinsOn)||(pl[5]===2&&!(F.far>.3))){e.style.display='none';return;}e.style.display='';e.style.opacity=o.toFixed(2);place(e,p,-50,-100);});
+    if(isoOn||!p||o<=0||(camD>45&&!MAJOR_PL.has(pl[0]))||(pl[5]===1&&pinsOn)||(pl[5]===2&&!(F.far>.3))){e.style.display='none';return;}e.style.display='';e.style.opacity=o.toFixed(2);place(e,p,-50,-100);});
   // ghim ảnh thật tại địa điểm
   const hot=STEP_TRIP[si]||[];
   PINS.forEach(pn=>{const e=pn.el,tp=pn.t;const y=groundY(tp.pin[0],tp.pin[1])+tp.pin[2];
