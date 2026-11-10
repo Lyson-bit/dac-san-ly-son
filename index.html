@@ -676,6 +676,13 @@ section[id]{scroll-margin-top:var(--hdr,9.75rem)}
   .facts .fact{font-size:.86rem}
 }
 @media (prefers-reduced-motion:reduce){.item.flash{animation:none}}
+/* Nút ngôi nhà về đầu trang, góc trái trên của thanh đầu trang */
+.home-btn{position:absolute;z-index:1;top:4px;left:max(16px,env(safe-area-inset-left,0px),calc((100% - 1080px) / 2 + 16px));display:grid;place-items:center;width:1.625rem;height:1.625rem;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--sea);text-decoration:none}
+.home-btn svg{width:1.05rem;height:1.05rem;fill:currentColor}
+.home-btn:hover{background:var(--sea-soft)}
+@media (max-width:420px){.welcome::before,.welcome::after{width:min(26px,6vw)}:root[style*="font-size"] .welcome::before,:root[style*="font-size"] .welcome::after{display:none}:root[style*="font-size"] .welcome,:root[style*="font-size"] .welcome b{letter-spacing:.16em}}
+@media (max-width:360px){.welcome::before,.welcome::after{display:none}}
+nav a.nav-sp,nav a.cta-link{white-space:nowrap}
 /* Công cụ đọc dưới menu: cỡ chữ A−/A+ và nút thích */
 .th-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:3px}
 .th-row .th{margin-top:0}
@@ -723,6 +730,7 @@ section[id]{scroll-margin-top:var(--hdr,9.75rem)}
 </head>
 <body>
 <header class="top">
+  <a class="home-btn" id="homeBtn" href="#top" aria-label="Về đầu trang" title="Về đầu trang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.6 12 3.8l8.5 6.8V20a.9.9 0 0 1-.9.9h-4.9v-6.1H9.3v6.1H4.4a.9.9 0 0 1-.9-.9z"/></svg></a>
   <p class="welcome" lang="en">Welcome to <b>Ly Son</b></p>
   <p class="hd-date" id="hdDate"></p>
   <div class="wrap">
@@ -771,6 +779,8 @@ b.forEach(function(x){x.addEventListener("click",function(){var t=x.getAttribute
 if(q.addEventListener)q.addEventListener("change",show);show();})();
 (function(){var e=document.getElementById("hdDate");function f(){var d=new Date(Date.now()+7*36e5);e.textContent="Ngày "+d.getUTCDate()+" tháng "+(d.getUTCMonth()+1)+" năm "+d.getUTCFullYear();}
 f();document.addEventListener("visibilitychange",function(){if(!document.hidden)f();});})();
+/* Nút ngôi nhà: cuộn về đầu trang, không để lại #top trên địa chỉ */
+(function(){var h=document.getElementById("homeBtn");if(!h)return;h.addEventListener("click",function(e){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});if(location.hash&&history.replaceState)history.replaceState(null,"",location.pathname+location.search);});})();
 /* Khoảng đệm cuộn theo chiều cao thật của thanh đầu trang (đổi theo cỡ chữ, màn hình) */
 (function(){var h=document.querySelector("header.top");if(!h)return;function f(){document.documentElement.style.setProperty("--hdr",(h.offsetHeight+14)+"px");}f();if(window.ResizeObserver)new ResizeObserver(f).observe(h);else window.addEventListener("resize",f);})();
 /* Cỡ chữ: 5 mức, lưu lsd_co trên máy khách (script trong head áp dụng ngay khi mở trang) */
@@ -1480,7 +1490,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.39</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.40</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
