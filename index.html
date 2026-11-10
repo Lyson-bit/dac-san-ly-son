@@ -678,8 +678,8 @@ section[id]{scroll-margin-top:var(--hdr,9.75rem)}
 @media (prefers-reduced-motion:reduce){.item.flash{animation:none}}
 /* Nút ngôi nhà về đầu trang, góc trái trên của thanh đầu trang */
 .topbar{position:absolute;z-index:2;top:8px;left:max(16px,env(safe-area-inset-left,0px),calc((100% - 1080px) / 2 + 16px));display:flex;align-items:center;gap:6px}
-.home-btn{flex:none;display:grid;place-items:center;width:1.625rem;height:1.625rem;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--sea);text-decoration:none}
-.home-btn svg{width:1.05rem;height:1.05rem;fill:currentColor}
+.home-btn{flex:none;display:grid;place-items:center;width:2rem;height:2rem;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--sea);text-decoration:none}
+.home-btn svg{width:1.4rem;height:1.4rem;fill:currentColor}
 .home-btn:hover{background:var(--sea-soft)}
 @media (max-width:420px){.welcome::before,.welcome::after{width:min(26px,6vw)}:root[style*="font-size"] .welcome::before,:root[style*="font-size"] .welcome::after{display:none}:root[style*="font-size"] .welcome,:root[style*="font-size"] .welcome b{letter-spacing:.16em}}
 @media (max-width:360px){.welcome::before,.welcome::after{display:none}}
@@ -714,7 +714,7 @@ nav a.nav-sp,nav a.cta-link{white-space:nowrap}
 .like-tip .x{position:absolute;top:3px;right:5px;padding:0 4px;border:0;background:none;color:inherit;font-size:1.05rem;line-height:1;cursor:pointer}
 .tim-bay{position:fixed;z-index:70;pointer-events:none;color:#E5484D;font-size:18px;line-height:1;animation:tim-bay 1.3s ease-out forwards}
 @keyframes tim-bay{0%{opacity:0;transform:translate(0,0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0),-90px) scale(1.2)}}
-@media (min-width:901px){header.top .hd-date+.wrap{padding-top:6px}}
+@media (min-width:901px){header.top .hd-date+.wrap{padding-top:12px}}
 @media (max-width:900px){.topbar{position:static;padding:9px max(16px,env(safe-area-inset-left,0px)) 0}}
 @media (max-width:640px){.fs-lv{display:none}.fs button{min-width:26px;height:24px;padding:0 4px}#fsDown{border-right:1px solid var(--line)}.like{height:26px;padding:0 8px}}
 @media (prefers-reduced-motion:reduce){.like.pop svg,.like.nudge{animation:none}}
@@ -1495,7 +1495,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.41</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.42</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
