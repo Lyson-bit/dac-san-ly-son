@@ -50,7 +50,7 @@ button{font:inherit;color:inherit}
 #cap-body .row{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
 #cap-body .k{flex:none;width:46px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;padding-top:3px}
 #cap-body .v{display:flex;flex-wrap:wrap;gap:4px}
-.fc{font:600 11px/1.4 Consolas,"Cascadia Mono",monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#eef3fa;border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+.fc{font:600 11px/1.4 "Segoe UI","Be Vietnam Pro",Roboto,"Noto Sans",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#eef3fa;border:1px solid var(--line);padding:1px 6px;border-radius:6px}
 .fc.w{background:#fff4e6;border-color:#ffd8a8}
 #cap-text{margin:8px 0 0;font-size:13px;color:#2c3a52}
 #cap-now{margin-top:8px;font-size:13px;font-weight:700;color:#0f5aa8;background:#e8f2ff;border-radius:10px;padding:5px 9px;min-height:30px}
@@ -123,7 +123,7 @@ button{font:inherit;color:inherit}
 
 /* ===== Kiểu sổ ký họa (urban sketch) ===== */
 :root{--ink:#2b2420;--muted:#6b5d50;--paper:#fbf6ea;--glass:rgba(251,246,234,.95);--shadow:3px 4px 0 rgba(43,36,32,.2);
-  --hand:"Be Vietnam Pro","Segoe UI",Roboto,"Noto Sans",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--wob:255px 18px 225px 16px/16px 225px 18px 255px;--wob2:12px 4px 14px 5px/5px 14px 4px 12px}
+  --hand:"Segoe UI","Be Vietnam Pro",Roboto,"Noto Sans",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--wob:255px 18px 225px 16px/16px 225px 18px 255px;--wob2:12px 4px 14px 5px/5px 14px 4px 12px}
 html,body{background:#f3ead8}
 .brand,#cap,#ctl,#toast{background:var(--glass);border:1.6px solid var(--ink);border-radius:var(--wob);box-shadow:var(--shadow);backdrop-filter:none;-webkit-backdrop-filter:none}
 #card{background:var(--paper);border:1.6px solid var(--ink);border-radius:var(--wob2);box-shadow:var(--shadow)}
@@ -166,7 +166,7 @@ select.cbtn{font-size:13px;font-weight:700;padding:0 8px;cursor:pointer;color:va
 /* ===== Kiểu màu nước (sổ tay thực địa): không viền mực, chì phác mảnh, một giọt son ===== */
 body{transition:background-color .8s}
 body.wc{--ink:#2F2922;--muted:#645646;--paper:#FBF8F1;--glass:rgba(251,248,241,.96);--graphite:#7E7871;
-  --hand:"Be Vietnam Pro","Segoe UI",Roboto,"Noto Sans",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--serif:"EB Garamond",Garamond,Cambria,Georgia,serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--mono:"IBM Plex Mono",Consolas,monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#F3ECDD}
+  --hand:"Segoe UI","Be Vietnam Pro",Roboto,"Noto Sans",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--serif:"EB Garamond",Garamond,Cambria,Georgia,serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";--mono:"IBM Plex Mono",Consolas,monospace,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#F3ECDD}
 body.wc .brand,body.wc #cap,body.wc #ctl,body.wc #toast{background:var(--glass);border:1px solid rgba(126,120,113,.6);border-radius:3px;outline:1px solid rgba(126,120,113,.28);outline-offset:3px;box-shadow:2px 3px 0 rgba(126,120,113,.1)}
 body.wc .brand{transform:rotate(-1deg)}
 body.wc #card{border:1px solid rgba(126,120,113,.6);border-radius:3px;background:#FBF8F1}
@@ -201,7 +201,7 @@ body.wc #hint{font-family:var(--hand);border:1px solid var(--graphite);border-ra
 #stylebadge{display:inline-block;margin-top:2px;font-size:11px;color:var(--muted)}
 
 /* ===== Nhân vật kiểu halftone-dossier: nhãn viên thuốc viền navy, bóng lệch đăng, con dấu hai viền ===== */
-body .nt,body.wc .nt,body .chip,body.wc .chip{font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-weight:800;color:#fffaf0;background:var(--c);border:2px solid #1b2144;border-radius:999px;box-shadow:3px 3px 0 rgba(27,33,68,.28);text-shadow:1px 1px 0 rgba(27,33,68,.35)}
+body .nt,body.wc .nt,body .chip,body.wc .chip{font-family:"Segoe UI","Be Vietnam Pro",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-weight:800;color:#fffaf0;background:var(--c);border:2px solid #1b2144;border-radius:999px;box-shadow:3px 3px 0 rgba(27,33,68,.28);text-shadow:1px 1px 0 rgba(27,33,68,.35)}
 body .nt,body.wc .nt{font-size:12px;padding:1px 9px}
 body .chip.dim,body.wc .chip.dim{opacity:.45}
 body .nt.on{outline:3px solid #ffc82e;outline-offset:1px}
@@ -212,7 +212,7 @@ body .bd,body.wc .bd{font-family:"JetBrains Mono",Consolas,monospace,"Segoe UI E
 
 /* ===== Sa bàn iso-infographic: giải thích quy trình và cách vận chuyển ===== */
 .pin{display:flex;flex-direction:column;align-items:center;pointer-events:none}
-.pin .lab{font:600 12px/1.3 "Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#22263A;background:#fff;border:1.5px solid #22263A;border-left:6px solid var(--c,#22263A);border-radius:8px;padding:2px 8px;white-space:nowrap;box-shadow:2px 2px 0 #D3D8E2}
+.pin .lab{font:600 12px/1.3 "Segoe UI","Be Vietnam Pro",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#22263A;background:#fff;border:1.5px solid #22263A;border-left:6px solid var(--c,#22263A);border-radius:8px;padding:2px 8px;white-space:nowrap;box-shadow:2px 2px 0 #D3D8E2}
 .pin .stem{width:2px;height:14px;background:#22263A}
 .pin .dot{width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #22263A;margin-top:-2px}
 .pin.big .lab{background:#E0644F;color:#fff;border-color:#B0473A}
@@ -227,14 +227,14 @@ body .bd,body.wc .bd{font-family:"JetBrains Mono",Consolas,monospace,"Segoe UI E
 #isoPanel .lg i.dash{height:0;border-top:3px dashed #22263A;border-radius:0}
 #isoPanel .note{color:#565C72;font-size:11.5px}
 #isoPanel b.k{display:inline-block;min-width:68px;font-family:"Lexend","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#2B67AD}
-body.iso{--ink:#22263A;--muted:#565C72;--glass:#fff;--lex:"Lexend","Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#F4F2EC}
+body.iso{--ink:#22263A;--muted:#565C72;--glass:#fff;--lex:"Lexend","Segoe UI","Be Vietnam Pro",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";background:#F4F2EC}
 body.iso #isoPanel{display:block}
 body.iso .brand,body.iso #cap,body.iso #ctl,body.iso #toast,body.iso #isoPanel,body.iso #card{background:#fff;border:1.5px dashed #A3ABBB;border-radius:14px;box-shadow:5px 6px 0 #D3D8E2;outline:none;transform:none}
 body.iso .brand b,body.iso #cap-title,body.iso #isoPanel h3,body.iso #toast b{font-family:var(--lex);font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:15px}
-body.iso .brand span,body.iso #cap-now{font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-style:normal}
+body.iso .brand span,body.iso #cap-now{font-family:"Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-style:normal}
 body.iso #cap-now{background:#EEF4FB;border:0;border-left:4px solid #4A88C8;border-radius:6px;color:#2B67AD}
 body.iso #cap-step{background:#E0644F;font-family:var(--lex);border-radius:6px}
-body.iso .bub{font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-size:13px;border:1.5px solid #22263A;border-radius:10px;box-shadow:3px 3px 0 #D3D8E2;background:#fff}
+body.iso .bub{font-family:"Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";font-size:13px;border:1.5px solid #22263A;border-radius:10px;box-shadow:3px 3px 0 #D3D8E2;background:#fff}
 body.iso .bub::after{border-top-color:#22263A}
 body.iso .st{border:1.5px solid #D3D8E2;border-radius:8px;background:#fff}
 body.iso .st.cur{background:#E0644F;color:#fff;border-color:#B0473A}
@@ -255,15 +255,15 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 .pc{pointer-events:auto;cursor:zoom-in;display:flex;flex-direction:column;align-items:center;transition:opacity .3s}
 .pc .ph{background:#fffaf0;padding:3px 3px 0;border:2px solid #1b2144;border-radius:4px;box-shadow:3px 3px 0 rgba(27,33,68,.28);transform:rotate(var(--rot,-3deg))}
 .pc img{display:block;width:62px;height:62px;object-fit:cover;border-radius:2px;background:#dfe7ee}
-.pc .ph small{display:block;max-width:62px;overflow:hidden;text-overflow:ellipsis;font:700 9.5px/1.6 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#1b2144;text-align:center}
+.pc .ph small{display:block;max-width:62px;overflow:hidden;text-overflow:ellipsis;font:700 9.5px/1.6 "Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#1b2144;text-align:center}
 .pc .stem{width:2px;height:10px;background:#1b2144}
-.pc .d{font:800 9px/1 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#fffaf0;background:#0D6B72;border:1.5px solid #1b2144;border-radius:999px;padding:2px 6px;margin-bottom:-6px;position:relative;z-index:1}
+.pc .d{font:800 9px/1 "Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#fffaf0;background:#0D6B72;border:1.5px solid #1b2144;border-radius:999px;padding:2px 6px;margin-bottom:-6px;position:relative;z-index:1}
 .pc.hot .ph{outline:3px solid #ffc82e;outline-offset:1px;animation:pcHot 1.2s ease-in-out infinite}
 @keyframes pcHot{50%{transform:rotate(var(--rot,-3deg)) scale(1.08)}}
 /* Ảnh bật ra từ máy ảnh của agent Ảnh */
 .pop{pointer-events:none;background:#fffaf0;padding:4px 4px 14px;border:2px solid #1b2144;border-radius:3px;box-shadow:4px 4px 0 rgba(27,33,68,.25)}
 .pop img{display:block;width:92px;height:92px;object-fit:cover}
-.pop small{position:absolute;left:0;right:0;bottom:1px;text-align:center;font:700 9px/1.2 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#1b2144}
+.pop small{position:absolute;left:0;right:0;bottom:1px;text-align:center;font:700 9px/1.2 "Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#1b2144}
 /* Biểu cảm trên đầu */
 .emo{pointer-events:none;font-size:20px;line-height:1;background:#fffaf0;border:2px solid #1b2144;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 rgba(27,33,68,.28)}
 .emo.bare{background:none;border:0;box-shadow:none;font-size:22px;text-shadow:0 0 3px #fff}
@@ -275,7 +275,7 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 #cap-trip button span{font-size:9.5px;font-weight:700;line-height:1.3;max-width:54px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #cap-trip .none{font-size:12px;color:var(--muted)}
 /* Album lộ trình thật (3 ngày) */
-#album{position:fixed;left:50%;top:16px;transform:translateX(-50%);width:min(760px,calc(100vw - 32px));max-height:calc(100vh - 48px - var(--ctlh));overflow:auto;z-index:8;background:#fffaf0;border:2px solid #1b2144;border-radius:14px;box-shadow:6px 6px 0 rgba(27,33,68,.25);padding:12px 14px;font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji"}
+#album{position:fixed;left:50%;top:16px;transform:translateX(-50%);width:min(760px,calc(100vw - 32px));max-height:calc(100vh - 48px - var(--ctlh));overflow:auto;z-index:8;background:#fffaf0;border:2px solid #1b2144;border-radius:14px;box-shadow:6px 6px 0 rgba(27,33,68,.25);padding:12px 14px;font-family:"Segoe UI","Be Vietnam Pro",system-ui,sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji"}
 #album[hidden]{display:none}
 #album .ah{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 #album .ah b{font-size:16px;flex:1}
@@ -292,7 +292,7 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 #album.book{animation:albIn .6s cubic-bezier(.2,1.4,.4,1)}
 @keyframes albIn{from{transform:translateX(-50%) scale(.6) rotate(-4deg);opacity:0}}
 /* Dải ảnh "cuốn nhật ký" lật trang ở bước cuối */
-#reel{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:4;background:#fffaf0;border:2px solid #1b2144;border-radius:12px;box-shadow:5px 5px 0 rgba(27,33,68,.25);padding:8px 10px;max-width:calc(100vw - 32px);font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";transition:opacity .4s}
+#reel{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:4;background:#fffaf0;border:2px solid #1b2144;border-radius:12px;box-shadow:5px 5px 0 rgba(27,33,68,.25);padding:8px 10px;max-width:calc(100vw - 32px);font-family:"Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";transition:opacity .4s}
 #reel[hidden]{display:none}
 #reel b{display:block;font-size:12px;color:#ec5a86;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
 #reel .r{display:flex;gap:6px}
@@ -303,7 +303,7 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 @media (max-width:900px){#reel{top:var(--isotop,120px);padding:6px 8px}#reel b{font-size:11px;margin-bottom:3px}#reel img{width:60px;height:44px}}
 @media (prefers-reduced-motion:reduce){#reel button{animation:none}}
 /* Bản công khai trên web: nút về trang chủ, nút chất lượng */
-.brand .home{display:inline-block;margin:0 0 4px;font:800 12px/1.6 "Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#fffaf0;background:#0D6B72;border:2px solid #1b2144;border-radius:999px;padding:1px 10px;text-decoration:none;box-shadow:2px 2px 0 rgba(27,33,68,.25)}
+.brand .home{display:inline-block;margin:0 0 4px;font:800 12px/1.6 "Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji";color:#fffaf0;background:#0D6B72;border:2px solid #1b2144;border-radius:999px;padding:1px 10px;text-decoration:none;box-shadow:2px 2px 0 rgba(27,33,68,.25)}
 .brand .home+b{display:block}
 @media (max-width:900px){.cbtn .tx{display:none}}
 .brand .full{display:none}
@@ -320,7 +320,7 @@ body.embed #cap{width:330px}
 /* Xem ảnh lớn */
 #lb{position:fixed;inset:0;z-index:9;background:rgba(15,20,35,.82);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
 #lb[hidden]{display:none}
-#lb figure{margin:0;max-width:min(92vw,900px);text-align:center;color:#fff;font-family:"Be Vietnam Pro","Segoe UI",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji"}
+#lb figure{margin:0;max-width:min(92vw,900px);text-align:center;color:#fff;font-family:"Segoe UI","Be Vietnam Pro",sans-serif,"Segoe UI Emoji","Segoe UI Symbol","Apple Color Emoji","Noto Color Emoji"}
 #lb img{max-width:100%;max-height:calc(100vh - 110px);border:4px solid #fffaf0;border-radius:6px;display:block;margin:0 auto}
 #lb figcaption{margin-top:8px;font-size:14px}
 #lb figcaption small{display:block;opacity:.8;font-size:12px}
@@ -331,6 +331,7 @@ body.embed #cap{width:330px}
 }
 @media (prefers-reduced-motion:reduce){.pc.hot .ph,#album.book{animation:none}}
 /* ===== Điện thoại: bố cục gọn, cân đối (v1.60) + nút ẩn/hiện bảng ===== */
+#b-sty{display:none}
 #b-ui{position:fixed;right:10px;bottom:calc(var(--ctlh) + 18px);z-index:9;width:40px;height:40px;border-radius:50%;border:2px solid #1b2144;background:#fffaf0;font-size:18px;line-height:1;cursor:pointer;box-shadow:2px 2px 0 rgba(27,33,68,.25);display:flex;align-items:center;justify-content:center}
 body.noui #b-ui{bottom:14px}
 body.noui #top .brand>*:not(.home),body.noui #cast,body.noui #cap,body.noui #ctl,body.noui #hint,body.noui #reel{display:none!important}
@@ -358,7 +359,9 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
   body .cbtn.main{min-width:44px;font-size:16px}
   body .speed{padding:2px;flex:none;border-radius:9px}
   body .speed button{height:28px;padding:0 5px;font-size:11px}
-  body #b-style,body .sp,body #speed{display:none}   /* điện thoại: bỏ ô kiểu vẽ và tốc độ cho gọn (mặc định 3D màu, 1×) */
+  body #b-style,body .sp,body #speed{display:none}
+  body #b-sty{display:inline-flex;align-items:center;justify-content:center}
+  body #stylebadge{display:none}   /* điện thoại: bỏ ô kiểu vẽ và tốc độ cho gọn (mặc định 3D màu, 1×) */
   #b-ui{width:36px;height:36px;font-size:16px;right:8px}
 }</style>
 </head>
@@ -403,6 +406,7 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
     <button class="cbtn on" id="b-cam" title="Camera tự bay theo nhân vật đang làm việc" aria-label="Camera tự bay">🎥<span class="tx"> Tự bay</span></button>
     <button class="cbtn" id="b-album" title="Lộ trình thật 3 ngày, ảnh thật của chuyến đi" aria-label="Lộ trình thật">📸<span class="tx"> Lộ trình thật</span></button>
     <button class="cbtn" hidden id="b-pins" title="Ẩn / hiện ghim ảnh trên bản đồ" aria-label="Ghim ảnh">📍<span class="tx"> Ghim ảnh</span></button>
+    <button class="cbtn" id="b-sty" title="Đổi kiểu vẽ" aria-label="Đổi kiểu vẽ">🎨</button>
     <button class="cbtn on" id="b-sound" title="Bật / tắt thuyết minh giọng Hải Đăng" aria-label="Thuyết minh">🔊</button>
     <button class="cbtn" id="b-q" title="Chất lượng hình: Nhẹ cho máy yếu, Đẹp cho máy mạnh" aria-label="Chất lượng hình">✨<span class="tx"> Đẹp</span></button>
   </div>
@@ -478,7 +482,7 @@ const FILES={
   'qua':{n:'🎁 Quà Lý Sơn',c:'#ec5a86',book:true}
 };
 const STEPS=[
- {short:'Hạ cánh',title:'Chặng 0 · Bay qua vịnh, hạ cánh Đà Nẵng',who:TEAM,read:['Vịnh Đà Nẵng','Sân bay Đà Nẵng','Quán cà phê'],write:['Cà phê sáng ☕'],dur:30,
+ {short:'Hạ cánh',title:'Chặng 0 · Bay qua vịnh, hạ cánh Đà Nẵng',who:TEAM,read:['Vịnh Đà Nẵng','Sân bay Đà Nẵng','Quán cà phê'],write:['Cà phê sáng ☕'],dur:34,
   text:'Máy bay lượn qua vịnh Đà Nẵng rồi hạ cánh. Anh Danh Pro đón đoàn: anh Tèo ham ăn, chị Tám mê chụp hình, bác Bảy hay kể chuyện xưa, anh Tư "rành đường" và bé Tý hỏi gì cũng khó.'},
  {short:'Đà Nẵng',title:'Chặng 1 · Một vòng Đà Nẵng',who:TEAM,read:['Cầu Vàng · Bà Nà','Trung tâm Hành chính','Cầu Rồng','Quan Âm Linh Ứng'],write:['Bắp nướng? 🌽'],dur:28,
   text:'Cả đoàn chụp hình nhóm ở bốn điểm quen thuộc của Đà Nẵng. Anh Tèo nhìn đâu cũng thấy đồ ăn, chị Tám chụp không nghỉ tay.'},
@@ -817,6 +821,9 @@ function ribbonMesh(pts,closed,w0,w1,y){
 
 /* ---------- Đường bộ & đường tàu ---------- */
 const ROAD_PTS=[[-23.5,-41],[-24.5,-30],[-26.5,-17],[-27.5,-3],[-26.5,8],[-23,13.5],[-20.5,16.2]];
+// Đường sắt Bắc – Nam: ga Đà Nẵng → cầu sắt qua sông Trà Khúc → ga Quảng Ngãi (chạy giữa quốc lộ và bờ biển)
+const RAIL_PTS=[[-21.5,-40.5],[-21.3,-30],[-20.6,-20],[-20.7,-15.5],[-21.1,-9],[-21.2,-2],[-21.6,4.5]];
+function nearRail(x,z,d){for(let i=1;i<RAIL_PTS.length;i++){const a=RAIL_PTS[i-1],b=RAIL_PTS[i],dx=b[0]-a[0],dz=b[1]-a[1],L=dx*dx+dz*dz,t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[1])*dz)/L));if(Math.hypot(x-a[0]-dx*t,z-a[1]-dz*t)<d)return true;}return false;}
 const SEA_PTS=[[-13,21.4],[-8,21.6],[-1,23],[6,20.5],[10.5,14.5],[14.5,12.4],[18.2,12.2]];
 const road=new THREE.CatmullRomCurve3(ROAD_PTS.map(p=>new V3(p[0],0,p[1])));
 const sea=new THREE.CatmullRomCurve3(SEA_PTS.map(p=>new V3(p[0],0,p[1])));
@@ -873,7 +880,7 @@ function nearRoad(x,z,d){for(let i=0;i<roadSamples.length;i+=3){const p=roadSamp
   while(T.length<want&&tries<3000){tries++;const z=-60+rnd()*120,x=coastX(z)-6-rnd()*30;
     if(nearRoad(x,z,3))continue; if(x>-40&&z<-30&&z>-57)continue;
     if(Math.hypot(x+45,z+49)<5||Math.hypot(x+35.5,z+11)<5.5)continue;
-    if(Math.abs(z+15.5)<1.5&&x>-41)continue;                                // sông Trà Khúc   // chừa chỗ Cầu Vàng, chùa Minh Đức
+    if(Math.abs(z+15.5)<1.5&&x>-41)continue;if(nearRail(x,z,2.2))continue;                                // sông Trà Khúc   // chừa chỗ Cầu Vàng, chùa Minh Đức
     if(x>-37&&x<-21&&z>-31&&z<-18)continue;                               // không che máy quay cảnh làm quen if(z>-9&&z<6&&x>-35)continue; if(z>11&&x>-28)continue;
     const y=H(x,z); if(y<.5)continue; T.push({x,z,y,s:.7+rnd()*.7,color:[0x4fa35a,0x5bb565,0x3f9450][T.length%3]});}
   [[20.5,-2.5],[23,-3.2],[33,-3.6],[36.6,-4],[35.2,8.4],[24.6,-1],[37.8,7.4]].forEach(p=>T.push({x:p[0],z:p[1],y:H(p[0],p[1]),s:.8,color:0x4fa35a}));
@@ -882,7 +889,7 @@ function nearRoad(x,z,d){for(let i=0;i<roadSamples.length;i+=3){const p=roadSamp
   instanced(tg,std(0x8a5a3a),T,(m,it)=>mcompose(m,it.x,it.y-.1,it.z,0,.12,.8*it.s+.4,.12));
   // Cọ
   const P=[];
-  for(let z=-56;z<=-28;z+=MOBILE?6:3.5){const x=coastX(z)-2.6;if(Math.hypot(x+16,z+54.5)<3.8)continue;P.push([x,z]);}
+  for(let z=-56;z<=-28;z+=MOBILE?6:3.5){const x=coastX(z)-2.6;if(Math.hypot(x+16,z+54.5)<3.8||Math.hypot(x+19.4,z+38.4)<2.8||nearRail(x,z,1.4))continue;P.push([x,z]);}
   [[-23.8,25.6],[-19.6,13.6],[19.5,6.8],[37,11.5],[34.6,12.9],[54,-11.6],[56,-10.4],[55.2,-12.4]].forEach(p=>P.push(p));
   const PL=P.map(p=>({x:p[0],z:p[1],y:groundY(p[0],p[1]),h:2.1+rnd()*.8,r:rnd()*6}));
   const trg=new THREE.CylinderGeometry(.08,.13,1,5);trg.translate(0,.5,0);
@@ -968,7 +975,8 @@ const plane=new THREE.Group();
 plane.rotation.order='YXZ';
 // đường bay: lượn qua vịnh Đà Nẵng, qua Sơn Trà, hạ cánh đường băng sân bay Đà Nẵng
 const RWY_Y=groundY(-33,-41.9)+.6;
-const PLANE_CURVE=new THREE.CatmullRomCurve3([new V3(62,26,-80),new V3(28,21,-68),new V3(4,15,-60),new V3(-11,9,-51),new V3(-21,4.5,-44.6),new V3(-27,RWY_Y+.3,-42),new V3(-31.5,RWY_Y,-41.9),new V3(-36.2,RWY_Y,-41.9)]);
+// hạ độ cao đều (khoảng 6–12°), chạm đường băng ở x ≈ −32 rồi lăn bánh
+const PLANE_CURVE=new THREE.CatmullRomCurve3([new V3(62,16,-80),new V3(30,12.5,-68),new V3(5,9,-60),new V3(-10,6,-52),new V3(-19,4.3,-46),new V3(-25,2.9,-43),new V3(-29.5,RWY_Y+.5,-42),new V3(-32,RWY_Y+.08,-41.9),new V3(-36.4,RWY_Y,-41.9)]);
 // đường băng + đài kiểm soát
 (function(){const x0=-39.5,x1=-26.6,z=-41.9,y=groundY(-33,-41.9)+.03;const r=mk(GEO.box,std(0x4a4f57),(x0+x1)/2,y,z,scene);r.scale.set(x1-x0,.06,1.6);
   for(let x=x0+.6;x<x1;x+=1.2)mk(GEO.box,bas(0xffffff),x,y+.04,z,scene).scale.set(.6,.02,.08);
@@ -1064,6 +1072,39 @@ function deck(z,col){const y=groundY(-20,z)+.55;const d=mk(GEO.box,toon(col||0x9
     mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),24,.07,6,false),toon(0x4f7fb0),0,0,0,scene);
     for(let i=1;i<6;i++){const t=i/6,h=Math.sin(Math.PI*t)*4.3;const hg=mk(GEO.cyl,toon(0x4f7fb0),bx+ox,y+.05+h/2,z-1.4+2.8*t,scene);hg.scale.set(.025,h,.025);}});
   for(let i=3;i<4;i++){const t=i/6;const b=mk(GEO.box,toon(0x4f7fb0),bx,y+.05+Math.sin(Math.PI*t)*4.3,z-1.4+2.8*t,scene);b.scale.set(2.6,.05,.05);}})();
+
+// Đường sắt Bắc – Nam: ray đôi + tà vẹt, cầu sắt qua sông Trà Khúc, ga Đà Nẵng, ga Quảng Ngãi, đoàn tàu xanh
+const railCurve=new THREE.CatmullRomCurve3(RAIL_PTS.map(p=>new V3(p[0],0,p[1])));const RAIL_LEN=railCurve.getLength();
+(function(){const N=Math.round(RAIL_LEN/(MOBILE?.9:.6)),pts=railCurve.getSpacedPoints(N),sl=[],rl=[];
+  for(let i=0;i<=N;i++){const p=pts[i],q=pts[Math.min(N,i+1)],r=pts[Math.max(0,i-1)],tx=q.x-r.x,tz=q.z-r.z,yaw=Math.atan2(tx,tz),y=groundY(p.x,p.z)+.06;sl.push({x:p.x,y,z:p.z,yaw});
+    if(i<N){const a=p,b=pts[i+1],L=Math.hypot(b.x-a.x,b.z-a.z),yw=Math.atan2(b.x-a.x,b.z-a.z),nx=Math.cos(yw),nz=-Math.sin(yw);[-.28,.28].forEach(o=>rl.push({x:(a.x+b.x)/2+nx*o,y:y+.07,z:(a.z+b.z)/2+nz*o,yaw:yw,L}));}}
+  instanced(GEO.box,toon(0x6b4a2a),sl,(m,it)=>mcompose(m,it.x,it.y,it.z,it.yaw,.95,.06,.16));
+  instanced(GEO.box,toon(0x8d939c),rl,(m,it)=>mcompose(m,it.x,it.y,it.z,it.yaw,.06,.07,it.L+.02));
+  // cầu sắt qua sông Trà Khúc
+  const bz=-15.5,bx=railCurve.getPointAt(0).x;const bp=pts.reduce((a,p)=>Math.abs(p.z-bz)<Math.abs(a.z-bz)?p:a,pts[0]);const by=groundY(bp.x,bz)+.1;
+  [-.55,.55].forEach(o=>{mk(GEO.box,toon(0x3d5a80),bp.x+o,by+.7,bz,scene).scale.set(.06,.06,2.8);mk(GEO.box,toon(0x3d5a80),bp.x+o,by+.05,bz,scene).scale.set(.06,.06,2.8);
+    for(let k=-1;k<=1;k+=2){for(let j=0;j<3;j++){const s=mk(GEO.box,toon(0x3d5a80),bp.x+o,by+.38,bz-1.05+j*.7+.35,scene);s.scale.set(.04,.04,.95);s.rotation.x=k*.78;}}});
+  // nhà ga: nhà dài dọc đường ray, sân ga, biển tên quay về phía đường ray
+  function station(x,z,name){const y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
+    mk(GEO.box,toon(0xf3e6c8),0,.6,0,g).scale.set(1.3,1.2,2.8);
+    const rf=mk(GEO.box,toon(0xc8553a),0,1.3,0,g);rf.scale.set(1.6,.2,3.1);
+    mk(GEO.box,toon(0xd9d2c0),-1.15,.12,0,g).scale.set(.9,.22,3.2);
+    [-.9,0,.9].forEach(dz=>mk(GEO.box,toon(0x2b3a4f),-.66,.65,dz,g).scale.set(.04,.5,.4));
+    const tx=canvasTex(512,80,(c,w,h)=>{c.fillStyle='#1f4e8c';c.fillRect(0,0,w,h);c.fillStyle='#fff';c.font='bold 40px Segoe UI,Arial,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(name,w/2,h/2+2);});
+    const sg=mk(new THREE.PlaneGeometry(2.2,.36),new THREE.MeshBasicMaterial({map:tx,side:THREE.DoubleSide}),-.67,1.62,0,g);sg.rotation.y=-Math.PI/2;
+    mk(GEO.box,toon(0x1f4e8c),-.64,1.62,0,g).scale.set(.03,.42,2.3);}
+  station(-19.4,-38.4,'GA ĐÀ NẴNG');station(-19.2,-3.2,'GA QUẢNG NGÃI');})();
+// đoàn tàu: đầu máy + 3 toa màu xanh, sọc trắng
+const train=[];
+(function(){for(let k=0;k<4;k++){const g=new THREE.Group();const loco=k===0;
+  mk(GEO.box,toon(loco?0x1f4e8c:0x2a6fdb),0,.5,0,g).scale.set(.72,.72,loco?1.5:1.7);
+  mk(GEO.box,toon(0xffffff),0,.42,0,g).scale.set(.74,.1,loco?1.52:1.72);
+  mk(GEO.box,toon(0x22303f),0,.66,0,g).scale.set(.75,.2,loco?.6:1.4);
+  mk(GEO.box,toon(0x22303f),0,.06,0,g).scale.set(.5,.12,loco?1.3:1.5);
+  if(loco){mk(GEO.box,toon(0xf2c230),0,.3,.76,g).scale.set(.6,.16,.04);mk(GEO.sph,bas(0xfff3a0),0,.62,.76,g).scale.setScalar(.07);mk(GEO.box,toon(0x22303f),0,.7,.76,g).scale.set(.55,.2,.03);}
+  scene.add(g);train.push(g);}})();
+function placeTrain(s,dir){const gap=1.85/RAIL_LEN;train.forEach((g,k)=>{const u=Math.min(1,Math.max(0,s-dir*k*gap));const p=railCurve.getPointAt(u),tg=railCurve.getTangentAt(u);
+  g.position.set(p.x,groundY(p.x,p.z)+.14+(F&&F.train>=0&&s>0&&s<1?Math.abs(Math.sin(T*14+k))*.015:0),p.z);g.rotation.y=Math.atan2(tg.x,tg.z)+(dir<0?Math.PI:0);});}
 
 // Cảng Lý Sơn (trên đảo, đầu cầu tàu): nhà chờ mái xanh, biển tên, cột cờ
 (function(){const x=20.6,z=7.9,y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=Math.PI;scene.add(g);
@@ -1415,7 +1456,7 @@ function scr(x,y,z){_pv.set(x,y,z).project(PCAM);if(_pv.z>1||_pv.z<-1||Math.abs(
 function place(e,p,ax,ay,extra){e.style.transform='translate3d('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px,0) translate('+ax+'%,'+ay+'%)'+(extra||'');}
 const nameTags={};
 ORDER.forEach(id=>{const e=document.createElement('div');e.className='o nt';e.style.setProperty('--c',DEFS[id].color);e.textContent=DEFS[id].emoji+' '+(DEFS[id].short||DEFS[id].name);e.addEventListener('click',()=>openCard(id));OV.appendChild(e);nameTags[id]=e;});
-const PLACES=[['📍 Đà Nẵng',-31,-47,3.5],['📍 Quảng Ngãi',-30,-8,2.6],['🛬 Sân bay Đà Nẵng',-33,-41.9,2.2],['🖐️ Cầu Vàng · Bà Nà',-45,-49,5.6],['🏢 Trung tâm Hành chính',-25.2,-52.5,10.8],['🐉 Cầu Rồng',-20,-50.5,3.4],['🌉 Cầu sông Hàn',-20,-55,3.2],['⛵ Cầu Trần Thị Lý',-20,-46,7.2],['🌉 Cầu Trà Khúc',-26.6,-15.5,2.8],['🇻🇳 Quần đảo Hoàng Sa (Việt Nam)',150,-84,7,'',2],['🇻🇳 Quần đảo Trường Sa (Việt Nam)',208,150,7,'',2],['🙏 Quan Âm Linh Ứng',-16.8,-59.5,7.4],['🛕 Chùa Minh Đức',-35.5,-11,7.4],['⚓ Cảng Sa Kỳ',-21,24.5,2.4],['🏢 Nhà ga tàu Lý Sơn · cảng Sa Kỳ',-16.5,16.1,3.4],['≈ 15 hải lý',2,23.5,1.2,'sea'],['⚓ Cảng Lý Sơn',20.6,7.9,3.0],['🏝️ Đảo Lớn · Lý Sơn',22,14.5,1.8],['🧄 Ruộng tỏi',28,3.5,1.4,'',1],['🌋 Núi Thới Lới',40,1,2.4],['🛕 Chùa Hang',29.4,-4.6,2.4,'',1],['🏝️ Đảo Bé',55,-11,2.2,'',1]];
+const PLACES=[['📍 Đà Nẵng',-31,-47,3.5],['📍 Quảng Ngãi',-30,-8,2.6],['🛬 Sân bay Đà Nẵng',-33,-41.9,2.2],['🖐️ Cầu Vàng · Bà Nà',-45,-49,5.6],['🏢 Trung tâm Hành chính',-25.2,-52.5,10.8],['🐉 Cầu Rồng',-20,-50.5,3.4],['🌉 Cầu sông Hàn',-20,-55,3.2],['⛵ Cầu Trần Thị Lý',-20,-46,7.2],['🚆 Ga Đà Nẵng',-19.4,-38.4,2.6],['🚆 Ga Quảng Ngãi',-19.2,-3.2,2.6],['🛤️ Đường sắt Bắc – Nam',-20.4,-24,1.6],['🌉 Cầu Trà Khúc',-26.6,-15.5,2.8],['🇻🇳 Quần đảo Hoàng Sa (Việt Nam)',150,-84,7,'',2],['🇻🇳 Quần đảo Trường Sa (Việt Nam)',208,150,7,'',2],['🙏 Quan Âm Linh Ứng',-16.8,-59.5,7.4],['🛕 Chùa Minh Đức',-35.5,-11,7.4],['⚓ Cảng Sa Kỳ',-21,24.5,2.4],['🏢 Nhà ga tàu Lý Sơn · cảng Sa Kỳ',-16.5,16.1,3.4],['≈ 15 hải lý',2,23.5,1.2,'sea'],['⚓ Cảng Lý Sơn',20.6,7.9,3.0],['🏝️ Đảo Lớn · Lý Sơn',22,14.5,1.8],['🧄 Ruộng tỏi',28,3.5,1.4,'',1],['🌋 Núi Thới Lới',40,1,2.4],['🛕 Chùa Hang',29.4,-4.6,2.4,'',1],['🏝️ Đảo Bé',55,-11,2.2,'',1]];
 // nhìn toàn cảnh chỉ hiện nhãn chính cho đỡ rối
 const MAJOR_PL=new Set(['📍 Đà Nẵng','📍 Quảng Ngãi','⚓ Cảng Sa Kỳ','≈ 15 hải lý','🏝️ Đảo Lớn · Lý Sơn','🇻🇳 Quần đảo Hoàng Sa (Việt Nam)','🇻🇳 Quần đảo Trường Sa (Việt Nam)']);
 const placeEls=PLACES.map(p=>{const e=document.createElement('div');e.className='o pl'+(p[4]?' '+p[4]:'');e.textContent=p[0];OV.appendChild(e);return e;});
@@ -1427,7 +1468,7 @@ const PINS=TRIP.filter(t=>t.pin).map((t,i)=>{const e=document.createElement('div
 
 /* ---------------- Khung hình (pose) ---------------- */
 let F=null;
-function newFrame(){return{A:{},H:{},FR:{},FL:[],B:[],S:[],X:[],FLT:[],BD:[],E:[],PH:[],plane:-1,dusk:0,fire:-1,glow:null,race:-1,C:null,act:[],note:''};}
+function newFrame(){return{A:{},H:{},FR:{},FL:[],B:[],S:[],X:[],FLT:[],BD:[],E:[],PH:[],plane:-1,dusk:0,fire:-1,glow:null,race:-1,train:-1,C:null,act:[],note:''};}
 const P={
   g:(x,z)=>({x,y:groundY(x,z),z}),
   set(id,p,o){o=o||{};F.A[id]={x:p.x,y:p.y,z:p.z,face:o.face!=null?o.face:null,mode:o.mode||'idle',ride:!!o.ride};},
@@ -1546,6 +1587,7 @@ STEPS[1].pose=function(u){
 STEPS[2].pose=function(u){
   P.boat(0);
   const s=ease(seg(u,.17,.8));P.bus(s);
+  F.train=Math.max(0,Math.min(.999,(bus.position.z+40.5)/45+.06));   // tàu hỏa chạy song song, nhỉnh lên trước xe một chút
   BUS6.forEach(([id,ox,oz],j)=>{const d=j*.012,door=[-25.3,-41.8+j*.7];
     if(u<.09+d)P.walkL(id,S1[id],door,ease(seg(u,.02+d,.09+d)));
     else if(u<.14+d)P.hop(id,P.g(door[0],door[1]),P.busSeat(ox,oz),seg(u,.09+d,.14+d));
@@ -1557,7 +1599,7 @@ STEPS[2].pose=function(u){
     ['bt','Chú chưa đếm chú đó chú Danh! 🤭',.09,.15],
     ['dp','Ngồi tầng trên cho mát, ai say xe ngồi phía trước nha',.17,.25],
     ['anh','Zzz… 😴',.25,.33],
-    ['kv','Có ai mang bánh tráng không? Đói quá trời 🫓',.31,.39],
+    ['kv','Tàu hỏa Bắc – Nam kìa! Trên tàu chắc có bán cơm hộp 😋🚆',.31,.39],
     ['dp','🌉 Qua cầu Trà Khúc rồi! Sông Trà Khúc của Quảng Ngãi đó cả nhà',.41,.49],
     ['dp','🛕 Bên phải là chùa Minh Đức, tượng Phật Quan Âm bên mặt nước',.49,.56],
     ['ta','Anh tài ơi, dừng năm phút cho em chụp một tấm thôi! 📸',.56,.61],
@@ -1839,11 +1881,18 @@ function syncVoice(force){
   if(voEl.paused){const p=voEl.play();if(p&&p.catch)p.catch(()=>{});}
 }
 drawSound();
+// Điện thoại: nút 🎨 đổi lần lượt kiểu vẽ (thay ô chọn), báo tên kiểu trong 1,6 giây
+const STY_LIST=[['sketch','✏️','Ký họa'],['wc','💧','Màu nước'],['auto','🧭','Theo chặng'],['3d','🎨','3D màu']];
+const styBtn=$('#b-sty');let styTip=0;
+function drawSty(){const it=STY_LIST.find(s=>s[0]===styleMode)||STY_LIST[0];styBtn.textContent=it[1];styBtn.title='Kiểu vẽ: '+it[2]+' (bấm để đổi)';}
+styBtn.onclick=()=>{const i=STY_LIST.findIndex(s=>s[0]===styleMode);const nx=STY_LIST[(i+1)%STY_LIST.length];setStyleMode(nx[0]);drawSty();
+  const h=$('#hint');h.textContent='Kiểu vẽ: '+nx[1]+' '+nx[2];h.classList.remove('hide');clearTimeout(styTip);styTip=setTimeout(()=>h.classList.add('hide'),1600);};
+setTimeout(drawSty,60);   // sau khi đặt kiểu mặc định
 // Nút ẩn / hiện toàn bộ bảng (xem trọn cảnh 3D)
 const uiBtn=$('#b-ui');
 uiBtn.onclick=()=>{const off=document.body.classList.toggle('noui');uiBtn.textContent=off?'☰':'🙈';uiBtn.setAttribute('aria-label',off?'Hiện bảng điều khiển':'Ẩn bảng điều khiển');uiBtn.title=off?'Hiện bảng điều khiển':'Ẩn bảng điều khiển';measure();};
 // Điện thoại: mặc định kiểu 3D màu (nét, nhẹ, không qua lớp vẽ ký họa); khách vẫn đổi được ở ô Kiểu vẽ
-setTimeout(()=>setStyleMode('3d'),0);   // mặc định 3D màu (nét nhất) trên mọi thiết bị; chạy sau khi dựng xong (tránh lỗi TDZ)
+setTimeout(()=>setStyleMode('sketch'),0);   // mặc định Ký họa (anh chọn); khách đổi được kiểu khác; chạy sau khi dựng xong (tránh lỗi TDZ)
 // Chặng nào lời thuyết minh dài hơn hoạt cảnh thì kéo dài chặng để giọng không bị cắt
 const VO_LEN=[17.7,15.9,12.0,12.7,10.6,17.3,15.2];
 STEPS.forEach((s,i)=>{if(VO_LEN[i])s.dur=Math.max(s.dur,VO_LEN[i]+1.5);});
@@ -2026,8 +2075,10 @@ function frame(now){
   // tim bay lên khi vui (kiểu sticker dễ thương)
   ORDER.forEach((id,i)=>{const m=F.A[id];if(m&&(m.mode==='cheer'||m.mode==='dance'||m.mode==='wave')&&!F.E.some(e=>e.id===id))F.E.push({id,icon:i%2?'💕':'❤️',k:(T*.55+i*.37)%1,bare:true});});
   // máy bay mở đầu
-  if(F.plane>=0&&!isoOn){plane.visible=true;const k=Math.min(.999,1-Math.pow(1-F.plane,1.5));plane.position.copy(PLANE_CURVE.getPointAt(k));const tg=PLANE_CURVE.getTangentAt(k);
-    plane.rotation.set(-Math.asin(Math.max(-1,Math.min(1,tg.y)))*.8,Math.atan2(tg.x,tg.z),F.plane<1?Math.sin(T*1.5)*.06*WA+(k<.45?-.18*Math.sin(k*7):0):0);}else plane.visible=false;
+  if(F.plane>=0&&!isoOn){plane.visible=true;const k=Math.min(.999,1-Math.pow(1-F.plane,1.2));plane.position.copy(PLANE_CURVE.getPointAt(k));const tg=PLANE_CURVE.getTangentAt(k);
+    plane.rotation.set(-Math.asin(Math.max(-1,Math.min(1,tg.y)))*.45,Math.atan2(tg.x,tg.z),F.plane<1?Math.sin(T*1.5)*.06*WA+(k<.45?-.18*Math.sin(k*7):0):0);}else plane.visible=false;
+  // tàu hỏa Bắc – Nam: chặng 2 chạy song song xe buýt; các chặng khác đi lại giữa hai ga
+  if(F.train>=0)placeTrain(F.train,1);else{const tt=((T*.01)%2+2)%2;placeTrain(sstep(0,1,tt<1?tt:2-tt)*.999,tt<1?1:-1);}
   // đua thuyền: 8 thuyền chạy theo làn, mái chèo khua nhịp
   const rOn=F.race>=0&&!isoOn;raceDeco.visible=rOn;
   raceBoats.forEach((g,i)=>{g.visible=rOn;if(!rOn)return;const x=Math.min(49,14+F.race*33*RACE_SPD[i]),z=17.4+i*.86;
