@@ -613,8 +613,10 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .bt-l{background:var(--bt-l)}
 .bt-list{list-style:none;margin:0;padding:0}
 .nav-end{display:inline-flex;flex-direction:column;align-items:flex-end;margin-left:auto}
+.nav-end-top{display:flex;align-items:baseline;gap:18px}
 nav a.nav-race{margin-top:3px;white-space:nowrap;line-height:1.3}
-@media (max-width:640px){nav a.nav-race{display:block;width:96px;white-space:normal;text-align:right;font-size:.82rem}}
+@media (min-width:641px) and (max-width:1020px){.nav-end-top{gap:14px}}
+@media (max-width:640px){nav a.nav-race{display:block;width:96px;white-space:normal;text-align:right;font-size:.82rem}.nav-end-top{flex-direction:column;align-items:flex-end;gap:2px}nav a.nav-sp{display:inline}}
 @media (min-width:641px){.brand-box{flex:none}}
 @media (min-width:641px) and (max-width:1020px){nav{gap:14px}}
 #thuyen-dua{--bt-h:42px}
@@ -742,10 +744,9 @@ section[id]{scroll-margin-top:var(--hdr,9.75rem)}
       <a href="#du-lich">Du lịch</a>
       <a href="#nhac">Nghe nhạc</a>
       <a href="#hoi-dap">Hỏi đáp</a>
-      <a href="#san-pham">Sản phẩm</a>
       <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#phan-biet">Phân biệt</a>
-      <span class="nav-end"><a class="cta-link" href="#dat-hang">Đặt hàng</a><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
+      <span class="nav-end"><span class="nav-end-top"><a class="nav-sp" href="#san-pham">Sản phẩm</a><a class="cta-link" href="#dat-hang">Đặt hàng</a></span><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
     </nav>
   </div>
   <div class="wx-panel" id="wxPanel" role="region" aria-label="Thời tiết Lý Sơn, Quảng Ngãi" hidden>
@@ -1479,7 +1480,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.38</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.39</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
