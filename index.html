@@ -850,6 +850,7 @@ a.th-race{display:none}
 .like svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
 .like-n{position:absolute;top:-7px;right:-10px;min-width:18px;height:18px;padding:0 4px;border:2px solid var(--bg);border-radius:999px;background:#E5484D;color:#fff;font:800 .64rem/14px var(--f-body);text-align:center;font-variant-numeric:tabular-nums;pointer-events:none}
 .like-n:empty{display:none}
+.like{margin-right:6px}
 .like[aria-pressed="true"]{color:#E5484D;border-color:color-mix(in srgb,#E5484D 45%,var(--line))}
 .like[aria-pressed="true"] svg{fill:currentColor}
 .like.pop svg{animation:like-pop .4s ease}
@@ -961,7 +962,8 @@ dn.addEventListener("click",function(){set(k-1);});up.addEventListener("click",f
    Tăng tương tác: bấm là tim bay lên (bấm lại vẫn bay, không cộng thêm); khách xem từ 40 giây và cuộn quá 35% trang
    thì tim nhịp nhẹ kèm lời mời, mỗi lần mở trang tối đa 1 lần; thả tim xong thì báo "người thứ N" và mời chia sẻ trang. */
 (function(){var b=document.getElementById("likeBtn"),n=document.getElementById("likeN"),tip=document.getElementById("likeTip");if(!b)return;
-var NS="lyson-bit-dac-san-ly-son",API="https://abacus.jasoncameron.dev/",live=location.hostname==="lyson-bit.github.io",da=false,so=null,tt=0;
+/* GOC = 204 lượt thích thật có từ trước (anh xác nhận 10/11/2026); số hiện = GOC + số đếm Abacus. */
+var NS="lyson-bit-dac-san-ly-son",API="https://abacus.jasoncameron.dev/",live=location.hostname==="lyson-bit.github.io",da=false,so=null,tt=0,GOC=204;
 var red=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 try{da=localStorage.getItem("lsd_thich")==="1";}catch(e){}
 function ve(){b.setAttribute("aria-pressed",da?"true":"false");n.textContent=so===null?"":so.toLocaleString("vi-VN");b.setAttribute("aria-label",(da?"Bạn đã thả tim":"Thả tim cho trang")+(so===null?"":", "+so+" lượt thích"));b.title=da?"Cảm ơn bạn đã thả tim!":"Thả tim cho trang";}
@@ -972,11 +974,11 @@ function bay(k){if(red)return;var r=b.getBoundingClientRect();for(var i=0;i<k;i+
 s.style.left=(r.left+12+Math.random()*10)+"px";s.style.top=(r.top-4)+"px";s.style.setProperty("--dx",(Math.random()*60-30)+"px");s.style.animationDelay=(i*80)+"ms";document.body.appendChild(s);
 setTimeout(function(x){return function(){if(x.parentNode)x.parentNode.removeChild(x);};}(s),1500+i*80);}}
 function camOn(){noi("Cảm ơn bạn! "+(so?"Bạn là người thứ <b>"+so.toLocaleString("vi-VN")+"</b> thả tim cho trang. ":"")+'<br><button type="button" data-share>Chia sẻ trang cho bạn bè</button>',10);}
-ve();lay(API+"get/"+NS+"/thich",function(v){so=v;ve();});
+ve();lay(API+"get/"+NS+"/thich",function(v){so=GOC+v;ve();},function(){so=GOC;ve();});
 b.addEventListener("click",function(){b.classList.remove("pop","nudge");void b.offsetWidth;b.classList.add("pop");bay(da?3:7);
 if(da){noi("Bạn đã thả tim rồi, cảm ơn nhé! ♥",4);return;}
 da=true;try{localStorage.setItem("lsd_thich","1");}catch(e){}
-if(live){lay(API+"hit/"+NS+"/thich",function(v){so=v;ve();camOn();},function(){if(so!==null)so++;ve();camOn();});}else{if(so!==null)so++;ve();camOn();}});
+if(live){lay(API+"hit/"+NS+"/thich",function(v){so=GOC+v;ve();camOn();},function(){if(so!==null)so++;ve();camOn();});}else{if(so!==null)so++;ve();camOn();}});
 tip.addEventListener("click",function(e){var t=e.target;if(t.closest(".x"))an();else if(t.closest("[data-share]")){an();var sb=document.querySelector('.qr-acts[data-qr="web"] [data-act="share"]');if(sb)sb.click();}});
 if(!da){var t0=Date.now(),nhac=false;try{nhac=sessionStorage.getItem("lsd_nhac_tim")==="1";}catch(e){}
 var iv=setInterval(function(){if(da||nhac){clearInterval(iv);return;}var h=document.documentElement,sau=(window.scrollY+innerHeight)/h.scrollHeight;
@@ -1668,7 +1670,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.52</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.53</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
