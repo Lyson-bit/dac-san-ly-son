@@ -1574,7 +1574,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <div class="sec-head">
         <p class="eyebrow">Nhạc quê hương</p>
         <h2>Nghe một khúc Quảng Ngãi</h2>
-        <p>Những bài hát về Lý Sơn, Quảng Ngãi, biển đảo và nhạc Tết, phát từ kênh chính thức của ca sĩ, nhạc sĩ. Bấm một bài để nghe, hết bài tự chuyển bài sau.</p>
+        <p>Những bài hát về Lý Sơn, Quảng Ngãi, biển đảo, nhạc Tết và nhạc không lời (đàn tranh, sáo trúc, piano), phát từ kênh chính thức của ca sĩ, nhạc sĩ. Bấm một bài để nghe, hết bài tự chuyển bài sau.</p>
       </div>
       <div class="music-grid">
         <div class="now">
@@ -1582,7 +1582,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
             <div class="cover" id="cover">
               <svg viewBox="0 0 120 48" aria-hidden="true"><path d="M2 30 Q17 14 32 30 T62 30 T92 30 T118 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".9"/><path d="M2 40 Q17 26 32 40 T62 40 T92 40 T118 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/><circle cx="90" cy="12" r="6" fill="currentColor" opacity=".8"/></svg>
               <b>Chọn một bài để nghe</b>
-              <span>12 bài · Lý Sơn · Quảng Ngãi · Biển đảo</span>
+              <span>26 bài · Lý Sơn · Quảng Ngãi · Biển đảo · Không lời</span>
             </div>
           </div>
           <div aria-live="polite"><div class="now-title" id="nowTitle">Chưa phát bài nào</div><div class="now-artist" id="nowArtist">Bấm vào một bài trong danh sách</div></div>
@@ -1603,6 +1603,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
             <button class="chip" type="button" data-g="quang-ngai" aria-pressed="false">Quảng Ngãi</button>
             <button class="chip" type="button" data-g="bien-dao" aria-pressed="false">Biển đảo</button>
             <button class="chip" type="button" data-g="tet" aria-pressed="false">Nhạc Tết</button>
+            <button class="chip" type="button" data-g="khong-loi" aria-pressed="false">Không lời</button>
           </div>
           <ol class="tracks" id="tracks"></ol>
           <p class="music-note"><b>Mở trang trên điện thoại chưa nghe tiếng?</b> Điện thoại và trình duyệt (Chrome, Safari, Zalo) không cho trang web tự phát nhạc có tiếng khi anh chị chưa chạm vào trang. Nhạc đã tự chạy ở chế độ tắt tiếng, anh chị <b>chạm vào trang một lần</b> hoặc bấm nút 🔇 trên thanh nhạc là có tiếng. Nhớ bật âm lượng điện thoại và tắt chế độ im lặng. Muốn tắt nhạc thì bấm nút dừng.</p>
@@ -1670,7 +1671,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.53</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.54</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -2270,7 +2271,13 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
     {g:"tet",t:"Đoản Xuân Ca",a:"Lê Ngọc Thúy, Lê Thu Uyên",id:"yKVsKsMHf2Q",d:"3:28"},
     {g:"tet",t:"Cánh Thiệp Đầu Xuân",a:"Phương Anh",id:"bs9glhBF8po",d:"4:56"},
     {g:"tet",t:"Ước Nguyện Đầu Xuân",a:"Ngọc Diệp",id:"Ql92Xx2d6D4",d:"3:35"},
-    {g:"tet",t:"Con Bướm Xuân",a:"Hồ Quang Hiếu",id:"-41E5B85rTI",d:"3:59"}
+    {g:"tet",t:"Con Bướm Xuân",a:"Hồ Quang Hiếu",id:"-41E5B85rTI",d:"3:59"},
+    {g:"khong-loi",t:"Quảng Ngãi Nghĩa Tình (Hòa tấu)",a:"Ngọc Nam Music",id:"U9A6oNHinY8",d:"5:31"},
+    {g:"khong-loi",t:"Biển Hát Chiều Nay (Hòa tấu)",a:"Nhạc Hồng Đăng · Hòa Tấu",id:"UwESShlgqgI",d:"4:15"},
+    {g:"khong-loi",t:"Thoáng Hương Quê (Đàn tranh)",a:"NSƯT Hải Phượng",id:"E8UWkK47OyI",d:"8:37"},
+    {g:"khong-loi",t:"Bèo Dạt Mây Trôi (Giao hưởng)",a:"Vũ Trụ Khác Orchestra",id:"UMYhTHf4taQ",d:"3:11"},
+    {g:"khong-loi",t:"Một Vòng Việt Nam (Nhạc cụ dân tộc)",a:"Sài Gòn Ơi! Band",id:"1oFQVL5Otu0",d:"3:54"},
+    {g:"khong-loi",t:"Giấc Mơ Trưa (Sáo trúc)",a:"Sáo Trúc Hoàng Anh",id:"du28oJEiQlU",d:"4:35"}
   ];
   var musicSec=document.getElementById("nhac"),list=document.getElementById("tracks"),screen=document.getElementById("screen"),cover=document.getElementById("cover");
   var nowTitle=document.getElementById("nowTitle"),nowArtist=document.getElementById("nowArtist"),playBtn=document.getElementById("playBtn"),playIco=document.getElementById("playIco");
