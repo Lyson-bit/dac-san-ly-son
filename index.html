@@ -753,7 +753,9 @@ html.adm .adm-btn{background:#C8591A;border-color:#C8591A;color:#fff}
 .adm-bar .adm-t{display:inline-flex;align-items:center;gap:5px;margin-right:4px;color:#FFB98A}
 .adm-bar svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .adm-bar button{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 11px;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(255,255,255,.08);color:inherit;font:inherit;cursor:pointer}
-.adm-bar button:hover{background:rgba(255,255,255,.18)}
+.adm-bar button:hover,.adm-bar a.adm-link:hover{background:rgba(255,255,255,.18)}
+.adm-bar a.adm-link{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 11px;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(255,255,255,.08);color:inherit;font:inherit;text-decoration:none}
+.adm-bar a.adm-link[hidden]{display:none}
 .adm-bar b{min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#C8591A;color:#fff;font:800 .68rem/18px var(--f-body);text-align:center}
 .adm-bar b:empty{display:none}
 .adm-note{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);padding:6px 12px;border-radius:999px;background:#2A1A10;text-align:center;font-weight:500;color:#FFD9BF;box-shadow:0 4px 14px rgba(0,0,0,.3)}
@@ -1647,7 +1649,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.48</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.49</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1760,6 +1762,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
   <button type="button" id="admFbBtn">Duyệt phản hồi <b id="admCho"></b></button>
   <button type="button" id="admMucBtn">Ẩn/hiện mục</button>
   <button type="button" class="eye-btn" id="admAll" aria-pressed="true"><svg class="e-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3.2"/></svg><svg class="e-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.8.7 5.3 1.7M22 12s-3.6 7-10 7c-2 0-3.8-.7-5.3-1.7"/><circle cx="12" cy="12" r="3.2"/><path d="M4 20 20 4"/></svg><span>Toàn trang: đang hiện</span></button>
+  <a class="adm-link" id="admSheet" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>Dữ liệu (Sheet)</a>
   <button type="button" id="admOut">Thoát</button>
   <span class="adm-note" id="admNote" role="status"></span>
 </div>
@@ -1837,8 +1840,10 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
   function goi(o){o.token=tk();return fetch(API,{method:"POST",body:JSON.stringify(o)}).then(function(r){return r.json();}).then(function(j){j=j||{};if(j.loi==="het_phien")ra(true);return j;});}
   var bar=$("admBar");function doBar(){if(!bar.hidden)R.style.setProperty("--admh",Math.ceil(bar.getBoundingClientRect().height)+"px");}
   if(window.ResizeObserver)new ResizeObserver(doBar).observe(bar);else window.addEventListener("resize",doBar);
+  /* Link Sheet chỉ nhận từ máy chủ sau khi đăng nhập (không nằm trong mã web) */
+  function datSheet(u){var a=$("admSheet");if(a&&typeof u==="string"&&/^https:\/\/docs\.google\.com\/spreadsheets\/d\/[\w-]+\/edit(#gid=\d+)?$/.test(u)){a.href=u;a.hidden=false;}}
   function vao(t,a){try{sessionStorage.setItem(KEY,t);}catch(e){}R.classList.add("adm");bar.hidden=false;doBar();ganMat();if(a)apDung(a);taiFb(true);}
-  function ra(het){var t=tk();try{sessionStorage.removeItem(KEY);}catch(e){}R.classList.remove("adm");$("admBar").hidden=true;
+  function ra(het){var t=tk();try{sessionStorage.removeItem(KEY);}catch(e){}R.classList.remove("adm");$("admBar").hidden=true;var sl=$("admSheet");sl.hidden=true;sl.removeAttribute("href");
     ["admFb","admMuc"].forEach(function(i){var d=$(i);if(d&&d.open)d.close();});
     if(t&&!het)fetch(API,{method:"POST",body:JSON.stringify({act:"logout",token:t})}).catch(function(){});
     baoTop(het?"Phiên quản trị đã hết hạn, anh đăng nhập lại nhé.":"Đã thoát chế độ quản trị.");}
@@ -1852,7 +1857,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
     if(!p){msg.className="fb-msg warn";msg.textContent="Anh nhập mật khẩu nhé.";return;}
     go.disabled=true;msg.className="fb-msg";msg.textContent="Đang kiểm tra…";
     fetch(API,{method:"POST",body:JSON.stringify({act:"login",pass:p})}).then(function(r){return r.json();}).then(function(j){go.disabled=false;
-      if(j&&j.ok&&j.token){pw.value="";dl.close();vao(j.token,j.an);note("Đã vào chế độ quản trị.");return;}
+      if(j&&j.ok&&j.token){pw.value="";dl.close();datSheet(j.sheet);vao(j.token,j.an);note("Đã vào chế độ quản trị.");return;}
       var l=j&&j.loi;msg.className="fb-msg warn";
       msg.textContent=l==="chua_dat"?"Chưa đặt mật khẩu quản trị trong Apps Script (thuộc tính ADMIN_PASS).":l==="khoa"?"Sai quá nhiều lần, đăng nhập tạm khóa 15 phút.":l==="sai"?"Sai mật khẩu."+(j.con!=null?" Còn "+j.con+" lần thử.":""):"Chưa đăng nhập được, anh thử lại nhé.";
       pw.select();}).catch(function(){go.disabled=false;msg.className="fb-msg warn";msg.textContent="Không kết nối được máy chủ (mạng yếu). Anh thử lại nhé.";});});
@@ -1865,7 +1870,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
   function dem(){var c={"Chờ duyệt":0,"Hiện":0,"Ẩn":0};ds.forEach(function(x){c[x.tt]=(c[x.tt]||0)+1;});$("admCho").textContent=c["Chờ duyệt"]||"";
     [].forEach.call(document.querySelectorAll("#admChips button"),function(b){var t=b.getAttribute("data-tt");b.querySelector("b").textContent=" "+(t?c[t]:ds.length);});}
   function taiFb(im){if(!im)fm.textContent="Đang tải…";return goi({act:"list"}).then(function(j){if(!j.ok){if(j.loi!=="het_phien")fm.textContent="Chưa tải được danh sách.";return;}
-      ds=j.items||[];if(Array.isArray(j.an))apDung(j.an);fm.textContent="";dem();veFb();}).catch(function(){fm.textContent="Chưa tải được (mạng yếu).";});}
+      ds=j.items||[];if(Array.isArray(j.an))apDung(j.an);datSheet(j.sheet);fm.textContent="";dem();veFb();}).catch(function(){fm.textContent="Chưa tải được (mạng yếu).";});}
   function nut(t,on,tat){var b=document.createElement("button");b.type="button";b.className="eye-btn"+(tat?" off":"");b.innerHTML=(tat?OFF:ON)+"<span></span>";b.lastChild.textContent=t;b.setAttribute("aria-pressed",on?"true":"false");return b;}
   function veFb(){list.textContent="";var a=ds.filter(function(x){return !locTT||x.tt===locTT;});
     if(!a.length){var e=document.createElement("li");e.className="fb-empty";e.textContent=locTT==="Chờ duyệt"?"Không có phản hồi nào chờ duyệt.":"Chưa có phản hồi ở mục này.";list.appendChild(e);return;}
