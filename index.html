@@ -750,6 +750,7 @@ nav a.nav-sp,nav a.cta-link{white-space:nowrap}
 .th-row .th{margin-top:0}
 .hd-clock{display:inline-flex;align-items:center;gap:4px;min-height:24px;padding:0 8px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font:600 .72rem/1 var(--f-body);font-variant-numeric:tabular-nums;white-space:nowrap}
 .hd-clock svg{width:12px;height:12px;flex:none;color:var(--sea)}
+.hd-clock small{font-size:.86em;font-weight:700;letter-spacing:.02em}
 /* Điện thoại: hàng cuối đầu trang = Sáng/Tối + giờ (trái), Xếp hạng thuyền đua 1 dòng (phải) */
 a.th-race{display:none}
 @media (max-width:640px){
@@ -762,8 +763,8 @@ a.th-race{display:none}
   a.th-race{display:block;margin-left:auto;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:500;line-height:1.3}
   a.th-race:hover{color:var(--sea)}
 }
-@media (max-width:400px){a.th-race{font-size:.76rem}.th-row .th button{padding:0 7px}.th-row .hd-clock{padding:0 6px;gap:3px}}
-@media (max-width:370px){.th-row .hd-clock svg{display:none}}
+@media (max-width:440px){a.th-race{font-size:.76rem}.th-row .th button{padding:0 7px}.th-row .hd-clock{padding:0 6px;gap:3px}.th-row .hd-clock svg{display:none}}
+@media (max-width:380px){.th-row{gap:4px}a.th-race{font-size:.74rem}.th-row .th button{padding:0 5px;gap:3px}.th-row .hd-clock{padding:0 5px}}
 .tools{position:relative;display:flex;align-items:center;gap:6px}
 .fs{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:8px;background:var(--surface);overflow:hidden}
 .fs button{display:grid;place-items:center;min-width:28px;height:24px;padding:0 5px;border:0;background:none;color:var(--fg);font-family:var(--f-display);font-weight:600;line-height:1;cursor:pointer}
@@ -872,7 +873,7 @@ b.forEach(function(x){x.addEventListener("click",function(){var t=x.getAttribute
 if(q.addEventListener)q.addEventListener("change",show);show();})();
 (function(){var e=document.getElementById("hdDate"),c=document.getElementById("hdClock");function p(x){return (x<10?"0":"")+x;}
 function f(){var d=new Date(Date.now()+7*36e5);e.textContent="Ngày "+d.getUTCDate()+" tháng "+(d.getUTCMonth()+1)+" năm "+d.getUTCFullYear();
-if(c){var h=p(d.getUTCHours())+":"+p(d.getUTCMinutes());c.textContent=h;c.setAttribute("datetime",h);c.parentNode.setAttribute("aria-label","Giờ Lý Sơn "+h);}}
+if(c){var H=d.getUTCHours(),ap=H<12?"AM":"PM",h12=(H%12)||12,m=p(d.getUTCMinutes());c.textContent=h12+":"+m;var s=document.createElement("small");s.textContent=" "+ap;c.appendChild(s);c.setAttribute("datetime",p(H)+":"+m);c.parentNode.setAttribute("aria-label","Giờ Lý Sơn "+h12+":"+m+" "+ap);}}
 f();setInterval(f,15000);document.addEventListener("visibilitychange",function(){if(!document.hidden)f();});})();
 /* Nút ngôi nhà: cuộn về đầu trang, không để lại #top trên địa chỉ */
 (function(){var h=document.getElementById("homeBtn");if(!h)return;h.addEventListener("click",function(e){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});if(location.hash&&history.replaceState)history.replaceState(null,"",location.pathname+location.search);});})();
@@ -1585,7 +1586,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.45</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.46</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
