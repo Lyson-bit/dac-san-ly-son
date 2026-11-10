@@ -330,7 +330,37 @@ body.embed #cap{width:330px}
   #cap.min #cap-trip{display:none}
 }
 @media (prefers-reduced-motion:reduce){.pc.hot .ph,#album.book{animation:none}}
-</style>
+/* ===== Điện thoại: bố cục gọn, cân đối (v1.60) + nút ẩn/hiện bảng ===== */
+#b-ui{position:fixed;right:10px;bottom:calc(var(--ctlh) + 18px);z-index:9;width:40px;height:40px;border-radius:50%;border:2px solid #1b2144;background:#fffaf0;font-size:18px;line-height:1;cursor:pointer;box-shadow:2px 2px 0 rgba(27,33,68,.25);display:flex;align-items:center;justify-content:center}
+body.noui #b-ui{bottom:14px}
+body.noui #top .brand>*:not(.home),body.noui #cast,body.noui #cap,body.noui #ctl,body.noui #hint,body.noui #reel{display:none!important}
+body.noui .brand{padding:4px!important;background:none!important;box-shadow:none!important;border:0!important}
+@media (max-width:600px){
+  #top{left:8px;right:8px;top:8px;gap:4px;max-width:calc(100vw - 16px)}
+  body .brand{display:flex;align-items:center;gap:8px;width:auto;padding:4px 10px;border-radius:12px}
+  body .brand .home{margin:0;font-size:11px;padding:1px 8px;flex:none}
+  body .brand .home+b,body .brand b{display:block;font-size:13px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body .brand>span,body .brand>br{display:none}
+  body #cast{display:none}
+  body #cap{left:8px;right:8px;bottom:calc(14px + var(--ctlh));padding:6px 10px;border-radius:12px}
+  body #cap-title{font-size:13px;line-height:1.3}
+  body #cap-step{font-size:10px;padding:1px 7px}
+  body #cap-now{font-size:12px;line-height:1.35;padding:3px 8px;margin-top:4px;min-height:0}
+  body #cap-toggle{font-size:15px}
+  body #ctl{left:8px;right:8px;bottom:8px;padding:6px 8px;border-radius:12px}
+  body #steps{gap:3px}
+  body .st{padding:2px 0;border-radius:8px;min-height:0}
+  body .st i{width:20px;height:20px;font-size:11px}
+  body .bar{margin:5px 0;height:4px}
+  body .btns{flex-wrap:nowrap;gap:4px;overflow-x:auto;scrollbar-width:none;justify-content:space-between}
+  body .btns::-webkit-scrollbar{display:none}
+  body .cbtn{height:34px;min-width:34px;padding:0 6px;font-size:15px;border-radius:9px;flex:none}
+  body .cbtn.main{min-width:44px;font-size:16px}
+  body .speed{padding:2px;flex:none;border-radius:9px}
+  body .speed button{height:28px;padding:0 5px;font-size:11px}
+  body #b-style,body .sp,body #speed{display:none}   /* điện thoại: bỏ ô kiểu vẽ và tốc độ cho gọn (mặc định 3D màu, 1×) */
+  #b-ui{width:36px;height:36px;font-size:16px;right:8px}
+}</style>
 </head>
 <body>
 <div id="stage"></div>
@@ -370,13 +400,14 @@ body.embed #cap{width:330px}
       <option value="3d">🎨 3D màu</option>
     </select>
     <button class="cbtn" id="b-iso" hidden title="Sa bàn">📐 Sa bàn</button>
-    <button class="cbtn on" id="b-cam" title="Camera tự bay theo nhân vật đang làm việc">🎥 Tự bay</button>
+    <button class="cbtn on" id="b-cam" title="Camera tự bay theo nhân vật đang làm việc" aria-label="Camera tự bay">🎥<span class="tx"> Tự bay</span></button>
     <button class="cbtn" id="b-album" title="Lộ trình thật 3 ngày, ảnh thật của chuyến đi" aria-label="Lộ trình thật">📸<span class="tx"> Lộ trình thật</span></button>
     <button class="cbtn" hidden id="b-pins" title="Ẩn / hiện ghim ảnh trên bản đồ" aria-label="Ghim ảnh">📍<span class="tx"> Ghim ảnh</span></button>
     <button class="cbtn on" id="b-sound" title="Bật / tắt thuyết minh giọng Hải Đăng" aria-label="Thuyết minh">🔊</button>
     <button class="cbtn" id="b-q" title="Chất lượng hình: Nhẹ cho máy yếu, Đẹp cho máy mạnh" aria-label="Chất lượng hình">✨<span class="tx"> Đẹp</span></button>
   </div>
 </nav>
+<button id="b-ui" type="button" title="Ẩn / hiện bảng điều khiển" aria-label="Ẩn bảng điều khiển">🙈</button>
 <aside id="album" hidden aria-label="Lộ trình thật 3 ngày"></aside>
 <div id="reel" hidden aria-live="polite"></div>
 <div id="lb" hidden role="dialog" aria-label="Xem ảnh lớn"><figure><img alt=""><figcaption></figcaption></figure></div>
@@ -452,7 +483,7 @@ const STEPS=[
  {short:'Đà Nẵng',title:'Chặng 1 · Một vòng Đà Nẵng',who:TEAM,read:['Cầu Vàng · Bà Nà','Trung tâm Hành chính','Cầu Rồng','Quan Âm Linh Ứng'],write:['Bắp nướng? 🌽'],dur:28,
   text:'Cả đoàn chụp hình nhóm ở bốn điểm quen thuộc của Đà Nẵng. Anh Tèo nhìn đâu cũng thấy đồ ăn, chị Tám chụp không nghỉ tay.'},
  {short:'Xe 2 tầng',title:'Chặng 2 · Xe buýt 2 tầng: Đà Nẵng → Quảng Ngãi → Sa Kỳ',who:TEAM,read:['Chùa Minh Đức','Cảng Sa Kỳ'],write:['Bánh tráng 🫓'],dur:22,
-  text:'Cả đoàn ngồi tầng trên xe buýt 2 tầng mui trần, gió lồng lộng. Xe qua Quảng Ngãi, ngang chùa Minh Đức có tượng Quan Âm trắng bên mặt nước, rồi ra cảng Sa Kỳ.'},
+  text:'Cả đoàn ngồi tầng trên xe buýt 2 tầng mui trần, gió lồng lộng. Xe qua Quảng Ngãi, ngang chùa Minh Đức có tượng Phật Quan Âm bên mặt nước, rồi ra cảng Sa Kỳ.'},
  {short:'Ra đảo',title:'Chặng 3 · Tàu ra đảo ≈ 15 hải lý',who:TEAM,read:['Cảng Sa Kỳ','Biển Lý Sơn'],write:['Nước suối 💧'],dur:22,
   text:'Danh Pro phát vé, cả đoàn lên tàu. Bác Bảy say sóng, anh Tư nhận nhầm mây thành đảo, bé Tý hỏi biển có đáy không.'},
  {short:'Nhà Đạt',title:'Chặng 4 · Về nhà Đạt, mâm cơm đảo',who:TEAM,read:['Nhà Đạt','Sân cát, hoa giấy'],write:['Tôm, ram, chả','Ốc luộc, cá nướng'],dur:22,
@@ -1001,7 +1032,7 @@ let dragonHead=null;
     [-.45,-.15,.15,.45].forEach((fz,j)=>{const f=mk(GEO.cyl,j%2?stone:moss,sd0(j)*.42,3.35,fz,hand);f.scale.set(.12,1.4,.12);f.rotation.x=fz*.25;});
     const th=mk(GEO.cyl,stone,-.42,3.0,-.62,hand);th.scale.set(.13,1.0,.13);th.rotation.x=-.5;});
   function sd0(j){return j%2?1:-1;}})();
-// Chùa Minh Đức (Quảng Ngãi): tượng Quan Âm trắng trên đồi, chùa mái vàng, mặt nước và bãi cát phía trước
+// Chùa Minh Đức (Quảng Ngãi): tượng Phật Quan Âm trên đồi, chùa mái vàng, mặt nước và bãi cát phía trước
 (function(){const [x,z]=LM.md;const hill=mk(GEO.ico,std(0x4c8f4f),x,groundY(x,z)-.6,z,scene);hill.scale.set(3.2,2.0,2.6);
   makeQuanAm(scene,x+.4,groundY(x,z)+1.25,z-.3,1.15);makePagoda(scene,x-2.4,groundY(x,z)+.05,z+1.6,.7,.2);
   const lake=mk(GEO.circle,std(0x4f9fd0),x+1.8,groundY(x+1.8,z+3.6)+.06,z+3.6,scene);lake.rotation.x=-Math.PI/2;lake.scale.set(2.6,1.5,1);
@@ -1033,6 +1064,20 @@ function deck(z,col){const y=groundY(-20,z)+.55;const d=mk(GEO.box,toon(col||0x9
     mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),24,.07,6,false),toon(0x4f7fb0),0,0,0,scene);
     for(let i=1;i<6;i++){const t=i/6,h=Math.sin(Math.PI*t)*4.3;const hg=mk(GEO.cyl,toon(0x4f7fb0),bx+ox,y+.05+h/2,z-1.4+2.8*t,scene);hg.scale.set(.025,h,.025);}});
   for(let i=3;i<4;i++){const t=i/6;const b=mk(GEO.box,toon(0x4f7fb0),bx,y+.05+Math.sin(Math.PI*t)*4.3,z-1.4+2.8*t,scene);b.scale.set(2.6,.05,.05);}})();
+
+// Cảng Lý Sơn (trên đảo, đầu cầu tàu): nhà chờ mái xanh, biển tên, cột cờ
+(function(){const x=20.6,z=7.9,y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=Math.PI;scene.add(g);
+  mk(GEO.box,toon(0xf4f1ea),0,.65,0,g).scale.set(2.2,1.3,1.3);
+  mk(GEO.box,toon(0x2b3a4f),0,.8,.66,g).scale.set(1.8,.42,.04);
+  mk(GEO.box,toon(0x16a3a3),0,1.42,0,g).scale.set(2.5,.18,1.6);
+  mk(GEO.box,toon(0x16a3a3),0,1.0,1.05,g).scale.set(2.5,.07,.8);
+  [-1.1,1.1].forEach(px=>mk(GEO.cyl,toon(0xdddddd),px,.5,1.4,g).scale.set(.05,1.0,.05));
+  const stex=canvasTex(512,80,(c,w,h)=>{c.fillStyle='#16a3a3';c.fillRect(0,0,w,h);c.fillStyle='#fff';c.font='bold 36px Segoe UI,Arial,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText('CẢNG LÝ SƠN',w/2,h/2+2);});
+  mk(GEO.box,toon(0x16a3a3),0,1.74,.64,g).scale.set(2.0,.42,.04);
+  mk(new THREE.PlaneGeometry(1.9,.36),new THREE.MeshBasicMaterial({map:stex}),0,1.74,.67,g);
+  mk(GEO.cyl,toon(0xdddddd),-1.4,1.5,-.3,g).scale.set(.04,3.0,.04);
+  mk(new THREE.PlaneGeometry(.55,.36),new THREE.MeshToonMaterial({color:0xda251d,side:THREE.DoubleSide}),-1.12,2.75,-.3,g);
+  const fs=mk(GEO.star,bas(0xffde00,{side:THREE.DoubleSide}),-1.12,2.75,-.29,g);fs.scale.setScalar(.1);})();
 
 // Nhà ga tàu khách đi Lý Sơn ở cảng Sa Kỳ: nhà dài mái xanh, mái hiên chờ tàu, biển tên, cột cờ
 (function(){const x=-16.5,z=16.1,y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);g.rotation.y=-.12;scene.add(g);
@@ -1370,7 +1415,7 @@ function scr(x,y,z){_pv.set(x,y,z).project(PCAM);if(_pv.z>1||_pv.z<-1||Math.abs(
 function place(e,p,ax,ay,extra){e.style.transform='translate3d('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px,0) translate('+ax+'%,'+ay+'%)'+(extra||'');}
 const nameTags={};
 ORDER.forEach(id=>{const e=document.createElement('div');e.className='o nt';e.style.setProperty('--c',DEFS[id].color);e.textContent=DEFS[id].emoji+' '+(DEFS[id].short||DEFS[id].name);e.addEventListener('click',()=>openCard(id));OV.appendChild(e);nameTags[id]=e;});
-const PLACES=[['📍 Đà Nẵng',-31,-47,3.5],['📍 Quảng Ngãi',-30,-8,2.6],['🛬 Sân bay Đà Nẵng',-33,-41.9,2.2],['🖐️ Cầu Vàng · Bà Nà',-45,-49,5.6],['🏢 Trung tâm Hành chính',-25.2,-52.5,10.8],['🐉 Cầu Rồng',-20,-50.5,3.4],['🌉 Cầu sông Hàn',-20,-55,3.2],['⛵ Cầu Trần Thị Lý',-20,-46,7.2],['🌉 Cầu Trà Khúc',-26.6,-15.5,2.8],['🇻🇳 Quần đảo Hoàng Sa (Việt Nam)',150,-84,7,'',2],['🇻🇳 Quần đảo Trường Sa (Việt Nam)',208,150,7,'',2],['🙏 Quan Âm Linh Ứng',-16.8,-59.5,7.4],['🛕 Chùa Minh Đức',-35.5,-11,7.4],['⚓ Cảng Sa Kỳ',-21,24.5,2.4],['🏢 Nhà ga tàu Lý Sơn · cảng Sa Kỳ',-16.5,16.1,3.4],['≈ 15 hải lý',2,23.5,1.2,'sea'],['🏝️ Đảo Lớn · Lý Sơn',22,14.5,1.8],['🧄 Ruộng tỏi',28,3.5,1.4,'',1],['🌋 Núi Thới Lới',40,1,2.4],['🛕 Chùa Hang',29.4,-4.6,2.4,'',1],['🏝️ Đảo Bé',55,-11,2.2,'',1]];
+const PLACES=[['📍 Đà Nẵng',-31,-47,3.5],['📍 Quảng Ngãi',-30,-8,2.6],['🛬 Sân bay Đà Nẵng',-33,-41.9,2.2],['🖐️ Cầu Vàng · Bà Nà',-45,-49,5.6],['🏢 Trung tâm Hành chính',-25.2,-52.5,10.8],['🐉 Cầu Rồng',-20,-50.5,3.4],['🌉 Cầu sông Hàn',-20,-55,3.2],['⛵ Cầu Trần Thị Lý',-20,-46,7.2],['🌉 Cầu Trà Khúc',-26.6,-15.5,2.8],['🇻🇳 Quần đảo Hoàng Sa (Việt Nam)',150,-84,7,'',2],['🇻🇳 Quần đảo Trường Sa (Việt Nam)',208,150,7,'',2],['🙏 Quan Âm Linh Ứng',-16.8,-59.5,7.4],['🛕 Chùa Minh Đức',-35.5,-11,7.4],['⚓ Cảng Sa Kỳ',-21,24.5,2.4],['🏢 Nhà ga tàu Lý Sơn · cảng Sa Kỳ',-16.5,16.1,3.4],['≈ 15 hải lý',2,23.5,1.2,'sea'],['⚓ Cảng Lý Sơn',20.6,7.9,3.0],['🏝️ Đảo Lớn · Lý Sơn',22,14.5,1.8],['🧄 Ruộng tỏi',28,3.5,1.4,'',1],['🌋 Núi Thới Lới',40,1,2.4],['🛕 Chùa Hang',29.4,-4.6,2.4,'',1],['🏝️ Đảo Bé',55,-11,2.2,'',1]];
 // nhìn toàn cảnh chỉ hiện nhãn chính cho đỡ rối
 const MAJOR_PL=new Set(['📍 Đà Nẵng','📍 Quảng Ngãi','⚓ Cảng Sa Kỳ','≈ 15 hải lý','🏝️ Đảo Lớn · Lý Sơn','🇻🇳 Quần đảo Hoàng Sa (Việt Nam)','🇻🇳 Quần đảo Trường Sa (Việt Nam)']);
 const placeEls=PLACES.map(p=>{const e=document.createElement('div');e.className='o pl'+(p[4]?' '+p[4]:'');e.textContent=p[0];OV.appendChild(e);return e;});
@@ -1514,7 +1559,7 @@ STEPS[2].pose=function(u){
     ['anh','Zzz… 😴',.25,.33],
     ['kv','Có ai mang bánh tráng không? Đói quá trời 🫓',.31,.39],
     ['dp','🌉 Qua cầu Trà Khúc rồi! Sông Trà Khúc của Quảng Ngãi đó cả nhà',.41,.49],
-    ['dp','🛕 Bên phải là chùa Minh Đức, tượng Quan Âm trắng bên mặt nước',.49,.56],
+    ['dp','🛕 Bên phải là chùa Minh Đức, tượng Phật Quan Âm bên mặt nước',.49,.56],
     ['ta','Anh tài ơi, dừng năm phút cho em chụp một tấm thôi! 📸',.56,.61],
     ['bt','Con đố chú Danh: củ gì sống một mình mà ai cũng thương?',.61,.69],
     ['dp','Tỏi cô đơn Lý Sơn chứ gì! 🧄 Chú "pro" mà!',.69,.76],
@@ -1529,7 +1574,7 @@ STEPS[2].pose=function(u){
   else if(u<.8)P.cam(new V3(bus.position.x,bus.position.y+2,bus.position.z),20,.9-.55*seg(u,.17,.8),.45);
   else P.camAt(-19.8,21,13,.35,.42);
   if(inW(u,.38,.61))P.camAt(-30.2,-13,21,1.15,.32,2);
-  P.note(u<.17?'Cả đoàn lên tầng trên xe buýt 2 tầng mui trần':inW(u,.38,.61)?'Qua Quảng Ngãi: cầu Trà Khúc 🌉, chùa Minh Đức với tượng Quan Âm trắng bên mặt nước 🛕':u<.8?'Xe buýt 2 tầng chạy từ Đà Nẵng về Quảng Ngãi, gió lồng lộng':'⚓ Tới cảng Sa Kỳ');
+  P.note(u<.17?'Cả đoàn lên tầng trên xe buýt 2 tầng mui trần':inW(u,.38,.61)?'Qua Quảng Ngãi: cầu Trà Khúc 🌉, chùa Minh Đức với tượng Phật Quan Âm bên mặt nước 🛕':u<.8?'Xe buýt 2 tầng chạy từ Đà Nẵng về Quảng Ngãi, gió lồng lộng':'⚓ Tới cảng Sa Kỳ');
 };
 
 /* Chặng 3: phát vé, lên tàu, ra đảo */
@@ -1592,7 +1637,7 @@ STEPS[4].pose=function(u){
   if(u<.16)P.camAt(21.5,10.5,13,.35,.42);
   else if(inW(u,.42,.52))P.camOn('kv',7.5,-.7,.45);
   else P.camAt(25.8,9.2,13,.3,.72);
-  P.note(u<.16?'Cập bến Lý Sơn, cả đoàn về sân cát nhà Đạt 🏡':'Mâm cơm nhà Đạt: gà luộc, tôm, ram, ốc, cá nướng, nước chấm tỏi đảo');
+  P.note(u<.16?'⚓ Cập cảng Lý Sơn, cả đoàn về sân cát nhà Đạt 🏡':'Mâm cơm nhà Đạt: gà luộc, tôm, ram, ốc, cá nướng, nước chấm tỏi đảo');
 };
 
 /* Chặng 5: vòng đảo, hoàng hôn ruộng tỏi */
@@ -1713,7 +1758,7 @@ $('#b-next').onclick=()=>goStep(si+1);
 $('#b-play').onclick=()=>{if(!playing&&si===STEPS.length-1&&lt>=STEPS[si].dur){goStep(0);playing=true;}else playing=!playing;$('#toast').style.display='none';updatePlay();};
 $('#b-replay').onclick=()=>{goStep(0);playing=true;updatePlay();};
 const camBtn=$('#b-cam');
-function setCamMode(m,id){camMode=m;followId=id||null;camBtn.classList.toggle('on',m==='auto');camBtn.textContent=m==='follow'?'🎥 Đang theo '+(DEFS[id].short||DEFS[id].name):'🎥 Tự bay';
+function setCamMode(m,id){camMode=m;followId=id||null;camBtn.classList.toggle('on',m==='auto');camBtn.innerHTML=m==='follow'?'🎥<span class="tx"> Đang theo '+(DEFS[id].short||DEFS[id].name)+'</span>':'🎥<span class="tx"> Tự bay</span>';
   ORDER.forEach(k=>nameTags[k].classList.toggle('on',m==='follow'&&k===id));}
 camBtn.onclick=()=>setCamMode('auto');
 let prevStyle='auto';
@@ -1749,7 +1794,7 @@ let placeT=null;
 function goPlace(k){const t=TRIPK[k];if(!t||!t.pin)return;ALB.hidden=true;$('#b-album').classList.remove('on');
   if(isoOn)setStyleMode(prevStyle);
   placeT=new V3(t.pin[0],groundY(t.pin[0],t.pin[1])+1,t.pin[1]);user.az=cam.az;user.el=.42;user.d=15;camMode='place';followId=null;
-  camBtn.classList.remove('on');camBtn.textContent='🎥 Về tự bay';ORDER.forEach(id=>nameTags[id].classList.remove('on'));}
+  camBtn.classList.remove('on');camBtn.innerHTML='🎥<span class="tx"> Về tự bay</span>';ORDER.forEach(id=>nameTags[id].classList.remove('on'));}
 function buildAlbum(){
   let h='<div class="ah"><b>📸 Lộ trình thật · ba ngày ở nhà Đạt<small>Ảnh và chú thích lấy từ mục "Hành trình" của web chính. Đội agent dùng đúng các ảnh này: Ảnh xếp vào 02, Kể chuyện gắn dòng "Ảnh:" vào 03, Biên tập viết chú thích trong 05.</small></b><button class="x" aria-label="Đóng">✕</button></div>';
   [1,2,3].forEach(d=>{h+='<div class="day"><h4>'+DAYS[d]+'</h4><div class="grid">'+TRIP.filter(t=>t.day===d).map(t=>'<button class="it" data-k="'+t.k+'"><img loading="lazy" alt="" src="'+tthumb(t.k)+'"><b>'+t.t+'</b><small>'+t.d+'</small>'+(t.pin?'<i style="--c:#0D6B72" data-go="'+t.k+'">📍 Xem trên bản đồ</i>':'')+'</button>').join('')+'</div></div>';});
@@ -1774,8 +1819,8 @@ applyQuality();
 let lastInput=performance.now(),lastDraw=0;
 ['pointerdown','pointermove','wheel','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{lastInput=performance.now();},{passive:true,capture:true}));
 // Thuyết minh giọng Hải Đăng (VieNeu, bộ VideoMotion): mỗi chặng một file mp3, chỉ tải khi tới lượt; khớp tạm dừng và tốc độ phát
-const VO=STEPS.map((s,i)=>'audio/tm1_c'+i+'.mp3');
-let soundOn=true,gest=false,voEl=null,voIdx=-1;
+const VO=STEPS.map((s,i)=>'audio/tm2_c'+i+'.mp3');   // tm2 = bản 44,1 kHz 64 kbps
+let soundOn=true,gest=false,voEl=null,voIdx=-1,voRate=0;
 try{if(localStorage.getItem('lsd_3d_sound')==='0')soundOn=false;}catch(e){}
 const sBtn=$('#b-sound');
 function drawSound(){sBtn.innerHTML=soundOn?'🔊<span class="tx"> Thuyết minh</span>':'🔇<span class="tx"> Tắt tiếng</span>';sBtn.classList.toggle('on',soundOn);}
@@ -1783,26 +1828,30 @@ sBtn.onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('lsd_3d_sound',sound
 ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{if(!gest){gest=true;setTimeout(()=>syncVoice(true),0);}},{passive:true,capture:true}));
 document.addEventListener('visibilitychange',()=>syncVoice(true));
 function syncVoice(force){
-  if(voIdx!==si){if(voEl)voEl.pause();voIdx=si;voEl=new Audio(VO[si]);voEl.preload='auto';force=true;if(VO[si+1]){const nx=new Audio(VO[si+1]);nx.preload='auto';}}
+  if(voIdx!==si){if(voEl)voEl.pause();voIdx=si;voEl=new Audio(VO[si]);voEl.preload='auto';force=true;voRate=0;if(VO[si+1]){const nx=new Audio(VO[si+1]);nx.preload='auto';}}
   if(!voEl)return;
   const want=soundOn&&gest&&playing&&!document.hidden;
-  try{voEl.playbackRate=speed;}catch(e){}
+  if(voRate!==speed){try{voEl.playbackRate=speed;}catch(e){}voRate=speed;}   // chỉ đặt khi đổi tốc độ
   if(!want){if(!voEl.paused)voEl.pause();return;}
   if(voEl.duration&&lt>voEl.duration-.05){if(!voEl.paused)voEl.pause();return;}
-  if(force||Math.abs(voEl.currentTime-lt)>.6){try{voEl.currentTime=lt;}catch(e){}}
+  // chỉ tua khi sang chặng / bắt đầu phát lại; lúc đang phát để giọng chạy liền (hoạt cảnh bám theo giọng)
+  if(force||voEl.paused){if(Math.abs(voEl.currentTime-lt)>.15){try{voEl.currentTime=lt;}catch(e){}}}
   if(voEl.paused){const p=voEl.play();if(p&&p.catch)p.catch(()=>{});}
 }
 drawSound();
+// Nút ẩn / hiện toàn bộ bảng (xem trọn cảnh 3D)
+const uiBtn=$('#b-ui');
+uiBtn.onclick=()=>{const off=document.body.classList.toggle('noui');uiBtn.textContent=off?'☰':'🙈';uiBtn.setAttribute('aria-label',off?'Hiện bảng điều khiển':'Ẩn bảng điều khiển');uiBtn.title=off?'Hiện bảng điều khiển':'Ẩn bảng điều khiển';measure();};
 // Điện thoại: mặc định kiểu 3D màu (nét, nhẹ, không qua lớp vẽ ký họa); khách vẫn đổi được ở ô Kiểu vẽ
 setTimeout(()=>setStyleMode('3d'),0);   // mặc định 3D màu (nét nhất) trên mọi thiết bị; chạy sau khi dựng xong (tránh lỗi TDZ)
 // Chặng nào lời thuyết minh dài hơn hoạt cảnh thì kéo dài chặng để giọng không bị cắt
-const VO_LEN=[17.7,15.9,11.9,12.6,10.5,17.2,16.1];
+const VO_LEN=[17.7,15.9,12.0,12.7,10.6,17.3,15.2];
 STEPS.forEach((s,i)=>{if(VO_LEN[i])s.dur=Math.max(s.dur,VO_LEN[i]+1.5);});
 let viewShift=0,topLimit=0;
 function measure(){document.documentElement.style.setProperty('--ctlh',$('#ctl').offsetHeight+'px');
   topLimit=$('#top').getBoundingClientRect().bottom;
   // Màn hẹp: khung chú thích che nửa dưới, đẩy cảnh lên phần còn trống
-  const occl=innerWidth<=900?Math.max(0,innerHeight-$('#cap').getBoundingClientRect().top):0;
+  const occl=(innerWidth<=900&&!document.body.classList.contains('noui'))?Math.max(0,innerHeight-$('#cap').getBoundingClientRect().top):0;
   viewShift=Math.min(innerHeight*.3,occl*.5);
   if(viewShift>0)camera.setViewOffset(innerWidth,innerHeight,0,viewShift,innerWidth,innerHeight);else camera.clearViewOffset();
   document.documentElement.style.setProperty('--isotop',(topLimit+8)+'px');
@@ -1963,6 +2012,8 @@ function frame(now){
   const rawDt=Math.max(0,(now-last)/1000),dt=Math.min(.25,rawDt);last=now;T+=dt;
   if(playing)measureFps(rawDt);
   syncVoice(false);
+  // hoạt cảnh bám theo đồng hồ của giọng đọc (không giật tiếng khi máy chạy chậm)
+  if(voEl&&voIdx===si&&!voEl.paused&&!voEl.seeking&&voEl.currentTime>.05&&Math.abs(voEl.currentTime-lt)<3)lt=voEl.currentTime;
   if(playing){lt+=dt*speed;const st=STEPS[si];if(lt>=st.dur){if(si<STEPS.length-1){si++;lt=0;renderCaption();}else{lt=st.dur;playing=false;updatePlay();$('#toast').style.display='block';}}}
   const u=Math.min(1,lt/STEPS[si].dur);
   $('#prog').style.width=(u*100).toFixed(1)+'%';
@@ -2098,7 +2149,8 @@ function renderOverlay(){
     place(e,p,-50,-100,' rotate('+((RM?0:(1-up))*-25+6).toFixed(1)+'deg) scale('+sc.toFixed(2)+')');e.style.transformOrigin='50% 100%';});
   P_pop.end();
   // biểu cảm trên đầu
-  F.E.forEach(em=>{const r=apos(em.id),p=scr(r.x,r.y+1.9,r.z);if(!p)return;const e=P_emo.get();e.className='o emo'+(em.bare?' bare':'');setText(e,em.icon);
+  F.E.forEach(em=>{if(F.B.some(b=>b.id===em.id))return;   // đang nói thì không hiện biểu cảm (khỏi đè chữ)
+    const r=apos(em.id),p=scr(r.x,r.y+1.9,r.z);if(!p)return;const e=P_emo.get();e.className='o emo'+(em.bare?' bare':'');setText(e,em.icon);
     const sc=RM?1:(em.k<.15?.3+em.k/.15*.9:em.k<.25?1.2-(em.k-.15)/.1*.2:1);e.style.opacity=(em.k>.85?(1-em.k)/.15:1).toFixed(2);
     place(e,p,30,-100,' translateY('+(RM?0:Math.sin(T*5)*3).toFixed(1)+'px) scale('+sc.toFixed(2)+')');});
   P_emo.end();
