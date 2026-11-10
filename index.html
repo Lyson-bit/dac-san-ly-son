@@ -167,7 +167,7 @@ nav a:hover{color:var(--sea)}
   .qr-acts button svg{width:14px;height:14px}
 }
 .hp-go{position:absolute;z-index:2;left:16px;bottom:16px;padding:9px 16px;border-radius:999px;background:var(--sea);color:var(--on-sea);font:700 .88rem var(--f-body);text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.hp-credit{position:absolute;z-index:2;right:12px;bottom:22px;font-size:.68rem;color:rgba(255,255,255,.85)}
+.hp-credit{position:absolute;z-index:2;right:10px;bottom:4px;margin:0;font-size:.62rem;color:rgba(255,255,255,.8);text-shadow:0 1px 4px rgba(0,0,0,.6)}
 @media (max-width:760px){.hero-photo{max-width:520px;width:100%;aspect-ratio:4/4.6}}
 
 /* Dải đất: bazan + cát */
@@ -291,6 +291,10 @@ footer h3{font-size:1rem;color:var(--fg);margin-bottom:8px}
 @media (max-width:420px){.perks{grid-template-columns:1fr}}
 
 /* Đặt hàng 3 bước */
+.part-sep{padding-block:clamp(28px,5vw,44px);background:var(--sea);color:var(--on-sea);text-align:center}
+.part-sep .eyebrow{color:inherit;opacity:.85}
+.part-sep h2{margin:4px 0 6px;color:inherit}
+.part-sep p{margin:0}
 .steps-band{background:var(--surface);border-block:1px solid var(--line);padding-block:clamp(28px,4vw,40px)}
 .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 @media (max-width:760px){.steps{grid-template-columns:1fr;gap:16px}}
@@ -303,6 +307,8 @@ footer h3{font-size:1rem;color:var(--fg);margin-bottom:8px}
 .card{grid-template-rows:auto auto 1fr auto auto}
 .title-ico{display:flex;align-items:center;gap:8px}
 .title-ico svg{width:36px;height:28px;flex:none}
+.img-cap{display:block;margin:2px 0 4px;font-size:.66rem;color:var(--muted);text-align:right}
+.img-note{margin-top:6px;font-size:.8rem;color:var(--muted)}
 .card-photo{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 60%;border-radius:8px;background:var(--line)}
 .pick{margin-top:4px;justify-self:start;font:600 .9rem var(--f-body);padding:9px 16px;border-radius:999px;border:1.5px solid var(--sea);background:transparent;color:var(--sea);cursor:pointer}
 .pick:hover,.card.star .pick{background:var(--sea);color:var(--on-sea)}
@@ -382,7 +388,7 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
   .rs-tb tbody th{padding:8px 12px 1px}
   .rs-tb tbody td{padding:0 12px 8px 52px;border-top:0}
 }
-#dao{padding-top:0}
+
 
 /* Du lịch */
 .travel{background:var(--bg)}
@@ -907,12 +913,12 @@ a.th-race{display:none}
       </div>
     </div>
     <nav aria-label="Mục lục">
+      <a href="#toi-co-don">Tỏi cô đơn</a>
       <a href="#dao">Đảo tỏi</a>
+      <a href="#phan-biet">Phân biệt</a>
       <a href="#du-lich">Du lịch</a>
       <a href="#nhac">Nghe nhạc</a>
       <a href="#hoi-dap">Hỏi đáp</a>
-      <a href="#toi-co-don">Tỏi cô đơn</a>
-      <a href="#phan-biet">Phân biệt</a>
       <span class="nav-end"><span class="nav-end-top"><a class="nav-sp" href="#san-pham">Sản phẩm</a><a class="cta-link" href="#dat-hang">Đặt hàng</a></span><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
     </nav>
   </div>
@@ -979,6 +985,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
 </script>
 
 <main id="top">
+
   <div class="hero" id="gioi-thieu" data-ten="Ảnh bìa và giới thiệu">
     <div class="wrap">
       <div class="hero-text">
@@ -1008,36 +1015,86 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
           <span class="hp-line">Hành trình trải nghiệm là của bạn</span>
         </p>
         <a class="hp-go" href="#hanh-trinh">Xem hành trình 3 ngày →</a>
+        <p class="hp-credit">Ảnh tham khảo · bản quyền thuộc tác giả</p>
       </figure>
     </div>
     <div class="strata" aria-hidden="true"></div>
   </div>
 
-  <section class="steps-band" id="cach-dat" aria-labelledby="steps-title">
+  <section id="san-pham">
     <div class="wrap">
-      <h2 id="steps-title" class="eyebrow" style="font-family:var(--f-body);font-size:.78rem;margin-bottom:18px">Đặt hàng 3 bước</h2>
-      <div class="steps">
-        <div class="step"><span class="n">1</span><div><h3>Chọn hàng</h3><p>Bấm “Chọn đặt hàng” trên sản phẩm hoặc chọn số lượng trong mẫu đơn.</p></div></div>
-        <div class="step"><span class="n">2</span><div><h3>Tạo đơn hàng</h3><p>Điền họ tên, số điện thoại, địa chỉ rồi bấm “Tạo đơn hàng”.</p></div></div>
-        <div class="step"><span class="n">3</span><div><h3 id="step3h">Gửi qua Zalo</h3><p id="step3">Bấm “Gửi đơn qua Zalo”. Trong Zalo, giữ ngón tay ở ô gõ tin nhắn, bấm <b>Dán</b> rồi bấm <b>➤</b>. Người bán gọi lại báo giá và phí gửi.</p></div></div>
+      <div class="sec-head">
+        <p class="eyebrow">Sản phẩm</p>
+        <h2>Hàng của đảo</h2>
+        <p>Giá theo mùa và theo đợt hàng. Nhắn đặt hàng để được báo giá và lịch gửi.</p>
+        <p class="img-note">Ảnh tỏi, hành, hải sản, chả cá là ảnh minh họa (nguồn tham khảo internet, bản quyền thuộc tác giả). Hàng thật có thể khác về kích cỡ, màu sắc.</p>
+      </div>
+      <div class="grid">
+        <article class="card star">
+          <img class="card-photo" src="images/san_pham/toi_co_don.webp" width="800" height="627" loading="lazy" alt="Những củ tỏi cô đơn Lý Sơn trên lòng bàn tay, phía sau là nia tỏi"><small class="img-cap">Ảnh minh họa</small>
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--sea)" stroke-width="2.5"/></svg>Tỏi cô đơn Lý Sơn</h3>
+          <p>Mỗi củ chỉ một tép tròn. Hiếm, sản lượng mỗi năm rất ít. Vị đậm, thơm, hợp ngâm rượu, ngâm mật ong hoặc ăn sống.</p>
+          <div class="tags"><span class="tag hl">Nổi bật</span><span class="tag">Túi lưới 500 g</span><span class="tag">1 kg</span></div>
+        </article>
+        <article class="card">
+          <img class="card-photo" src="images/san_pham/toi_nhieu_tep.webp" width="777" height="678" loading="lazy" alt="Những củ tỏi Lý Sơn nhiều tép, vỏ trắng ngà, còn cuống khô"><small class="img-cap">Ảnh minh họa</small>
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5"/><path d="M26 18v26M19 21c-3 7-2 16 2 21M33 21c3 7 2 16-2 21" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/></svg>Tỏi Lý Sơn nhiều tép</h3>
+          <p>Củ nhỏ, tép đều, vỏ trắng ngà. Dùng nấu ăn hằng ngày, phi thơm, làm nước chấm, làm tỏi ớt.</p>
+          <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span><span class="tag">Bó / chùm</span></div>
+        </article>
+        <article class="card">
+          <img class="card-photo" src="images/san_pham/hanh_tim.webp" width="800" height="535" loading="lazy" alt="Hành tím Lý Sơn vừa nhổ, phơi trên ruộng cát"><small class="img-cap">Ảnh minh họa</small>
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 4c1 6 2 9 2 12 8 3 13 10 12 18-1 8-7 13-14 13s-13-5-14-13c-1-8 4-15 12-18 0-3 1-6 2-12z" fill="var(--shallot)" opacity=".9"/><path d="M22 47c1 2 3 3 4 3s3-1 4-3" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round"/></svg>Hành tím Lý Sơn</h3>
+          <p>Củ chắc, vỏ tím đỏ, mùi thơm. Hợp phi hành, làm dưa hành, ướp đồ nướng.</p>
+          <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span></div>
+        </article>
+        <article class="card">
+          <img class="card-photo" src="images/san_pham/hai_san.webp" width="800" height="598" loading="lazy" alt="Đĩa tôm hùm bổ đôi với dưa leo và rau thơm"><small class="img-cap">Ảnh minh họa</small>
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M6 26c8-10 22-12 32-4l8-6v20l-8-6c-10 8-24 6-32-4z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="15" cy="25" r="2" fill="var(--fg)"/></svg>Hải sản tươi/khô</h3>
+          <p>Hải sản tươi theo con nước, cùng mực khô, mực một nắng, cá khô và rong biển phơi trên đảo. Có đợt mới báo sau.</p>
+          <div class="tags"><span class="tag">Theo mùa</span><span class="tag">Báo giá theo đợt</span></div>
+        </article>
+        <article class="card">
+          <img class="card-photo" src="images/san_pham/cha_ca.webp" width="800" height="901" loading="lazy" alt="Tô bún với những lát chả cá chiên vàng, rau sống và chanh"><small class="img-cap">Ảnh minh họa</small>
+          <h3 class="title-ico"><svg viewBox="0 0 42 32" aria-hidden="true"><path d="M29 16 40 7v18z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2" stroke-linejoin="round"/><ellipse cx="17" cy="16" rx="14" ry="11" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2"/><path d="M21 11q3 2 0 5M25 13q2.500 1.500 0 4M21 18q3 2 0 5" fill="none" stroke="var(--sea)" stroke-width="1.500" stroke-linecap="round"/><circle cx="10" cy="13" r="2.600" fill="var(--fg)"/><circle cx="10.900" cy="12.100" r=".9" fill="var(--surface)"/><circle cx="13.500" cy="19" r="2.200" fill="#F29CB2" opacity=".85"/><path d="M5.500 18q2.500 3 5.500 1" fill="none" stroke="var(--sea)" stroke-width="1.800" stroke-linecap="round"/></svg>Chả cá</h3>
+          <p>Chả cá thơm vị cá biển, ăn với bún nóng, chiên giòn hay kho đều hợp. Quy cách và giá báo theo đợt hàng.</p>
+          <div class="tags"><span class="tag">Mới</span><span class="tag">Báo giá theo đợt</span></div>
+        </article>
+        <article class="card">
+          <img class="card-photo" src="images/san_pham/toi_ngam.webp" width="843" height="545" loading="lazy" alt="Thìa múc những tép tỏi ngâm từ hũ thủy tinh">
+          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M20 4h12v8l4 6v26a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18l4-6z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 28h20v14H16z" fill="var(--sand)"/><circle cx="26" cy="35" r="4" fill="var(--surface)" stroke="var(--fg)" stroke-width="1.5"/></svg>Tỏi ngâm &amp; rượu tỏi</h3>
+          <p>Tỏi cô đơn ngâm rượu, ngâm mật ong, tỏi ngâm chua ngọt. Làm theo đơn, cần đặt trước.</p>
+          <div class="tags"><span class="tag">Đặt trước</span><span class="tag">Hũ / chai</span></div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="ly-do" class="reasons" aria-labelledby="ly-do-title">
+  <section id="toi-co-don" class="spot">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow">Vì sao mua ở đây</p>
-        <h2 id="ly-do-title">Sáu điều chúng tôi giữ</h2>
+        <p class="eyebrow">Sản phẩm chính</p>
+        <h2>Tỏi cô đơn Lý Sơn</h2>
+        <p>Tỏi cô đơn không phải một giống riêng. Trong ruộng tỏi thường, một số cây chỉ tạo một tép duy nhất. Nhiều người ăn thấy tép này thơm, vị đậm hơn tỏi nhiều tép.</p>
       </div>
-      <div class="rs-panel"><table class="rs-tb"><thead><tr><th scope="col">Điều chúng tôi giữ</th><th scope="col">Cụ thể</th></tr></thead><tbody>
-        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 20V10l6-5 6 5v10M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Hàng nhà trồng trên đảo</span></th><td>Tỏi, hành do gia đình trồng và làm trên đảo Lý Sơn.</td></tr>
-        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c1 2.5 1.5 3.5 1.5 4.5 4.5 1.5 6.5 5.5 5.5 9.5-1 4.5-4 6-7 6s-6-1.5-7-6c-1-4 1-8 5.5-9.5 0-1 .5-2 1.5-4.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Tỏi cô đơn nhặt từng củ</span></th><td>Nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới.</td></tr>
-        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4M8.5 11l1.8 1.8L14 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Kiểm hàng khi nhận</span></th><td>Mở xem hàng, thấy đúng rồi mới trả tiền.</td></tr>
-        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 14-3l2 2M20 15a8 8 0 0 1-14 3l-2-2M20 4v4h-4M4 20v-4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Đổi hàng nếu lỗi</span></th><td>Mốc, hỏng hay gửi sai hàng thì được đổi.</td></tr>
-        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>Gửi hàng toàn quốc</span></th><td>Gửi bưu điện hoặc chuyển phát, phí báo khi xác nhận đơn.</td></tr>
-        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Đặt nhanh qua Zalo</span></th><td>Tạo đơn trên trang, gửi Zalo hoặc SMS, người bán gọi lại.</td></tr>
-      </tbody></table></div>
+      <div class="spot-grid">
+        <div class="spec">
+          <dl>
+            <dt>Xuất xứ</dt><dd>Đảo Lý Sơn, Quảng Ngãi</dd>
+            <dt>Quy cách</dt><dd>Túi lưới 500 g · 1 kg</dd>
+            <dt>Hình dạng</dt><dd>Một tép, củ tròn, đều</dd>
+            <dt>Canh tác</dt><dd>Phân chuồng ủ hoai, nhổ cỏ bằng tay</dd>
+            <dt>Sản lượng</dt><dd>Rất ít, thay đổi theo từng vụ</dd>
+            <dt>Giá</dt><dd>Báo theo đợt hàng</dd>
+          </dl>
+        </div>
+        <div class="points">
+          <div class="point"><span class="dot">1</span><div><h3>Chọn từng củ</h3><p>Tỏi cô đơn được nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới cho thoáng.</p></div></div>
+          <div class="point"><span class="dot">2</span><div><h3>Vị đậm, ít hăng gắt</h3><p>Ăn sống có vị cay ấm, hậu ngọt. Mùi thơm rõ hơn tỏi nhập khẩu củ to.</p></div></div>
+          <div class="point"><span class="dot">3</span><div><h3>Ăn theo kinh nghiệm dân gian</h3><p>Người trên đảo quen ăn vài củ trong bữa cơm hoặc ngâm rượu để dùng dần khi trời trở lạnh. Đây là thói quen ăn uống, không phải thuốc.</p></div></div>
+          <p class="note">Công dụng nêu trên là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người đang điều trị bệnh, đặc biệt đang dùng thuốc chống đông máu, nên hỏi bác sĩ trước khi dùng nhiều tỏi.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1049,7 +1106,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         <p>Lý Sơn là đảo hình thành từ núi lửa. Bà con đào đất đỏ bazan trên núi Thới Lới, núi Giếng Tiền chở về rải lên ruộng, trộn phân chuồng, rồi phủ lớp cát san hô lấy từ biển. Lớp cát giữ ẩm, thoát nước nhanh và làm củ tỏi, củ hành chắc, thơm. Cát thay sau vài vụ, đất bazan thay sau vài năm.</p>
         <p>Nước tưới lấy từ giếng trên đảo. Phân chủ yếu là phân chuồng ủ hoai với lá cây và rong. Mỗi năm thường chỉ có một vụ chính.</p>
         <div class="facts">
-          <span class="fact">Cách đất liền gần <b>18 hải lý</b></span>
+          <span class="fact">Cách cảng Sa Kỳ khoảng <b>15 hải lý</b></span>
           <span class="fact">Xuống giống tỏi <b>tháng 9</b></span>
           <span class="fact">Nhổ tỏi <b>tháng 2–3</b> năm sau</span>
         </div>
@@ -1070,6 +1127,185 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       </div>
     </div>
   </section>
+
+  <section id="phan-biet" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Mua đúng hàng</p>
+        <h2>Phân biệt tỏi Lý Sơn với tỏi nhập</h2>
+        <p>Trên thị trường có nhiều tỏi cô đơn trồng nơi khác nhưng ghi là Lý Sơn. Một số dấu hiệu bà con hay dùng để nhận biết (mẹo dân gian, chỉ để tham khảo; chắc nhất là mua đúng nơi trồng):</p>
+      </div>
+      <div class="cmp-scroll">
+        <table>
+          <thead><tr><th scope="col">Đặc điểm</th><th scope="col">Tỏi Lý Sơn</th><th scope="col">Tỏi nhập củ to</th></tr></thead>
+          <tbody>
+            <tr><td>Kích thước</td><td>Củ nhỏ, chắc tay</td><td>Củ to, đều, nhẹ hơn so với kích thước</td></tr>
+            <tr><td>Vỏ</td><td>Trắng ngà, mỏng, đôi khi lẫn vết đất cát</td><td>Trắng bóng, sạch, dày hơn</td></tr>
+            <tr><td>Mùi</td><td>Thơm nồng ngay khi bóc</td><td>Mùi nhẹ hơn</td></tr>
+            <tr><td>Vị khi ăn sống</td><td>Cay ấm rồi ngọt hậu</td><td>Cay gắt, ít hậu ngọt</td></tr>
+            <tr><td>Khi đập dập</td><td>Tinh dầu nhiều, dính tay</td><td>Ít tinh dầu, khô hơn</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="cach-dung" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Hướng dẫn</p>
+        <h2>Cách dùng và bảo quản</h2>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <h3>Cách dùng</h3>
+          <ul>
+            <li>Ăn sống: bóc vỏ, đập dập, để 10 phút cho dậy mùi rồi ăn kèm bữa.</li>
+            <li>Ngâm mật ong: tỏi bóc vỏ cho vào hũ thủy tinh, đổ mật ong ngập mặt, đậy kín. Mật ong không dùng cho trẻ dưới 1 tuổi.</li>
+            <li>Ngâm rượu: tỏi bóc vỏ ngâm với rượu trắng trong bình thủy tinh, để nơi mát.</li>
+            <li>Nấu ăn: phi thơm, làm nước chấm, ướp thịt cá, xào rau.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Bảo quản</h3>
+          <ul>
+            <li>Để nguyên túi lưới, treo nơi khô, thoáng, tránh nắng trực tiếp.</li>
+            <li>Không để trong túi nilon kín vì dễ ẩm, mốc.</li>
+            <li>Không cần để tủ lạnh. Để lâu trong ngăn mát tỏi dễ mọc mầm.</li>
+            <li>Tỏi đã bóc vỏ nên dùng trong vài ngày hoặc đem ngâm.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ly-do" class="reasons" aria-labelledby="ly-do-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Vì sao mua ở đây</p>
+        <h2 id="ly-do-title">Sáu điều chúng tôi giữ</h2>
+      </div>
+      <div class="rs-panel"><table class="rs-tb"><thead><tr><th scope="col">Điều chúng tôi giữ</th><th scope="col">Cụ thể</th></tr></thead><tbody>
+        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20h18M6 20V10l6-5 6 5v10M10 20v-5h4v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Hàng nhà trồng trên đảo</span></th><td>Tỏi, hành do gia đình trồng và làm trên đảo Lý Sơn.</td></tr>
+        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c1 2.5 1.5 3.5 1.5 4.5 4.5 1.5 6.5 5.5 5.5 9.5-1 4.5-4 6-7 6s-6-1.5-7-6c-1-4 1-8 5.5-9.5 0-1 .5-2 1.5-4.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Tỏi cô đơn nhặt từng củ</span></th><td>Nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới.</td></tr>
+        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4M8.5 11l1.8 1.8L14 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Kiểm hàng khi nhận</span></th><td>Mở xem hàng, thấy đúng rồi mới trả tiền.</td></tr>
+        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 14-3l2 2M20 15a8 8 0 0 1-14 3l-2-2M20 4v4h-4M4 20v-4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Đổi hàng nếu lỗi</span></th><td>Mốc, hỏng hay gửi sai hàng thì được đổi.</td></tr>
+        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>Gửi hàng toàn quốc</span></th><td>Gửi bưu điện hoặc chuyển phát, phí báo khi xác nhận đơn.</td></tr>
+        <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Đặt nhanh qua Zalo</span></th><td>Tạo đơn trên trang, gửi Zalo hoặc SMS, người bán gọi lại.</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="steps-band" id="cach-dat" aria-labelledby="steps-title">
+    <div class="wrap">
+      <h2 id="steps-title" class="eyebrow" style="font-family:var(--f-body);font-size:.78rem;margin-bottom:18px">Đặt hàng 3 bước</h2>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div><h3>Chọn hàng</h3><p>Bấm “Chọn đặt hàng” trên sản phẩm hoặc chọn số lượng trong mẫu đơn.</p></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Tạo đơn hàng</h3><p>Điền họ tên, số điện thoại, địa chỉ rồi bấm “Tạo đơn hàng”.</p></div></div>
+        <div class="step"><span class="n">3</span><div><h3 id="step3h">Gửi qua Zalo</h3><p id="step3">Bấm “Gửi đơn qua Zalo”. Trong Zalo, giữ ngón tay ở ô gõ tin nhắn, bấm <b>Dán</b> rồi bấm <b>➤</b>. Người bán gọi lại báo giá và phí gửi.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dat-hang" class="order">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Đặt hàng</p>
+        <h2>Gửi đơn qua Zalo hoặc tin nhắn</h2>
+        <p id="orderLead">Điền thông tin, bấm “Tạo đơn hàng”, rồi bấm “Gửi đơn qua Zalo”. Người bán sẽ gọi lại báo giá và phí gửi.</p>
+      </div>
+      <div class="inapp" id="inapp" hidden>
+        <b>Anh chị đang mở trang trong ứng dụng <span id="inappName">khác</span>.</b>
+        <span>Nếu nút gửi đơn không chạy, bấm dấu <b>⋯</b> ở góc trên, chọn <b>Mở bằng trình duyệt</b> (Safari hoặc Chrome) rồi đặt lại.</span>
+      </div>
+      <div class="order-grid">
+        <form id="orderForm" novalidate>
+          <p class="welcome-back" id="welcomeBack" hidden></p>
+          <div class="row">
+            <label for="name">Họ tên<input id="name" name="name" maxlength="80" autocomplete="name" placeholder="Nguyễn Văn A" required></label>
+            <label for="phone">Số điện thoại<input id="phone" name="phone" type="tel" maxlength="15" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" required></label>
+          </div>
+          <label for="addr">Địa chỉ nhận hàng<input id="addr" name="addr" maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, phường/xã, tỉnh/thành"></label>
+          <div class="pin-box">
+            <div class="pin-btns">
+              <button class="btn ghost sm" type="button" id="pinOpen">Xem địa chỉ trên bản đồ</button>
+              <button class="btn ghost sm" type="button" id="pinGeo">Dùng vị trí hiện tại</button>
+            </div>
+            <div class="map pin-map" id="pinMap" hidden></div>
+            <p class="pin-info" id="pinInfo" aria-live="polite"></p>
+          </div>
+          <fieldset style="border:0;padding:0;margin:0;display:grid;gap:8px">
+            <legend style="font-size:.88rem;font-weight:600;margin-bottom:6px">Sản phẩm và số lượng</legend>
+            <div class="items" id="items"></div>
+          </fieldset>
+          <label for="note">Ghi chú<textarea id="note" name="note" rows="2" maxlength="300" placeholder="Thời gian nhận hàng, yêu cầu đóng gói…"></textarea></label>
+          <p class="status" id="formStatus" role="status"></p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn primary" type="submit" id="createBtn">Tạo đơn hàng</button>
+          </div>
+          <p class="privacy-note">🔒 <b>Bảo vệ thông tin của anh/chị:</b> họ tên, số điện thoại, địa chỉ chỉ dùng để người bán liên hệ và giao hàng. Trang <b>không tự gửi đi đâu</b>, chỉ lưu trên chính máy của anh/chị để lần sau điền nhanh. Đơn tới người bán khi anh/chị tự gửi qua Zalo hoặc SMS. Bấm “Tạo đơn hàng” là anh/chị đồng ý cho người bán dùng thông tin này để liên hệ, giao hàng; người bán không chia sẻ cho bên khác. Trang có đếm số máy đã truy cập và số lượt thích (chỉ đếm số, không ghi tên hay số điện thoại). <button type="button" id="forgetMe">Xóa thông tin đã lưu trên máy</button></p>
+          <input class="hp" id="web" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="manual">Thông tin đơn chỉ dùng để người bán gọi xác nhận và gửi hàng.</p>
+          <div class="out" id="out" hidden>
+            <label for="msg">Nội dung đơn (kiểm tra lại trước khi gửi)<textarea id="msg" readonly rows="7"></textarea></label>
+            <div class="send-btns">
+              <button class="btn primary big" type="button" id="sendBtn" hidden>Gửi đơn hàng</button>
+              <a class="btn primary big" id="zaloBtn" href="https://zalo.me/0363594167" target="_blank" rel="noopener"><span class="zb-t">Gửi đơn qua Zalo</span><small class="zb-how">Vào tin nhắn Zalo → Dán (paste) → Gửi đơn ➤</small></a>
+            </div>
+            <div class="zalo-hello" id="zaloHello" hidden>
+              <button type="button" class="zh-x" id="zaloHelloX" aria-label="Đóng">✕</button>
+              <p class="zh-hi">🌊 Cám ơn <span id="zhName">bạn</span> đã đến với trang <b>Lý Sơn – nhà của Đạt</b>!</p>
+              <p class="zh-ok">✓ Đơn hàng đã được <b>sao chép sẵn</b>. Giờ chỉ cần dán vào Zalo:</p>
+              <ol class="zh-steps">
+                <li>Trong Zalo, <b>chạm và giữ</b> ô gõ tin nhắn khoảng 1 giây.</li>
+                <li>Bấm <b>Dán</b>, đơn hiện ra trong ô.</li>
+                <li>Bấm nút gửi <b>➤</b>. Xong!</li>
+              </ol>
+              <p class="zh-foot">Đạt sẽ gọi lại báo giá và phí gửi. Cần hỏi ngay: <a href="tel:0333216563">0333 216 563</a></p>
+            </div>
+            <p class="send-status" id="sendStatus" role="status" aria-live="polite"></p>
+            <div class="send-alt direct-only">
+              <button class="btn ghost sm" type="button" id="copyBtn">Sao chép đơn</button>
+              <a class="btn ghost sm" id="smsBtn" href="sms:0363594167">Nhắn SMS</a>
+              <a class="btn ghost sm" href="tel:0363594167">Gọi điện</a>
+            </div>
+            <p class="manual auto-only">Bấm <b>Gửi đơn hàng</b> là xong: đơn tới người bán ngay, không cần mở Zalo. Các nút Zalo, SMS, Gọi điện để anh chị liên hệ thêm nếu muốn.</p>
+            <p class="manual manual-only"><b>Cách gửi qua Zalo:</b></p>
+            <ol class="manual how framed-only">
+              <li>Bấm <b>Sao chép đơn để gửi Zalo</b>.</li>
+              <li>Thoát trang này, mở <b>app Zalo</b>, gõ tìm số <b>0363 594 167</b> rồi bấm <b>Nhắn tin</b>.</li>
+              <li>Chạm vào ô gõ tin nhắn, <b>giữ ngón tay</b> khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào.</li>
+              <li>Bấm nút gửi <b>➤</b>. Xong.</li>
+            </ol>
+            <ol class="manual how direct-only manual-only">
+              <li>Bấm <b>Gửi đơn qua Zalo</b>. Đơn tự được sao chép, Zalo mở ra khung chat với số 0363 594 167.</li>
+              <li>Trong Zalo, chạm vào <b>ô gõ tin nhắn</b> ở cuối màn hình (chỗ thường gõ chữ).</li>
+              <li><b>Chạm và giữ</b> ngón tay trong ô đó khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào. Nội dung đơn hiện ra trong ô.</li>
+              <li>Bấm nút gửi <b>➤</b> bên phải ô. Xong.</li>
+            </ol>
+            <p class="manual direct-only"><b>Nhắn SMS:</b> đơn được điền sẵn vào tin nhắn, chỉ cần bấm gửi (tính cước SMS thường của nhà mạng).</p>
+          </div>
+        </form>
+        <aside class="contact" aria-label="Thông tin liên hệ">
+          <div><small>Điện thoại / Zalo</small><a class="tel" href="tel:0363594167">0363 594 167</a></div>
+          <div><small>Gọi điện liên hệ</small><a class="tel" href="tel:0333216563">0333 216 563</a></div>
+          <div><small>Người bán</small><b>Dân địa phương</b></div>
+          <div><small>Địa chỉ</small><b>An Hải - Lý Sơn - Quảng Ngãi</b></div>
+          <div><small>Giờ nhận đơn</small><b>Cả ngày</b></div>
+          <p class="hint">Bấm vào số để gọi. Nhắn Zalo số 0363 594 167.</p>
+          <p class="hint safe"><b>Cẩn thận lừa đảo:</b> người bán <b>không</b> gửi link, file cài đặt hay xin mã OTP. Chỉ đặt hàng tại trang này và Zalo 0363 594 167.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="part-sep" id="trai-nghiem" data-ten="Tiêu đề phần Trải nghiệm Lý Sơn">
+    <div class="wrap">
+      <p class="eyebrow">Phần 2</p>
+      <h2>Trải nghiệm Lý Sơn</h2>
+      <p>Du lịch, hành trình 3 ngày ở nhà Đạt, đua thuyền tứ linh và nhạc quê hương.</p>
+    </div>
+  </div>
 
   <section id="du-lich" class="travel">
     <div class="wrap">
@@ -1208,7 +1444,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
             <li><a href="images/hanh_trinh/g_chung_tay_xanh_sach_dep.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chung_tay_xanh_sach_dep.webp" width="960" height="720" loading="lazy" alt="Bích họa Chung tay giữ gìn biển đảo xanh, sạch, đẹp, các bạn trẻ nhặt rác trên bãi biển"></a><span>Chung tay xanh, sạch, đẹp</span></li>
             <li><a href="images/hanh_trinh/g_con_duong_bich_hoa.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_con_duong_bich_hoa.webp" width="960" height="540" loading="lazy" alt="Các bạn đoàn viên cầm bảng công trình Con đường bích họa bên bức tường Lý Sơn Island"></a><span>Con đường bích họa</span></li>
           </ul>
-          <p class="ck-src">Một số ảnh trong nhóm: nguồn photoflyson. Ảnh giải chạy: Hachi8 Media.</p>
+          <p class="ck-src">Ảnh giải chạy (3 ảnh): Hachi8 Media. Các ảnh còn lại: nguồn tham khảo photoflyson và internet, bản quyền thuộc tác giả.</p>
         </div>
 
         <div class="ck-group">
@@ -1218,7 +1454,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
             <li><a href="images/hanh_trinh/g_trao_co_ngu_dan.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_trao_co_ngu_dan.webp" width="960" height="685" loading="lazy" alt="Trao cờ Tổ quốc cho ngư dân trên tàu cá"></a><span>Trao cờ cho ngư dân</span></li>
             <li><a href="images/hanh_trinh/g_ho_tro_thanh_nien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_ho_tro_thanh_nien.webp" width="667" height="878" loading="lazy" alt="Đoàn thanh niên Đặc khu Lý Sơn trao biển hỗ trợ thanh niên khởi nghiệp, lập nghiệp tại Bãi tắm Cầu Tây"></a><span>Hỗ trợ thanh niên khởi nghiệp</span></li>
           </ul>
-          <p class="ck-src">Nguồn ảnh: photoflyson.</p>
+          <p class="ck-src">Nguồn ảnh: photoflyson, bản quyền thuộc tác giả.</p>
         </div>
 
         <div class="ck-group">
@@ -1401,225 +1637,6 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       </div>
     </div>
   </section>
-
-  <section id="san-pham" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Sản phẩm</p>
-        <h2>Hàng của đảo</h2>
-        <p>Giá theo mùa và theo đợt hàng. Nhắn đặt hàng để được báo giá và lịch gửi.</p>
-      </div>
-      <div class="grid">
-        <article class="card star">
-          <img class="card-photo" src="images/san_pham/toi_co_don.webp" width="800" height="627" loading="lazy" alt="Những củ tỏi cô đơn Lý Sơn trên lòng bàn tay, phía sau là nia tỏi">
-          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--sea)" stroke-width="2.5"/></svg>Tỏi cô đơn Lý Sơn</h3>
-          <p>Mỗi củ chỉ một tép tròn. Hiếm, sản lượng mỗi năm rất ít. Vị đậm, thơm, hợp ngâm rượu, ngâm mật ong hoặc ăn sống.</p>
-          <div class="tags"><span class="tag hl">Nổi bật</span><span class="tag">Túi lưới 500 g</span><span class="tag">1 kg</span></div>
-        </article>
-        <article class="card">
-          <img class="card-photo" src="images/san_pham/toi_nhieu_tep.webp" width="777" height="678" loading="lazy" alt="Những củ tỏi Lý Sơn nhiều tép, vỏ trắng ngà, còn cuống khô">
-          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 6c2 5 3 7 3 9 9 3 13 11 11 19-2 9-8 13-14 13s-12-4-14-13c-2-8 2-16 11-19 0-2 1-4 3-9z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5"/><path d="M26 18v26M19 21c-3 7-2 16 2 21M33 21c3 7 2 16-2 21" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/></svg>Tỏi Lý Sơn nhiều tép</h3>
-          <p>Củ nhỏ, tép đều, vỏ trắng ngà. Dùng nấu ăn hằng ngày, phi thơm, làm nước chấm, làm tỏi ớt.</p>
-          <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span><span class="tag">Bó / chùm</span></div>
-        </article>
-        <article class="card">
-          <img class="card-photo" src="images/san_pham/hanh_tim.webp" width="800" height="535" loading="lazy" alt="Hành tím Lý Sơn vừa nhổ, phơi trên ruộng cát">
-          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M26 4c1 6 2 9 2 12 8 3 13 10 12 18-1 8-7 13-14 13s-13-5-14-13c-1-8 4-15 12-18 0-3 1-6 2-12z" fill="var(--shallot)" opacity=".9"/><path d="M22 47c1 2 3 3 4 3s3-1 4-3" fill="none" stroke="var(--fg)" stroke-width="2" stroke-linecap="round"/></svg>Hành tím Lý Sơn</h3>
-          <p>Củ chắc, vỏ tím đỏ, mùi thơm. Hợp phi hành, làm dưa hành, ướp đồ nướng.</p>
-          <div class="tags"><span class="tag">Túi 500 g</span><span class="tag">1 kg</span></div>
-        </article>
-        <article class="card">
-          <img class="card-photo" src="images/san_pham/hai_san.webp" width="800" height="598" loading="lazy" alt="Đĩa tôm hùm bổ đôi với dưa leo và rau thơm">
-          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M6 26c8-10 22-12 32-4l8-6v20l-8-6c-10 8-24 6-32-4z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="15" cy="25" r="2" fill="var(--fg)"/></svg>Hải sản tươi/khô</h3>
-          <p>Hải sản tươi theo con nước, cùng mực khô, mực một nắng, cá khô và rong biển phơi trên đảo. Có đợt mới báo sau.</p>
-          <div class="tags"><span class="tag">Theo mùa</span><span class="tag">Báo giá theo đợt</span></div>
-        </article>
-        <article class="card">
-          <img class="card-photo" src="images/san_pham/cha_ca.webp" width="800" height="901" loading="lazy" alt="Tô bún với những lát chả cá chiên vàng, rau sống và chanh">
-          <h3 class="title-ico"><svg viewBox="0 0 42 32" aria-hidden="true"><path d="M29 16 40 7v18z" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2" stroke-linejoin="round"/><ellipse cx="17" cy="16" rx="14" ry="11" fill="var(--sea-soft)" stroke="var(--sea)" stroke-width="2"/><path d="M21 11q3 2 0 5M25 13q2.500 1.500 0 4M21 18q3 2 0 5" fill="none" stroke="var(--sea)" stroke-width="1.500" stroke-linecap="round"/><circle cx="10" cy="13" r="2.600" fill="var(--fg)"/><circle cx="10.900" cy="12.100" r=".9" fill="var(--surface)"/><circle cx="13.500" cy="19" r="2.200" fill="#F29CB2" opacity=".85"/><path d="M5.500 18q2.500 3 5.500 1" fill="none" stroke="var(--sea)" stroke-width="1.800" stroke-linecap="round"/></svg>Chả cá</h3>
-          <p>Chả cá thơm vị cá biển, ăn với bún nóng, chiên giòn hay kho đều hợp. Quy cách và giá báo theo đợt hàng.</p>
-          <div class="tags"><span class="tag">Mới</span><span class="tag">Báo giá theo đợt</span></div>
-        </article>
-        <article class="card">
-          <img class="card-photo" src="images/san_pham/toi_ngam.webp" width="843" height="545" loading="lazy" alt="Thìa múc những tép tỏi ngâm từ hũ thủy tinh">
-          <h3 class="title-ico"><svg viewBox="0 0 52 52" aria-hidden="true"><path d="M20 4h12v8l4 6v26a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18l4-6z" fill="var(--surface)" stroke="var(--fg)" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 28h20v14H16z" fill="var(--sand)"/><circle cx="26" cy="35" r="4" fill="var(--surface)" stroke="var(--fg)" stroke-width="1.5"/></svg>Tỏi ngâm &amp; rượu tỏi</h3>
-          <p>Tỏi cô đơn ngâm rượu, ngâm mật ong, tỏi ngâm chua ngọt. Làm theo đơn, cần đặt trước.</p>
-          <div class="tags"><span class="tag">Đặt trước</span><span class="tag">Hũ / chai</span></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="toi-co-don" class="spot">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Sản phẩm chính</p>
-        <h2>Tỏi cô đơn Lý Sơn</h2>
-        <p>Tỏi cô đơn không phải một giống riêng. Trong ruộng tỏi thường, một số cây chỉ tạo một tép duy nhất. Tép này gom hết dưỡng chất của cả củ nên thơm và đậm hơn tỏi nhiều tép.</p>
-      </div>
-      <div class="spot-grid">
-        <div class="spec">
-          <dl>
-            <dt>Xuất xứ</dt><dd>Đảo Lý Sơn, Quảng Ngãi</dd>
-            <dt>Quy cách</dt><dd>Túi lưới 500 g · 1 kg</dd>
-            <dt>Hình dạng</dt><dd>Một tép, củ tròn, đều</dd>
-            <dt>Canh tác</dt><dd>Phân chuồng ủ hoai, nhổ cỏ bằng tay</dd>
-            <dt>Sản lượng</dt><dd>Khoảng 1% mỗi vụ tỏi</dd>
-            <dt>Giá</dt><dd>Báo theo đợt hàng</dd>
-          </dl>
-        </div>
-        <div class="points">
-          <div class="point"><span class="dot">1</span><div><h3>Chọn từng củ</h3><p>Tỏi cô đơn được nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới cho thoáng.</p></div></div>
-          <div class="point"><span class="dot">2</span><div><h3>Vị đậm, ít hăng gắt</h3><p>Ăn sống có vị cay ấm, hậu ngọt. Mùi thơm rõ hơn tỏi nhập khẩu củ to.</p></div></div>
-          <div class="point"><span class="dot">3</span><div><h3>Ăn theo kinh nghiệm dân gian</h3><p>Người trên đảo quen ăn vài củ trong bữa cơm hoặc ngâm rượu để dùng dần khi trời trở lạnh. Đây là thói quen ăn uống, không phải thuốc.</p></div></div>
-          <p class="note">Công dụng nêu trên là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người đang điều trị bệnh, đặc biệt đang dùng thuốc chống đông máu, nên hỏi bác sĩ trước khi dùng nhiều tỏi.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="cach-dung">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Hướng dẫn</p>
-        <h2>Cách dùng và bảo quản</h2>
-      </div>
-      <div class="two">
-        <div class="panel">
-          <h3>Cách dùng</h3>
-          <ul>
-            <li>Ăn sống: bóc vỏ, đập dập, để 10 phút cho dậy mùi rồi ăn kèm bữa.</li>
-            <li>Ngâm mật ong: tỏi bóc vỏ cho vào hũ thủy tinh, đổ mật ong ngập mặt, đậy kín.</li>
-            <li>Ngâm rượu: tỏi bóc vỏ ngâm với rượu trắng trong bình thủy tinh, để nơi mát.</li>
-            <li>Nấu ăn: phi thơm, làm nước chấm, ướp thịt cá, xào rau.</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h3>Bảo quản</h3>
-          <ul>
-            <li>Để nguyên túi lưới, treo nơi khô, thoáng, tránh nắng trực tiếp.</li>
-            <li>Không để trong túi nilon kín vì dễ ẩm, mốc.</li>
-            <li>Không cần để tủ lạnh. Để lâu trong ngăn mát tỏi dễ mọc mầm.</li>
-            <li>Tỏi đã bóc vỏ nên dùng trong vài ngày hoặc đem ngâm.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="phan-biet" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Mua đúng hàng</p>
-        <h2>Phân biệt tỏi Lý Sơn với tỏi nhập</h2>
-        <p>Trên thị trường có nhiều tỏi cô đơn trồng nơi khác nhưng ghi là Lý Sơn. Một số dấu hiệu bà con hay dùng để nhận biết:</p>
-      </div>
-      <div class="cmp-scroll">
-        <table>
-          <thead><tr><th scope="col">Đặc điểm</th><th scope="col">Tỏi Lý Sơn</th><th scope="col">Tỏi nhập củ to</th></tr></thead>
-          <tbody>
-            <tr><td>Kích thước</td><td>Củ nhỏ, chắc tay</td><td>Củ to, đều, nhẹ hơn so với kích thước</td></tr>
-            <tr><td>Vỏ</td><td>Trắng ngà, mỏng, đôi khi lẫn vết đất cát</td><td>Trắng bóng, sạch, dày hơn</td></tr>
-            <tr><td>Mùi</td><td>Thơm nồng ngay khi bóc</td><td>Mùi nhẹ hơn</td></tr>
-            <tr><td>Vị khi ăn sống</td><td>Cay ấm rồi ngọt hậu</td><td>Cay gắt, ít hậu ngọt</td></tr>
-            <tr><td>Khi đập dập</td><td>Tinh dầu nhiều, dính tay</td><td>Ít tinh dầu, khô hơn</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section id="dat-hang" class="order">
-    <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">Đặt hàng</p>
-        <h2>Gửi đơn qua Zalo hoặc tin nhắn</h2>
-        <p id="orderLead">Điền thông tin, bấm “Tạo đơn hàng”, rồi bấm “Gửi đơn qua Zalo”. Người bán sẽ gọi lại báo giá và phí gửi.</p>
-      </div>
-      <div class="inapp" id="inapp" hidden>
-        <b>Anh chị đang mở trang trong ứng dụng <span id="inappName">khác</span>.</b>
-        <span>Nếu nút gửi đơn không chạy, bấm dấu <b>⋯</b> ở góc trên, chọn <b>Mở bằng trình duyệt</b> (Safari hoặc Chrome) rồi đặt lại.</span>
-      </div>
-      <div class="order-grid">
-        <form id="orderForm" novalidate>
-          <p class="welcome-back" id="welcomeBack" hidden></p>
-          <div class="row">
-            <label for="name">Họ tên<input id="name" name="name" maxlength="80" autocomplete="name" placeholder="Nguyễn Văn A" required></label>
-            <label for="phone">Số điện thoại<input id="phone" name="phone" type="tel" maxlength="15" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" required></label>
-          </div>
-          <label for="addr">Địa chỉ nhận hàng<input id="addr" name="addr" maxlength="300" autocomplete="street-address" placeholder="Số nhà, đường, phường/xã, tỉnh/thành"></label>
-          <div class="pin-box">
-            <div class="pin-btns">
-              <button class="btn ghost sm" type="button" id="pinOpen">Xem địa chỉ trên bản đồ</button>
-              <button class="btn ghost sm" type="button" id="pinGeo">Dùng vị trí hiện tại</button>
-            </div>
-            <div class="map pin-map" id="pinMap" hidden></div>
-            <p class="pin-info" id="pinInfo" aria-live="polite"></p>
-          </div>
-          <fieldset style="border:0;padding:0;margin:0;display:grid;gap:8px">
-            <legend style="font-size:.88rem;font-weight:600;margin-bottom:6px">Sản phẩm và số lượng</legend>
-            <div class="items" id="items"></div>
-          </fieldset>
-          <label for="note">Ghi chú<textarea id="note" name="note" rows="2" maxlength="300" placeholder="Thời gian nhận hàng, yêu cầu đóng gói…"></textarea></label>
-          <p class="status" id="formStatus" role="status"></p>
-          <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <button class="btn primary" type="submit" id="createBtn">Tạo đơn hàng</button>
-          </div>
-          <p class="privacy-note">🔒 <b>Bảo vệ thông tin của anh/chị:</b> họ tên, số điện thoại, địa chỉ chỉ dùng để người bán liên hệ và giao hàng. Trang <b>không tự gửi đi đâu</b>, chỉ lưu trên chính máy của anh/chị để lần sau điền nhanh. Đơn tới người bán khi anh/chị tự gửi qua Zalo hoặc SMS. Bấm “Tạo đơn hàng” là anh/chị đồng ý cho người bán dùng thông tin này để liên hệ, giao hàng; người bán không chia sẻ cho bên khác. Trang có đếm số máy đã truy cập và số lượt thích (chỉ đếm số, không ghi tên hay số điện thoại). <button type="button" id="forgetMe">Xóa thông tin đã lưu trên máy</button></p>
-          <input class="hp" id="web" name="web" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="manual">Thông tin đơn chỉ dùng để người bán gọi xác nhận và gửi hàng.</p>
-          <div class="out" id="out" hidden>
-            <label for="msg">Nội dung đơn (kiểm tra lại trước khi gửi)<textarea id="msg" readonly rows="7"></textarea></label>
-            <div class="send-btns">
-              <button class="btn primary big" type="button" id="sendBtn" hidden>Gửi đơn hàng</button>
-              <a class="btn primary big" id="zaloBtn" href="https://zalo.me/0363594167" target="_blank" rel="noopener"><span class="zb-t">Gửi đơn qua Zalo</span><small class="zb-how">Vào tin nhắn Zalo → Dán (paste) → Gửi đơn ➤</small></a>
-            </div>
-            <div class="zalo-hello" id="zaloHello" hidden>
-              <button type="button" class="zh-x" id="zaloHelloX" aria-label="Đóng">✕</button>
-              <p class="zh-hi">🌊 Cám ơn <span id="zhName">bạn</span> đã đến với trang <b>Lý Sơn – nhà của Đạt</b>!</p>
-              <p class="zh-ok">✓ Đơn hàng đã được <b>sao chép sẵn</b>. Giờ chỉ cần dán vào Zalo:</p>
-              <ol class="zh-steps">
-                <li>Trong Zalo, <b>chạm và giữ</b> ô gõ tin nhắn khoảng 1 giây.</li>
-                <li>Bấm <b>Dán</b>, đơn hiện ra trong ô.</li>
-                <li>Bấm nút gửi <b>➤</b>. Xong!</li>
-              </ol>
-              <p class="zh-foot">Đạt sẽ gọi lại báo giá và phí gửi. Cần hỏi ngay: <a href="tel:0333216563">0333 216 563</a></p>
-            </div>
-            <p class="send-status" id="sendStatus" role="status" aria-live="polite"></p>
-            <div class="send-alt direct-only">
-              <button class="btn ghost sm" type="button" id="copyBtn">Sao chép đơn</button>
-              <a class="btn ghost sm" id="smsBtn" href="sms:0363594167">Nhắn SMS</a>
-              <a class="btn ghost sm" href="tel:0363594167">Gọi điện</a>
-            </div>
-            <p class="manual auto-only">Bấm <b>Gửi đơn hàng</b> là xong: đơn tới người bán ngay, không cần mở Zalo. Các nút Zalo, SMS, Gọi điện để anh chị liên hệ thêm nếu muốn.</p>
-            <p class="manual manual-only"><b>Cách gửi qua Zalo:</b></p>
-            <ol class="manual how framed-only">
-              <li>Bấm <b>Sao chép đơn để gửi Zalo</b>.</li>
-              <li>Thoát trang này, mở <b>app Zalo</b>, gõ tìm số <b>0363 594 167</b> rồi bấm <b>Nhắn tin</b>.</li>
-              <li>Chạm vào ô gõ tin nhắn, <b>giữ ngón tay</b> khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào.</li>
-              <li>Bấm nút gửi <b>➤</b>. Xong.</li>
-            </ol>
-            <ol class="manual how direct-only manual-only">
-              <li>Bấm <b>Gửi đơn qua Zalo</b>. Đơn tự được sao chép, Zalo mở ra khung chat với số 0363 594 167.</li>
-              <li>Trong Zalo, chạm vào <b>ô gõ tin nhắn</b> ở cuối màn hình (chỗ thường gõ chữ).</li>
-              <li><b>Chạm và giữ</b> ngón tay trong ô đó khoảng 1 giây, tới khi hiện chữ <b>Dán</b> thì bấm vào. Nội dung đơn hiện ra trong ô.</li>
-              <li>Bấm nút gửi <b>➤</b> bên phải ô. Xong.</li>
-            </ol>
-            <p class="manual direct-only"><b>Nhắn SMS:</b> đơn được điền sẵn vào tin nhắn, chỉ cần bấm gửi (tính cước SMS thường của nhà mạng).</p>
-          </div>
-        </form>
-        <aside class="contact" aria-label="Thông tin liên hệ">
-          <div><small>Điện thoại / Zalo</small><a class="tel" href="tel:0363594167">0363 594 167</a></div>
-          <div><small>Gọi điện liên hệ</small><a class="tel" href="tel:0333216563">0333 216 563</a></div>
-          <div><small>Người bán</small><b>Dân địa phương</b></div>
-          <div><small>Địa chỉ</small><b>An Hải - Lý Sơn - Quảng Ngãi</b></div>
-          <div><small>Giờ nhận đơn</small><b>Full time</b></div>
-          <p class="hint">Bấm vào số để gọi. Nhắn Zalo số 0363 594 167.</p>
-          <p class="hint safe"><b>Cẩn thận lừa đảo:</b> người bán <b>không</b> gửi link, file cài đặt hay xin mã OTP. Chỉ đặt hàng tại trang này và Zalo 0363 594 167.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer>
@@ -1643,15 +1660,15 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
     <nav class="foot-links" aria-label="Thông tin">
       <h3>Thông tin</h3>
       <a href="#dao">Đảo tỏi</a>
+      <a href="#phan-biet">Phân biệt</a>
+      <a href="#cach-dung">Cách dùng</a>
       <a href="#du-lich">Du lịch Lý Sơn</a>
       <a href="#nhac">Nhạc quê hương</a>
       <a href="#hoi-dap">Hỏi đáp</a>
-      <a href="#cach-dung">Cách dùng</a>
-      <a href="#phan-biet">Phân biệt</a>
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.51</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.52</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
