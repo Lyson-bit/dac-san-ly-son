@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.met.no https://abacus.jasoncameron.dev https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.met.no https://abacus.jasoncameron.dev https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
@@ -358,6 +358,18 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 #zaloBtn{flex-direction:column;justify-content:center;gap:3px;line-height:1.2;text-align:center}
 #zaloBtn .zb-how{font:500 .74rem/1.3 var(--f-body);opacity:.88}
 .btn.sm{padding:9px 16px;font-size:.9rem}
+.j3d-box{margin-top:clamp(28px,5vw,48px)}
+.j3d-frame{position:relative;aspect-ratio:16/8;max-height:560px;border-radius:18px;overflow:hidden;background:#0d4f6b;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.j3d-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.j3d-play{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer;color:#fff;font:inherit;text-align:left}
+.j3d-play svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.j3d-btn{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:var(--sea);border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-size:30px;padding-left:6px;box-shadow:0 6px 20px rgba(0,0,0,.35);transition:transform .2s}
+.j3d-play:hover .j3d-btn,.j3d-play:focus-visible .j3d-btn{transform:translate(-50%,-50%) scale(1.08)}
+.j3d-cap{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;background:linear-gradient(transparent,rgba(0,0,0,.55));display:flex;flex-direction:column;gap:2px}
+.j3d-cap b{font:700 clamp(1rem,2.4vw,1.25rem)/1.3 var(--f-body)}
+.j3d-cap small{font-size:.86rem;opacity:.92;line-height:1.4}
+.j3d-full{position:absolute;right:12px;top:12px;z-index:1;font:600 .82rem var(--f-body);color:#fff;background:rgba(0,0,0,.45);padding:5px 12px;border-radius:999px;text-decoration:none}
+@media (max-width:700px){.j3d-frame{aspect-ratio:auto;height:min(76vh,600px)}}
 .j3d{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:18px 0 6px}
 .j3d small{flex:1 1 220px;color:var(--muted);font-size:.88rem;line-height:1.45}
 .send-status{font-size:.92rem;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid transparent}
@@ -1022,6 +1034,34 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         <p class="hp-credit">Ảnh tham khảo · bản quyền thuộc tác giả</p>
       </figure>
     </div>
+    <!-- Khung hành trình 3D: chỉ tải khi khách bấm (trang chủ không nặng thêm) -->
+    <div class="wrap j3d-box">
+      <div class="j3d-frame">
+        <button class="j3d-play" id="j3dPlay" type="button" aria-label="Phát hành trình 3D Đà Nẵng đến Lý Sơn">
+          <svg viewBox="0 0 1000 440" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><linearGradient id="j3dSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7b267"/><stop offset=".45" stop-color="#f4845f"/><stop offset=".46" stop-color="#2a7f9e"/><stop offset="1" stop-color="#0d4f6b"/></linearGradient></defs>
+            <rect width="1000" height="440" fill="url(#j3dSky)"/>
+            <circle cx="770" cy="150" r="46" fill="#fff3c4" opacity=".85"/>
+            <path d="M0 210 Q120 150 240 175 T430 200 L430 440 L0 440Z" fill="#3f7d4a"/>
+            <path d="M40 182 Q95 120 150 160" fill="none" stroke="#e9b934" stroke-width="7" stroke-linecap="round"/>
+            <path d="M80 200 v-38 M92 200 v-44 M118 200 v-44 M130 200 v-38" stroke="#8e8a7d" stroke-width="7" stroke-linecap="round"/>
+            <ellipse cx="205" cy="168" rx="11" ry="42" fill="#3f86c4"/>
+            <path d="M250 214 q14 -26 28 0 q14 -26 28 0 q14 -26 28 0 l22 -14" fill="none" stroke="#f2b632" stroke-width="6" stroke-linecap="round"/>
+            <path d="M372 186 l4 -30 l4 30 z M370 158 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0" fill="#fbfaf5"/>
+            <path d="M420 250 C 540 300, 640 300, 760 262" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="12 10" opacity=".9"/>
+            <path d="M700 270 Q770 215 860 238 Q930 252 960 282 Q850 300 700 270Z" fill="#4f9a52"/>
+            <path d="M820 236 l22 -26 l22 26z" fill="#6b5a4a"/>
+            <path d="M560 292 l30 0 l-6 8 l-18 0z" fill="#fff"/>
+            <g fill="#fff" opacity=".95"><circle cx="300" cy="300" r="9" fill="#3d7bf2"/><circle cx="322" cy="300" r="9" fill="#2fb36b"/><circle cx="344" cy="300" r="9" fill="#f5961f"/><circle cx="366" cy="300" r="9" fill="#9a68e0"/><circle cx="388" cy="300" r="9" fill="#17aebf"/><circle cx="410" cy="300" r="9" fill="#ec5a86"/></g>
+          </svg>
+          <span class="j3d-btn" aria-hidden="true">▶</span>
+          <span class="j3d-cap"><b>🎬 Hành trình 3D · Đà Nẵng → Lý Sơn</b><small>Theo chân hướng dẫn viên Danh Pro và đoàn khách vui tính: Cầu Vàng, Cầu Rồng, chùa Minh Đức, tàu ra đảo, nhà Đạt… Bấm để xem.</small></span>
+        </button>
+        <a class="j3d-full" id="j3dFull" href="hanh_trinh_3d.html">⛶ Toàn màn hình</a>
+      </div>
+    </div>
+    <script>/* Khung 3D: bấm mới tải iframe. Bản xem trước (claude.ai) không có trang 3D: mở web chính ở tab mới */(function(){var b=document.getElementById('j3dPlay');if(!b)return;var live=/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname);var url=live?'hanh_trinh_3d.html':'https://lyson-bit.github.io/dac-san-ly-son/hanh_trinh_3d.html';var full=document.getElementById('j3dFull');if(!live){full.href=url;full.target='_blank';full.rel='noopener';}
+b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopener');return;}var f=document.createElement('iframe');f.src=url+'?embed=1';f.title='Hành trình 3D Đà Nẵng đến Lý Sơn';f.setAttribute('allowfullscreen','');b.parentNode.replaceChild(f,b);});})();</script>
     <div class="strata" aria-hidden="true"></div>
   </div>
 
@@ -1371,7 +1411,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         </ol>
       </div>
 
-      <p class="j3d"><a class="btn primary" id="j3dLink" href="hanh_trinh_3d.html">🎬 Xem hành trình 3D</a><small>Đội nhân vật hoạt hình đi lại chuyến Đà Nẵng → Lý Sơn với ảnh thật của chuyến đi. Xem được trên điện thoại.</small></p>
+      <p class="j3d"><a class="btn primary" id="j3dLink" href="hanh_trinh_3d.html">🎬 Xem hành trình 3D</a><small>Đoàn du lịch hoạt hình của anh Danh Pro đi lại chuyến Đà Nẵng → Lý Sơn, kèm ảnh thật của chuyến đi. Xem được trên điện thoại.</small></p>
       <script>/* Bản xem trước (claude.ai) không có trang 3D: trỏ thẳng tới web chính */(function(){var a=document.getElementById('j3dLink');if(a&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){a.href='https://lyson-bit.github.io/dac-san-ly-son/hanh_trinh_3d.html';a.target='_blank';a.rel='noopener';}})();</script>
 
       <div class="day-notes">
@@ -1676,7 +1716,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.55</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.56</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 

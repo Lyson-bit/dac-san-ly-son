@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hành trình 3D Lý Sơn</title>
 <meta name="description" content="Hành trình 3D: Đà Nẵng → cảng Sa Kỳ → đảo Lý Sơn, ba ngày ở nhà Đạt, kể bằng đội nhân vật hoạt hình và ảnh thật của chuyến đi.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; font-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; font-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 <meta name="theme-color" content="#0D6B72">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
@@ -306,6 +306,16 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 .brand .home{display:inline-block;margin:0 0 4px;font:800 12px/1.6 "Be Vietnam Pro","Segoe UI",sans-serif;color:#fffaf0;background:#0D6B72;border:2px solid #1b2144;border-radius:999px;padding:1px 10px;text-decoration:none;box-shadow:2px 2px 0 rgba(27,33,68,.25)}
 .brand .home+b{display:block}
 @media (max-width:900px){.cbtn .tx{display:none}}
+.brand .full{display:none}
+/* Chế độ nhúng trong trang chủ: gọn, cho phép cuộn dọc trang khi vuốt trên khung */
+body.embed #stage{touch-action:pan-y}
+body.embed .brand .home:not(.full),body.embed .brand>span,body.embed .brand>br,body.embed .brand>b{display:none}
+body.embed .brand .full{display:inline-block;margin:0}
+body.embed .brand{padding:6px 8px}
+body.embed #cast{display:none}
+body.embed #cap-text,body.embed #cap .rule,body.embed #cap-body .row{display:none}
+body.embed #cap{width:330px}
+@media (max-width:700px){body.embed #cap-trip{display:none}}
 @media (max-width:520px){.brand>span:not(#stylebadge),.brand>br{display:none}}
 /* Xem ảnh lớn */
 #lb{position:fixed;inset:0;z-index:9;background:rgba(15,20,35,.82);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
@@ -327,20 +337,20 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 <div id="ov"></div>
 
 <header id="top">
-  <div class="brand"><a class="home" href="./" aria-label="Về trang chủ Đặc sản Lý Sơn">← Trang chủ</a><b>Hành trình 3D · Đội agent Nhật ký Lý Sơn</b><span>Đà Nẵng → cảng Sa Kỳ → tàu → nhà Đạt · Cột cờ · Chùa Hang · Hang Câu · ruộng tỏi · quán võng</span><br><span id="stylebadge"></span></div>
+  <div class="brand"><a class="home" href="./" aria-label="Về trang chủ Đặc sản Lý Sơn">← Trang chủ</a><a class="home full" href="hanh_trinh_3d.html" target="_top">⛶ Toàn màn hình</a><b>Hành trình 3D · Đoàn du lịch Danh Pro</b><span>Đà Nẵng → cảng Sa Kỳ → tàu → nhà Đạt · Cột cờ · Chùa Hang · Hang Câu · ruộng tỏi · quán võng</span><br><span id="stylebadge"></span></div>
   <div id="cast"></div>
 </header>
 
 <section id="cap" aria-live="polite">
   <div class="cap-head"><span id="cap-step">Mở đầu</span><b id="cap-title"></b><button id="cap-toggle" aria-label="Thu gọn hoặc mở chú thích">▾</button></div>
   <div id="cap-body">
-    <div class="row"><span class="k">Ai làm</span><span class="v" id="cap-who"></span></div>
-    <div class="row"><span class="k">Đọc</span><span class="v" id="cap-read"></span></div>
-    <div class="row"><span class="k">Ghi</span><span class="v" id="cap-write"></span></div>
+    <div class="row"><span class="k">Đi cùng</span><span class="v" id="cap-who"></span></div>
+    <div class="row"><span class="k">Ghé</span><span class="v" id="cap-read"></span></div>
+    <div class="row"><span class="k">Món ngon</span><span class="v" id="cap-write"></span></div>
     <p id="cap-text"></p>
     <div id="cap-now"></div>
     <div id="cap-trip"></div>
-    <div class="rule">🔁 Mọi tệp bàn giao đi qua <b>Điều phối</b>: agent không trao trực tiếp cho nhau.</div>
+    <div class="rule">🚩 Đi theo lá cờ của <b>anh Danh Pro</b>. Lạc thì đứng yên, đừng tự tìm đường (nhất là anh Tư)!</div>
   </div>
 </section>
 
@@ -358,9 +368,8 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
       <option value="sketch">✏️ Ký họa</option>
       <option value="wc">💧 Màu nước</option>
       <option value="3d">🎨 3D màu</option>
-      <option value="iso">📐 Sa bàn quy trình</option>
     </select>
-    <button class="cbtn" id="b-iso" title="Sa bàn isometric: giải thích quy trình và cách vận chuyển">📐 Sa bàn</button>
+    <button class="cbtn" id="b-iso" hidden title="Sa bàn">📐 Sa bàn</button>
     <button class="cbtn on" id="b-cam" title="Camera tự bay theo nhân vật đang làm việc">🎥 Tự bay</button>
     <button class="cbtn" id="b-album" title="Lộ trình thật 3 ngày, ảnh thật của chuyến đi" aria-label="Lộ trình thật">📸<span class="tx"> Lộ trình thật</span></button>
     <button class="cbtn" id="b-pins" title="Ẩn / hiện ghim ảnh trên bản đồ" aria-label="Ghim ảnh">📍<span class="tx"> Ghim ảnh</span></button>
@@ -372,7 +381,7 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 <div id="lb" hidden role="dialog" aria-label="Xem ảnh lớn"><figure><img alt=""><figcaption></figcaption></figure></div>
 
 <div id="hint">Kéo để xoay · cuộn chuột hoặc chụm 2 ngón để zoom · bấm nhân vật để xem thẻ · bấm ghim ảnh 📍 để xem ảnh thật</div>
-<div id="toast"><b>🎉 Xong hành trình!</b><span>Cuốn nhật ký đã tới tay anh. Bấm từng bước để xem lại đoạn bất kỳ.</span><br><button class="cbtn main" id="b-replay">↺ Xem lại từ đầu</button></div>
+<div id="toast"><b>🎉 Về bờ an toàn!</b><span>Quà đầy tay, ảnh đầy máy. Bấm từng chặng để xem lại.</span><br><button class="cbtn main" id="b-replay">↺ Xem lại từ đầu</button></div>
 <aside id="card" hidden></aside>
 <aside id="isoPanel" aria-live="polite">
   <h3>Sa bàn quy trình</h3>
@@ -396,62 +405,61 @@ body.iso .fl{color:#22263A;text-shadow:0 0 3px #fff,0 0 6px #fff}
 <div id="err"><div class="box" id="err-box"></div></div>
 
 <!-- three.js r128 (MIT) chép từ cdnjs vào repo: không phụ thuộc trang ngoài, app lưu lại được -->
-<script src="lib/three.r128.min.js" onerror="window.__threeFail=1"></script>
+<script src="lib/three.r128.min.js"></script>
+<!-- Dự phòng: tải thư viện trong repo không được (mạng chập chờn, trình duyệt trong app) thì lấy bản cdnjs cùng phiên bản -->
+<script>if(typeof THREE==='undefined')document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" onerror="window.__threeFail=1"><\/script>');</script>
 <script>
 (function(){
 'use strict';
 const $=s=>document.querySelector(s);
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MOBILE=(window.matchMedia&&matchMedia('(pointer: coarse)').matches)||Math.min(innerWidth,innerHeight)<600;
+// Nhúng trong trang chủ (?embed=1): giao diện gọn, không chặn cuộn trang
+const EMBED=/[?&]embed=1/.test(location.search);if(EMBED){document.body.classList.add('embed');const h=document.getElementById('hint');if(h)h.textContent='Kéo ngang để xoay · Ctrl + cuộn để zoom · bấm nhân vật xem thẻ';}
 const WA=RM?0.3:1; // biên độ chuyển động môi trường
 
 /* ---------------- Dữ liệu đội ---------------- */
+/* Đoàn du lịch: anh Danh Pro (hướng dẫn viên) + 5 khách. Giữ mã nhân vật cũ để dùng lại đồ cầm tay:
+   dp = Danh Pro (mũ thuyền trưởng, cờ) · kv = anh Tèo (bánh mì) · ta = chị Tám (máy ảnh)
+   anh = bác Bảy (nón lá, ba lô) · ks = anh Tư (mũ thám hiểm, bản đồ) · bt = bé Tý (bong bóng, nhỏ người) */
 const DEFS={
-  dp:{name:'Điều phối',emoji:'⚓',color:'#3d7bf2',body:0x3d7bf2,hair:0x3a2a22},
-  ks:{name:'Khảo sát lộ trình',short:'Khảo sát',emoji:'🗺️',color:'#2fb36b',body:0x2fb36b,hair:0x4a3324},
-  ta:{name:'Tư liệu ảnh',short:'Ảnh',emoji:'📷',color:'#f5961f',body:0xf5961f,hair:0x2d2320},
-  kc:{name:'Người kể chuyện',short:'Kể chuyện',emoji:'✍️',color:'#9a68e0',body:0x9a68e0,hair:0x5b3a86},
-  kv:{name:'Kiểm chứng',short:'Kiểm chứng',emoji:'🔍',color:'#17aebf',body:0x17aebf,hair:0x2a2a35},
-  bt:{name:'Biên tập',short:'Biên tập',emoji:'✂️',color:'#ec5a86',body:0xec5a86,hair:0x5a2b38},
-  anh:{name:'Anh',short:'Anh',emoji:'🎒',color:'#b07d2b',body:0xf3efe4,hair:0x1f1a17}
+  dp:{name:'Anh Danh Pro',short:'Danh Pro',emoji:'🚩',color:'#3d7bf2',body:0x3d7bf2,hair:0x3a2a22},
+  kv:{name:'Anh Tèo',short:'Anh Tèo',emoji:'🍜',color:'#17aebf',body:0x17aebf,hair:0x2a2a35},
+  ta:{name:'Chị Tám',short:'Chị Tám',emoji:'📸',color:'#f5961f',body:0xf5961f,hair:0x2d2320},
+  anh:{name:'Bác Bảy',short:'Bác Bảy',emoji:'🧓',color:'#b07d2b',body:0xf3efe4,hair:0xd9d4cc},
+  ks:{name:'Anh Tư',short:'Anh Tư',emoji:'🗺️',color:'#2fb36b',body:0x2fb36b,hair:0x4a3324},
+  bt:{name:'Bé Tý',short:'Bé Tý',emoji:'🎈',color:'#ec5a86',body:0xec5a86,hair:0x5a2b38}
 };
-const ORDER=['anh','dp','ks','ta','kc','kv','bt'];
-const TEAM=['dp','ks','ta','kc','kv','bt'];
+const ORDER=['dp','kv','ta','anh','ks','bt'];
+const TEAM=ORDER.slice();
 const INFO={
-  dp:{reads:['Lời kể của anh','Các file 00–05 (kiểm tra mẫu)'],writes:['00_ghi_chep.md'],jobs:['Phỏng vấn anh, ghi nguyên lời vào 00','Gọi agent theo đúng thứ tự, lời giao việc tự đủ (bước, file đọc, file ghi)','Mở file kết quả kiểm tra rồi mới gọi agent kế','Quyết vòng sửa: tối đa 2 vòng, rồi trình anh'],limits:['Không đăng web, GitHub, Facebook, Zalo','Không ghi đè file gốc của anh']},
-  ks:{reads:['00_ghi_chep.md','Số liệu đã kiểm trong skill /ls'],writes:['01_lo_trinh.md'],jobs:['Chia chặng đúng thứ tự trong 00','Tra quãng đường, thời gian, giờ tàu, giá vé, thời tiết','Mỗi số liệu ghi nguồn + ngày tra','Mức tin cậy: ĐÃ KIỂM / 1 NGUỒN / CHƯA RÕ'],limits:['Không bịa số: không tra được thì ghi CHƯA RÕ','Giá vé, giờ tàu luôn ghi "tham khảo"','Không gửi thông tin cá nhân của anh vào ô tìm kiếm']},
-  ta:{reads:['images/hanh_trinh/ (ảnh web)','00_ghi_chep.md'],writes:['02_danh_muc_anh.md'],jobs:['Liệt kê, đếm ảnh trước','Xếp ảnh theo ngày, chặng; mô tả 1 câu','Chấm chất lượng: tốt / dùng được / bỏ','Ghi "Chặng chưa có ảnh"'],limits:['Chỉ xem số ảnh điều phối cho phép','Không nhận diện người qua khuôn mặt','Không sửa, đổi tên, nén hay xóa ảnh']},
-  kc:{reads:['00_ghi_chep.md','01_lo_trinh.md','02_danh_muc_anh.md','04_kiem_chung.md (vòng sửa)'],writes:['03_ban_nhap.md'],jobs:['Viết ngôi thứ nhất, theo từng ngày, từng chặng','Mỗi chặng 1–3 đoạn + dòng "Ảnh:"','Phụ lục "Thông tin cho người đi sau"','Vòng sửa: sửa đủ từng mục trong 04'],limits:['Không bịa sự kiện, lời thoại, tên quán, giá','Thiếu thì chèn [CẦN ANH BỔ SUNG: …]','Không dùng số CHƯA RÕ']},
-  kv:{reads:['03_ban_nhap.md','00_ghi_chep.md','01_lo_trinh.md','02_danh_muc_anh.md'],writes:['04_kiem_chung.md'],jobs:['Soát số liệu, địa danh, trình tự','Đánh dấu chi tiết bịa; kiểm dòng Ảnh; riêng tư','Dòng đầu: KẾT LUẬN: ĐẠT hoặc CẦN SỬA','Mục "Câu hỏi cho anh"'],limits:['Không sửa 03, chỉ ghi biên bản','Không nhận xét văn phong','Còn 1 mục SAI hoặc bịa là CẦN SỬA']},
-  bt:{reads:['03_ban_nhap.md','04_kiem_chung.md (phải ĐẠT)','01_lo_trinh.md','02_danh_muc_anh.md'],writes:['05_nhat_ky.md'],jobs:['Chính tả, dấu câu, câu quá dài','Thống nhất: 7 giờ 30 · km / hải lý · 150.000 đ','Tiêu đề ngắn; chú thích ảnh 1 câu','Phụ lục chỉ số ĐÃ KIỂM; gom [CẦN ANH BỔ SUNG] ở cuối'],limits:['Chỉ làm khi 04 ghi ĐẠT','Không thêm sự kiện, số liệu, tên riêng mới','Không đăng web, không ghi đè 03']},
-  anh:{reads:['05_nhat_ky.md'],writes:['Lời kể (bước 1)'],jobs:['Kể chuyến đi cho Điều phối (bước 1)','Cho phép số ảnh được xem (bước 2)','Duyệt bản cuối, điền các chỗ [CẦN ANH BỔ SUNG] (bước 6)'],limits:['Anh sửa ý nào thì quay về đúng bước đó, không chạy lại cả chuỗi']}
+  dp:{role:'Hướng dẫn viên du lịch',traits:['Tự xưng "Danh Pro", nói một câu là cả đoàn cười','Cầm lá cờ, đi đâu cũng đếm đủ sáu người','Thuộc chuyện từng điểm đến'],quote:'Đi theo lá cờ! Lạc thì đứng yên, Danh Pro tới liền!',like:'Kể chuyện, đếm người, đố vui'},
+  kv:{role:'Khách du lịch · "thánh ăn"',traits:['Nhìn đâu cũng thấy đồ ăn','Đói nhanh, no chậm','Dám thử tỏi cô đơn ăn sống'],quote:'Chừng nào ăn vậy anh Danh?',like:'Ốc luộc, tôm, mực, bánh tráng'},
+  ta:{role:'Khách du lịch · mê chụp hình',traits:['Món ăn phải chụp trước, ăn sau','Đi đâu cũng tìm góc sống ảo','Hay "tám" chuyện cả đoàn'],quote:'Khoan! Chụp một tấm đã!',like:'Hoàng hôn, hải âu, vách Hang Câu'},
+  anh:{role:'Khách du lịch · lớn tuổi nhất đoàn',traits:['Hay kể chuyện "hồi xưa"','Lên xe là ngủ, lên tàu là say sóng','Hiền, thương con nít'],quote:'Hồi xưa bác ra đây…',like:'Nước chấm tỏi đảo, ngắm cờ trên núi'},
+  ks:{role:'Khách du lịch · tự nhận "rành đường"',traits:['Cầm bản đồ… ngược','Chỉ đường rất tự tin, sai cũng tự tin','Nhận nhầm mây thành đảo'],quote:'Đường sá cứ để Tư lo!',like:'Bản đồ, ống nhòm, rẽ trái'},
+  bt:{role:'Khách nhí của đoàn',traits:['Hỏi câu nào cũng khó','Thích đố vui','Cầm bong bóng không rời tay'],quote:'Con đố chú nè!',like:'Rồng phun lửa, ốc mắt mèo'}
 };
-const PUB_ROLE={dp:'Trưởng nhóm: hỏi chuyện, giao việc, chuyển tệp',ks:'Tra đường đi, giờ tàu, điểm tham quan',ta:'Xếp ảnh chuyến đi theo ngày, chặng',kc:'Viết nhật ký ngôi thứ nhất',kv:'Soát số liệu, địa danh, trình tự',bt:'Sửa chữ, đặt tiêu đề, chú thích ảnh',anh:'Người đi thật, chủ chuyến đi'};
+const PUB_ROLE={};ORDER.forEach(id=>PUB_ROLE[id]=INFO[id].role);
 const FILES={
-  '00':{n:'00_ghi_chep.md',c:'#3d7bf2'},
-  '01':{n:'01_lo_trinh.md',c:'#2fb36b'},
-  '02':{n:'02_danh_muc_anh.md',c:'#f5961f'},
-  '03':{n:'03_ban_nhap.md',c:'#9a68e0'},
-  '03b':{n:'03_ban_nhap.md · đã sửa',s:'03',c:'#9a68e0'},
-  '04x':{n:'04_kiem_chung.md · CẦN SỬA',s:'04',c:'#e5484d'},
-  '04':{n:'04_kiem_chung.md · ĐẠT',s:'04',c:'#119a8a'},
-  '05':{n:'05_nhat_ky.md',c:'#ec5a86',book:true}
+  've':{n:'🎫 Vé tàu',c:'#2a6fdb'},
+  'qua':{n:'🎁 Quà Lý Sơn',c:'#ec5a86',book:true}
 };
 const STEPS=[
- {short:'Mở đầu',title:'Làm quen cả đội',who:TEAM,read:[],write:[],dur:9,
-  text:'Điều phối gọi lần lượt 5 agent con để viết nhật ký chuyến về Lý Sơn. Các agent không gọi được nhau: mọi tệp bàn giao 00 → 05 đều đi qua Điều phối.'},
- {short:'Phỏng vấn',title:'Bước 1 · Phỏng vấn anh ở quán cà phê Đà Nẵng',who:['dp'],read:['Lời kể của anh'],write:['00_ghi_chep.md'],dur:12,
-  text:'Điều phối hỏi: ngày đi, đi với ai, phương tiện từng chặng, các điểm đã ghé, 3–5 kỷ niệm, món ăn, lời nhắn người đi sau. Ghi nguyên lời anh, không thêm bớt.'},
- {short:'Song song',title:'Bước 2 · Khảo sát và Ảnh chạy song song',who:['ks','ta'],read:['00_ghi_chep.md','images/hanh_trinh/'],write:['01_lo_trinh.md','02_danh_muc_anh.md'],dur:17,
-  text:'Hai agent được gọi trong cùng một lượt. Khảo sát lập bảng chặng, điểm tham quan, mỗi số có nguồn và mức tin cậy. Tư liệu ảnh xếp ảnh theo ngày, chặng; chỉ xem số ảnh anh cho phép.'},
- {short:'Viết',title:'Bước 3 · Người kể chuyện viết trên tàu',who:['kc'],read:['00_ghi_chep.md','01_lo_trinh.md','02_danh_muc_anh.md'],write:['03_ban_nhap.md'],dur:16,
-  text:'Viết ngôi thứ nhất theo từng ngày, từng chặng, mỗi chặng có dòng Ảnh. Chỉ dùng số ĐÃ KIỂM hoặc 1 NGUỒN. Thiếu chi tiết thì chèn [CẦN ANH BỔ SUNG], không bịa.'},
- {short:'Kiểm chứng',title:'Bước 4 · Kiểm chứng ở sân nhà Đạt (tối đa 2 vòng)',who:['kv','kc'],read:['03_ban_nhap.md','00_ghi_chep.md','01_lo_trinh.md','02_danh_muc_anh.md'],write:['04_kiem_chung.md'],dur:22,
-  text:'Soát số liệu, địa danh, trình tự, chi tiết bịa, ảnh, riêng tư. CẦN SỬA → Điều phối trả bài về Người kể chuyện rồi soát lại. Tối đa 2 vòng; hết 2 vòng chưa đạt thì dừng, trình anh.'},
- {short:'Biên tập',title:'Bước 5 · Biên tập bên ruộng tỏi lúc hoàng hôn',who:['bt'],read:['03_ban_nhap.md','04_kiem_chung.md','01_lo_trinh.md','02_danh_muc_anh.md'],write:['05_nhat_ky.md'],dur:15,
-  text:'Chỉ bắt đầu khi 04 ghi KẾT LUẬN: ĐẠT. Sửa chính tả, thống nhất cách viết, tiêu đề, chú thích ảnh; phụ lục chỉ dùng số ĐÃ KIỂM; gom các chỗ [CẦN ANH BỔ SUNG] ở cuối.'},
- {short:'Trình anh',title:'Bước 6 · Trình anh duyệt',who:['dp'],read:['05_nhat_ky.md','04_kiem_chung.md'],write:[],dur:12,
-  text:'Điều phối báo anh: đường dẫn 05_nhat_ky.md, các chỗ [CẦN ANH BỔ SUNG], câu hỏi trong biên bản kiểm chứng. Anh sửa ý nào thì quay về đúng bước đó.'}
+ {short:'Hạ cánh',title:'Chặng 0 · Bay qua vịnh, hạ cánh Đà Nẵng',who:TEAM,read:['Vịnh Đà Nẵng','Sân bay Đà Nẵng','Quán cà phê'],write:['Cà phê sáng ☕'],dur:30,
+  text:'Máy bay lượn qua vịnh Đà Nẵng rồi hạ cánh. Anh Danh Pro đón đoàn: anh Tèo ham ăn, chị Tám mê chụp hình, bác Bảy hay kể chuyện xưa, anh Tư "rành đường" và bé Tý hỏi gì cũng khó.'},
+ {short:'Đà Nẵng',title:'Chặng 1 · Một vòng Đà Nẵng',who:TEAM,read:['Cầu Vàng · Bà Nà','Trung tâm Hành chính','Cầu Rồng','Quan Âm Linh Ứng'],write:['Bắp nướng? 🌽'],dur:28,
+  text:'Cả đoàn chụp hình nhóm ở bốn điểm quen thuộc của Đà Nẵng. Anh Tèo nhìn đâu cũng thấy đồ ăn, chị Tám chụp không nghỉ tay.'},
+ {short:'Xe 2 tầng',title:'Chặng 2 · Xe buýt 2 tầng: Đà Nẵng → Quảng Ngãi → Sa Kỳ',who:TEAM,read:['Chùa Minh Đức','Cảng Sa Kỳ'],write:['Bánh tráng 🫓'],dur:22,
+  text:'Cả đoàn ngồi tầng trên xe buýt 2 tầng mui trần, gió lồng lộng. Xe qua Quảng Ngãi, ngang chùa Minh Đức có tượng Quan Âm trắng bên mặt nước, rồi ra cảng Sa Kỳ.'},
+ {short:'Ra đảo',title:'Chặng 3 · Tàu ra đảo ≈ 15 hải lý',who:TEAM,read:['Cảng Sa Kỳ','Biển Lý Sơn'],write:['Nước suối 💧'],dur:22,
+  text:'Danh Pro phát vé, cả đoàn lên tàu. Bác Bảy say sóng, anh Tư nhận nhầm mây thành đảo, bé Tý hỏi biển có đáy không.'},
+ {short:'Nhà Đạt',title:'Chặng 4 · Về nhà Đạt, mâm cơm đảo',who:TEAM,read:['Nhà Đạt','Sân cát, hoa giấy'],write:['Tôm, ram, chả','Ốc luộc, cá nướng'],dur:22,
+  text:'Mâm cơm nhà Đạt chờ sẵn: gà luộc, tôm, ram, ốc, cá nướng, nước chấm tỏi đảo. Chị Tám chụp trước, anh Tèo ăn sau (ăn nhiều nhất).'},
+ {short:'Vòng đảo',title:'Chặng 5 · Cột cờ, Chùa Hang, Hang Câu, hoàng hôn ruộng tỏi',who:TEAM,read:['Cột cờ Tổ quốc','Chùa Hang','Hang Câu','Ruộng tỏi'],write:['Gỏi rong biển','Tỏi cô đơn 🧄'],dur:26,
+  text:'Một vòng đảo núi lửa. Tới ruộng tỏi lúc hoàng hôn, anh Tèo thử tỏi cô đơn ăn sống và "khóc" vì cay.'},
+ {short:'Về bờ',title:'Chặng 6 · Quà về bờ, hẹn ngày quay lại',who:TEAM,read:['Quán võng ven biển','Cầu cảng'],write:['Thùng quà hải sản 🎁'],dur:22,
+  text:'Danh Pro phát quà: tỏi, hành, hải sản khô. Cả đoàn lật album ba ngày và hẹn năm sau quay lại.'}
 ];
 
 /* ---------------- Lộ trình thật + ảnh thật (lấy từ mục "Hành trình" của web chính) ----------------
@@ -483,15 +491,15 @@ const tsrc=k=>IMG+TRIPK[k].f+'.webp';
 const tthumb=k=>THB+TRIPK[k].f+'.webp';
 const tname=k=>TRIPK[k].t.replace(/^\S+\s/,'');
 // Bước nào gắn với chặng thật nào (ghim sáng lên + dòng "Chặng thật" trong khung chú thích)
-const STEP_TRIP=[['may_bay','da_nang'],['da_nang'],['may_bay','da_nang','cot_co','chua_hang','hang_cau','san_ho'],['nha_san','cot_co','hoang_hon','quan_vong'],['nha_san','mam_com','tom_ram','oc_ca'],['hoang_hon','ruong','goi_rong'],['quan_vong','thung_qua','cua_ghe','oc_mat_meo']];
+const STEP_TRIP=[['may_bay','da_nang'],['da_nang'],[],[],['nha_san','mam_com','tom_ram','oc_ca'],['cot_co','chua_hang','hang_cau','hoang_hon','ruong','goi_rong'],['quan_vong','thung_qua','cua_ghe','oc_mat_meo','san_ho']];
 
 /* ---------------- Lỗi / WebGL ---------------- */
 function showError(kind){
   const L=$('#loader'); if(L) L.style.display='none';
   const box=$('#err-box');
-  const steps='<ol><li>Điều phối phỏng vấn anh → <code>00_ghi_chep.md</code></li><li>Khảo sát → <code>01_lo_trinh.md</code> và Tư liệu ảnh → <code>02_danh_muc_anh.md</code> (song song)</li><li>Người kể chuyện → <code>03_ban_nhap.md</code></li><li>Kiểm chứng → <code>04_kiem_chung.md</code> (CẦN SỬA thì quay lại bước 3, tối đa 2 vòng)</li><li>Biên tập → <code>05_nhat_ky.md</code></li><li>Điều phối trình anh duyệt</li></ol><p>Mọi tệp đều đi qua Điều phối.</p>';
-  if(kind==='lib') box.innerHTML='<h2>Chưa tải được thư viện 3D</h2><p>Trang cần tải three.js từ cdnjs.cloudflare.com. Anh kiểm tra kết nối Internet rồi tải lại trang (F5).</p><p><b>Tóm tắt 6 bước của đội:</b></p>'+steps;
-  else box.innerHTML='<h2>Trình duyệt chưa chạy được WebGL</h2><p>Cảnh 3D cần WebGL. Anh thử:</p><ul><li>Mở bằng Chrome hoặc Edge bản mới.</li><li>Bật “Tăng tốc phần cứng” (Hardware acceleration) trong Cài đặt trình duyệt, rồi khởi động lại.</li><li>Cập nhật driver card màn hình.</li></ul><p><b>Tóm tắt 6 bước của đội:</b></p>'+steps;
+  const steps='<ol start="0"><li>Máy bay lượn qua vịnh, hạ cánh Đà Nẵng</li><li>Cầu Vàng, Trung tâm Hành chính, Cầu Rồng, Quan Âm Linh Ứng</li><li>Xe buýt 2 tầng về Quảng Ngãi (chùa Minh Đức) ra cảng Sa Kỳ</li><li>Tàu ra đảo ≈ 15 hải lý</li><li>Mâm cơm nhà Đạt</li><li>Cột cờ, Chùa Hang, Hang Câu, hoàng hôn ruộng tỏi</li><li>Quà về bờ</li></ol><p><a href="./">← Về trang chủ</a></p>';
+  if(kind==='lib') box.innerHTML='<h2>Chưa tải được phần hình 3D</h2><p>Mạng đang chập chờn nên chưa tải xong thư viện 3D. Anh/chị kiểm tra Internet rồi tải lại trang. Nếu đang mở trong Zalo/Facebook, thử bấm ⋮ → Mở bằng trình duyệt.</p><p><b>Hành trình của đoàn Danh Pro:</b></p>'+steps;
+  else box.innerHTML='<h2>Trình duyệt chưa chạy được WebGL</h2><p>Cảnh 3D cần WebGL. Anh thử:</p><ul><li>Mở bằng Chrome hoặc Edge bản mới.</li><li>Bật “Tăng tốc phần cứng” (Hardware acceleration) trong Cài đặt trình duyệt, rồi khởi động lại.</li><li>Cập nhật driver card màn hình.</li></ul><p><b>Hành trình của đoàn Danh Pro:</b></p>'+steps;
   $('#err').style.display='grid';
 }
 if(window.__threeFail||typeof THREE==='undefined'){ showError('lib'); return; }
@@ -829,7 +837,9 @@ function nearRoad(x,z,d){for(let i=0;i<roadSamples.length;i+=3){const p=roadSamp
 (function(){
   const T=[];let tries=0;const want=MOBILE?30:62;
   while(T.length<want&&tries<3000){tries++;const z=-60+rnd()*120,x=coastX(z)-6-rnd()*30;
-    if(nearRoad(x,z,3))continue; if(x>-40&&z<-30&&z>-57)continue; if(z>-9&&z<6&&x>-35)continue; if(z>11&&x>-28)continue;
+    if(nearRoad(x,z,3))continue; if(x>-40&&z<-30&&z>-57)continue;
+    if(Math.hypot(x+45,z+49)<5||Math.hypot(x+35.5,z+11)<5.5)continue;   // chừa chỗ Cầu Vàng, chùa Minh Đức
+    if(x>-37&&x<-21&&z>-31&&z<-18)continue;                               // không che máy quay cảnh làm quen if(z>-9&&z<6&&x>-35)continue; if(z>11&&x>-28)continue;
     const y=H(x,z); if(y<.5)continue; T.push({x,z,y,s:.7+rnd()*.7,color:[0x4fa35a,0x5bb565,0x3f9450][T.length%3]});}
   [[20.5,-2.5],[23,-3.2],[33,-3.6],[36.6,-4],[35.2,8.4],[24.6,-1],[37.8,7.4]].forEach(p=>T.push({x:p[0],z:p[1],y:H(p[0],p[1]),s:.8,color:0x4fa35a}));
   instanced(GEO.ico,std(0xffffff),T,(m,it)=>mcompose(m,it.x,it.y+1.1*it.s+.5,it.z,0,it.s,it.s*1.15,it.s));
@@ -837,7 +847,7 @@ function nearRoad(x,z,d){for(let i=0;i<roadSamples.length;i+=3){const p=roadSamp
   instanced(tg,std(0x8a5a3a),T,(m,it)=>mcompose(m,it.x,it.y-.1,it.z,0,.12,.8*it.s+.4,.12));
   // Cọ
   const P=[];
-  for(let z=-56;z<=-28;z+=MOBILE?6:3.5){const x=coastX(z)-2.6;P.push([x,z]);}
+  for(let z=-56;z<=-28;z+=MOBILE?6:3.5){const x=coastX(z)-2.6;if(Math.hypot(x+16,z+54.5)<3.8)continue;P.push([x,z]);}
   [[-19.5,24],[-18.8,15.5],[19.5,6.8],[37,11.5],[34.6,12.9],[54,-11.6],[56,-10.4],[55.2,-12.4]].forEach(p=>P.push(p));
   const PL=P.map(p=>({x:p[0],z:p[1],y:groundY(p[0],p[1]),h:2.1+rnd()*.8,r:rnd()*6}));
   const trg=new THREE.CylinderGeometry(.08,.13,1,5);trg.translate(0,.5,0);
@@ -920,7 +930,78 @@ const plane=new THREE.Group();
 (function(){mk(GEO.sph,toon(0xffffff),0,0,0,plane).scale.set(.45,.45,2.6);mk(GEO.box,toon(0xffffff),0,0,.1,plane).scale.set(5,.08,.8);
   mk(GEO.box,toon(0x0D6B72),0,.5,-2.1,plane).scale.set(.08,1,.6);mk(GEO.box,toon(0xffffff),0,.1,-2.2,plane).scale.set(1.8,.06,.45);
   mk(GEO.box,toon(0x0D6B72),0,.05,0,plane).scale.set(.47,.12,4.2);plane.visible=false;scene.add(plane);})();
-const PLANE_A=new V3(42,22,-26),PLANE_B=new V3(-29,6,-40);
+plane.rotation.order='YXZ';
+// đường bay: lượn qua vịnh Đà Nẵng, qua Sơn Trà, hạ cánh đường băng sân bay Đà Nẵng
+const RWY_Y=groundY(-33,-41.9)+.6;
+const PLANE_CURVE=new THREE.CatmullRomCurve3([new V3(62,26,-80),new V3(28,21,-68),new V3(4,15,-60),new V3(-11,9,-51),new V3(-21,4.5,-44.6),new V3(-27,RWY_Y+.3,-42),new V3(-31.5,RWY_Y,-41.9),new V3(-36.2,RWY_Y,-41.9)]);
+// đường băng + đài kiểm soát
+(function(){const x0=-39.5,x1=-26.6,z=-41.9,y=groundY(-33,-41.9)+.03;const r=mk(GEO.box,std(0x4a4f57),(x0+x1)/2,y,z,scene);r.scale.set(x1-x0,.06,1.6);
+  for(let x=x0+.6;x<x1;x+=1.2)mk(GEO.box,bas(0xffffff),x,y+.04,z,scene).scale.set(.6,.02,.08);
+  const tw=mk(GEO.cyl,toon(0xe8e4da),-38.6,groundY(-38.6,-43.4)+1.2,-43.4,scene);tw.scale.set(.32,2.4,.32);mk(GEO.cyl,toon(0x2b3a4f),-38.6,groundY(-38.6,-43.4)+2.55,-43.4,scene).scale.set(.55,.4,.55);})();
+
+/* ---------- Đà Nẵng: Cầu Vàng (Bà Nà), Trung tâm Hành chính, Cầu Rồng, Quan Âm Linh Ứng · Quảng Ngãi: chùa Minh Đức ----------
+   Dựng bằng hình học, phỏng theo ảnh anh gửi (không dùng ảnh mạng trên trang). */
+const LM={vang:[-45,-49],hc:[-25.2,-52.5],rong:[-20,-47.5],qa:[-16.8,-59.5],md:[-35.5,-11]};
+function makeQuanAm(parent,x,y,z,s){const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(s);parent.add(g);const W=toon(0xfbfaf5);
+  mk(GEO.cyl,toon(0xe9e4d8),0,.2,0,g).scale.set(.75,.4,.75);
+  for(let i=0;i<10;i++){const a=i/10*Math.PI*2;const p=mk(GEO.sph,W,Math.cos(a)*.5,.5,Math.sin(a)*.5,g);p.scale.set(.22,.12,.22);}
+  mk(new THREE.CylinderGeometry(.24,.6,3,18),W,0,2,0,g);
+  mk(GEO.sph,W,0,3.45,0,g).scale.set(.4,.32,.32);
+  mk(GEO.sph,W,0,3.95,0,g).scale.setScalar(.24);
+  mk(new THREE.ConeGeometry(.17,.45,12),W,0,4.32,0,g);
+  [-1,1].forEach(sd=>{const a=mk(GEO.sph,W,sd*.16,3.05,.2,g);a.scale.set(.09,.32,.09);a.rotation.z=-sd*.5;});
+  return g;}
+function makePagoda(parent,x,y,z,s,ry){const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(s);g.rotation.y=ry||0;parent.add(g);
+  mk(GEO.box,toon(0xd8c9a8),0,.15,0,g).scale.set(3.2,.3,2.2);
+  mk(GEO.box,toon(0xb8402f),0,.8,0,g).scale.set(2.4,1,1.5);
+  const rf=new THREE.ConeGeometry(1,1,4);rf.rotateY(Math.PI/4);
+  [[1.55,2.0,1.45],[1.15,1.5,2.15],[.8,1.1,2.75]].forEach(([w,d,yy],i)=>{const r=mk(rf,toon(0xf0b429),0,yy,0,g);r.scale.set(w*1.15,.42,d*.9);
+    if(i<2){mk(GEO.box,toon(0xb8402f),0,yy+.32,0,g).scale.set(w*1.3,.5,d*.85);}});
+  mk(GEO.cone4,toon(0xf0b429),0,3.15,0,g).scale.set(.12,.5,.12);
+  return g;}
+// sông Hàn chảy qua giữa thành phố
+(function(){const w=mk(GEO.box,std(0x3b8fc4),-20,0,-53.5,scene);w.scale.set(2.6,.2,19);w.position.y=groundY(-20,-53.5)+.02;
+  [-21.3,-18.7].forEach(x=>{const k=mk(GEO.box,std(0xd9d2c0),x,groundY(x,-53.5)+.08,-53.5,scene);k.scale.set(.18,.2,19);});})();
+// Cầu Rồng: thân rồng vàng uốn lượn trên mặt cầu, đầu rồng hướng ra biển (phun lửa ở cảnh tham quan)
+let dragonHead=null;
+(function(){const [x,z]=LM.rong;const y=groundY(x,z)+.55;const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
+  mk(GEO.box,toon(0x8d939c),0,0,0,g).scale.set(6.6,.18,1.0);
+  [-2.6,-.9,.9,2.6].forEach(px=>{const c=mk(GEO.cyl,toon(0x7a8089),px,-.35,0,g);c.scale.set(.18,.7,.18);});
+  for(let i=0;i<14;i++){const px=-3.1+i*.48;[-.48,.48].forEach(pz=>mk(GEO.sph,bas(0x58d6ff),px,.16,pz,g).scale.setScalar(.05));}
+  const pts=[];for(let i=0;i<=48;i++){const t=i/48,xx=-3.3+6.5*t;const yy=.2+Math.max(0,Math.sin(t*Math.PI*3.1))*1.45+Math.max(0,t-.9)*9;pts.push(new V3(xx,yy,0));}
+  mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),96,.15,8,false),toon(0xf2b632),0,0,0,g);
+  for(let i=1;i<48;i+=3){const p=pts[i];if(p.y>.5){const sp=mk(GEO.cone4,toon(0xe0892a),p.x,p.y+.17,0,g);sp.scale.set(.06,.16,.06);}}
+  const hd=new THREE.Group();hd.position.set(3.25,1.2,0);g.add(hd);
+  mk(GEO.sph,toon(0xf2b632),0,0,0,hd).scale.set(.4,.3,.28);
+  mk(GEO.box,toon(0xf2b632),.42,-.06,0,hd).scale.set(.5,.2,.24);
+  [-1,1].forEach(s=>{const hn=mk(GEO.cone4,toon(0xe0892a),-.15,.3,s*.12,hd);hn.scale.set(.05,.3,.05);hn.rotation.z=.6;mk(GEO.sph,bas(0xd62828),.18,.08,s*.15,hd).scale.setScalar(.05);});
+  dragonHead=hd;})();
+// Trung tâm Hành chính Đà Nẵng: tháp kính hình bắp ngô bên sông + tòa cao tầng cạnh bên
+(function(){const [x,z]=LM.hc,y=groundY(x,z);const prof=[];for(let i=0;i<=16;i++){const t=i/16;let r=.95*(.82+.28*Math.sin(Math.PI*Math.min(1,t*1.25)));if(t>.82)r*=1-(t-.82)/.18*.62;prof.push(new THREE.Vector2(Math.max(.05,r),t*10));}
+  const tw=mk(new THREE.LatheGeometry(prof,28),std(0x3f86c4,{roughness:.35,metalness:.25}),x,y-.1,z,scene);tw.scale.set(1,1,.62);tw.rotation.y=.35;
+  for(let k=1;k<9;k++){const rr=prof[Math.round(k*1.8)].x;const b=mk(new THREE.TorusGeometry(rr+.01,.025,4,28),bas(0x9fd3ff),x,y-.1+k*1.11,z,scene);b.rotation.x=Math.PI/2;b.scale.set(1,.62,1);b.rotation.z=.35;}
+  const h2=mk(GEO.box,std(0xe7e2d6),x+2.2,y+3.3,z+.6,scene);h2.scale.set(1.6,6.6,1.5);
+  for(let k=0;k<12;k++)mk(GEO.box,std(0x6f8faa),x+2.2,y+.6+k*.5,z+1.36,scene).scale.set(1.3,.18,.02);})();
+// Quan Âm chùa Linh Ứng trên bán đảo Sơn Trà
+(function(){const [x,z]=LM.qa;const hill=mk(GEO.ico,std(0x4f9a52),x,groundY(x,z)-.5,z,scene);hill.scale.set(3.4,2.5,3.0);
+  makeQuanAm(scene,x,groundY(x,z)+1.85,z,1.0);makePagoda(scene,x-2.1,groundY(x,z)+1.2,z+.4,.55,.4);})();
+// Cầu Vàng Bà Nà: đôi bàn tay đá rêu nâng cây cầu vàng uốn cong trên núi
+(function(){const [x,z]=LM.vang,y0=H(x,z);const g=new THREE.Group();g.position.set(x,y0,z);g.rotation.y=.55;scene.add(g);
+  const R=4.2,a0=-.75,a1=.75,n=26,deckY=3.3,gold=toon(0xe9b934);
+  for(let i=0;i<n;i++){const a=a0+(a1-a0)*(i+.5)/n,px=Math.sin(a)*R,pz=Math.cos(a)*R-R;const b=mk(GEO.box,gold,px,deckY,pz,g);b.scale.set(.42,.1,.62);b.rotation.y=a;
+    [-.33,.33].forEach(o=>{const r=mk(GEO.box,gold,px+Math.cos(a)*o*0,deckY+.18,pz,g);r.scale.set(.42,.05,.04);r.position.x=px+Math.cos(a)*0;r.position.z=pz;r.rotation.y=a;r.translateZ(o);});}
+  const stone=toon(0x8e8a7d),moss=toon(0x6f7d5b);
+  [-.2,.22].forEach((a,k)=>{const px=Math.sin(a)*R,pz=Math.cos(a)*R-R;const hand=new THREE.Group();hand.position.set(px,0,pz);hand.rotation.y=a;g.add(hand);
+    const arm=mk(GEO.cyl,k?stone:moss,0,1.1,0,hand);arm.scale.set(.42,2.4,.42);
+    const palm=mk(GEO.box,stone,0,2.55,0,hand);palm.scale.set(.75,.55,1.2);
+    [-.45,-.15,.15,.45].forEach((fz,j)=>{const f=mk(GEO.cyl,j%2?stone:moss,sd0(j)*.42,3.35,fz,hand);f.scale.set(.12,1.4,.12);f.rotation.x=fz*.25;});
+    const th=mk(GEO.cyl,stone,-.42,3.0,-.62,hand);th.scale.set(.13,1.0,.13);th.rotation.x=-.5;});
+  function sd0(j){return j%2?1:-1;}})();
+// Chùa Minh Đức (Quảng Ngãi): tượng Quan Âm trắng trên đồi, chùa mái vàng, mặt nước và bãi cát phía trước
+(function(){const [x,z]=LM.md;const hill=mk(GEO.ico,std(0x4c8f4f),x,groundY(x,z)-.6,z,scene);hill.scale.set(3.2,2.0,2.6);
+  makeQuanAm(scene,x+.4,groundY(x,z)+1.25,z-.3,1.15);makePagoda(scene,x-2.4,groundY(x,z)+.05,z+1.6,.7,.2);
+  const lake=mk(GEO.circle,std(0x4f9fd0),x+1.8,groundY(x+1.8,z+3.6)+.06,z+3.6,scene);lake.rotation.x=-Math.PI/2;lake.scale.set(2.6,1.5,1);
+  const sand=mk(GEO.circle,std(0xe7c9a0),x+.6,groundY(x+.6,z+3.0)+.07,z+3.0,scene);sand.rotation.x=-Math.PI/2;sand.scale.set(1.6,.5,1);})();
 
 /* ---------- Xe buýt 2 tầng mui trần ---------- */
 const bus=new THREE.Group();
@@ -934,6 +1015,9 @@ const bus=new THREE.Group();
   mk(GEO.box,cream,0,2.25,2.94,bus).scale.set(2.2,.6,.12);
   mk(GEO.box,cream,0,2.17,-2.94,bus).scale.set(2.2,.45,.12);
   mk(GEO.box,toon(0xffd166),0,1.85,3.03,bus).scale.set(1.4,.22,.04);
+  // dải chữ vàng hai bên thân xe
+  const btex=canvasTex(512,64,(g,w,h)=>{g.fillStyle='#ffd23f';g.fillRect(0,0,w,h);g.fillStyle='#b3261e';g.font='bold 30px Segoe UI,Arial,sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText('XE 2 TẦNG · ĐÀ NẴNG ⇄ QUẢNG NGÃI',w/2,h/2+2);});
+  [-1,1].forEach(s=>{const p=mk(new THREE.PlaneGeometry(5.4,.42),new THREE.MeshBasicMaterial({map:btex}),s*1.125,.7,0,bus);p.rotation.y=s*Math.PI/2;});
   bus.wheels=[];[[-1.05,1.9],[1.05,1.9],[-1.05,-1.9],[1.05,-1.9]].forEach(([x,z])=>{const w=mk(GEO.cyl,dark,x,.42,z,bus);w.scale.set(.42,.3,.42);w.rotation.z=Math.PI/2;bus.wheels.push(w);const hc=mk(GEO.cyl,toon(0xcfd6de),x*1.06,.42,z,bus);hc.scale.set(.2,.3,.2);hc.rotation.z=Math.PI/2;});
   [-.7,.7].forEach(x=>mk(GEO.sph,bas(0xfff3a0),x,.8,3.02,bus).scale.setScalar(.12));
   scene.add(bus);
@@ -1094,13 +1178,12 @@ const BUILD={
     const q=new THREE.Group();q.position.set(0,.04,0);a.aR.hold.add(q);mk(GEO.sph,toon(0xfff6e0),0,.24,0,q).scale.set(.09,.22,.02);mk(GEO.cyl,toon(0x3b2a20),0,.03,0,q).scale.set(.012,.16,.012);a.quill=q;},
   kv(a){const h=a.head;const cp=mk(GEO.cap,toon(0x0f7f8c),0,.02,0,h);cp.rotation.x=-.15;const v=mk(GEO.visor,toon(0x0b5f69),0,.06,.16,h);v.rotation.x=.15;mk(GEO.sph,toon(0x0b5f69),0,.56,-.06,h).scale.setScalar(.05);
     const t1=mk(GEO.box,toon(0x22c55e),-.05,.53,.36,a.bob);t1.scale.set(.06,.15,.04);t1.rotation.z=.7;const t2=mk(GEO.box,toon(0x22c55e),.05,.57,.36,a.bob);t2.scale.set(.06,.28,.04);t2.rotation.z=-.6;
-    const hr=a.aR.hold;mk(GEO.cyl,toon(0x8a5a3a),0,.12,.08,hr).scale.set(.03,.26,.03);const rg=mk(new THREE.TorusGeometry(.16,.032,8,22),toon(0xd9a520),0,.4,.18,hr);
-    mk(GEO.circle,bas(0xbfe9ff,{transparent:true,opacity:.45,side:THREE.DoubleSide}),0,.4,.18,hr).scale.setScalar(.16);},
+    const hr=a.aR.hold;const bm=mk(GEO.sph,toon(0xd99a4e),0,.05,.12,hr);bm.scale.set(.09,.09,.3);mk(GEO.box,toon(0x58b946),0,.11,.12,hr).scale.set(.05,.03,.4);/* anh Tèo cầm ổ bánh mì */
+  },
   bt(a){const h=a.head;[-1,1].forEach(s=>mk(GEO.torusS,bas(0x1d1d28),s*.17,.03,.47,h));mk(GEO.box,bas(0x1d1d28),0,.05,.49,h).scale.set(.12,.02,.02);
     [-1,1].forEach(s=>{const c=mk(GEO.cone4,toon(0xff8fb5),.3+s*.1,.36,.12,h);c.scale.set(.09,.16,.09);c.rotation.z=s*Math.PI/2;});mk(GEO.sph,toon(0xff6f9f),.3,.36,.12,h).scale.setScalar(.05);
-    const hr=a.aR.hold;mk(GEO.cyl,toon(0xd92d3a),0,.14,.04,hr).scale.set(.035,.42,.035);const tip=mk(GEO.cone4,toon(0x222222),0,-.1,.04,hr);tip.scale.set(.035,.07,.035);tip.rotation.x=Math.PI;mk(GEO.cyl,toon(0xffd166),0,.3,.04,hr).scale.set(.038,.05,.038);
-    const sc=new THREE.Group();sc.position.set(0,.1,.06);a.aL.hold.add(sc);a.blades=[];
-    [1,-1].forEach(s=>{const b=new THREE.Group();sc.add(b);mk(GEO.box,toon(0xd8dde3),0,.16,0,b).scale.set(.035,.3,.012);a.blades.push(b);const hd=mk(new THREE.TorusGeometry(.05,.015,6,14),toon(0xd92d3a),s*.05,-.05,0,sc);});},
+    // bé Tý cầm bong bóng đỏ
+    const hl=a.aL.hold;mk(GEO.cyl,toon(0xffffff),0,.62,0,hl).scale.set(.012,1.2,.012);const bl=mk(GEO.sph,toon(0xff4f6d),0,1.42,0,hl);bl.scale.set(.27,.31,.27);a.balloon=bl;},
   anh(a){const h=a.head;mk(new THREE.ConeGeometry(.8,.42,24),toon(0xead39a),0,.56,0,h);mk(GEO.cyl,toon(0xd8bd7c),0,.36,0,h).scale.set(.8,.02,.8);
     mk(GEO.box,toon(0x8a5a3a),0,.62,-.36,a.bob).scale.set(.42,.46,.2);}
 };
@@ -1149,13 +1232,14 @@ function halftoneize(a){
   sl.visible=false;a.root.add(sl);a.speedLines=sl;
 }
 const actors={};ORDER.forEach(id=>actors[id]=new Actor(id));
+actors.bt.root.scale.setScalar(.78);   // bé Tý nhỏ người
 
 /* ---------- Cuộn giấy & sách ---------- */
 const scrolls=[],books=[];
 for(let i=0;i<16;i++){const g=new THREE.Group();const p=mk(GEO.cyl,toon(0xfff3d6),0,0,0,g);p.scale.set(.15,.56,.15);p.rotation.z=Math.PI/2;
   const rib=mk(GEO.cyl,new THREE.MeshToonMaterial({color:0xffffff}),0,0,0,g);rib.scale.set(.158,.12,.158);rib.rotation.z=Math.PI/2;g.rib=rib;
   [-.3,.3].forEach(x=>mk(GEO.sph,toon(0x9b6b3f),x,0,0,g).scale.setScalar(.06));g.visible=false;scene.add(g);scrolls.push(g);}
-for(let i=0;i<3;i++){const g=new THREE.Group();mk(GEO.box,toon(0xec5a86),0,0,0,g).scale.set(.58,.13,.44);mk(GEO.box,toon(0xfffaf0),.03,0,0,g).scale.set(.55,.1,.4);
+for(let i=0;i<6;i++){const g=new THREE.Group();mk(GEO.box,toon(0xec5a86),0,0,0,g).scale.set(.58,.13,.44);mk(GEO.box,toon(0xfffaf0),.03,0,0,g).scale.set(.55,.1,.4);
   mk(GEO.star,bas(0xffd166,{side:THREE.DoubleSide}),0,.07,0,g).rotation.x=-Math.PI/2;g.children[2].scale.setScalar(.12);g.visible=false;scene.add(g);books.push(g);}
 
 /* ---------- Hạt hiệu ứng ---------- */
@@ -1177,7 +1261,7 @@ function scr(x,y,z){_pv.set(x,y,z).project(PCAM);if(_pv.z>1||_pv.z<-1||Math.abs(
 function place(e,p,ax,ay,extra){e.style.transform='translate3d('+p[0].toFixed(1)+'px,'+p[1].toFixed(1)+'px,0) translate('+ax+'%,'+ay+'%)'+(extra||'');}
 const nameTags={};
 ORDER.forEach(id=>{const e=document.createElement('div');e.className='o nt';e.style.setProperty('--c',DEFS[id].color);e.textContent=DEFS[id].emoji+' '+(DEFS[id].short||DEFS[id].name);e.addEventListener('click',()=>openCard(id));OV.appendChild(e);nameTags[id]=e;});
-const PLACES=[['📍 Đà Nẵng',-31,-47,3.5],['📍 Quảng Ngãi',-30,-8,2.6],['⚓ Cảng Sa Kỳ',-21,24.5,2.4],['≈ 15 hải lý',2,23.5,1.2,'sea'],['🏝️ Đảo Lớn · Lý Sơn',22,14.5,1.8],['🧄 Ruộng tỏi',28,3.5,1.4,'',1],['🌋 Núi Thới Lới',40,1,2.4],['🛕 Chùa Hang',29.4,-4.6,2.4,'',1],['🏝️ Đảo Bé',55,-11,2.2,'',1]];
+const PLACES=[['📍 Đà Nẵng',-31,-47,3.5],['📍 Quảng Ngãi',-30,-8,2.6],['🛬 Sân bay Đà Nẵng',-33,-41.9,2.2],['🖐️ Cầu Vàng · Bà Nà',-45,-49,5.6],['🏢 Trung tâm Hành chính',-25.2,-52.5,10.8],['🐉 Cầu Rồng',-20,-47.5,3.4],['🙏 Quan Âm Linh Ứng',-16.8,-59.5,7.4],['🛕 Chùa Minh Đức',-35.5,-11,7.4],['⚓ Cảng Sa Kỳ',-21,24.5,2.4],['≈ 15 hải lý',2,23.5,1.2,'sea'],['🏝️ Đảo Lớn · Lý Sơn',22,14.5,1.8],['🧄 Ruộng tỏi',28,3.5,1.4,'',1],['🌋 Núi Thới Lới',40,1,2.4],['🛕 Chùa Hang',29.4,-4.6,2.4,'',1],['🏝️ Đảo Bé',55,-11,2.2,'',1]];
 const placeEls=PLACES.map(p=>{const e=document.createElement('div');e.className='o pl'+(p[4]?' '+p[4]:'');e.textContent=p[0];OV.appendChild(e);return e;});
 const P_pop=pool('pop'),P_emo=pool('emo');
 let pinsOn=true;
@@ -1187,7 +1271,7 @@ const PINS=TRIP.filter(t=>t.pin).map((t,i)=>{const e=document.createElement('div
 
 /* ---------------- Khung hình (pose) ---------------- */
 let F=null;
-function newFrame(){return{A:{},H:{},FR:{},FL:[],B:[],S:[],X:[],FLT:[],BD:[],E:[],PH:[],plane:-1,dusk:0,C:null,act:[],note:''};}
+function newFrame(){return{A:{},H:{},FR:{},FL:[],B:[],S:[],X:[],FLT:[],BD:[],E:[],PH:[],plane:-1,dusk:0,fire:-1,glow:null,C:null,act:[],note:''};}
 const P={
   g:(x,z)=>({x,y:groundY(x,z),z}),
   set(id,p,o){o=o||{};F.A[id]={x:p.x,y:p.y,z:p.z,face:o.face!=null?o.face:null,mode:o.mode||'idle',ride:!!o.ride};},
@@ -1225,244 +1309,236 @@ const P={
 function pathAt(pts,k){if(k<=0)return pts[0];if(k>=1)return pts[pts.length-1];let L=0;const s=[];for(let i=1;i<pts.length;i++){const l=Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]);s.push(l);L+=l;}
   let d=k*L;for(let i=0;i<s.length;i++){if(d<=s[i]){const t=s[i]?d/s[i]:0;return [lerp(pts[i][0],pts[i+1][0],t),lerp(pts[i][1],pts[i+1][1],t)];}d-=s[i];}return pts[pts.length-1];}
 let busPrev=null,busDist=0;
-function setBus(s){const p=road.getPointAt(clamp01(s)),t=road.getTangentAt(clamp01(s));const y=Math.max(H(p.x,p.z),0)+.08;
+function setBus(s){bus.visible=true;const p=road.getPointAt(clamp01(s)),t=road.getTangentAt(clamp01(s));const y=Math.max(H(p.x,p.z),0)+.08;
   if(busPrev){const d=Math.hypot(p.x-busPrev.x,p.z-busPrev.z);if(d<3)busDist+=d;}busPrev={x:p.x,z:p.z};
   bus.position.set(p.x,y+(s>0&&s<1?Math.abs(Math.sin(T*9))*.04*WA:0),p.z);bus.rotation.y=Math.atan2(t.x,t.z);bus.wheels.forEach(w=>w.rotation.x=busDist/.42);bus.updateMatrixWorld(true);bus.moving=s>0.001&&s<.999;}
 function setBoat(s){const p=sea.getPointAt(clamp01(s)),t=sea.getTangentAt(clamp01(s));boat.position.set(p.x,waveY(p.x,p.z,T)*.55-.05,p.z);
   boat.rotation.set(Math.sin(T*1.1)*.025*WA+(s>0&&s<1?-.04:0),Math.atan2(t.x,t.z),Math.sin(T*1.4+1)*.035*WA);boat.updateMatrixWorld(true);boat.moving=s>0.001&&s<.999;boat.flag.rotation.x=Math.sin(T*6)*.2*WA;}
 
-/* ---- Vị trí ---- */
-const LINE0={};ORDER.forEach((id,i)=>LINE0[id]=[-34.5+i*1.4,-35]);
-const S1={anh:[-31.2,-35.6],dp:[-29.5,-35.6],ks:[-26.6,-38.4],ta:[-25.6,-36.9],kc:[-27.3,-37.3],kv:[-26.9,-39.5],bt:[-25.6,-40.6]};
-const SK={anh:[-19.6,21.6],dp:[-18.4,20.8],ks:[-21.2,20.4],ta:[-20.6,22.6],kc:[-20.4,19.6],kv:[-21.9,21.7],bt:[-18.1,22.1]};
-const BUS_RIDERS=[['anh',-.5,1.3],['dp',.5,1.3],['kc',-.5,-.2],['kv',.5,-.2],['bt',0,-1.6]];
-const SEATS={kc:[0,2.4],dp:[.55,.9],anh:[-.55,.9],ks:[.65,-.4],ta:[-.65,-.4],kv:[.45,-1.5],bt:[-.45,-1.5]};
-const BOARD=['kc','dp','anh','ks','ta','kv','bt'];
-const UNBOARD=['dp','kv','kc','anh','ks','ta','bt'];
-const PLAZA={dp:[24.4,8.6],kv:[25.6,10.4],kc:[23.4,10.0],ks:[26.6,8.0],ta:[27.6,9.2],bt:[25.4,7.0],anh:[23.0,7.6]};
-const FIELD={bt:[28.4,7.6],dp:[26.6,6.4],anh:[25.4,7.0],kc:[30.2,6.2],kv:[31.4,7.2],ks:[25.9,8.6],ta:[31.6,8.8]};
-const FINAL={ks:[25.8,8.6],ta:[27.0,9.2],kc:[28.2,9.6],dp:[29.6,10.1],kv:[31.0,9.6],bt:[32.2,9.2],anh:[29.6,12.4]};
+/* ---- Vị trí (đoàn 6 người) ---- */
+const LINE0={};ORDER.forEach((id,i)=>LINE0[id]=[-34.2+i*1.35,-35]);
+const PLANE_DOOR=[-35.6,-40.6];
+const S1={dp:[-26.2,-38.6],kv:[-27.2,-37.6],ta:[-25.2,-37.4],anh:[-27.6,-39.2],ks:[-25.8,-40.2],bt:[-27,-40.6]};
+const BUS6=[['dp',.5,1.3],['kv',-.5,1.3],['ta',.5,-.2],['anh',-.5,-.2],['ks',.5,-1.6],['bt',-.5,-1.6]];
+const SK={dp:[-18.4,20.8],kv:[-19.6,21.6],ta:[-20.6,22.6],anh:[-21.9,21.7],ks:[-21.2,20.4],bt:[-18.1,22.1]};
+const SEATS6={dp:[.55,.9],anh:[-.55,.9],ks:[.65,-.4],ta:[-.65,-.4],kv:[.45,-1.5],bt:[-.45,-1.5]};
+const BOARD6=['dp','anh','ks','ta','kv','bt'];
+const PLAZA6={dp:[24.4,8.6],kv:[25.9,10.3],ta:[27.6,9.2],anh:[23.2,7.8],ks:[26.6,8.0],bt:[25.2,7.0]};
+const FIELD6={dp:[28.4,7.4],kv:[30.2,6.4],ta:[31.6,8.6],anh:[25.4,7.0],ks:[26.4,8.8],bt:[29.6,8.6]};
+const FINAL6={ks:[25.8,8.6],ta:[27.1,9.2],kv:[28.4,9.6],anh:[30.8,9.6],bt:[32.0,9.2],dp:[29.6,12.1]};
 const TABLE_TOP=()=>new V3(28.4,groundY(28.4,8.4)+.72,8.35);
-const HOLD4=['00','01','02','03b','04'];
+const GUESTS=['kv','ta','anh','ks','bt'];
+// nói theo kịch bản: [ai, câu, từ, tới]
+function lines(L,u){L.forEach(l=>P.talk(l[0],l[1],u,l[2],l[3]));}
 
+/* Chặng 0: máy bay lượn qua vịnh, hạ cánh, cả đoàn xuống máy bay, làm quen */
 STEPS[0].pose=function(u){
   P.bus(0);P.boat(0);
-  ORDER.forEach((id,i)=>{P.at(id,LINE0[id],{face:.15});const s=.4+i*.075;if(inW(u,s,s+.09))P.mode(id,'cheer');});
-  if(u>.9)TEAM.forEach(id=>P.mode(id,'wave'));
-  P.talk('dp','Xin chào! Đội Nhật ký Lý Sơn đây 👋',u,.34,.6);
-  P.say('anh','Vừa bay về miền Trung! Cùng về đảo Lý Sơn nào 🏝️',u,.64,.9);
-  // máy bay hạ cánh Đà Nẵng: chặng thật đầu tiên của anh
-  if(u<.34)F.plane=seg(u,0,.32);
-  P.emo('anh','✈️',u,.02,.3,true);
-  P.emo('ta','📷',u,.62,.8);P.emo('ks','🗺️',u,.66,.84);P.emo('kc','✍️',u,.7,.88);
-  if(u>=.34&&u<.62)ORDER.forEach(id=>{if(id!=='dp')P.mode(id,F.A[id].mode==='cheer'?'cheer':'nod');});
-  P.active.apply(null,TEAM);
-  if(u<.32)P.cam(new V3(6,0,-10),108,.25,.95);else P.camAt(-30.3,-35,13,.12,.32);
-  P.note(u<.32?'Toàn cảnh: anh bay về Đà Nẵng → cảng Sa Kỳ → tàu ≈ 15 hải lý → nhà Đạt trên đảo Lý Sơn. Ghim ảnh 📍 là ảnh thật từng chặng.':'Đội gồm 1 Điều phối + 5 agent con, cùng Anh xuất phát từ Đà Nẵng');
+  F.plane=Math.min(1,seg(u,0,.26));
+  const out=seg(u,.27,.36);                       // xuống máy bay, đi ra quán cà phê
+  if(u<.27)F.hideAll=true;
+  ORDER.forEach((id,i)=>{const k=ease(seg(out,i*.08,.5+i*.08));P.walkL(id,PLANE_DOOR,LINE0[id],k,u>=.36?{face:.15}:undefined);});
+  lines([
+    ['dp','Xin chào! Tui là Danh Pro, hướng dẫn viên "pro" nhất miền Trung! 🚩',.37,.46],
+    ['dp','Luật của đoàn: đi theo lá cờ. Lạc thì đứng yên, Danh Pro tới liền!',.46,.54],
+    ['kv','Anh Danh ơi, chừng nào ăn trưa vậy? 🍜',.54,.61],
+    ['ta','Khoan! Chụp tấm hình check-in đã! 📸',.61,.68],
+    ['anh','Hồi xưa bác ra Đà Nẵng, đi xe đò cả ngày trời đó nghen…',.68,.76],
+    ['ks','Đường sá cứ để Tư lo, Tư rành lắm! 🗺️',.76,.83],
+    ['bt','Chú Tư cầm bản đồ ngược kìa! 🤭',.83,.91]],u);
+  GUESTS.forEach((id,i)=>{const a=.54+i*.075;if(inW(u,a,a+.025))P.mode(id,'wave');});
+  if(inW(u,.63,.67))P.mode('ta','shoot');P.fx('flash','ta',u,.64,.67);
+  if(inW(u,.76,.83))P.mode('ks','look');
+  if(inW(u,.68,.76)){P.mode('dp','nod');P.mode('bt','nod');}
+  if(u>=.91){ORDER.forEach(id=>P.mode(id,'cheer'));}
+  ORDER.forEach((id,i)=>P.emo(id,'😂',u,.91+i*.01,.99,true));
+  P.emo('kv','😋',u,.55,.62,true);P.emo('anh','👴',u,.69,.76,true);
+  P.active('dp');
+  if(u<.26){plane.updateMatrixWorld(true);P.cam(plane.position.clone(),lerp(42,16,sstep(.1,.26,u)),lerp(1.1,-.5,u/.26),lerp(.45,.25,u/.26));}
+  else if(u<.36)P.camAt(-33,-38.5,13,.35,.36);
+  else P.camAt(-30.8,-35,12.5,.12,.3);
+  P.note(u<.12?'✈️ Máy bay lượn qua vịnh Đà Nẵng':u<.26?'🛬 Hạ cánh sân bay Đà Nẵng':u<.37?'Cả đoàn xuống máy bay, ra quán cà phê gặp anh Danh Pro':'Làm quen cả đoàn: Tèo ham ăn, Tám mê chụp hình, bác Bảy kể chuyện xưa, anh Tư "rành đường", bé Tý hỏi khó');
 };
+
+/* Chặng 1: một vòng Đà Nẵng – chụp hình nhóm ở 4 điểm (C = chỗ đứng, L = điểm nhìn) */
+const TOUR=[
+ {k:'vang',a:0,C:[-41.4,-45.2],L:[-45,-49],ly:3.6,d:18,el:.36,m:'cheer',e:'😍',n:'Đà Nẵng ① Cầu Vàng trên Bà Nà Hills: đôi bàn tay đá nâng cây cầu vàng',
+  L2:[['dp','Cầu Vàng đây! Hai bàn tay đá nâng nguyên cây cầu luôn!',.06,.36],['kv','Bàn tay to vậy chắc bốc xôi một lần hết nồi 😋',.36,.64],['ta','Cả nhà nhìn em nè: 1… 2… 3… cười! 📸',.64,.95]]},
+ {k:'hc',a:.25,sp:.85,C:[-24.8,-49.0],L:[-25.2,-52.5],ly:5,d:15,el:.22,m:'point',e:'🏢',n:'Đà Nẵng ② Trung tâm Hành chính: tòa tháp kính bên sông Hàn',
+  L2:[['dp','Tòa Trung tâm Hành chính, nhìn giống trái bắp không cả nhà?',.06,.36],['kv','Bắp hả? Ở đây có bắp nướng không anh? 🌽',.36,.64],['bt','Chú Tèo cái gì cũng muốn ăn hết trơn! 🤭',.64,.95]]},
+ {k:'rong',a:.5,sp:.8,C:[-21.6,-43.4],L:[-20,-47.5],ly:1.6,d:13,el:.3,m:'dance',e:'🔥',n:'Đà Nẵng ③ Cầu Rồng vắt qua sông Hàn, đầu rồng hướng ra biển',
+  L2:[['dp','Cầu Rồng! Tối cuối tuần rồng còn phun lửa, phun nước nữa đó!',.06,.36],['anh','Bác đứng xa xa thôi, kẻo cháy râu 😅',.36,.64],['bt','Rồng ơi phun nữa đi! 🔥',.64,.95]]},
+ {k:'qa',a:.75,sp:.8,C:[-15.9,-54.6],L:[-16.8,-59.5],ly:5.8,d:17,el:.2,m:'nod',e:'🙏',n:'Đà Nẵng ④ Tượng Quan Âm chùa Linh Ứng trên bán đảo Sơn Trà',
+  L2:[['dp','Tượng Quan Âm chùa Linh Ứng trên Sơn Trà. Mình đi nhẹ, nói khẽ nha',.06,.32],['anh','Cầu cho cả đoàn đi đường bình an 🙏',.32,.56],['ks','Giờ về… chắc là rẽ trái! 👈',.56,.76],['ta','Bên phải anh Tư ơi 😑',.76,.97]]}];
 STEPS[1].pose=function(u){
   P.bus(0);P.boat(0);
-  const k=ease(seg(u,0,.14));
-  ORDER.forEach(id=>P.walkL(id,LINE0[id],S1[id],k));
-  if(u>.14){P.faceTo('dp','anh');P.faceTo('anh','dp');['ks','ta','kc','kv','bt'].forEach(id=>P.faceTo(id,'dp'));}
-  P.talk('dp','Anh đi ngày nào, mấy ngày? Đi với ai?',u,.15,.32);
-  P.talk('anh','Ba ngày: bay về Đà Nẵng, ra đảo ở nhà Đạt 🗣️',u,.33,.47);
-  P.talk('dp','Từng chặng đi bằng gì? Ghé những đâu?',u,.47,.6);
-  P.talk('anh','Cột cờ, Chùa Hang, Hang Câu… mâm cơm nhà Đạt 😋',u,.6,.75);
-  P.float('anh',['✈️','☕','⛴️','🏡','🚩','🛕','🍤','🌇'],u,.34,.74,.05);
-  // người nghe gật gù, kiểm chứng chống cằm, ảnh nghiêng đầu
-  if(inW(u,.33,.47)||inW(u,.6,.75))P.mode('dp','nod');
-  if(inW(u,.2,.75)){P.mode('kv','think');P.mode('kc','nod');}
-  P.emo('dp','❓',u,.15,.24);P.emo('dp','💡',u,.68,.75);P.emo('kc','😍',u,.62,.72,true);
-  P.fly('00','anh','dp',u,.76,.86);
-  P.hold('dp',u>=.86?['00']:[]);
-  P.talk('dp','Ghi nguyên lời anh vào 00, không thêm bớt ✍️',u,.86,1);
-  P.active('dp');
-  P.camAt(-30.35,-35.6,u<.12?13:8.5,.05,.28,1.1);
-  P.note(u<.15?'Mọi người vào chỗ; Điều phối gặp Anh ở quán cà phê Đà Nẵng ☕':u<.76?'Điều phối hỏi, Anh kể (hỏi bằng ô chọn + ô nhập tự do)':u<.86?'📜 00_ghi_chep.md: Anh → Điều phối':'Điều phối giữ 00_ghi_chep.md trong “túi hồ sơ”');
+  const t=TOUR.find(o=>u>=o.a&&u<o.a+.25)||TOUR[3];const k=seg(u,t.a,t.a+.25);
+  const [cx,cz]=t.C,[lx,lz]=t.L,dx=lx-cx,dz=lz-cz,n=Math.hypot(dx,dz),ux=dx/n,uz=dz/n,az=Math.atan2(-ux,-uz);
+  ORDER.forEach((id,i)=>{const o=(i-2.5)*(t.sp||1),b=Math.abs(i-2.5)*.22;P.at(id,[cx+uz*o-ux*b,cz-ux*o-uz*b],{face:az});if(inW(k,.12,.95))P.mode(id,t.m);});
+  lines(t.L2,k);
+  if(inW(k,.86,.92))P.mode('ta','shoot');P.fx('flash','ta',k,.87,.92);
+  ORDER.forEach((id,i)=>P.emo(id,t.e,k,.15+i*.06,.36+i*.06,true));
+  if(t.k==='rong'){F.fire=seg(k,.3,.95);bus.visible=false;}
+  if(t.k==='qa')F.glow=[lx,groundY(lx,lz)+1.85+3.95,lz];
+  if(t.k==='hc'&&inW(k,.36,.64))P.emo('kv','🌽',k,.38,.62);
+  const tx=lerp(cx,lx,.5),tz=lerp(cz,lz,.5),ty=lerp(groundY(cx,cz)+1,groundY(lx,lz)+t.ly,.6);
+  P.cam(new V3(tx,ty,tz),t.d,az+.15*Math.sin(k*2.2-1.1),t.el);
+  P.active('dp');P.note(t.n);
 };
+
+/* Chặng 2: xe buýt 2 tầng mui trần Đà Nẵng → Quảng Ngãi (chùa Minh Đức) → cảng Sa Kỳ */
 STEPS[2].pose=function(u){
   P.boat(0);
   const s=ease(seg(u,.17,.8));P.bus(s);
-  BUS_RIDERS.forEach(([id,ox,oz],j)=>{
-    const d=j*.012,door=[-25.3,-41.8+j*.7];
+  BUS6.forEach(([id,ox,oz],j)=>{const d=j*.012,door=[-25.3,-41.8+j*.7];
     if(u<.09+d)P.walkL(id,S1[id],door,ease(seg(u,.02+d,.09+d)));
     else if(u<.14+d)P.hop(id,P.g(door[0],door[1]),P.busSeat(ox,oz),seg(u,.09+d,.14+d));
     else if(u<.81+d)P.rideBus(id,ox,oz);
     else if(u<.87+d)P.hop(id,P.busSeat(ox,oz),P.g(SK[id][0],SK[id][1]),seg(u,.81+d,.87+d));
-    else P.at(id,SK[id]);
-  });
-  if(u<.17)P.walkL('ks',S1.ks,RS(.035,2),ease(seg(u,.05,.16)));
-  else if(u<.82){const p=RS(s+.035,2);P.at('ks',p);}
-  else P.walkL('ks',RS(1,2),SK.ks,ease(seg(u,.82,.9)));
-  if(u<.17)P.walkL('ta',S1.ta,RS(0,-2),ease(seg(u,.05,.16)));
-  else if(u<.82){const p=RS(Math.max(0,s-.03),-2);P.at('ta',p);}
-  else P.walkL('ta',RS(.97,-2),SK.ta,ease(seg(u,.82,.9)));
-  if(inW(u,.3,.37)||inW(u,.56,.62))P.mode('ks','look');
-  if(inW(u,.44,.52)||inW(u,.68,.74))P.mode('ks','point');
-  // Ảnh xếp từng ảnh thật vào 02 theo ngày, chặng: mỗi lần chớp là một ảnh bật ra
-  [['may_bay',.24],['da_nang',.34],['cot_co',.44],['chua_hang',.54],['hang_cau',.64],['san_ho',.73]].forEach(([k,a])=>P.snap('ta',k,u,a));
-  P.emo('ks','🔎',u,.2,.3);P.emo('ks','✅',u,.66,.76);P.emo('ta','🤩',u,.5,.58,true);
-  if(inW(u,.2,.8)){P.mode('anh','relax');}
-  P.say('dp','Khảo sát ➜ 01 · Ảnh ➜ 02. Hai bạn chạy song song nhé!',u,0,.16);
-  P.say('ks','Tra quãng đường, giờ tàu, giá vé 🔎',u,.22,.4);
-  P.say('ta','Xếp ảnh theo ngày & chặng 📷',u,.34,.52);
-  P.say('ks','Mỗi số liệu: nguồn + mức tin cậy ✅',u,.52,.68);
-  P.say('ta','Chỉ xem số ảnh anh cho phép 🙏',u,.64,.8);
-  P.float('ks',['km','⏱️','🎫','🌤️','📍'],u,.2,.78,.07);
-  P.float('ta',['🖼️','📷','✨'],u,.24,.78,.08);
-  P.badge('ks','⇉ song song',u,.17,.82);P.badge('ta','⇉ song song',u,.17,.82);
-  P.fly('00','dp','ks',u,.03,.1);P.fly('00','dp','ta',u,.06,.13);
-  if(u>=.1&&u<.88)P.hold('ks',['00']);if(u>=.13&&u<.9)P.hold('ta',['00']);
-  P.fly('01','ks','dp',u,.88,.94);P.fly('02','ta','dp',u,.9,.97);
-  const h=['00'];if(u>=.94)h.push('01');if(u>=.97)h.push('02');P.hold('dp',h);
-  P.active('ks','ta');
+    else {P.at(id,SK[id]);P.faceTo(id,'dp');}});
+  lines([
+    ['dp','Lên xe 2 tầng nè! Đếm coi: 1, 2, 3, 4, 5… ủa thiếu ai?',.01,.09],
+    ['bt','Chú chưa đếm chú đó chú Danh! 🤭',.09,.15],
+    ['dp','Ngồi tầng trên cho mát, ai say xe ngồi phía trước nha',.17,.25],
+    ['anh','Zzz… 😴',.25,.33],
+    ['kv','Có ai mang bánh tráng không? Đói quá trời 🫓',.31,.39],
+    ['dp','🛕 Bên phải là chùa Minh Đức, tượng Quan Âm trắng bên mặt nước',.43,.51],
+    ['ta','Anh tài ơi, dừng năm phút cho em chụp một tấm thôi! 📸',.51,.58],
+    ['bt','Con đố chú Danh: củ gì sống một mình mà ai cũng thương?',.61,.69],
+    ['dp','Tỏi cô đơn Lý Sơn chứ gì! 🧄 Chú "pro" mà!',.69,.76],
+    ['ks','Tới Sa Kỳ rồi! Thấy chưa, Tư chỉ đường chuẩn chưa?',.86,.92],
+    ['bt','Tại chú tài xế chạy đúng đó chú Tư 😆',.92,.99]],u);
+  if(inW(u,.24,.42))P.mode('anh','relax');P.emo('anh','😴',u,.25,.42,true);
+  P.emo('kv','🤤',u,.32,.39,true);
+  if(inW(u,.53,.57))P.mode('ta','shoot');P.fx('flash','ta',u,.535,.565);
+  P.emo('dp','😎',u,.7,.77,true);P.emo('ks','😏',u,.87,.93,true);
+  P.active('dp');
   if(u<.17)P.camAt(-25.5,-39,14,.55,.42);
-  else if(u<.8)P.cam(new V3(bus.position.x,bus.position.y+2,bus.position.z),23,.9-.55*seg(u,.17,.8),.5);
+  else if(u<.8)P.cam(new V3(bus.position.x,bus.position.y+2,bus.position.z),20,.9-.55*seg(u,.17,.8),.45);
   else P.camAt(-19.8,21,13,.35,.42);
-  P.note(u<.17?'Điều phối giao việc (bản sao 00) cho 2 agent':u<.8?'Xe buýt về Quảng Ngãi → Sa Kỳ; Khảo sát và Ảnh làm cùng lúc':u<.88?'Tới cảng Sa Kỳ':u<.94?'📜 01_lo_trinh.md: Khảo sát → Điều phối':'📜 02_danh_muc_anh.md: Ảnh → Điều phối');
+  if(inW(u,.43,.6))P.camAt(-31.2,-10,19,1.15,.3,2);
+  P.note(u<.17?'Cả đoàn lên tầng trên xe buýt 2 tầng mui trần':inW(u,.43,.6)?'Qua Quảng Ngãi: chùa Minh Đức, tượng Quan Âm trắng bên mặt nước 🛕':u<.8?'Xe buýt 2 tầng chạy từ Đà Nẵng về Quảng Ngãi, gió lồng lộng':'⚓ Tới cảng Sa Kỳ');
 };
+
+/* Chặng 3: phát vé, lên tàu, ra đảo */
 STEPS[3].pose=function(u){
   P.bus(1);
   const s=ease(seg(u,.29,.92));P.boat(s);
-  BOARD.forEach((id,i)=>{
-    const d=i*.018,[ox,oz]=SEATS[id],sw=P.boatSeat(ox,oz);
-    if(u<.135+d)P.walk(id,[SK[id],[-17.6,19.2],[sw.x,19.2]],ease(seg(u,.01+d,.13+d)));
-    else if(u<.175+d)P.hop(id,P.g(sw.x,19.2),sw,seg(u,.135+d,.175+d));
-    else P.rideBoat(id,ox,oz);
-  });
-  if(inW(u,.42,.85))P.mode('kc','write');
-  P.fly('00','dp','kc',u,.3,.36);P.fly('01','dp','kc',u,.33,.39);P.fly('02','dp','kc',u,.36,.42);
-  const kh=[];if(u>=.36)kh.push('00');if(u>=.39)kh.push('01');if(u>=.42)kh.push('02');if(u<.86)P.hold('kc',kh);
-  P.fly('03','kc','dp',u,.86,.93);
-  P.hold('dp',u>=.93?['00','01','02','03']:['00','01','02']);
-  P.talk('dp','Kể chuyện ơi: đọc 00 · 01 · 02 rồi viết 03 nhé ✍️',u,.28,.42);
-  P.say('kc','Ngôi thứ nhất, theo từng ngày, từng chặng…',u,.46,.64);
-  P.say('kc','Thiếu chi tiết thì ghi [CẦN ANH BỔ SUNG] 📌',u,.66,.84);
-  if(inW(u,.53,.58))P.mode('ta','shoot');P.fx('flash','ta',u,.545,.57);
-  P.say('ta','Hải âu kìa! 📸',u,.5,.6);
-  // bản nháp viết đúng 3 ngày của chuyến đi thật
-  P.float('kc',['Ngày 1 · Bay về, ra đảo','✎','Ngày 2 · Một vòng núi lửa','…','Ngày 3 · San hô, quà về bờ','Ảnh: Cột cờ Tổ quốc'],u,.44,.84,.055);
-  P.emo('kc','💡',u,.42,.5);P.emo('kc','📝',u,.7,.8,true);
-  if(inW(u,.45,.62))P.mode('anh','look');if(inW(u,.62,.84))P.mode('ks','point');
-  if(inW(u,.45,.84)){P.mode('kv','nod');P.mode('bt','nod');}
-  P.emo('anh','🌊',u,.46,.56,true);P.emo('dp','👍',u,.86,.94);
-  P.active('kc');
-  if(u<.28)P.camAt(-15,19.6,15,-2.5,.5);
-  else if(u<.42)P.cam(new V3(boat.position.x,1.6,boat.position.z),17,.5+.5*seg(u,.28,.42),.4);
-  else if(u<.86)P.camOn('kc',9,1.35,.3,1);
-  else P.cam(new V3(boat.position.x,1.6,boat.position.z),19,.7,.42);
-  P.note(u<.29?'Cả đội lên tàu ở cảng Sa Kỳ':u<.42?'Điều phối chuyển 00, 01, 02 cho Người kể chuyện':u<.86?'Tàu băng biển ≈ 15 hải lý; Người kể chuyện viết bản nháp':'📜 03_ban_nhap.md: Kể chuyện → Điều phối');
+  BOARD6.forEach((id,i)=>{const d=i*.008,[ox,oz]=SEATS6[id],sw=P.boatSeat(ox,oz);
+    if(u<.12){P.at(id,SK[id]);if(id!=='dp')P.faceTo(id,'dp');}
+    else if(u<.2+d)P.walk(id,[SK[id],[-17.6,19.2],[sw.x,19.2]],ease(seg(u,.12+d,.2+d)));
+    else if(u<.24+d)P.hop(id,P.g(sw.x,19.2),sw,seg(u,.2+d,.24+d));
+    else P.rideBoat(id,ox,oz);});
+  GUESTS.forEach((id,i)=>{P.fly('ve','dp',id,u,.015+i*.018,.05+i*.018);if(u>=.05+i*.018&&u<.3)P.hold(id,['ve']);});
+  lines([
+    ['dp','Vé tàu từng người nè, giữ kỹ nha! 🎫',.0,.12],
+    ['dp','Tàu chạy rồi! Khoảng 15 hải lý nữa là tới đảo tỏi 🧄',.3,.39],
+    ['anh','Bác… bác ổn… à không, bác không ổn 🤢',.39,.48],
+    ['kv','Tàu chạy nhanh vậy, cá có đuổi kịp không anh?',.47,.55],
+    ['ta','Hải âu kìa! Đứng yên cho chị chụp nè hải âu! 📸',.55,.62],
+    ['ks','Thấy đảo rồi! Kia kìa! 👉',.62,.69],
+    ['ta','Đám mây đó anh Tư ơi 😑',.69,.75],
+    ['bt','Chú Danh ơi, biển có đáy không?',.76,.84],
+    ['dp','Có chứ con, đáy biển là nhà của mực với cá đó 🐟',.84,.93]],u);
+  if(inW(u,.39,.6))P.mode('anh','scratch');P.emo('anh','🤢',u,.39,.6,true);
+  if(inW(u,.56,.61))P.mode('ta','shoot');P.fx('flash','ta',u,.57,.6);
+  if(inW(u,.62,.69))P.mode('ks','point');
+  P.emo('ks','😅',u,.7,.76,true);P.emo('bt','🤔',u,.76,.84,true);
+  P.active('dp');
+  if(u<.12)P.camAt(-19.8,21,11,.35,.4);
+  else if(u<.29)P.camAt(-15,19.6,15,-2.5,.5);
+  else P.cam(new V3(boat.position.x,1.6,boat.position.z),15,.7+.5*seg(u,.29,.95),.38);
+  P.note(u<.12?'🎫 Danh Pro phát vé tàu ở cảng Sa Kỳ':u<.29?'Cả đoàn lên tàu':'⛴️ Tàu băng biển ≈ 15 hải lý ra đảo Lý Sơn');
 };
+
+/* Chặng 4: về nhà Đạt, mâm cơm */
 STEPS[4].pose=function(u){
   P.bus(1);P.boat(1);
-  UNBOARD.forEach((id,i)=>{
-    const d=i*.013,[ox,oz]=SEATS[id],sw=P.boatSeat(ox,oz);
+  BOARD6.forEach((id,i)=>{const d=i*.013,[ox,oz]=SEATS6[id],sw=P.boatSeat(ox,oz);
     if(u<d)P.rideBoat(id,ox,oz);
     else if(u<.04+d)P.hop(id,sw,{x:sw.x,y:.6,z:10.2},seg(u,d,.04+d));
-    else P.walk(id,[[sw.x,10.2],[21.9,10.2],PLAZA[id]],ease(seg(u,.04+d,.13+d)));
-  });
-  if(u>.17){P.faceTo('anh','dp');['ks','ta','bt'].forEach(id=>P.faceTo(id,'kv'));P.face('kv',.3);P.face('kc',.3);P.faceTo('dp','kv');}
-  // vòng 1
-  P.fly('03','dp','kv',u,.2,.26);
-  P.talk('dp','Kiểm chứng: soát 03, đối chiếu 00 · 01 · 02 🔍',u,.17,.27);
-  if(inW(u,.26,.42)){P.mode('kv','inspect');P.front('kv','03');P.face('kv',.3);}
-  P.badge('kv','Vòng 1/2',u,.26,.53);
-  P.say('kv','Số liệu? Địa danh? Trình tự? Có bịa không?',u,.27,.41);
-  P.float('kv',['📍 Cột cờ ✓','📍 Chùa Hang ✓','🧭 trình tự?','🔢 ≈15 hải lý?','📷 dòng Ảnh?'],u,.27,.41,.028);
-  P.stamp('kv','CẦN SỬA ✗','bad',u,.42,.53);
-  // phản ứng: Kể chuyện gãi đầu toát mồ hôi, Biên tập chống cằm chờ, Ảnh tranh thủ chụp rổ hải sản nhà Đạt
-  P.emo('kc','😅',u,.43,.6,true);if(inW(u,.43,.56))P.mode('kc','scratch');
-  P.emo('kv','🧐',u,.27,.41,true);P.emo('dp','🔁',u,.52,.6);
-  if(inW(u,.26,.9))P.mode('bt','think');
-  if(u>.17&&u<.9)P.mode('anh','nod');
-  if(inW(u,.6,.72))P.faceTo('ta',[NHA_DAT.x-.6,NHA_DAT.z-1.7]);
-  P.snap('ta','nha_san',u,.62);
-  P.emo('ks','🍤',u,.66,.78,true);
-  if(u>=.9){P.mode('anh','cheer');P.mode('bt','cheer');}
-  P.emo('kv','🎉',u,.91,1);P.emo('kc','😊',u,.91,1,true);
-  P.fly('04x','kv','dp',u,.46,.52);
-  // trả về kể chuyện
-  P.fly('04x','dp','kc',u,.53,.58);
-  P.talk('dp','Trả về Kể chuyện: sửa đủ từng mục trong 04 🔁',u,.52,.62);
-  if(inW(u,.58,.7)){P.mode('kc','write');P.hold('kc',['04x']);P.face('kc',.3);}
-  P.say('kc','Đang sửa theo biên bản…',u,.6,.7);
-  P.float('kc',['✎','A','ơ','✓'],u,.58,.69,.035);
-  P.fly('03b','kc','dp',u,.7,.75);
-  // vòng 2
-  P.fly('03b','dp','kv',u,.75,.8);
-  if(inW(u,.8,.9)){P.mode('kv','inspect');P.front('kv','03b');P.face('kv',.3);}
-  P.badge('kv','Vòng 2/2',u,.75,1);
-  P.say('kv','Vòng 2: soát lại từng mục…',u,.8,.89);
-  P.float('kv',['✓','✓','✓'],u,.8,.89,.03);
-  P.stamp('kv','ĐẠT ✓','ok',u,.9,1);
-  if(u>=.9){P.mode('kv','cheer');P.mode('kc','cheer');}
-  P.fly('04','kv','dp',u,.93,.99);
-  const h=['00','01','02',u>=.75?'03b':'03'];if(u>=.52&&u<.99)h.push('04x');if(u>=.99)h.push('04');P.hold('dp',h);
-  P.active.apply(null,inW(u,.53,.75)?['kc']:['kv']);
-  if(u<.17)P.camAt(21.5,10.5,13,.35,.42);
-  else if(u<.26)P.camAt(24.6,9,11,.15,.42);
-  else if(u<.44)P.camOn('kv',7.5,.35,.3);
-  else if(u<.53)P.camAt(24.6,9,11,.15,.42);
-  else if(u<.72)P.camOn('kc',7.5,.25,.3);
-  else if(u<.8)P.camAt(24.6,9,11,.15,.42);
-  else P.camOn('kv',7.5,.35,.3);
-  P.note(u<.17?'Cập bến Lý Sơn, cả đội về sân cát nhà Đạt 🏡':u<.26?'Điều phối chuyển 03 cho Kiểm chứng':u<.42?'Vòng 1: soi từng số liệu, địa danh, trình tự':u<.53?'KẾT LUẬN: CẦN SỬA → 04 về Điều phối':u<.7?'Điều phối trả 04 về Người kể chuyện để sửa (không trao trực tiếp)':u<.8?'📜 03 bản sửa: Kể chuyện → Điều phối → Kiểm chứng':u<.9?'Vòng 2/2 (tối đa 2 vòng)':'KẾT LUẬN: ĐẠT ✓ → 04 về Điều phối');
+    else P.walk(id,[[sw.x,10.2],[21.9,10.2],PLAZA6[id]],ease(seg(u,.04+d,.14+d)));});
+  const tray=[NHA_DAT.x-.6,NHA_DAT.z-1.7];
+  if(u>.16)ORDER.forEach(id=>P.faceTo(id,tray));
+  lines([
+    ['dp','Về tới nhà Đạt rồi! Mâm cơm chờ sẵn nè cả nhà 🏡',.16,.25],
+    ['kv','Cuối cùng cũng được ăn!! 😭🍤',.25,.32],
+    ['ta','Khoan ăn! Để món ăn "lên hình" trước đã 📸',.32,.4],
+    ['kv','Chị Tám ơi… đồ ăn nguội hết rồi 🥲',.42,.5],
+    ['anh','Nước chấm tỏi đảo này, ăn một lần nhớ hoài đó nghen',.5,.59],
+    ['bt','Con đố chú Tèo: con gì có nhà mà không có cửa?',.59,.67],
+    ['kv','Con… ốc! Chú ăn luôn cái nhà của nó 😋',.67,.75],
+    ['ks','Tư tìm ra đường ngắn nhất tới nồi ốc rồi! 👉',.75,.83],
+    ['dp','Ăn no rồi, chiều nay đi một vòng đảo nha cả nhà!',.84,.94]],u);
+  if(inW(u,.25,.32))P.mode('kv','cheer');
+  P.snap('ta','mam_com',u,.33);
+  if(inW(u,.42,.84))P.mode('kv','edit');P.emo('kv','😋',u,.44,.84,true);
+  if(inW(u,.75,.83))P.mode('ks','point');
+  P.snap('ta','oc_ca',u,.77);
+  if(u>=.94)ORDER.forEach(id=>P.mode(id,'cheer'));
+  P.active('dp');
+  if(u<.16)P.camAt(21.5,10.5,13,.35,.42);
+  else if(inW(u,.42,.52))P.camOn('kv',7.5,-.7,.45);
+  else P.camAt(25.8,9.2,13,.3,.72);
+  P.note(u<.16?'Cập bến Lý Sơn, cả đoàn về sân cát nhà Đạt 🏡':'Mâm cơm nhà Đạt: gà luộc, tôm, ram, ốc, cá nướng, nước chấm tỏi đảo');
 };
+
+/* Chặng 5: vòng đảo, hoàng hôn ruộng tỏi */
 STEPS[5].pose=function(u){
   P.bus(1);P.boat(1);
-  ORDER.forEach((id,i)=>P.walkL(id,PLAZA[id],FIELD[id],ease(seg(u,i*.012,.15+i*.012))));
-  if(u>.2){P.face('bt',0);['dp','anh','kc','kv','ks','ta'].forEach(id=>P.faceTo(id,'bt'));}
-  P.fly('03b','dp','bt',u,.2,.26);P.fly('04','dp','bt',u,.23,.29);
-  P.talk('dp','04 đã ĐẠT ✅ Biên tập hoàn thiện 05 nhé!',u,.17,.3);
-  if(u>=.26&&u<.8)P.hold('bt',u>=.29?['04']:[]);
-  if(inW(u,.3,.8)){P.mode('bt','edit');P.front('bt','03b',TABLE_TOP());P.face('bt',0);}
-  P.fx('snips','bt',u,.32,.8);
-  P.say('bt','Chính tả · tiêu đề · chú thích ảnh · phụ lục',u,.33,.54);
-  P.say('bt','Giữ nguyên mọi [CẦN ANH BỔ SUNG] 📌',u,.57,.78);
-  P.float('bt',['✂️','Aa','✓','📝'],u,.32,.78,.05);
-  if(inW(u,.8,.9)){P.front('bt','05',TABLE_TOP());P.mode('bt','cheer');}
-  P.fx('burst','bt',u,.8,.92);
-  P.say('bt','Xong 05_nhat_ky.md! ✨',u,.82,.92);
-  P.fly('05','bt','dp',u,.9,.98);
-  if(inW(u,.42,.5)){P.mode('ks','look');P.faceTo('ks',[40,1]);}
-  P.emo('ks','🚩',u,.42,.52,true);
-  // hoàng hôn trên ruộng tỏi: trời ngả cam, Ảnh chụp đúng khoảnh khắc trong ảnh thật
-  F.dusk=sstep(.2,.55,u);
-  if(inW(u,.6,.66))P.faceTo('ta',[29,3.2]);
-  P.snap('ta','hoang_hon',u,.6);
-  if(inW(u,.3,.8)){P.mode('kc','nod');P.mode('kv','think');}
-  if(inW(u,.35,.8))P.mode('anh','relax');
-  P.emo('bt','✂️',u,.34,.44,true);P.emo('anh','🌇',u,.5,.62,true);
-  if(u>=.82&&u<.95)TEAM.forEach(id=>{if(id!=='bt'&&id!=='dp')P.mode(id,'cheer');});
-  const h=HOLD4.slice();if(u>=.98)h.push('05');P.hold('dp',h);
-  P.active('bt');
-  if(u<.18)P.camAt(28.4,9,13,.15,.42);else if(u<.88)P.camOn('bt',8.5,.05,.34);else P.camOn('dp',10,.2,.36);
-  P.note(u<.2?'Cả đội đi bộ tới ruộng tỏi, nắng bắt đầu ngả chiều':u<.3?'Điều phối chuyển 03 + 04 (ĐẠT) cho Biên tập':u<.8?'Biên tập cắt, sửa, thống nhất cách viết':u<.9?'✨ Ra đời cuốn 05_nhat_ky.md':'📖 05_nhat_ky.md: Biên tập → Điều phối');
+  ORDER.forEach((id,i)=>P.walkL(id,PLAZA6[id],FIELD6[id],ease(seg(u,i*.012,.13+i*.012))));
+  if(u>.15)ORDER.forEach(id=>{if(id!=='dp')P.faceTo(id,'dp');});
+  if(u>.15)P.face('dp',Math.PI*.15);
+  lines([
+    ['dp','Đi theo lá cờ nha cả nhà! 🚩',.0,.12],
+    ['dp','🚩 Kia là Cột cờ Tổ quốc trên đỉnh núi Thới Lới',.15,.24],
+    ['anh','Ngó lá cờ giữa biển, thấy tự hào ghê 🇻🇳',.24,.32],
+    ['dp','🛕 Còn kia là Chùa Hang, chùa nằm trong hang đá sát biển',.32,.41],
+    ['ta','Vách Hang Câu xếp lớp như trang sách, sống ảo hết nước chấm! 📸',.41,.5],
+    ['kv','Anh Danh ơi, tỏi cô đơn là tỏi… không có bồ hả? 🧄',.51,.59],
+    ['dp','Tỏi một tép đó em! Đặc sản Lý Sơn, trồng trên cát núi lửa',.59,.67],
+    ['kv','Để em thử ăn sống… CAY QUÁ TRỜI!! 🥵',.67,.75],
+    ['bt','Chú Tèo khóc vì tỏi kìa 😂',.75,.82],
+    ['ta','Hoàng hôn đẹp quá! Cả nhà đứng yên nha!',.82,.9],
+    ['ks','Đường về nhà Đạt… chắc là bên trái! 👈',.91,.99]],u);
+  F.dusk=sstep(.45,.75,u);
+  if(inW(u,.24,.32))P.emo('anh','🇻🇳',u,.24,.32,true);
+  if(inW(u,.42,.47))P.mode('ta','shoot');P.fx('flash','ta',u,.43,.46);
+  if(inW(u,.67,.82)){P.mode('kv','scratch');P.faceTo('kv',[30.2,4]);}P.emo('kv','🥵',u,.68,.82,true);
+  if(inW(u,.75,.82))P.mode('bt','cheer');
+  P.snap('ta','hoang_hon',u,.84);
+  if(inW(u,.91,.99)){P.mode('ks','point');GUESTS.forEach(id=>{if(id!=='ks')P.emo(id,'😑',u,.93,.99,true);});}
+  P.active('dp');
+  if(u<.15)P.camAt(27,8,12,.15,.4);
+  else if(u<.5)P.camAt(31,2,24,.35+.3*seg(u,.15,.5),.5);
+  else if(inW(u,.66,.76))P.camOn('kv',7,.2,.3);
+  else P.camAt(28.6,7.4,11.5,.1,.36);
+  P.note(u<.15?'Một vòng đảo núi lửa theo lá cờ Danh Pro':u<.5?'Cột cờ Tổ quốc · Chùa Hang · Hang Câu':'🧄 Ruộng tỏi lúc hoàng hôn');
 };
+
+/* Chặng 6: quà về bờ, album 3 ngày, chia tay */
 STEPS[6].pose=function(u){
   P.bus(1);P.boat(1);
-  ORDER.forEach((id,i)=>P.walkL(id,FIELD[id],FINAL[id],ease(seg(u,i*.01,.14+i*.01))));
-  if(u>.17){TEAM.forEach(id=>P.faceTo(id,'anh'));P.faceTo('anh','dp');}
-  P.talk('dp','Mời anh duyệt: 05_nhat_ky.md 📖',u,.18,.36);
-  P.fly('05','dp','anh',u,.2,.34);
-  P.hold('dp',u<.2?HOLD4.concat(['05']):HOLD4.slice());
-  if(u>=.34){P.front('anh','05');P.mode('anh','book');}
-  if(u>=.36)TEAM.forEach((id,i)=>{if(u>=.36+i*.02)P.mode(id,'wave');});
-  P.say('anh','Cảm ơn cả đội! 🥰',u,.4,.58);
-  P.talk('dp','Chỗ [CẦN ANH BỔ SUNG] đã gom ở cuối file ạ',u,.6,.8);
-  P.say('kv','Câu hỏi cho anh có trong 04 nhé!',u,.8,.97);
-  P.fx('drop','anh',u,.34,.6);
-  P.fx('confetti','anh',u,.42,.98);
-  // anh lật cuốn nhật ký có ảnh thật; cả đội nhảy mừng
-  if(u>=.6)TEAM.forEach((id,i)=>{if(!(F.B.some(b=>b.id===id)))P.mode(id,'dance');});
-  P.emo('anh','🥰',u,.4,.58,true);P.emo('anh','❤️',u,.62,.98);
-  P.emo('ta','📸',u,.5,.62);P.emo('ks','🗺️',u,.56,.68);P.emo('bt','✨',u,.62,.74);
+  ORDER.forEach((id,i)=>P.walkL(id,FIELD6[id],FINAL6[id],ease(seg(u,i*.01,.12+i*.01))));
+  if(u>.14){GUESTS.forEach(id=>P.faceTo(id,'dp'));P.face('dp',Math.PI);}
+  GUESTS.forEach((id,i)=>{P.fly('qua','dp',id,u,.16+i*.025,.22+i*.025);if(u>=.22+i*.025)P.hold(id,['qua']);});
+  lines([
+    ['dp','Quà về bờ đây: tỏi, hành, hải sản khô 🎁',.14,.27],
+    ['kv','Em xin thêm một thùng mực nữa được không anh? 🦑',.28,.37],
+    ['ta','Ảnh chuyến này đủ đăng cả năm luôn! 📸',.37,.46],
+    ['anh','Năm sau bác dắt cả nhà ra nữa!',.46,.55],
+    ['ks','Lần sau để Tư dẫn đường cho!',.55,.63],
+    ['dp','Thôi khỏi!! 😂',.63,.71],['kv','Thôi khỏi!! 😂',.63,.71],['ta','Thôi khỏi!! 😂',.63,.71],['anh','Thôi khỏi!! 😂',.63,.71],
+    ['bt','Con thương Lý Sơn! ❤️',.73,.84],
+    ['dp','Hẹn gặp lại cả nhà ở Lý Sơn nha! 👋',.85,.97]],u);
+  if(u>=.64)ORDER.forEach(id=>{if(!F.B.some(b=>b.id===id))P.mode(id,'dance');});
+  P.emo('ks','😅',u,.64,.72,true);P.emo('bt','❤️',u,.74,.98);P.emo('anh','🥰',u,.47,.56,true);
+  P.fx('confetti','dp',u,.3,.98);
   F.reel=u>=.4&&u<.98?(u<.59?1:u<.78?2:3):0;
-  P.active('dp','anh');
+  P.active('dp');
   const az=lerp(.95,-.35,ease(seg(u,.1,.9)));
-  if(u<.9)P.camAt(29.6,11,12.5,az,.36,1.1);else P.camAt(29.6,11,19,-.35,.5,1.1);
-  P.note(u<.2?'Cả đội xếp hàng trước Anh':u<.34?'📖 05_nhat_ky.md: Điều phối → Anh':u<.4?'Anh duyệt bản cuối; sửa ý nào thì quay về đúng bước đó':'📸 Cuốn nhật ký mở ra: 3 ngày, ảnh thật từng chặng (bấm ảnh để xem lớn)');
+  if(u<.9)P.camAt(29.6,10.6,13,az,.5,1.1);else P.camAt(29.6,10.6,19,-.35,.6,1.1);
+  P.note(u<.14?'Ra cầu cảng, chuẩn bị về bờ':u<.4?'🎁 Danh Pro phát quà về bờ':'📸 Lật album ba ngày (bấm ảnh để xem lớn) · Hẹn ngày quay lại!');
 };
 
 /* ---------------- Trạng thái phát ---------------- */
@@ -1481,7 +1557,7 @@ function chipsFor(ids){return ids.map(id=>'<span class="chip" style="--c:'+DEFS[
 function fileChips(list,w){return list.length?list.map(f=>'<span class="fc'+(w?' w':'')+'">'+f+'</span>').join(''):'<span style="color:var(--muted)">—</span>';}
 function renderCaption(){
   const s=STEPS[si];
-  $('#cap-step').textContent=si===0?'Mở đầu':'Bước '+si+'/6';
+  $('#cap-step').textContent='Chặng '+si+'/6';
   $('#cap-title').textContent=s.title;
   $('#cap-who').innerHTML=chipsFor(s.who);
   $('#cap-read').innerHTML=fileChips(s.read);
@@ -1521,10 +1597,10 @@ addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,text
 const card=$('#card');
 function openCard(id){const d=DEFS[id],I=INFO[id];
   card.style.setProperty('--c',d.color);
-  // bản công khai: không hiện đường dẫn file, model, công cụ nội bộ
-  card.innerHTML='<div class="ch"><div class="av">'+d.emoji+'</div><div><b>'+d.name+'</b><small>'+PUB_ROLE[id]+'</small></div><button class="x" aria-label="Đóng">✕</button></div><div class="cb">'+
-   '<h4>Đọc</h4><div class="v">'+fileChips(I.reads)+'</div><h4>Ghi</h4><div class="v">'+fileChips(I.writes,true)+'</div>'+
-   '<h4>Việc chính</h4><ul>'+I.jobs.map(j=>'<li>'+j+'</li>').join('')+'</ul><h4>Giới hạn</h4><ul>'+I.limits.map(j=>'<li>'+j+'</li>').join('')+'</ul>'+
+  card.innerHTML='<div class="ch"><div class="av">'+d.emoji+'</div><div><b>'+d.name+'</b><small>'+I.role+'</small></div><button class="x" aria-label="Đóng">✕</button></div><div class="cb">'+
+   '<h4>Tính cách</h4><ul>'+I.traits.map(j=>'<li>'+j+'</li>').join('')+'</ul>'+
+   '<h4>Câu cửa miệng</h4><p style="margin:2px 0 6px;font-style:italic">“'+I.quote+'”</p>'+
+   '<h4>Mê nhất</h4><div class="v"><span class="fc">'+I.like+'</span></div>'+
    '<button class="cbtn on follow">🎥 Camera theo '+(d.short||d.name)+'</button></div>';
   card.hidden=false;card.querySelector('.x').onclick=closeCard;card.querySelector('.follow').onclick=()=>{setCamMode('follow',id);user.d=Math.min(user.d,9);};
 }
@@ -1590,7 +1666,7 @@ el.addEventListener('pointermove',e=>{const p=pts.get(e.pointerId);if(!p)return;
   else if(pts.size===2){const a=[...pts.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(pinch0>0){toUser();user.d=Math.max(4,Math.min(150,user.d*pinch0/d));}pinch0=d;}});
 function up(e){const wasClick=down&&down.moved<6&&performance.now()-down.t<500&&pts.size===1;pts.delete(e.pointerId);if(pts.size<2)pinch0=0;if(wasClick)pick(e.clientX,e.clientY);if(!pts.size)down=null;}
 el.addEventListener('pointerup',up);el.addEventListener('pointercancel',e=>{pts.delete(e.pointerId);down=null;});
-el.addEventListener('wheel',e=>{e.preventDefault();if(isoOn){if(camMode==='auto')setCamMode('user');isoView.z=Math.max(.6,Math.min(3.5,isoView.z*Math.exp(-e.deltaY*.0012)));return;}toUser();user.d=Math.max(4,Math.min(150,user.d*Math.exp(e.deltaY*.0012)));},{passive:false});
+el.addEventListener('wheel',e=>{if(EMBED&&!e.ctrlKey)return;e.preventDefault();if(isoOn){if(camMode==='auto')setCamMode('user');isoView.z=Math.max(.6,Math.min(3.5,isoView.z*Math.exp(-e.deltaY*.0012)));return;}toUser();user.d=Math.max(4,Math.min(150,user.d*Math.exp(e.deltaY*.0012)));},{passive:false});
 function pick(x,y){let best=null,bd=1e9;ORDER.forEach(id=>{const a=apos(id);const p=scr(a.x,a.y+.9,a.z);if(!p)return;const rad=isoOn?44:Math.max(26,(innerHeight*1.1)/camera.position.distanceTo(a));const d=Math.hypot(p[0]-x,p[1]-y);if(d<rad&&d<bd){bd=d;best=id;}});if(best)openCard(best);}
 
 /* ---------------- Sa bàn isometric (iso-infographic) ----------------
@@ -1735,8 +1811,10 @@ function frame(now){
     if(spk&&spk!==id&&m&&F.A[spk]&&!BUSY.includes(m.mode)){const s=F.A[spk];if(Math.hypot(s.x-m.x,s.z-m.z)<8)lk={x:s.x,z:s.z};}a.lookT=lk;});
   ORDER.forEach(id=>{const st=F.A[id];if(st)actors[id].update(st,firstFrame?0:dt,T);});
   // máy bay mở đầu
-  if(F.plane>=0&&F.plane<1&&!isoOn){plane.visible=true;const k=ease(F.plane);plane.position.lerpVectors(PLANE_A,PLANE_B,k);plane.position.y+=Math.sin(Math.PI*k)*5;
-    plane.rotation.set(-.12*(1-k),Math.atan2(PLANE_B.x-PLANE_A.x,PLANE_B.z-PLANE_A.z),Math.sin(T*1.5)*.08*WA);}else plane.visible=false;
+  if(F.plane>=0&&!isoOn){plane.visible=true;const k=Math.min(.999,1-Math.pow(1-F.plane,1.5));plane.position.copy(PLANE_CURVE.getPointAt(k));const tg=PLANE_CURVE.getTangentAt(k);
+    plane.rotation.set(-Math.asin(Math.max(-1,Math.min(1,tg.y)))*.8,Math.atan2(tg.x,tg.z),F.plane<1?Math.sin(T*1.5)*.06*WA+(k<.45?-.18*Math.sin(k*7):0):0);}else plane.visible=false;
+  // người còn ngồi trong máy bay thì ẩn
+  ORDER.forEach(id=>{actors[id].root.visible=!F.hideAll;});
   // trời ngả hoàng hôn ở bước biên tập trên ruộng
   dusk+=((F.dusk||0)-dusk)*(1-Math.exp(-dt*(RM?6:1.5)));
   sunL.color.setHex(0xfff0d2).lerp(_dc.setHex(0xff9455),dusk);sunL.intensity=.9-.12*dusk;
@@ -1745,7 +1823,7 @@ function frame(now){
   // dải ảnh "lật trang nhật ký"
   const rv=isoOn?0:(F.reel||0);
   if(rv!==reelV){reelV=rv;const R=$('#reel');if(!rv)R.hidden=true;else{const it=TRIP.filter(t=>t.day===rv).slice(0,4);
-    R.innerHTML='<b>📖 05_nhat_ky.md · '+DAYS[rv]+'</b><div class="r">'+it.map(t=>'<button data-k="'+t.k+'" title="'+t.t+'"><img alt="'+tname(t.k)+'" src="'+tthumb(t.k)+'"></button>').join('')+'</div>';R.hidden=false;}}
+    R.innerHTML='<b>📖 Album chuyến đi · '+DAYS[rv]+'</b><div class="r">'+it.map(t=>'<button data-k="'+t.k+'" title="'+t.t+'"><img alt="'+tname(t.k)+'" src="'+tthumb(t.k)+'"></button>').join('')+'</div>';R.hidden=false;}}
   // vòng sáng agent đang làm
   ORDER.forEach(id=>{const a=actors[id],on=F.act.includes(id);a.ring.visible=on;if(on){const s=1+.12*Math.sin(T*4);a.ring.scale.set(s,s,s);a.ring.material.opacity=.55+.3*Math.sin(T*4);}});
   // môi trường
@@ -1815,15 +1893,20 @@ function renderFx(){
   // bụi cát dưới chân khi chạy
   ORDER.forEach(id=>{const a=actors[id];if(a.ride||a.spd<1.4)return;const r=a.root.position,[fx,fz]=fwd(id);
     for(let i=0;i<2;i++){const ph=(T*2.6+i*.5+a.seed)%1;soft(r.x-fx*ph*.7,r.y+.08+ph*.25,r.z-fz*ph*.7,.22+ph*.4,0xe9dcc0,.45*(1-ph)*Math.min(1,a.spd-1.4));}});
+  // Cầu Rồng phun lửa
+  if(F.fire>=0&&dragonHead){dragonHead.getWorldPosition(_a);const on=Math.sin(F.fire*Math.PI);
+    for(let i=0;i<(MOBILE?10:18);i++){const ph=(T*1.8+i/18)%1;soft(_a.x+.5+ph*3.2,_a.y+.05+ph*.5+Math.sin(i*2.7+T*6)*.12*ph,_a.z+Math.sin(i*1.9)*.25*ph,(.25+ph*1.3)*on,ph<.35?0xffe39a:ph<.7?0xff8a2a:0xd2452a,.85*(1-ph)*on);}}
+  // vầng sáng quanh tượng Quan Âm
+  if(F.glow){soft(F.glow[0],F.glow[1],F.glow[2],2.2+.2*Math.sin(T*2),0xfff3c4,.45);}
   // vệt khói sau máy bay
-  if(plane.visible){for(let i=0;i<(MOBILE?5:9);i++){const ph=(T*1.2+i/9)%1;_b.set(0,0,-2.6-ph*7);plane.localToWorld(_b);soft(_b.x,_b.y,_b.z,.8+ph*2.2,0xffffff,.6*(1-ph));}}
+  if(plane.visible&&F.plane<1){for(let i=0;i<(MOBILE?5:9);i++){const ph=(T*1.2+i/9)%1;_b.set(0,0,-2.6-ph*7);plane.localToWorld(_b);soft(_b.x,_b.y,_b.z,.8+ph*2.2,0xffffff,.6*(1-ph));}}
   if(boat.moving){for(let i=0;i<(MOBILE?6:10);i++){const ph=(T*1.4+i/10)%1;_b.set(Math.sin(i*2.3)*.6*ph*2,.1,-3.6-ph*4.5);boat.localToWorld(_b);soft(_b.x,.25,_b.z,.6+ph*1.6,0xffffff,.55*(1-ph));}}
   if(bus.moving){for(let i=0;i<4;i++){const ph=(T*1.6+i/4)%1;_b.set(Math.sin(i*1.9)*.5,.3+ph*.5,-3.2-ph*1.6);bus.localToWorld(_b);soft(_b.x,_b.y,_b.z,.5+ph*.9,0xe8dcc0,.45*(1-ph));}}
 }
 function renderOverlay(){
   W=innerWidth;Hh=innerHeight;
   const camD=cam.d;
-  ORDER.forEach(id=>{const r=actors[id].root.position,e=nameTags[id];const p=isoOn?null:scr(r.x,r.y+2.2,r.z);if(!p||camD>60){e.style.display='none';return;}e.style.display='';place(e,p,-50,-100);});
+  ORDER.forEach(id=>{const r=actors[id].root.position,e=nameTags[id];const p=(isoOn||F.hideAll)?null:scr(r.x,r.y+2.2,r.z);if(!p||camD>60){e.style.display='none';return;}e.style.display='';place(e,p,-50,-100);});
   PLACES.forEach((pl,i)=>{const e=placeEls[i];const y=pl[4]==='sea'?pl[3]:groundY(pl[1],pl[2])+pl[3];const dist=camera.position.distanceTo(_a.set(pl[1],y,pl[2]));const o=Math.max(0,Math.min(1,(dist-9)/10));const p=scr(pl[1],y,pl[2]);
     if(isoOn||!p||o<=0||(pl[5]&&pinsOn)){e.style.display='none';return;}e.style.display='';e.style.opacity=o.toFixed(2);place(e,p,-50,-100);});
   // ghim ảnh thật tại địa điểm
