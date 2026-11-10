@@ -24,7 +24,7 @@ img{max-width:100%}
 <title>Đặc Sản Lý Sơn Quê Tôi</title>
 <script>try{var lsdNen=localStorage.getItem("lsd_nen");if(lsdNen==="light"||lsdNen==="dark")document.documentElement.setAttribute("data-theme",lsdNen);var lsdCo=localStorage.getItem("lsd_co");if(["87.5","112.5","125","137.5"].indexOf(lsdCo)>=0)document.documentElement.style.fontSize=lsdCo+"%"}catch(e){}</script>
 <script>/* Mục bị người bán ẩn (lưu máy chủ, nhớ tạm trên máy khách để ẩn ngay khi mở trang) */
-window.lsdCssAn=function(a){return (a||[]).filter(function(x){return /^[a-z0-9-]{1,40}$/.test(x)}).map(function(x){return "html:not(.adm) #"+x+",html:not(.adm) a[href='#"+x+"']{display:none!important}html.adm #"+x+"{outline:2px dashed #C8591A;outline-offset:-4px}html.adm #"+x+">*:not(.adm-sec-eye){opacity:.4}"}).join("")};
+window.lsdCssAn=function(a){return (a||[]).filter(function(x){return /^[a-z0-9-]{1,40}$/.test(x)}).map(function(x){if(x==="toan-trang")return "html:not(.adm) body>*:not(header):not(dialog):not(script):not(style):not(.adm-bar){display:none!important}html.adm main,html.adm footer{outline:3px dashed #C8591A;outline-offset:-3px}html.adm #admAll{background:#C8591A;border-color:#C8591A;color:#fff}";return "html:not(.adm) #"+x+",html:not(.adm) a[href='#"+x+"']{display:none!important}html.adm #"+x+"{outline:2px dashed #C8591A;outline-offset:-4px}html.adm #"+x+">*:not(.adm-sec-eye){opacity:.4}"}).join("")};
 try{var lsdAn=JSON.parse(localStorage.getItem("lsd_an")||"[]");if(lsdAn&&lsdAn.length){var lsdSt=document.createElement("style");lsdSt.id="anMucCss";lsdSt.textContent=lsdCssAn(lsdAn);document.head.appendChild(lsdSt)}if(sessionStorage.getItem("lsd_adm"))document.documentElement.classList.add("adm")}catch(e){}</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -758,9 +758,9 @@ html.adm .adm-btn{background:#C8591A;border-color:#C8591A;color:#fff}
 .adm-bar b:empty{display:none}
 .adm-note{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);padding:6px 12px;border-radius:999px;background:#2A1A10;text-align:center;font-weight:500;color:#FFD9BF;box-shadow:0 4px 14px rgba(0,0,0,.3)}
 .adm-note:empty{display:none}
-html.adm body{padding-top:40px}
-html.adm header.top{top:calc(env(safe-area-inset-top,0px) + 40px)}
-@media (max-width:520px){html.adm body{padding-top:76px}html.adm header.top{top:calc(env(safe-area-inset-top,0px) + 76px)}}
+html.adm body{padding-top:var(--admh,40px)}
+html.adm header.top{top:calc(env(safe-area-inset-top,0px) + var(--admh,40px))}
+@media (max-width:520px){html.adm{--admh:76px}}
 .adm-box .adm-form{display:grid;gap:8px;padding:16px 24px 4px}
 .adm-box .adm-form label{font-size:.86rem;font-weight:600}
 .pw{position:relative;display:flex}
@@ -789,6 +789,9 @@ html.adm header.top{top:calc(env(safe-area-inset-top,0px) + 40px)}
 .adm-muc li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:.92rem}
 .adm-muc li:first-child{border-top:0}
 .adm-muc li.tat span{color:var(--muted);text-decoration:line-through}
+.adm-muc li.all{padding:10px 0;border-bottom:2px solid var(--line);font-weight:700}
+.adm-muc li.all.tat span{color:#C8591A;text-decoration:none}
+.adm-muc li.all+li{border-top:0}
 .adm-muc .eye-btn{flex:none;width:40px;height:30px}
 .adm-muc .eye-btn[aria-pressed="false"]{color:#C8591A;border-color:#C8591A}
 .adm-hint{margin:8px 20px 0;font-size:.8rem;line-height:1.5;color:var(--muted)}
@@ -1644,7 +1647,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.47</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.48</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1756,6 +1759,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
   <span class="adm-t"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.6-1.8"/></svg>Quản trị</span>
   <button type="button" id="admFbBtn">Duyệt phản hồi <b id="admCho"></b></button>
   <button type="button" id="admMucBtn">Ẩn/hiện mục</button>
+  <button type="button" class="eye-btn" id="admAll" aria-pressed="true"><svg class="e-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3.2"/></svg><svg class="e-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.8.7 5.3 1.7M22 12s-3.6 7-10 7c-2 0-3.8-.7-5.3-1.7"/><circle cx="12" cy="12" r="3.2"/><path d="M4 20 20 4"/></svg><span>Toàn trang: đang hiện</span></button>
   <button type="button" id="admOut">Thoát</button>
   <span class="adm-note" id="admNote" role="status"></span>
 </div>
@@ -1813,8 +1817,13 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
   if(window.fetch&&!tk()&&Date.now()-t0>300000)fetch(API+"?action=cfg&x="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(j){if(j&&Array.isArray(j.an))apDung(j.an);}).catch(function(){});
   var gan=false;
   function ganMat(){if(gan)return;gan=true;cacMuc().forEach(function(s){var b=document.createElement("button");b.type="button";b.className="eye-btn adm-sec-eye";b.setAttribute("data-muc",s.id);b.innerHTML=EYE+"<span></span>";b.addEventListener("click",function(){doiMuc(s.id);});s.insertBefore(b,s.firstChild);});veMat();}
-  function veMat(){[].forEach.call(document.querySelectorAll(".adm-sec-eye"),function(b){var id=b.getAttribute("data-muc"),h=an.indexOf(id)<0,s=$(id);b.setAttribute("aria-pressed",h?"true":"false");b.lastChild.textContent=h?"Đang hiện":"Đang ẩn";if(s)b.setAttribute("aria-label",(h?"Ẩn mục: ":"Hiện lại mục: ")+tenMuc(s));});veDsMuc();}
+  function veAll(){var b=$("admAll");if(!b)return;var tat=an.indexOf("toan-trang")>=0;b.setAttribute("aria-pressed",tat?"false":"true");b.lastChild.textContent=tat?"Toàn trang: ĐANG ẨN":"Toàn trang: đang hiện";
+    b.setAttribute("aria-label",tat?"Hiện lại toàn bộ trang cho khách":"Ẩn toàn bộ trang, chỉ để lại đầu trang");}
+  function veMat(){veAll();[].forEach.call(document.querySelectorAll(".adm-sec-eye"),function(b){var id=b.getAttribute("data-muc"),h=an.indexOf(id)<0,s=$(id);b.setAttribute("aria-pressed",h?"true":"false");b.lastChild.textContent=h?"Đang hiện":"Đang ẩn";if(s)b.setAttribute("aria-label",(h?"Ẩn mục: ":"Hiện lại mục: ")+tenMuc(s));});veDsMuc();}
   function veDsMuc(){var ul=$("admMucList");if(!ul)return;var f=document.activeElement&&document.activeElement.getAttribute("data-muc");ul.textContent="";
+    (function(){var tat=an.indexOf("toan-trang")>=0,li=document.createElement("li"),sp=document.createElement("span"),b=document.createElement("button");li.className="all"+(tat?" tat":"");
+      sp.textContent="TOÀN BỘ TRANG (chỉ để lại đầu trang)";b.type="button";b.className="eye-btn";b.innerHTML=EYE;b.setAttribute("data-muc","toan-trang");b.setAttribute("aria-pressed",tat?"false":"true");
+      b.setAttribute("aria-label",tat?"Hiện lại toàn bộ trang":"Ẩn toàn bộ trang");b.addEventListener("click",function(){doiAll();});li.appendChild(sp);li.appendChild(b);ul.appendChild(li);if(f==="toan-trang"&&ul.closest("dialog").open)b.focus();})();
     cacMuc().forEach(function(s){var h=an.indexOf(s.id)<0,li=document.createElement("li"),sp=document.createElement("span"),b=document.createElement("button");li.className=h?"":"tat";sp.textContent=tenMuc(s);
       b.type="button";b.className="eye-btn";b.innerHTML=EYE;b.setAttribute("data-muc",s.id);b.setAttribute("aria-pressed",h?"true":"false");b.setAttribute("aria-label",(h?"Ẩn mục: ":"Hiện lại mục: ")+tenMuc(s));
       b.addEventListener("click",function(){doiMuc(s.id);});li.appendChild(sp);li.appendChild(b);ul.appendChild(li);if(f===s.id&&ul.closest("dialog").open)b.focus();});}
@@ -1826,7 +1835,9 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
 
   /* --- Gọi máy chủ kèm mã phiên --- */
   function goi(o){o.token=tk();return fetch(API,{method:"POST",body:JSON.stringify(o)}).then(function(r){return r.json();}).then(function(j){j=j||{};if(j.loi==="het_phien")ra(true);return j;});}
-  function vao(t,a){try{sessionStorage.setItem(KEY,t);}catch(e){}R.classList.add("adm");$("admBar").hidden=false;ganMat();if(a)apDung(a);taiFb(true);}
+  var bar=$("admBar");function doBar(){if(!bar.hidden)R.style.setProperty("--admh",Math.ceil(bar.getBoundingClientRect().height)+"px");}
+  if(window.ResizeObserver)new ResizeObserver(doBar).observe(bar);else window.addEventListener("resize",doBar);
+  function vao(t,a){try{sessionStorage.setItem(KEY,t);}catch(e){}R.classList.add("adm");bar.hidden=false;doBar();ganMat();if(a)apDung(a);taiFb(true);}
   function ra(het){var t=tk();try{sessionStorage.removeItem(KEY);}catch(e){}R.classList.remove("adm");$("admBar").hidden=true;
     ["admFb","admMuc"].forEach(function(i){var d=$(i);if(d&&d.open)d.close();});
     if(t&&!het)fetch(API,{method:"POST",body:JSON.stringify({act:"logout",token:t})}).catch(function(){});
@@ -1886,6 +1897,10 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
   $("admMucClose").addEventListener("click",function(){$("admMuc").close();});
   [fbD,$("admMuc"),dl].forEach(function(d){d.addEventListener("click",function(e){if(e.target===d)d.close();});});
   $("admOut").addEventListener("click",function(){ra(false);});
+  /* Ẩn toàn bộ trang: khách chỉ còn thấy đầu trang (header) */
+  function doiAll(){var tat=an.indexOf("toan-trang")>=0;
+    if(!tat&&!confirm("Ẩn toàn bộ trang? Khách chỉ còn thấy phần đầu trang (tên trang, nút, thời tiết). Anh vẫn thấy đầy đủ để bật lại."))return;doiMuc("toan-trang");}
+  $("admAll").addEventListener("click",doiAll);
   if(tk())vao(tk(),null);
 })();
 </script>
