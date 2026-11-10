@@ -1,6 +1,6 @@
 // Service worker – Đặc Sản Lý Sơn Quê Tôi
-// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v75, v3...) để app trên điện thoại tự cập nhật.
-const CACHE = "lyson-v75";
+// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v76, v3...) để app trên điện thoại tự cập nhật.
+const CACHE = "lyson-v76";
 // Ảnh để riêng, KHÔNG xóa khi cập nhật trang: khách quay lại không phải tải lại ảnh (tiết kiệm băng thông).
 // Quy tắc: thay ảnh thì đặt TÊN FILE MỚI, đừng ghi đè ảnh cũ cùng tên.
 const IMG = "lyson-img-1";
@@ -32,18 +32,24 @@ self.addEventListener("fetch", (e) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin && !/fonts\.(googleapis|gstatic)\.com$|cdnjs\.cloudflare\.com$/.test(url.hostname)) return;
 
-  // Trang HTML: lấy bản mới từ mạng, mất mạng thì dùng bản đã lưu
+  // Trang HTML: lấy bản mới từ mạng, mất mạng thì dùng bản đã lưu.
+  // Trang chủ lưu vào "./index.html"; trang khác (hanh_trinh_3d.html) lưu theo đúng địa chỉ của nó,
+  // để trang 3D không bao giờ ghi đè trang chủ khi mất mạng.
   if (req.mode === "navigate") {
+    const home = url.origin === self.location.origin && /\/(index\.html)?$/.test(url.pathname);
     e.respondWith(
       fetch(req)
-        .then((res) => { const copy = res.clone(); caches.open(CACHE).then((c) => c.put("./index.html", copy)); return res; })
-        .catch(() => caches.match("./index.html"))
+        .then((res) => {
+          if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(home ? "./index.html" : req, copy)); }
+          return res;
+        })
+        .catch(() => (home ? caches.match("./index.html") : caches.match(req).then((hit) => hit || caches.match("./index.html"))))
     );
     return;
   }
 
-  // Ảnh của trang: lưu ở kho ảnh riêng (giữ qua các bản cập nhật)
-  if (url.origin === self.location.origin && url.pathname.indexOf("/images/") >= 0) {
+  // Ảnh của trang và thư viện có số phiên bản trong tên (lib/three.r128.min.js): lưu ở kho riêng, giữ qua các bản cập nhật
+  if (url.origin === self.location.origin && (url.pathname.indexOf("/images/") >= 0 || url.pathname.indexOf("/lib/") >= 0)) {
     e.respondWith(
       caches.open(IMG).then((c) => c.match(req).then((hit) => hit || fetch(req).then((res) => {
         if (res && res.ok) c.put(req, res.clone());

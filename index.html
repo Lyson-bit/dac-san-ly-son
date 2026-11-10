@@ -358,6 +358,8 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 #zaloBtn{flex-direction:column;justify-content:center;gap:3px;line-height:1.2;text-align:center}
 #zaloBtn .zb-how{font:500 .74rem/1.3 var(--f-body);opacity:.88}
 .btn.sm{padding:9px 16px;font-size:.9rem}
+.j3d{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:18px 0 6px}
+.j3d small{flex:1 1 220px;color:var(--muted);font-size:.88rem;line-height:1.45}
 .send-status{font-size:.92rem;line-height:1.5;padding:10px 14px;border-radius:8px;border:1px solid transparent}
 .send-status:empty{display:none}
 .send-status.ok{background:color-mix(in srgb,#2E9E6A 24%,var(--fg));border-color:#2E9E6A}
@@ -1369,6 +1371,9 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         </ol>
       </div>
 
+      <p class="j3d"><a class="btn primary" id="j3dLink" href="hanh_trinh_3d.html">🎬 Xem hành trình 3D</a><small>Đội nhân vật hoạt hình đi lại chuyến Đà Nẵng → Lý Sơn với ảnh thật của chuyến đi. Xem được trên điện thoại.</small></p>
+      <script>/* Bản xem trước (claude.ai) không có trang 3D: trỏ thẳng tới web chính */(function(){var a=document.getElementById('j3dLink');if(a&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){a.href='https://lyson-bit.github.io/dac-san-ly-son/hanh_trinh_3d.html';a.target='_blank';a.rel='noopener';}})();</script>
+
       <div class="day-notes">
         <article class="note">
           <h3><span>01</span>Bay về, ra đảo</h3>
@@ -1671,7 +1676,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.54</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.55</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
