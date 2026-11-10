@@ -1,6 +1,9 @@
 // Service worker – Đặc Sản Lý Sơn Quê Tôi
-// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v71, v3...) để app trên điện thoại tự cập nhật.
-const CACHE = "lyson-v71";
+// Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v72, v3...) để app trên điện thoại tự cập nhật.
+const CACHE = "lyson-v72";
+// Ảnh để riêng, KHÔNG xóa khi cập nhật trang: khách quay lại không phải tải lại ảnh (tiết kiệm băng thông).
+// Quy tắc: thay ảnh thì đặt TÊN FILE MỚI, đừng ghi đè ảnh cũ cùng tên.
+const IMG = "lyson-img-1";
 const ASSETS = [
   "./",
   "./index.html",
@@ -17,7 +20,7 @@ self.addEventListener("install", (e) => {
 self.addEventListener("activate", (e) => {
   e.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE && k !== IMG).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
@@ -35,6 +38,17 @@ self.addEventListener("fetch", (e) => {
       fetch(req)
         .then((res) => { const copy = res.clone(); caches.open(CACHE).then((c) => c.put("./index.html", copy)); return res; })
         .catch(() => caches.match("./index.html"))
+    );
+    return;
+  }
+
+  // Ảnh của trang: lưu ở kho ảnh riêng (giữ qua các bản cập nhật)
+  if (url.origin === self.location.origin && url.pathname.indexOf("/images/") >= 0) {
+    e.respondWith(
+      caches.open(IMG).then((c) => c.match(req).then((hit) => hit || fetch(req).then((res) => {
+        if (res && res.ok) c.put(req, res.clone());
+        return res;
+      })))
     );
     return;
   }
