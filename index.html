@@ -677,7 +677,57 @@ section[id]{scroll-margin-top:var(--hdr,9.75rem)}
 }
 @media (prefers-reduced-motion:reduce){.item.flash{animation:none}}
 /* Nút ngôi nhà về đầu trang, góc trái trên của thanh đầu trang */
-.topbar{position:absolute;z-index:2;top:8px;left:max(16px,env(safe-area-inset-left,0px),calc((100% - 1080px) / 2 + 16px));display:flex;align-items:center;gap:6px}
+.topbar{position:absolute;z-index:2;top:8px;left:max(16px,env(safe-area-inset-left,0px),calc((100% - 1080px) / 2 + 16px));right:max(16px,env(safe-area-inset-right,0px),calc((100% - 1080px) / 2 + 16px));display:flex;align-items:center;gap:6px;pointer-events:none}
+.topbar>*{pointer-events:auto}
+/* Góc phải hàng trên: Chia sẻ, Phản hồi */
+.top-r{position:relative;margin-left:auto;display:flex;align-items:center;gap:6px}
+.top-act{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);font:600 .8rem/1 var(--f-body);cursor:pointer}
+.top-act:hover{background:var(--sea-soft)}
+.top-act svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fb-split{position:relative;display:inline-flex}
+.fb-split #fbBtn{border-radius:999px 0 0 999px;padding-right:9px}
+.fb-caret{border-left:0;border-radius:0 999px 999px 0;padding:0 8px 0 6px;position:relative}
+.fb-caret::before{content:"";position:absolute;left:0;top:7px;bottom:7px;width:1px;background:var(--line)}
+.fb-caret svg{width:14px;height:14px}
+.fb-caret[aria-expanded="true"]{background:var(--sea-soft)}
+.fb-menu{position:absolute;top:calc(100% + 6px);right:0;z-index:7;display:grid;min-width:190px;padding:6px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 10px 28px rgba(0,0,0,.28)}
+.fb-menu[hidden]{display:none}
+.fb-menu button{padding:8px 10px;border:0;border-radius:7px;background:none;color:var(--fg);font:600 .84rem/1.2 var(--f-body);text-align:left;cursor:pointer;white-space:nowrap}
+.fb-menu button:hover,.fb-menu button:focus-visible{background:var(--sea-soft)}
+.fb-n{min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--sea);color:var(--on-sea);font:800 .66rem/18px var(--f-body);text-align:center}
+.fb-n:empty{display:none}
+.top-msg{position:absolute;top:calc(100% + 8px);right:0;z-index:6;width:max-content;max-width:min(260px,calc(100vw - 32px));padding:8px 10px;border-radius:10px;background:var(--fg);color:var(--bg);font:500 .78rem/1.4 var(--f-body);box-shadow:0 8px 24px rgba(0,0,0,.28)}
+@media (min-width:901px) and (max-width:1000px){.top-lb{display:none}}
+@media (min-width:1001px) and (max-width:1100px){:root[style*="font-size"] .top-lb{display:none}}
+@media (max-width:640px){.top-lb{display:none}.top-act{height:28px;padding:0 8px;gap:4px}.fb-split #fbBtn{padding-right:6px}.fb-caret{padding:0 6px 0 4px}}
+/* Hộp phản hồi */
+dialog.fb-box{width:min(620px,calc(100% - 24px))}
+.fb-body{padding:14px 20px 4px;display:grid;gap:12px}
+.fb-chips{display:flex;flex-wrap:wrap;gap:6px}
+.fb-chips button{padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--fg);font:600 .8rem/1.2 var(--f-body);cursor:pointer}
+.fb-chips button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:var(--on-sea)}
+.fb-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-height:min(40vh,320px);overflow-y:auto}
+.fb-item{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.fb-item header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-size:.8rem;color:var(--muted)}
+.fb-item header b{color:var(--fg);font-size:.88rem}
+.fb-tag{padding:1px 8px;border-radius:999px;background:var(--sea-soft);color:var(--fg);font-weight:600;font-size:.72rem}
+.fb-item p{margin:6px 0 0;font-size:.92rem;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere}
+.fb-item .fb-rep{padding:6px 10px;border-left:3px solid var(--shallot);background:var(--surface);font-size:.86rem}
+.fb-empty{padding:10px 2px;font-size:.88rem;color:var(--muted)}
+.fb-form{display:grid;gap:10px;padding-top:12px;border-top:1px solid var(--line)}
+.fb-form h4{margin:0;font-family:var(--f-display);font-size:1.05rem}
+.fb-form label{display:grid;gap:4px;font-size:.84rem;font-weight:600}
+.fb-form input,.fb-form textarea{background:var(--bg);color:var(--fg);border:1px solid var(--line)}
+.fb-form textarea{resize:vertical;min-height:96px}
+.fb-type{display:flex;flex-wrap:wrap;gap:6px;border:0;margin:0;padding:0}
+.fb-type legend{width:100%;margin-bottom:4px;padding:0;font-size:.84rem;font-weight:600}
+.fb-type label{display:inline-flex;align-items:center;gap:5px;font-weight:500;cursor:pointer}
+.fb-type input{width:auto}
+.fb-note{margin:0;font-size:.78rem;line-height:1.5;color:var(--muted)}
+.fb-msg{margin:0;font-size:.86rem;min-height:1.3em}
+.fb-msg.ok{color:var(--sea)}
+.fb-msg.warn{color:#C8591A}
+.fb-box .story-actions{padding:4px 0 6px}
 .home-btn{flex:none;display:grid;place-items:center;width:2rem;height:2rem;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--sea);text-decoration:none}
 .home-btn svg{width:1.4rem;height:1.4rem;fill:currentColor}
 .home-btn:hover{background:var(--sea-soft)}
@@ -739,6 +789,15 @@ nav a.nav-sp,nav a.cta-link{white-space:nowrap}
       <div class="fs" role="group" aria-label="Cỡ chữ"><button type="button" id="fsDown" aria-label="Giảm cỡ chữ">A−</button><span class="fs-lv" id="fsLv" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><button type="button" id="fsUp" aria-label="Tăng cỡ chữ">A+</button></div>
       <button type="button" class="like" id="likeBtn" aria-pressed="false" aria-label="Thả tim cho trang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.2-9.3C1.6 7.8 3.8 4.5 7.2 4.5c2 0 3.6 1.1 4.8 2.8 1.2-1.7 2.8-2.8 4.8-2.8 3.4 0 5.6 3.3 4.4 6.7-1.7 4.7-9.2 9.3-9.2 9.3z"/></svg><span class="like-n" id="likeN"></span></button>
       <div class="like-tip" id="likeTip" role="status" hidden></div>
+    </div>
+    <div class="top-r">
+      <button type="button" class="top-act" id="shareBtn" aria-label="Chia sẻ trang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M10 6H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/></svg><span class="top-lb">Chia sẻ</span></button>
+      <div class="fb-split">
+        <button type="button" class="top-act" id="fbBtn" aria-haspopup="dialog" aria-label="Phản hồi của khách"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9.5L5 19.5V16H4z"/></svg><span class="top-lb">Phản hồi</span><span class="fb-n" id="fbN"></span></button>
+        <button type="button" class="top-act fb-caret" id="fbCaret" aria-haspopup="menu" aria-expanded="false" aria-controls="fbMenu" aria-label="Tùy chọn phản hồi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="fb-menu" id="fbMenu" role="menu" hidden><button type="button" role="menuitem" data-fb="all">Xem tất cả phản hồi</button><button type="button" role="menuitem" data-fb="send">Gửi phản hồi</button></div>
+      </div>
+      <div class="top-msg" id="topMsg" role="status" hidden></div>
     </div>
   </div>
   <p class="welcome" lang="en">Welcome to <b>Ly Son</b></p>
@@ -1495,7 +1554,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.42</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.43</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1508,6 +1567,99 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
     <button class="btn ghost" type="button" id="storyClose">Đóng</button>
   </div>
 </dialog>
+
+<dialog class="story fb-box" id="fbBox" aria-labelledby="fbTitle">
+  <div class="story-head"><p class="eyebrow">Khách nói gì về Lý Sơn – nhà của Đạt</p><h3 id="fbTitle">Phản hồi của khách</h3></div>
+  <div class="fb-body">
+    <div class="fb-chips" role="group" aria-label="Lọc phản hồi theo loại">
+      <button type="button" data-loai="" aria-pressed="true">Tất cả</button><button type="button" data-loai="khen" aria-pressed="false">Khen</button><button type="button" data-loai="gopy" aria-pressed="false">Góp ý</button><button type="button" data-loai="hoi" aria-pressed="false">Hỏi</button>
+    </div>
+    <ul class="fb-list" id="fbList" aria-live="polite"></ul>
+    <form class="fb-form" id="fbForm" novalidate>
+      <h4>Gửi phản hồi</h4>
+      <fieldset class="fb-type"><legend>Loại phản hồi</legend>
+        <label><input type="radio" name="fbLoai" value="khen" checked>Khen</label><label><input type="radio" name="fbLoai" value="gopy">Góp ý</label><label><input type="radio" name="fbLoai" value="hoi">Hỏi</label>
+      </fieldset>
+      <label>Tên hiển thị (không bắt buộc)<input id="fbName" maxlength="40" autocomplete="nickname" placeholder="Ví dụ: Chị Lan, Đà Nẵng"></label>
+      <label>Nội dung<textarea id="fbText" maxlength="500" rows="4" placeholder="Anh chị thấy tỏi, hành, hải sản hay chuyến đi thế nào?"></textarea></label>
+      <input class="hp" id="fbWeb" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="fb-note">Phản hồi chỉ hiện công khai sau khi người bán duyệt. Đừng ghi số điện thoại, địa chỉ hay đường link. Đặt hàng, hỏi giá thì nhắn Zalo 0363 594 167.</p>
+      <div class="story-actions">
+        <button class="btn primary" type="submit" id="fbSend">Gửi phản hồi</button>
+        <button class="btn ghost" type="button" id="fbClose">Đóng</button>
+      </div>
+      <p class="fb-msg" id="fbMsg" role="status"></p>
+    </form>
+  </div>
+</dialog>
+<script>
+/* Chia sẻ trang + Phản hồi của khách.
+   FB_URL: link Ứng dụng web Apps Script (…/exec) của Sheet "Phan hoi Ly Son". Để trống = mục phản hồi chưa mở.
+   Lọc 2 lớp: web tự chặn link, số điện thoại, email, từ tục, tin trùng; Apps Script lọc lại và để "Chờ duyệt", người bán đổi sang "Hiện" mới lên web.
+   Hướng dẫn: phan_hoi/HUONG_DAN_PHAN_HOI.md */
+(function(){
+  var FB_URL="https://script.google.com/macros/s/AKfycbxN0X-1PKAEUcX-4rcvX5NXQHZFIDGVuq65uXf5TnnG8fu8y6ibJYhVhT8HYYNNEc1S/exec";
+  var SITE="https://lyson-bit.github.io/dac-san-ly-son/";
+  function $(id){return document.getElementById(id);}
+  var msg=$("topMsg"),mt=0;
+  function bao(t,giay){if(!msg)return;msg.textContent=t;msg.hidden=false;clearTimeout(mt);mt=setTimeout(function(){msg.hidden=true;},(giay||4)*1000);}
+  function chep(t,ok){function cu(){var a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();var r=false;try{r=document.execCommand("copy");}catch(e){}document.body.removeChild(a);return r;}
+    if(cu()){ok();return;}if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,function(){bao("Chưa chép được, anh chị chép link: "+t,8);});else bao("Link trang: "+t,8);}
+  var sb=$("shareBtn");
+  if(sb)sb.addEventListener("click",function(){var d={title:"Đặc Sản Lý Sơn Quê Tôi",text:"Tỏi cô đơn, hành tím, hải sản Lý Sơn – nhà của Đạt",url:SITE};
+    if(navigator.share){navigator.share(d).catch(function(){});}else chep(SITE,function(){bao("Đã chép link trang, dán gửi bạn bè nhé.");});});
+
+  var box=$("fbBox"),list=$("fbList"),N=$("fbN"),form=$("fbForm"),out=$("fbMsg"),send=$("fbSend"),items=[],loai="",daTai=false;
+  if(!box||!list)return;
+  var LB={khen:"Khen",gopy:"Góp ý",hoi:"Hỏi"};
+  /* Lọc tự động (Apps Script lọc lại lần nữa) */
+  var TU=["địt","đụ","đéo","lồn","buồi","cặc","đĩ","đm","đmm","dm","dmm","vcl","vkl","clm","cc","óc chó","mẹ mày","con chó","thằng chó","ngu như"];
+  function loc(s){var t=" "+String(s).toLowerCase().replace(/[.,!?;:()"'\n\r\t]/g," ")+" ";
+    if(/https?:|www\.|\b[a-z0-9-]+\.(com|vn|net|org|info|xyz|top|io|me|link|shop)\b/i.test(s))return "có đường link";
+    if(/(\d[\s.\-]?){8,}/.test(s))return "có số điện thoại";
+    if(/\S+@\S+\.\S+/.test(s))return "có email";
+    for(var i=0;i<TU.length;i++)if(t.indexOf(" "+TU[i]+" ")>=0)return "có từ ngữ chưa phù hợp";
+    if(/(.)\1{6,}/.test(s))return "có ký tự lặp quá nhiều";
+    return "";}
+  function ve(){list.textContent="";var a=items.filter(function(x){return !loai||x.loai===loai;});
+    if(!FB_URL||!a.length){var li=document.createElement("li");li.className="fb-empty";li.textContent=!FB_URL?"Mục phản hồi đang được chuẩn bị, sắp mở. Anh chị có thể nhắn Zalo 0363 594 167.":(daTai?(loai?"Chưa có phản hồi loại này.":"Chưa có phản hồi nào. Anh chị là người đầu tiên nhé!"):"Đang tải phản hồi…");list.appendChild(li);return;}
+    a.forEach(function(x){var li=document.createElement("li");li.className="fb-item";var h=document.createElement("header");
+      var b=document.createElement("b");b.textContent=x.ten||"Khách";var g=document.createElement("span");g.className="fb-tag";g.textContent=LB[x.loai]||"Góp ý";var d=document.createElement("span");d.textContent=x.t||"";
+      h.appendChild(b);h.appendChild(g);h.appendChild(d);li.appendChild(h);var p=document.createElement("p");p.textContent=x.nd||"";li.appendChild(p);
+      if(x.tl){var r=document.createElement("p");r.className="fb-rep";r.textContent="Đạt trả lời: "+x.tl;li.appendChild(r);}list.appendChild(li);});}
+  function tai(){if(!FB_URL||!window.fetch){ve();return;}fetch(FB_URL+"?action=list&x="+Date.now(),{cache:"no-store"}).then(function(r){return r.json();}).then(function(j){items=(j&&j.items)||[];daTai=true;N.textContent=items.length?items.length:"";ve();}).catch(function(){daTai=true;items=[];ve();list.firstChild.textContent="Chưa tải được phản hồi (mạng yếu). Anh chị thử lại sau nhé.";});}
+  function mo(){if(!box.open){if(box.showModal)box.showModal();else box.setAttribute("open","");}ve();tai();}
+  $("fbBtn").addEventListener("click",mo);
+  /* Mũi tên xổ xuống: Xem tất cả phản hồi / Gửi phản hồi */
+  var caret=$("fbCaret"),menu=$("fbMenu");
+  function dongMenu(){menu.hidden=true;caret.setAttribute("aria-expanded","false");}
+  caret.addEventListener("click",function(e){e.stopPropagation();var m=menu.hidden;menu.hidden=!m;caret.setAttribute("aria-expanded",m?"true":"false");if(m)menu.querySelector("button").focus();});
+  document.addEventListener("click",function(e){if(!menu.hidden&&!menu.contains(e.target))dongMenu();});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!menu.hidden){dongMenu();caret.focus();}});
+  menu.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;dongMenu();
+    if(b.getAttribute("data-fb")==="all"){loai="";[].forEach.call(box.querySelectorAll(".fb-chips button"),function(x){x.setAttribute("aria-pressed",x.getAttribute("data-loai")===""?"true":"false");});mo();list.scrollTop=0;}
+    else{mo();setTimeout(function(){form.scrollIntoView({block:"start"});$("fbText").focus();},60);}});
+  $("fbClose").addEventListener("click",function(){box.close();});
+  box.addEventListener("click",function(e){if(e.target===box)box.close();});
+  [].forEach.call(box.querySelectorAll(".fb-chips button"),function(c,_,all){c.addEventListener("click",function(){loai=c.getAttribute("data-loai");[].forEach.call(box.querySelectorAll(".fb-chips button"),function(x){x.setAttribute("aria-pressed",x===c?"true":"false");});ve();});});
+  function noi(t,k){out.textContent=t;out.className="fb-msg"+(k?" "+k:"");}
+  form.addEventListener("submit",function(e){e.preventDefault();
+    var ten=$("fbName").value.trim().slice(0,40),nd=$("fbText").value.trim().slice(0,500),lo=(form.querySelector("input[name=fbLoai]:checked")||{}).value||"gopy";
+    if($("fbWeb").value){noi("Cảm ơn anh chị!","ok");return;}
+    if(nd.length<5){noi("Anh chị viết thêm vài chữ giúp nhé (ít nhất 5 ký tự).","warn");return;}
+    var ly=loc(ten+" "+nd);if(ly){noi("Phản hồi "+ly+", anh chị sửa lại giúp nhé. Đặt hàng hay hỏi giá xin nhắn Zalo 0363 594 167.","warn");return;}
+    var last=0;try{last=+localStorage.getItem("lsd_fb_t")||0;}catch(x){}
+    if(Date.now()-last<60000){noi("Anh chị vừa gửi xong, đợi 1 phút rồi gửi tiếp nhé.","warn");return;}
+    if(!FB_URL){noi("Mục phản hồi đang được chuẩn bị. Anh chị nhắn Zalo 0363 594 167 giúp nhé.","warn");return;}
+    var body=JSON.stringify({ten:ten,loai:lo,nd:nd,web:""});send.disabled=true;noi("Đang gửi…","");
+    function xong(){send.disabled=false;try{localStorage.setItem("lsd_fb_t",String(Date.now()));}catch(x){}$("fbText").value="";noi("Cảm ơn anh chị! Phản hồi sẽ hiện sau khi người bán duyệt.","ok");}
+    function hong(t){send.disabled=false;noi(t||"Chưa gửi được (mạng yếu). Anh chị bấm gửi lại giúp nhé.","warn");}
+    fetch(FB_URL,{method:"POST",body:body}).then(function(r){return r.text();}).then(function(t){t=String(t||"").trim();
+      if(t==="ok")xong();else if(t==="loc")hong("Phản hồi có nội dung bị lọc tự động (link, số điện thoại hoặc từ ngữ chưa phù hợp), anh chị sửa lại giúp nhé.");else if(t==="trung")hong("Phản hồi này đã gửi rồi, cảm ơn anh chị!");else if(t==="ban")hong("Đang có nhiều phản hồi cùng lúc, anh chị thử lại sau ít phút nhé.");else hong();
+    }).catch(function(){fetch(FB_URL,{method:"POST",mode:"no-cors",body:body}).then(xong,function(){hong();});});});
+  if(FB_URL)setTimeout(function(){if(!daTai)tai();},3000);
+})();
+</script>
 
 <div class="mini" id="mini" role="region" aria-label="Trình phát nhạc quê hương">
   <p class="mini-tip" id="miniTip" hidden>Điện thoại không cho trang tự phát có tiếng. <b>Chạm vào trang một lần</b> hoặc bấm nút 🔇 để nghe nhạc.</p>
