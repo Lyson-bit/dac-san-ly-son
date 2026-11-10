@@ -79,7 +79,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;g
 .welcome::after{background:linear-gradient(90deg,currentColor,transparent)}
 .welcome b{font-weight:700;color:var(--fg);letter-spacing:.34em}
 .hd-date{margin:1px 0 0;text-align:center;font:italic 500 .72rem/1.2 var(--f-display);color:var(--muted)}
-header.top .hd-date+.wrap{padding-top:2px}
+header.top .topbar+.wrap{padding-top:2px}
 .brand-tag{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:.8rem;line-height:1.2;color:var(--shallot);letter-spacing:.01em;margin-top:-1px}
 @media (max-width:420px){.welcome{font-size:.62rem;letter-spacing:.26em}.welcome b{letter-spacing:.26em}}
 nav{display:flex;gap:18px;flex-wrap:wrap}
@@ -764,8 +764,8 @@ nav a.nav-sp,nav a.cta-link{white-space:nowrap}
 .like-tip .x{position:absolute;top:3px;right:5px;padding:0 4px;border:0;background:none;color:inherit;font-size:1.05rem;line-height:1;cursor:pointer}
 .tim-bay{position:fixed;z-index:70;pointer-events:none;color:#E5484D;font-size:18px;line-height:1;animation:tim-bay 1.3s ease-out forwards}
 @keyframes tim-bay{0%{opacity:0;transform:translate(0,0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0),-90px) scale(1.2)}}
-@media (min-width:901px){header.top .hd-date+.wrap{padding-top:12px}}
-@media (max-width:900px){.topbar{position:static;padding:9px max(16px,env(safe-area-inset-left,0px)) 0}}
+@media (min-width:901px){header.top .topbar+.wrap{padding-top:12px}}
+@media (max-width:900px){.welcome{padding-top:9px}.topbar{position:static;padding:7px max(16px,env(safe-area-inset-left,0px)) 0}}
 @media (max-width:640px){.fs-lv{display:none}.fs button{min-width:26px;height:24px;padding:0 4px}#fsDown{border-right:1px solid var(--line)}.like{height:26px;padding:0 8px}}
 @media (prefers-reduced-motion:reduce){.like.pop svg,.like.nudge{animation:none}}
 /* Nút chọn nền Sáng/Tối, dưới dòng thời tiết */
@@ -783,6 +783,8 @@ nav a.nav-sp,nav a.cta-link{white-space:nowrap}
 </head>
 <body>
 <header class="top">
+  <p class="welcome" lang="en">Welcome to <b>Ly Son</b></p>
+  <p class="hd-date" id="hdDate"></p>
   <div class="topbar">
     <a class="home-btn" id="homeBtn" href="#top" aria-label="Về đầu trang" title="Về đầu trang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.6 12 3.8l8.5 6.8V20a.9.9 0 0 1-.9.9h-4.9v-6.1H9.3v6.1H4.4a.9.9 0 0 1-.9-.9z"/></svg></a>
     <div class="tools">
@@ -800,8 +802,6 @@ nav a.nav-sp,nav a.cta-link{white-space:nowrap}
       <div class="top-msg" id="topMsg" role="status" hidden></div>
     </div>
   </div>
-  <p class="welcome" lang="en">Welcome to <b>Ly Son</b></p>
-  <p class="hd-date" id="hdDate"></p>
   <div class="wrap">
     <div class="brand-box">
       <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
@@ -1554,7 +1554,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.43</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.44</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
