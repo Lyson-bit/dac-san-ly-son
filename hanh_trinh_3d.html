@@ -925,8 +925,60 @@ pier(PIER_SK);pier(PIER_LS);
   const s=mk(GEO.star,bas(0xffde00,{side:THREE.DoubleSide}),x+.62,y+2.2,z+.01,scene);s.scale.setScalar(.22);
   window.__flag=f;})();
 // Thuyền đánh cá
-const fishing=[[-7,26.5],[-5,16.6],[12.5,5.2],[9.6,-3],[45,14.5],[2,28]].map(([x,z],i)=>{const g=new THREE.Group();const h=mk(GEO.box,toon([0x2e6fd8,0x1f9e6e,0xd94f3d][i%3]),0,.15,0,g);h.scale.set(.9,.4,2.2);
-  const c=mk(GEO.box,toon(0xffffff),0,.5,-.3,g);c.scale.set(.6,.4,.6);const m=mk(GEO.cyl,toon(0x6b4a2a),0,.9,.4,g);m.scale.set(.03,1.1,.03);g.position.set(x,0,z);g.rotation.y=i*1.3;scene.add(g);return g;});
+const fishing=[[-7,26.5],[-5,16.6],[4.5,10.8],[-1,-9],[45,14.5],[2,28]].map(([x,z],i)=>{const g=new THREE.Group();const h=mk(GEO.box,toon([0x3f78a8,0x2f8f72,0x8a6a4a][i%3]),0,.15,0,g);h.scale.set(.9,.4,2.2);
+  const c=mk(GEO.box,toon(0xffffff),0,.5,-.3,g);c.scale.set(.6,.4,.6);const m=mk(GEO.cyl,toon(0x6b4a2a),0,.9,.4,g);m.scale.set(.03,1.1,.03);g.position.set(x,0,z);g.rotation.y=i*1.3;g.scale.setScalar(.7);scene.add(g);return g;});
+// Đội tàu cá ven biển Sa Kỳ – Quảng Ngãi – Đà Nẵng (anh khoanh vùng): tàu cá gỗ thân xanh viền đỏ trắng, ca-bin vàng, cờ đỏ sao vàng; thuyền thúng chai có người chèo
+function makeFishBoat(){const g=new THREE.Group();
+  mk(GEO.box,toon(0x3f78a8),0,.18,0,g).scale.set(.95,.42,2.4);
+  mk(GEO.box,toon(0xf1ead8),0,.42,0,g).scale.set(.97,.08,2.42);
+  mk(GEO.box,toon(0xb85a4a),0,.35,0,g).scale.set(.97,.025,2.42);   // chỉ đỏ mảnh
+  const bw=mk(GEO.cone4,toon(0x3f78a8),0,.26,1.45,g);bw.scale.set(.5,.6,.5);bw.rotation.x=Math.PI/2;
+  mk(GEO.box,toon(0xf3ead2),0,.72,-.55,g).scale.set(.7,.55,.7);
+  mk(GEO.box,toon(0x2b3a4f),0,.8,-.19,g).scale.set(.6,.18,.02);
+  mk(GEO.box,toon(0x4f8fb8),0,1.03,-.55,g).scale.set(.8,.07,.8);
+  mk(GEO.cyl,toon(0x6b4a2a),0,1.2,.45,g).scale.set(.035,1.6,.035);
+  const fl=mk(new THREE.PlaneGeometry(.42,.28),new THREE.MeshToonMaterial({color:0xda251d,side:THREE.DoubleSide}),0,1.85,.24,g);fl.rotation.y=Math.PI/2;
+  const st=mk(GEO.star,bas(0xffde00,{side:THREE.DoubleSide}),.004,1.85,.24,g);st.scale.setScalar(.07);st.rotation.y=Math.PI/2;
+  mk(GEO.box,toon(0x8a6a4a),0,1.0,.95,g).scale.set(.03,.03,1.0);   // cần lưới
+  return g;}
+function makeBasketBoat(){const g=new THREE.Group();
+  const b=mk(GEO.sph,toon(0x8a6a4a),0,.05,0,g);b.scale.set(.55,.28,.55);
+  mk(new THREE.TorusGeometry(.53,.04,6,18),toon(0x5b4636),0,.18,0,g).rotation.x=Math.PI/2;
+  mk(GEO.sph,toon(0x2a6fdb),0,.42,0,g).scale.set(.14,.2,.14);
+  mk(GEO.sph,toon(0xffe0c8),0,.66,0,g).scale.setScalar(.11);
+  mk(new THREE.ConeGeometry(.2,.12,12),toon(0xead39a),0,.76,0,g);
+  const oar=mk(GEO.box,toon(0x8a6a4a),.25,.35,.1,g);oar.scale.set(.03,.03,.9);oar.rotation.y=.6;g.userData.oar=oar;
+  return g;}
+[[13,4.2,0,'t'],[14.6,6.6,2.4,'t'],[12.2,3.0,0,'b'],[4,4.5,1.2,'t'],[5.6,7.5,-.8,'t'],[3.2,2.6,0,'b'],[-6,4.6,.5,'t'],[-8,6.6,2,'t'],[-5,3.0,0,'b'],
+ [-31,4.5,1,'t'],[-33.5,6.8,-.4,'t'],[-35.6,4.0,2.2,'t'],[-30,2.8,0,'b'],[-37,7.2,.8,'b']].forEach(([z,off,ry,k],i)=>{
+  if(MOBILE&&i%3===2)return;
+  const g=k==='t'?makeFishBoat():makeBasketBoat();g.scale.setScalar(k==='t'?.55:.6);const x=coastX(z)+off;g.position.set(x,0,z);g.rotation.y=ry;g.userData.drift={x0:x,z0:z,r:k==='b'?.5:1.2,ph:i*1.7,sp:.05+.02*(i%3)};scene.add(g);fishing.push(g);});
+
+/* ---------- Đảo Lý Sơn giống ảnh thật hơn (ảnh anh gửi 11/11/2026) ----------
+   Rạn san hô: thềm đá ngầm nâu có vân tỏa ra từ đảo, viền nước xanh ngọc, sóng trắng vỗ quanh mép.
+   Đê chắn sóng cong ôm vũng cảng, đầu đê có trụ đèn. Lòng chảo núi lửa Thới Lới xanh đậm. Thêm nhà dân dọc bờ cảng. */
+const REEF={x:11.5,z:-.5,w:21,d:14},reefFoam=[];
+(function(){const tex=canvasTex(512,384,(g,w,h)=>{g.clearRect(0,0,w,h);
+    let gr=g.createRadialGradient(w*.6,h*.5,10,w*.5,h*.5,w*.52);gr.addColorStop(0,'rgba(64,200,200,0)');gr.addColorStop(.74,'rgba(96,218,212,.6)');gr.addColorStop(1,'rgba(96,218,212,0)');
+    g.fillStyle=gr;g.beginPath();g.ellipse(w/2,h/2,w*.5,h*.5,0,0,7);g.fill();
+    g.save();g.beginPath();g.ellipse(w*.53,h*.5,w*.42,h*.4,0,0,7);g.clip();
+    gr=g.createLinearGradient(0,0,w,0);gr.addColorStop(0,'#8f7154');gr.addColorStop(.55,'#b08c64');gr.addColorStop(1,'#c7a577');g.fillStyle=gr;g.fillRect(0,0,w,h);
+    g.strokeStyle='rgba(66,48,34,.42)';g.lineWidth=2;for(let i=0;i<80;i++){const a=Math.PI*.52+i/80*Math.PI*.96;g.beginPath();g.moveTo(w*.97,h*.5);g.lineTo(w*.97+Math.cos(a)*w,h*.5+Math.sin(a)*w*.78);g.stroke();}
+    g.restore();g.strokeStyle='rgba(255,255,255,.6)';g.lineWidth=6;g.beginPath();g.ellipse(w*.53,h*.5,w*.42,h*.4,0,0,7);g.stroke();});
+  const m=mk(new THREE.PlaneGeometry(REEF.w,REEF.d),new THREE.MeshBasicMaterial({map:tex,transparent:true,depthWrite:false}),REEF.x,.18,REEF.z,scene);m.rotation.x=-Math.PI/2;m.renderOrder=2;
+  const n=MOBILE?18:34;for(let i=0;i<n;i++){const a=i/n*Math.PI*2;if(Math.cos(a)>.7)continue;   // phía giáp đảo không có sóng
+    const s=new THREE.Sprite(new THREE.SpriteMaterial({map:SOFT,color:0xffffff,transparent:true,depthWrite:false,opacity:.6}));
+    s.position.set(REEF.x+.05*REEF.w+Math.cos(a)*REEF.w*.43,.32,REEF.z+Math.sin(a)*REEF.d*.41);s.scale.set(1.6,.5,1);s.userData.ph=i*1.3;scene.add(s);reefFoam.push(s);}})();
+// đê chắn sóng cong ôm vũng cảng Lý Sơn + trụ đèn đầu đê
+(function(){const c=new THREE.CatmullRomCurve3([new V3(23.6,0,12.4),new V3(22.2,0,14.1),new V3(20.2,0,14.9),new V3(18.6,0,14.5)]);const pts=c.getSpacedPoints(MOBILE?14:22);
+  pts.forEach((p,i)=>{const r=mk(GEO.ico,std(i%2?0x9a948a:0x86807a),p.x,.22,p.z,scene);r.scale.set(.55,.42,.55);r.rotation.set(i,i*2,0);});
+  const e=pts[pts.length-1];mk(GEO.cyl,toon(0xffffff),e.x,1.0,e.z,scene).scale.set(.22,1.6,.22);mk(GEO.cyl,toon(0xd62828),e.x,1.95,e.z,scene).scale.set(.26,.35,.26);mk(GEO.sph,bas(0xfff3a0),e.x,2.2,e.z,scene).scale.setScalar(.12);})();
+// lòng chảo núi lửa Thới Lới xanh đậm
+(function(){const y=H(40,1)+.06;const d=mk(GEO.circle,std(0x3f6b3a),40,y,1,scene);d.rotation.x=-Math.PI/2;d.scale.setScalar(1.8);})();
+// nhà dân dọc bờ phía cảng (mái ngói, tường sáng)
+(function(){const L=[[38.9,6.6],[39.8,8.9],[41.8,7.0],[43.4,8.6]];   // tránh lối đi từ cầu tàu và chỗ đứng của đoàn
+  L.forEach(([x,z],i)=>{const y=groundY(x,z);const w=mk(GEO.box,std([0xfff4e0,0xe8f0f7,0xfde2d0][i%3]),x,y+.4,z,scene);w.scale.set(1.0,.8,.9);w.rotation.y=i*.6;
+    const r=mk(new THREE.ConeGeometry(.78,.55,4),std([0xd9573b,0x3f7fbf,0xc94c4c][i%3]),x,y+1.06,z,scene);r.rotation.y=Math.PI/4+i*.6;});})();
 
 /* ---------- Cảnh thật của chuyến đi (bản sống động) ---------- */
 // Quán cà phê Đà Nẵng: bàn tròn, dù che, 2 ly cà phê – nơi Điều phối phỏng vấn anh
@@ -2100,7 +2152,10 @@ function frame(now){
   // môi trường
   water.update(T);
   clouds.forEach(c=>{c.position.x+=dt*c.userData.v*WA;if(c.position.x>95)c.position.x=-75;});
-  fishing.forEach((g,i)=>{g.position.y=waveY(g.position.x,g.position.z,T)*.6;g.rotation.z=Math.sin(T*1.3+i)*.06*WA;});
+  reefFoam.forEach(s=>{const k=.5+.5*Math.sin(T*1.6*WA+s.userData.ph);s.material.opacity=.2+.55*k;s.scale.set(1.2+.9*k,.45+.15*k,1);});
+  fishing.forEach((g,i)=>{const d=g.userData.drift;if(d&&!RM){const a=T*d.sp+d.ph;g.position.x=d.x0+Math.cos(a)*d.r;g.position.z=d.z0+Math.sin(a)*d.r*.6;}
+    g.position.y=waveY(g.position.x,g.position.z,T)*.6;g.rotation.z=Math.sin(T*1.3+i)*.06*WA;
+    if(g.userData.oar)g.userData.oar.rotation.x=Math.sin(T*2.2+i)*.35*WA;});
   if(window.__flag)window.__flag.rotation.y=Math.sin(T*3)*.25*WA;
   gulls.forEach(g=>{const d=g.userData,a=T*d.sp+d.ph;g.position.set(cam.t.x+Math.cos(a)*d.r,cam.t.y+d.h+Math.sin(T*.7+d.ph)*.6,cam.t.z+Math.sin(a)*d.r);g.rotation.y=-a+(d.sp>0?0:Math.PI);const f=Math.sin(T*7+d.ph)*.55*WA;d.wl.rotation.z=f;d.wr.rotation.z=-f;});
   // camera
