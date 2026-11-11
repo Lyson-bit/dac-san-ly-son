@@ -172,6 +172,9 @@ body.wc .brand{transform:rotate(-1deg)}
 body.wc #card{border:1px solid rgba(126,120,113,.6);border-radius:3px;background:#FBF8F1}
 body.wc .brand b,body.wc #cap-title,body.wc #toast b,body.wc .ch b{font-family:var(--serif);font-weight:600;letter-spacing:-.005em;font-size:18px}
 body.wc #cap-title{font-size:16px}
+#story{margin-top:6px;font-size:13.5px;line-height:1.45;color:#3a2a24;background:#fff8ec;border-left:4px solid #d9573b;border-radius:8px;padding:6px 9px;font-style:italic}
+#story[hidden]{display:none}
+@media (max-width:600px){#story{font-size:12px;padding:4px 8px;margin-top:4px}}
 #ukiSeal{display:none;position:fixed;right:18px;top:96px;z-index:4;pointer-events:none;writing-mode:vertical-rl;background:#b8322a;color:#f6ead2;font:700 15px/1.15 "Segoe UI","Be Vietnam Pro",serif;letter-spacing:.12em;padding:8px 5px;border:2px solid #f6ead2;outline:2px solid #b8322a;border-radius:2px;box-shadow:1px 2px 0 rgba(0,0,0,.15)}
 body.uki #ukiSeal{display:block}
 body.noui #ukiSeal{display:none}
@@ -386,6 +389,7 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
     <div class="row"><span class="k">Món ngon</span><span class="v" id="cap-write"></span></div>
     <p id="cap-text"></p>
     <div id="cap-now"></div>
+    <div id="story" hidden aria-live="polite"></div>
     <div id="cap-trip"></div>
     <div class="rule">🚩 Đi theo lá cờ của <b>anh Danh bờrồ</b>. Lạc thì đứng yên, đừng tự tìm đường (nhất là anh Tư)!</div>
   </div>
@@ -413,6 +417,7 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
     <button class="cbtn" id="b-iso" hidden title="Sa bàn">📐 Sa bàn</button>
     <button class="cbtn on" id="b-cam" title="Camera tự bay theo nhân vật đang làm việc" aria-label="Camera tự bay">🎥<span class="tx"> Tự bay</span></button>
     <button class="cbtn" id="b-shot" title="Góc quay (bấm để đổi)" aria-label="Đổi góc quay">🎥<span class="tx"> Mặc định</span></button>
+    <button class="cbtn" id="b-story" title="Câu chuyện kể (bấm để đổi)" aria-label="Đổi câu chuyện kể">📖<span class="tx"> Câu chuyện</span></button>
     <button class="cbtn" id="b-album" title="Lộ trình thật 3 ngày, ảnh thật của chuyến đi" aria-label="Lộ trình thật">📸<span class="tx"> Lộ trình thật</span></button>
     <button class="cbtn" hidden id="b-pins" title="Ẩn / hiện ghim ảnh trên bản đồ" aria-label="Ghim ảnh">📍<span class="tx"> Ghim ảnh</span></button>
     <button class="cbtn" id="b-sty" title="Đổi kiểu vẽ" aria-label="Đổi kiểu vẽ">🎨</button>
@@ -465,11 +470,11 @@ const WA=RM?0.3:1; // biên độ chuyển động môi trường
 
 /* ---------------- Dữ liệu đội ---------------- */
 /* Đoàn du lịch: anh Danh bờrồ (hướng dẫn viên) + 5 khách. Giữ mã nhân vật cũ để dùng lại đồ cầm tay:
-   dp = anh Danh bờrồ (mũ thuyền trưởng, cờ) · kv = anh Tèo (bánh mì) · ta = chị Tám (máy ảnh)
+   dp = anh Danh bờrồ (mũ thuyền trưởng, cờ) · kv = ku Tèo (bánh mì) · ta = chị Tám (máy ảnh)
    anh = bác Bảy (nón lá, ba lô) · ks = anh Tư (mũ thám hiểm, bản đồ) · bt = bé Tý (bong bóng, nhỏ người) */
 const DEFS={
   dp:{name:'Anh Danh bờrồ',short:'Danh bờrồ',emoji:'🚩',color:'#3d7bf2',body:0x3d7bf2,hair:0x3a2a22},
-  kv:{name:'Anh Tèo',short:'Anh Tèo',emoji:'🍜',color:'#17aebf',body:0x17aebf,hair:0x2a2a35},
+  kv:{name:'Ku Tèo',short:'Ku Tèo',emoji:'🍜',color:'#17aebf',body:0x17aebf,hair:0x2a2a35},
   ta:{name:'Chị Tám',short:'Chị Tám',emoji:'📸',color:'#f5961f',body:0xf5961f,hair:0x2d2320},
   anh:{name:'Bác Bảy',short:'Bác Bảy',emoji:'🧓',color:'#b07d2b',body:0xf3efe4,hair:0xd9d4cc},
   ks:{name:'Anh Tư',short:'Anh Tư',emoji:'🗺️',color:'#2fb36b',body:0x2fb36b,hair:0x4a3324},
@@ -492,17 +497,17 @@ const FILES={
 };
 const STEPS=[
  {short:'Hạ cánh',title:'Chặng 0 · Bay qua vịnh, hạ cánh Đà Nẵng',who:TEAM,read:['Vịnh Đà Nẵng','Sân bay Đà Nẵng','Quán cà phê'],write:['Cà phê sáng ☕'],dur:34,
-  text:'Máy bay lượn qua vịnh Đà Nẵng rồi hạ cánh. Anh Danh bờrồ đón đoàn: anh Tèo ham ăn, chị Tám mê chụp hình, bác Bảy hay kể chuyện xưa, anh Tư "rành đường" và bé Tý hỏi gì cũng khó.'},
+  text:'Máy bay lượn qua vịnh Đà Nẵng rồi hạ cánh. Anh Danh bờrồ đón đoàn: ku Tèo ham ăn, chị Tám mê chụp hình, bác Bảy hay kể chuyện xưa, anh Tư "rành đường" và bé Tý hỏi gì cũng khó.'},
  {short:'Đà Nẵng',title:'Chặng 1 · Một vòng Đà Nẵng',who:TEAM,read:['Cầu Vàng · Bà Nà','Trung tâm Hành chính','Cầu Rồng','Quan Âm Linh Ứng'],write:['Bắp nướng? 🌽'],dur:28,
-  text:'Cả đoàn chụp hình nhóm ở bốn điểm quen thuộc của Đà Nẵng. Anh Tèo nhìn đâu cũng thấy đồ ăn, chị Tám chụp không nghỉ tay.'},
+  text:'Cả đoàn chụp hình nhóm ở bốn điểm quen thuộc của Đà Nẵng. Ku Tèo nhìn đâu cũng thấy đồ ăn, chị Tám chụp không nghỉ tay.'},
  {short:'Xe 2 tầng',title:'Chặng 2 · Xe buýt 2 tầng: Đà Nẵng → Quảng Ngãi → Sa Kỳ',who:TEAM,read:['Chùa Minh Đức','Cảng Sa Kỳ'],write:['Bánh tráng 🫓'],dur:22,
   text:'Cả đoàn ngồi tầng trên xe buýt 2 tầng mui trần, gió lồng lộng. Xe qua Quảng Ngãi, ngang chùa Minh Đức có tượng Phật Quan Âm bên mặt nước, rồi ra cảng Sa Kỳ.'},
  {short:'Ra đảo',title:'Chặng 3 · Tàu ra đảo ≈ 15 hải lý',who:TEAM,read:['Cảng Sa Kỳ','Biển Lý Sơn'],write:['Nước suối 💧'],dur:22,
   text:'anh Danh bờrồ phát vé, cả đoàn lên tàu. Bác Bảy say sóng, anh Tư nhận nhầm mây thành đảo, bé Tý hỏi biển có đáy không.'},
  {short:'Nhà Đạt',title:'Chặng 4 · Về nhà Đạt, mâm cơm đảo',who:TEAM,read:['Nhà Đạt','Sân cát, hoa giấy'],write:['Tôm, ram, chả','Ốc luộc, cá nướng'],dur:22,
-  text:'Mâm cơm nhà Đạt chờ sẵn: gà luộc, tôm, ram, ốc, cá nướng, nước chấm tỏi đảo. Chị Tám chụp trước, anh Tèo ăn sau (ăn nhiều nhất).'},
+  text:'Mâm cơm nhà Đạt chờ sẵn: gà luộc, tôm, ram, ốc, cá nướng, nước chấm tỏi đảo. Chị Tám chụp trước, ku Tèo ăn sau (ăn nhiều nhất).'},
  {short:'Vòng đảo',title:'Chặng 5 · Cột cờ, Chùa Hang, Hang Câu, hoàng hôn ruộng tỏi',who:TEAM,read:['Cột cờ Tổ quốc','Chùa Hang','Hang Câu','Ruộng tỏi'],write:['Gỏi rong biển','Tỏi cô đơn 🧄'],dur:26,
-  text:'Một vòng đảo núi lửa. Tới ruộng tỏi lúc hoàng hôn, anh Tèo thử tỏi cô đơn ăn sống và "khóc" vì cay.'},
+  text:'Một vòng đảo núi lửa. Tới ruộng tỏi lúc hoàng hôn, ku Tèo thử tỏi cô đơn ăn sống và "khóc" vì cay.'},
  {short:'Hội thuyền',title:'Chặng 6 · Lễ hội đua thuyền, quà về bờ',who:TEAM,read:['Lễ hội đua thuyền tứ linh','Cầu cảng'],write:['Thùng quà hải sản 🎁'],dur:36,
   text:'anh Danh bờrồ phát quà: tỏi, hành, hải sản khô. Cả đoàn lật album ba ngày và hẹn năm sau quay lại.'}
 ];
@@ -689,6 +694,7 @@ const postMat=new THREE.ShaderMaterial({
   '  vec3 c00=texture2D(tColor,vUv).rgb; float wtr=smoothstep(.04,.12,c00.b-max(c00.r,c00.g*.92))*(1.-sky);',
   '  float nr=1.-smoothstep(camD*.7,camD*1.6+6.,dist), fr=smoothstep(camD*1.8,camD*3.6+45.,dist);',
   '  float eW=max(wcw,mxw), eU=max(ukw,mxw*clamp(.5*nr+.85*sky+.55*wtr*(1.-fr),0.,1.)), eC=max(crw,mxw*.2*(1.-sky)*(1.-wtr)*(1.-fr)), eT=max(tmw,mxw*fr*.8*(1.-sky));',
+  '#ifdef S_WC',
   '  if(eW>.01){',
   '    vec2 o1=(vec2(fbm(vUv*4.+11.),fbm(vUv*4.+23.))-.5)*.012;',
   '    vec2 o2=(vec2(fbm(vUv*6.+37.),fbm(vUv*6.+41.))-.5)*.022;',
@@ -708,7 +714,9 @@ const postMat=new THREE.ShaderMaterial({
   '    wc=mix(paper,wc,m2); wc*=.96+.04*fbm(fc/1.6);',
   '    outc=mix(outc,wc,eW);',
   '  }',
+  '#endif',
   // ---- ukiyo-e: màu phẳng theo bản khắc, nét viền đậm sạch, trời bokashi + dải mây, vân sóng trắng trên nước, giấy washi, khung viền ----
+  '#ifdef S_UK',
   '  if(eU>.01){',
   '    vec2 ex=vec2(px.x*1.5,0.),ey=vec2(0.,px.y*1.5);',
   '    vec3 c0=texture2D(tColor,vUv).rgb; vec3 cs=(c0*2.+texture2D(tColor,vUv+ex).rgb+texture2D(tColor,vUv-ex).rgb+texture2D(tColor,vUv+ey).rgb+texture2D(tColor,vUv-ey).rgb)/6.;',
@@ -734,7 +742,9 @@ const postMat=new THREE.ShaderMaterial({
   '    float fk=step(.5,ukw); q=mix(q,vec3(.93,.87,.74),step(mm,12.*bw)*fk); q=mix(q,vec3(.15,.13,.14),step(12.*bw,mm)*step(mm,15.*bw)*fk);',
   '    outc=mix(outc,q,eU);',
   '  }',
+  '#endif',
   // ---- sáp màu (crayon book): màu tươi kiểu sách tô màu thiếu nhi, nét sáp xiên lộ vân giấy, tô lem khỏi viền, viền sáp sẫm cùng màu đứt quãng ----
+  '#ifdef S_CR',
   '  if(eC>.01){',
   '    vec2 jw=(vec2(noise(fc/23.+tq*2.1),noise(fc/23.+vec2(9.,4.)+tq*1.3))-.5)*4.*px;',
   '    vec3 c=texture2D(tColor,vUv+jw+(vec2(fbm(vUv*7.+2.),fbm(vUv*7.+6.))-.5)*.01).rgb;',
@@ -758,7 +768,9 @@ const postMat=new THREE.ShaderMaterial({
   '    vec2 e4=min(vUv,1.-vUv); float m4=smoothstep(0.,.05,min(e4.x*res.x/res.y,e4.y)+(fbm(vUv*12.)-.5)*.04); q=mix(pw,q,m4);',
   '    outc=mix(outc,q,eC);',
   '  }',
+  '#endif',
   // ---- thủy mặc (tranh mực nước): giấy dó, mực loang đậm nhạt 4 lớp, nét bút khô đứt quãng, sương mờ xa, chỉ giữ chấm son đỏ ----
+  '#ifdef S_TM',
   '  if(eT>.01){',
   '    vec2 bl=(vec2(fbm(vUv*6.+4.),fbm(vUv*6.+13.))-.5)*.016;',
   '    vec3 c=texture2D(tColor,vUv+bl).rgb; float L=lum(c);',
@@ -783,6 +795,7 @@ const postMat=new THREE.ShaderMaterial({
   '    vec2 e5=min(vUv,1.-vUv); float m5=smoothstep(0.,.07,min(e5.x*res.x/res.y,e5.y)+(fbm(vUv*10.)-.5)*.06); q=mix(xuan,q,m5);',
   '    outc=mix(outc,q,eT);',
   '  }',
+  '#endif',
   // nhân vật halftone (alpha = 0): giữ nét sạch, thêm bóng lệch đăng navy 28% lệch (+6,+7) px
   '  vec4 raw=texture2D(tColor,vUv); float cm=1.-raw.a;',
   '  vec2 roff=vec2(6.,-7.)*px*max(1.,res.y/900.);',
@@ -793,6 +806,11 @@ const postMat=new THREE.ShaderMaterial({
   '}'].join('\n'),
   depthTest:false,depthWrite:false
 });
+// Tăng tốc (v1.64): shader hậu kỳ chỉ biên dịch phần của kiểu vẽ đang chọn (mặc định Ký họa gọn nhất); đổi kiểu thì biên dịch lại một lần
+let postKey='';
+function setPostDefs(m){const d={};if(m==='wc'||m==='auto'||m==='mx')d.S_WC='';if(m==='uki'||m==='mx')d.S_UK='';if(m==='cr'||m==='mx')d.S_CR='';if(m==='tm'||m==='mx')d.S_TM='';
+  const k=Object.keys(d).join();if(k!==postKey){postKey=k;postMat.defines=d;postMat.needsUpdate=true;}}
+setPostDefs('sketch');
 const postScene=new THREE.Scene(),postCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
 postScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),postMat));
 function sizePost(){const pr=renderer.getPixelRatio()*QPOST(),w=Math.max(1,Math.floor(innerWidth*pr)),h=Math.max(1,Math.floor(innerHeight*pr));rt.setSize(w,h);postMat.uniforms.res.value.set(w,h);}
@@ -946,6 +964,11 @@ function RS(s,lat){s=clamp01(s);const p=road.getPointAt(s),t=road.getTangentAt(s
 
 /* ---------- Cảnh vật ---------- */
 const rnd=rng(20261110);
+// Tăng tốc (v1.64): gộp vật tĩnh nhiều mảnh (cùng hình + cùng vật liệu) thành InstancedMesh → ít lần vẽ, điện thoại mượt hơn. root KHÔNG add vào scene.
+function bake(root){root.updateMatrixWorld(true);const G=new Map();
+  root.traverse(o=>{if(!o.isMesh)return;const k=o.geometry.uuid+'|'+o.material.uuid;if(!G.has(k))G.set(k,{g:o.geometry,m:o.material,L:[]});G.get(k).L.push(o.matrixWorld.clone());});
+  G.forEach(v=>{const im=new THREE.InstancedMesh(v.g,v.m,v.L.length);v.L.forEach((M,i)=>im.setMatrixAt(i,M));im.instanceMatrix.needsUpdate=true;im.frustumCulled=false;scene.add(im);});
+  return G.size;}
 function instanced(geo,mat,list,fn){const im=new THREE.InstancedMesh(geo,mat,list.length);const m=new THREE.Matrix4(),c=new THREE.Color();list.forEach((it,i)=>{fn(m,it,i);im.setMatrixAt(i,m);if(it.color!==undefined){c.setHex(it.color);im.setColorAt(i,c);}});im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;scene.add(im);return im;}
 const mcompose=(m,x,y,z,ry,sx,sy,sz)=>{const q=new THREE.Quaternion().setFromAxisAngle(new V3(0,1,0),ry||0);m.compose(new V3(x,y,z),q,new V3(sx,sy,sz));};
 // Nhà cao tầng Đà Nẵng
@@ -1009,11 +1032,12 @@ function nearRoad(x,z,d){for(let i=0;i<roadSamples.length;i+=3){const p=roadSamp
   const g=new THREE.ConeGeometry(.032,.17,4);g.translate(0,.085,0);   // lá tỏi thấp, dày thành thảm như ảnh
   instanced(g,std(0xffffff),spr,(m,it)=>mcompose(m,it.x,H(it.x,it.z)-.01,it.z,it.r,1,it.h,1));
   // lưới chắn gió: cọc tre + tấm lưới xanh bán trong suốt
-  const netM=new THREE.MeshLambertMaterial({color:0x2fb36b,transparent:true,opacity:.55,side:THREE.DoubleSide,depthWrite:false}),P=[];
+  const netM=new THREE.MeshLambertMaterial({color:0x2fb36b,transparent:true,opacity:.55,side:THREE.DoubleSide,depthWrite:false}),P=[],NR=new THREE.Group(),netG=new THREE.PlaneGeometry(1,.36);
   segs.forEach(([ax,az,bx,bz])=>{const len=Math.hypot(bx-ax,bz-az),n=Math.max(1,Math.round(len/(MOBILE?1.2:.7)));
     for(let k=0;k<=n;k++){const x=ax+(bx-ax)*k/n,z=az+(bz-az)*k/n;P.push({x,z});}
     for(let k=0;k<n;k++){const xa=ax+(bx-ax)*k/n,za=az+(bz-az)*k/n,xb=ax+(bx-ax)*(k+1)/n,zb=az+(bz-az)*(k+1)/n,mx=(xa+xb)/2,mz=(za+zb)/2;
-      const p=mk(new THREE.PlaneGeometry(len/n,.36),netM,mx,(H(xa,za)+H(xb,zb))/2+.2,mz,scene);p.rotation.y=-Math.atan2(zb-za,xb-xa);p.renderOrder=3;}});
+      const p=mk(netG,netM,mx,(H(xa,za)+H(xb,zb))/2+.2,mz,NR);p.scale.x=len/n;p.rotation.y=-Math.atan2(zb-za,xb-xa);}});
+  bake(NR);
   const pg=new THREE.CylinderGeometry(.018,.022,.46,5);pg.translate(0,.23,0);
   instanced(pg,toon(0x6b5a3a),P,(m,it)=>mcompose(m,it.x,H(it.x,it.z)-.02,it.z,0,1,1,1));
   // giếng tròn + bể bơm nước tưới
@@ -1150,7 +1174,7 @@ function makeSoldier(pose){const g=new THREE.Group(),br=toon(0x7a6a55),dk=toon(0
   if(pose==='spear'){mk(GEO.cyl,dk,.25,1.3,.33,g).scale.set(.022,2.4,.022);const tp=mk(GEO.cone4,dk,.25,2.6,.33,g);tp.scale.set(.045,.2,.045);}
   if(pose==='firm'){const sw=mk(GEO.box,dk,-.3,.85,.05,g);sw.scale.set(.03,.55,.06);sw.rotation.z=.12;}   // gươm đeo bên hông
   return g;}
-(function(){const x=44.5,z=6.2,y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);   // tượng ≈ 1,1 lần người trong đoàn (cao 2,0 so với 1,8), bệ cao 0,7
+(function(){const x=44.5,z=6.2,y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);   // bake() ở cuối; tượng ≈ 1,1 lần người trong đoàn (cao 2,0 so với 1,8), bệ cao 0,7
   mk(GEO.box,toon(0xcfc6b4),0,.35,0,g).scale.set(2.7,.7,1.4);
   mk(GEO.box,toon(0xb8ae9a),0,.08,0,g).scale.set(3.2,.16,1.9);
   const tx=canvasTex(512,96,(c,w,h)=>{c.fillStyle='#3a3128';c.fillRect(0,0,w,h);c.fillStyle='#e8c97a';c.font='bold 44px Segoe UI,Arial,sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText('THẾ LÍNH HOÀNG SA',w/2,h/2+3);});
@@ -1158,7 +1182,7 @@ function makeSoldier(pose){const g=new THREE.Group(),br=toon(0x7a6a55),dk=toon(0
   // 3 người cùng cỡ, cách nhau 0,8 (vai 0,5 + khe 0,3); người giữa bước lên trước 0,2
   const a=makeSoldier('spear');a.position.set(-.8,.7,-.1);a.rotation.y=.12;g.add(a);
   const b=makeSoldier('point');b.position.set(0,.7,.12);g.add(b);
-  const c=makeSoldier('firm');c.position.set(.8,.7,-.1);c.rotation.y=-.12;g.add(c);})();
+  const c=makeSoldier('firm');c.position.set(.8,.7,-.1);c.rotation.y=-.12;g.add(c);bake(g);})();
 // nhà mái ngói cam bên bờ đua thuyền (như ảnh)
 (function(){const x=38.6,z=10.2,y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
   mk(GEO.box,toon(0xf3ede0),0,.55,0,g).scale.set(2.6,1.1,1.4);
@@ -1204,7 +1228,8 @@ function makeSoldier(pose){const g=new THREE.Group(),br=toon(0x7a6a55),dk=toon(0
 (function(){const rr=rng(777),trunk=toon(0x8a7a62),trunk2=toon(0x9c8a6e),fr=[toon(0x3f8a3a),toon(0x5a9a3a),toon(0x2f7a34)];
   const fg=new THREE.BoxGeometry(1,1,1);fg.translate(.5,0,0);          // tàu lá: gốc ở đầu thân
   const sg=new THREE.CylinderGeometry(1,1,1,6);sg.translate(0,.5,0);
-  function palm(x,z,h,ax,az){const g=new THREE.Group();g.position.set(x,groundY(x,z)-.05,z);scene.add(g);
+  const PR=new THREE.Group();   // gom cả hàng dừa rồi bake() một lần
+  function palm(x,z,h,ax,az){const g=new THREE.Group();g.position.set(x,groundY(x,z)-.05,z);PR.add(g);
     let px=0,py=0,pz=0;const N=5;
     for(let i=0;i<N;i++){const t=(i+1)/N,l=h/N,tx=ax*t*t,tz=az*t*t;   // thân cong dần, ngọn lệch nhiều hơn gốc
       const s=mk(sg,i%2?trunk2:trunk,px,py,pz,g);s.scale.set(.085-.012*i,l*1.02,.085-.012*i);
@@ -1215,10 +1240,8 @@ function makeSoldier(pose){const g=new THREE.Group(),br=toon(0x7a6a55),dk=toon(0
       const f=mk(fg,fr[k%3],px,py,pz,g);f.scale.set(len,.025,.2);
       f.rotation.set(0,a,-(.35+rr()*.45));f.rotation.order='YZX';}
     mk(GEO.ico,toon(0x6b5a32),px,py-.08,pz,g).scale.setScalar(.13);}  // chùm quả
-  const P=[];
-  for(let x=24.2;x<=32.4;x+=MOBILE?1.4:.95)P.push([x+(rr()-.5)*.5,.9+(rr()-.5)*.9]);       // hàng sau ruộng
-  [[23.9,2.4],[23.6,4.0],[32.6,2.6],[32.9,4.3],[22.8,1.2],[33.6,1.0]].forEach(p=>P.push(p)); // hai đầu ruộng
-  P.forEach(([x,z])=>{if(H(x,z)<.35)return;const h=3.2+rr()*1.6,ax=(rr()-.3)*.5,az=(rr()-.5)*.3;palm(x,z,h,ax,az);});})();
+  const P=[[25.4,.9],[28.6,.6],[32.7,2.4]];   // anh chỉnh 11/11/2026: chỉ 3 cây dừa sau ruộng tỏi
+  P.forEach(([x,z])=>{if(H(x,z)<.35)return;const h=3.2+rr()*1.6,ax=(rr()-.3)*.5,az=(rr()-.5)*.3;palm(x,z,h,ax,az);});bake(PR);})();
 
 /* ---------- Cảnh thật của chuyến đi (bản sống động) ---------- */
 // Quán cà phê Đà Nẵng: bàn tròn, dù che, 2 ly cà phê – nơi Điều phối phỏng vấn anh
@@ -1676,7 +1699,7 @@ const BUILD={
     const q=new THREE.Group();q.position.set(0,.04,0);a.aR.hold.add(q);mk(GEO.sph,toon(0xfff6e0),0,.24,0,q).scale.set(.09,.22,.02);mk(GEO.cyl,toon(0x3b2a20),0,.03,0,q).scale.set(.012,.16,.012);a.quill=q;},
   kv(a){const h=a.head;const cp=mk(GEO.cap,toon(0x0f7f8c),0,.02,0,h);cp.rotation.x=-.15;const v=mk(GEO.visor,toon(0x0b5f69),0,.06,.16,h);v.rotation.x=.15;mk(GEO.sph,toon(0x0b5f69),0,.56,-.06,h).scale.setScalar(.05);
     const t1=mk(GEO.box,toon(0x22c55e),-.05,.53,.36,a.bob);t1.scale.set(.06,.15,.04);t1.rotation.z=.7;const t2=mk(GEO.box,toon(0x22c55e),.05,.57,.36,a.bob);t2.scale.set(.06,.28,.04);t2.rotation.z=-.6;
-    const hr=a.aR.hold;const bm=mk(GEO.sph,toon(0xd99a4e),0,.05,.12,hr);bm.scale.set(.09,.09,.3);mk(GEO.box,toon(0x58b946),0,.11,.12,hr).scale.set(.05,.03,.4);/* anh Tèo cầm ổ bánh mì */
+    const hr=a.aR.hold;const bm=mk(GEO.sph,toon(0xd99a4e),0,.05,.12,hr);bm.scale.set(.09,.09,.3);mk(GEO.box,toon(0x58b946),0,.11,.12,hr).scale.set(.05,.03,.4);/* ku Tèo cầm ổ bánh mì */
   },
   bt(a){const h=a.head;[-1,1].forEach(s=>mk(GEO.torusS,bas(0x1d1d28),s*.17,.03,.47,h));mk(GEO.box,bas(0x1d1d28),0,.05,.49,h).scale.set(.12,.02,.02);
     [-1,1].forEach(s=>{const c=mk(GEO.cone4,toon(0xff8fb5),.3+s*.1,.36,.12,h);c.scale.set(.09,.16,.09);c.rotation.z=s*Math.PI/2;});mk(GEO.sph,toon(0xff6f9f),.3,.36,.12,h).scale.setScalar(.05);
@@ -2126,7 +2149,7 @@ drawShot();
 let prevStyle='auto';
 function setStyleMode(v){
   if(v==='iso'&&styleMode!=='iso')prevStyle=styleMode;
-  styleMode=v;isoOn=v==='iso';sketch=v!=='3d'&&!isoOn;wcUI=null;
+  styleMode=v;isoOn=v==='iso';sketch=v!=='3d'&&!isoOn;wcUI=null;if(!isoOn)setPostDefs(v);
   $('#b-style').value=v;$('#b-iso').classList.toggle('on',isoOn);$('#b-iso').textContent=isoOn?'🌄 Về cảnh 3D':'📐 Sa bàn';
   applyStyle();document.body.classList.toggle('iso',isoOn);if(isoOn)document.body.classList.remove('wc');
   showPins(isoOn);measure();
@@ -2181,6 +2204,17 @@ applyQuality();
 let lastInput=performance.now(),lastDraw=0;
 ['pointerdown','pointermove','wheel','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>{lastInput=performance.now();},{passive:true,capture:true}));
 // Thuyết minh giọng Hải Đăng (VieNeu, bộ VideoMotion): mỗi chặng một file mp3, chỉ tải khi tới lượt; khớp tạm dừng và tốc độ phát
+// Câu chuyện kể (v1.64): "Gốc" có giọng Hải Đăng; 6 câu chuyện khác hiện chữ từng câu theo nhịp chặng (nguồn: thuyet_minh/3_cau_chuyen_lua_chon.md), chọn bằng nút 📖
+const STORIES=[{k:'goc',n:'Gốc (có giọng đọc)',c:null}].concat([{"k":"s1","n":"Mười câu hỏi của bé Tý","c":["Chào cả nhà, mình cùng về Lý Sơn nha! | Máy bay lượn một vòng trên vịnh Đà Nẵng rồi hạ cánh. | Vừa xuống sân bay, bé Tý đã hỏi câu đầu tiên: \"Chú Danh ơi, đảo tỏi có xa không?\" | Anh Danh bờrồ cười: \"Xa vừa đủ để cháu hỏi thêm chín câu nữa!\"","Câu hỏi thứ hai ở Cầu Vàng: \"Sao bàn tay đá không mỏi?\" | Anh Danh bảo bàn tay ấy nâng cầu cho khách chụp hình, nên vui quá quên mỏi. | Bên sông Hàn có ba cây cầu: cầu sông Hàn, Cầu Rồng, cầu Trần Thị Lý. | Lên Sơn Trà, bé Tý chắp tay trước tượng Quan Âm chùa Linh Ứng, im lặng được đúng một phút.","Xe buýt hai tầng mui trần chạy về Quảng Ngãi. | Câu hỏi thứ năm: \"Sao bác Bảy ngủ được khi gió to vậy?\" | Anh Danh trả lời: người lớn tuổi lên xe là ngủ, đó là quy luật. | Xe qua cầu Trà Khúc, ngang chùa Minh Đức có tượng Phật Quan Âm bên mặt nước, rồi tới cảng Sa Kỳ.","Ở nhà ga tàu Sa Kỳ, anh Danh phát vé cho từng người. | Câu hỏi thứ sáu: \"Sóng có biết mình đi Lý Sơn không?\" | Tàu cao tốc rẽ sóng, còn khoảng mười lăm hải lý. | Anh Tư chỉ một đám mây và nói đó là hòn đảo, bé Tý được dịp cười cả chuyến.","Tàu cập cảng Lý Sơn, cả đoàn về sân cát nhà Đạt. | Câu hỏi thứ bảy: \"Sao cát ở đây trắng mà đất lại đen?\" | Anh Danh kể đảo là núi lửa cũ, đất đen bazan, người dân phủ cát biển lên để trồng hành tỏi. | Mâm cơm chờ sẵn, ku Tèo ăn trước khi bé Tý kịp hỏi câu thứ tám.","Buổi chiều, cả đoàn đi theo lá cờ một vòng đảo. | Cột cờ Tổ quốc trên núi Thới Lới, Chùa Hang trong vách đá, Hang Câu xếp lớp như trang sách. | Câu hỏi thứ tám: \"Biển Đông kia có gì?\" Anh Danh chỉ ra xa: quần đảo Hoàng Sa và Trường Sa của Việt Nam. | Ở ruộng tỏi, câu thứ chín: \"Tỏi cô đơn có buồn không?\" Ku Tèo cắn thử một tép và khóc thay cho củ tỏi.","Ngày cuối là hội đua thuyền tứ linh. | Tám thuyền Rồng, Lân, Quy, Phụng của An Hải và An Vĩnh rẽ sóng về đích. | Trên bờ, tượng thế lính Hoàng Sa nhìn ra biển. | Câu hỏi thứ mười: \"Năm sau mình có quay lại không?\" Cả đoàn đồng thanh: \"Có!\""]},{"k":"s2","n":"Theo dấu đội Hoàng Sa","c":["Có những chuyến đi để vui, và có những chuyến đi để nhớ. | Máy bay lượn trên vịnh Đà Nẵng rồi hạ cánh. | Ở quán cà phê, bác Bảy nói với cả đoàn: \"Lần này bác muốn ra Lý Sơn, nơi ngày xưa những người lính đội Hoàng Sa xuống thuyền ra khơi.\" | Anh Danh bờrồ gật đầu và giơ lá cờ: \"Mình đi thôi.\"","Đà Nẵng hôm nay rực rỡ. | Cầu Vàng giữa núi, ba cây cầu bắc qua sông Hàn, Trung tâm Hành chính soi bóng nước. | Trên bán đảo Sơn Trà, tượng Quan Âm chùa Linh Ứng hướng ra biển. | Bác Bảy bảo: người miền Trung xưa nay luôn quay mặt về phía biển, cả khi cầu nguyện.","Xe buýt hai tầng đưa đoàn về Quảng Ngãi. | Qua cầu Trà Khúc, ngang chùa Minh Đức với tượng Phật Quan Âm bên mặt nước. | Bác Bảy kể: ngày trước, đội Hoàng Sa đi thuyền buồm, mang theo lương thực cho nhiều tháng, không biết ngày về. | Cả xe bỗng im lặng, chỉ còn tiếng gió.","Ở cảng Sa Kỳ, mỗi người cầm tấm vé tàu cao tốc. | Chuyến đi bây giờ chỉ còn khoảng mười lăm hải lý trên con tàu êm. | Chị Tám nhìn sóng và hỏi: \"Ngày xưa đi thuyền gỗ, họ có sợ không?\" | Bác Bảy đáp: \"Sợ chứ. Nhưng họ vẫn đi.\"","Tàu cập bến Lý Sơn, cả đoàn về nhà Đạt. | Mâm cơm đảo dọn ra: tôm, ram, ốc, cá nướng, nước chấm tỏi đảo. | Đạt kể ở đảo có lễ Khao lề thế lính Hoàng Sa, để tưởng nhớ những người đã ra đi. | Bữa cơm ấm áp, ai cũng thấy mình đang ăn bữa cơm của những người ở lại.","Buổi chiều, cả đoàn leo lên Cột cờ Tổ quốc trên núi Thới Lới. | Từ đây nhìn ra biển Đông là quần đảo Hoàng Sa và Trường Sa của Việt Nam. | Chùa Hang, Hang Câu, rồi ruộng tỏi lúc hoàng hôn dưới hàng dừa nghiêng gió. | Bác Bảy cầm một củ tỏi cô đơn và nói: \"Đảo nhỏ mà giữ được biển lớn.\"","Ngày cuối, trên bờ là tượng ba người lính Hoàng Sa, người đứng giữa chỉ tay ra biển. | Dưới nước, tám thuyền Rồng, Lân, Quy, Phụng của An Hải và An Vĩnh đua về đích trong tiếng trống. | Anh Danh bờrồ phát quà về bờ: tỏi, hành, hải sản khô. | Cả đoàn đứng lặng một phút trước tượng, rồi hẹn nhau năm sau quay lại."]},{"k":"s3","n":"Củ tỏi cô đơn chờ khách","c":["Xin chào, tui là một củ tỏi cô đơn, chỉ có một tép, sống ở ruộng nhà Đạt trên đảo Lý Sơn. | Sáng nay gió biển kể: có một chiếc máy bay vừa hạ cánh ở Đà Nẵng. | Trên đó có sáu người: anh Danh bờrồ cầm cờ, ku Tèo ham ăn, chị Tám mê chụp hình, bác Bảy, anh Tư và bé Tý. | Tui hồi hộp lắm, vì nghe nói họ đang đi tìm tui.","Gió lại kể: đoàn khách đang dạo Đà Nẵng. | Họ chụp hình ở Cầu Vàng, ngắm ba cây cầu trên sông Hàn, lên Sơn Trà thăm tượng Quan Âm chùa Linh Ứng. | Tui thì đứng yên dưới lớp cát trắng, phơi lá xanh cho đẹp. | Tui nghĩ: thành phố đẹp vậy, liệu họ còn muốn ra đảo không?","Chiều đó, con mòng biển bay ngang báo tin: xe buýt hai tầng đã về tới Quảng Ngãi. | Xe qua cầu Trà Khúc, ngang chùa Minh Đức có tượng Phật Quan Âm bên mặt nước. | Bác Bảy ngủ, ku Tèo đói. | Tui mừng thầm: người đói bụng thế nào cũng tìm tới tỏi.","Đoàn xuống tàu cao tốc ở cảng Sa Kỳ, còn khoảng mười lăm hải lý. | Sóng vỗ vào bờ đảo nghe như tiếng gõ cửa. | Tui kể bạn nghe: đất ở đây là đất núi lửa đen, người trồng phải gánh cát biển phủ lên, chăm từng luống. | Nên tỏi đảo nhỏ củ mà thơm, cay nồng.","Họ tới rồi! Tàu cập cảng Lý Sơn, cả đoàn về sân cát nhà Đạt. | Mâm cơm có chén nước chấm tỏi đảo, ku Tèo chấm liền ba lần. | Tui nghe tiếng cười vọng ra tới ruộng. | Bạn bè tui trong chén nước chấm chắc đang tự hào lắm.","Hoàng hôn, đoàn đi một vòng đảo: Cột cờ trên núi Thới Lới, Chùa Hang, Hang Câu, rồi tới ruộng của tui, có lưới xanh chắn gió và hàng dừa nghiêng. | Anh Danh giới thiệu: \"Đây là tỏi cô đơn, một tép, đặc sản Lý Sơn.\" | Ku Tèo bóc tui ra ăn sống, cay quá khóc luôn. | Người ta dùng tỏi theo kinh nghiệm dân gian, còn với ku Tèo thì tỏi là để khóc cho vui.","Ngày cuối, cả đảo đi xem đua thuyền Rồng, Lân, Quy, Phụng; tượng thế lính Hoàng Sa đứng nhìn ra biển. | Tui được xếp vào thùng quà về bờ, cạnh hành tím và mực khô. | Tui sẽ theo đoàn về đất liền, vào gian bếp của một gia đình nào đó. | Nếu bạn gặp tui, nhớ rằng tui đến từ một hòn đảo nhỏ giữa biển, nơi có nhà của Đạt."]},{"k":"s4","n":"Máy ảnh của chị Tám","c":["Tui là Tám, đi đâu cũng mang máy ảnh. | Tấm đầu tiên: vịnh Đà Nẵng qua cửa sổ máy bay, nghiêng máy theo cánh cho có đường chéo. | Ở quán cà phê, anh Danh bờrồ giơ lá cờ chào đoàn, tui chụp liền một tấm làm quen. | Mẹo nhỏ: chụp người thì để mắt họ ở một phần ba khung hình.","Cầu Vàng phải chụp từ thấp lên để đôi bàn tay đá trông thật lớn. | Bên sông Hàn, tui đứng xa để lấy trọn ba cây cầu trong một khung. | Trên Sơn Trà, tượng Quan Âm chùa Linh Ứng đứng giữa trời xanh, chụp ngược sáng nhẹ rất có hồn. | Ku Tèo thì chỉ muốn tui chụp ổ bánh mì.","Trên tầng hai xe buýt mui trần, gió thổi tóc bay, tấm nào cũng có hồn. | Đoàn tàu Bắc – Nam chạy song song, tui bấm liên tiếp để bắt khoảnh khắc tàu và xe ngang nhau. | Qua cầu Trà Khúc, chùa Minh Đức có tượng Phật Quan Âm soi bóng mặt nước. | Bác Bảy ngủ gật, tui chụp lén một tấm làm kỷ niệm.","Ở cảng Sa Kỳ, chụp tấm vé tàu cầm trên tay với nền biển phía sau. | Trên tàu cao tốc, đường sóng trắng sau đuôi tàu là đường dẫn mắt rất đẹp. | Còn khoảng mười lăm hải lý, đảo hiện dần ở chân trời. | Anh Tư chỉ một đám mây, tui chụp lại làm bằng chứng anh nhận nhầm đảo.","Tàu cập cảng Lý Sơn, tui chụp toàn cảnh cầu cảng và đê chắn sóng. | Về nhà Đạt, mâm cơm phải chụp từ trên xuống mới thấy đủ món. | Ánh sáng buổi trưa gắt, tui kéo mâm vào bóng hiên cho màu dịu. | Chụp xong thì ku Tèo đã ăn mất nửa đĩa tôm.","Lên Cột cờ trên núi Thới Lới, tui chụp lá cờ bay với biển phía sau, nhìn về hướng Hoàng Sa và Trường Sa. | Chùa Hang và vách Hang Câu xếp lớp như trang sách, chụp ngang cho thấy từng tầng đá. | Hoàng hôn ở ruộng tỏi, hàng dừa nghiêng in bóng lên trời cam. | Tấm đẹp nhất là ku Tèo khóc vì tỏi cô đơn, ống kính không cần chỉnh gì thêm.","Hội đua thuyền chụp từ trên cao mới thấy đủ tám làn, mỗi đầu tám lá cờ. | Tượng ba người lính Hoàng Sa trên bờ, tui chụp từ dưới lên cho thêm trang nghiêm. | Chiếc canô trắng chạy ra Đảo Bé để lại vệt sóng dài. | Album ba ngày đầy ắp, hẹn năm sau quay lại chụp tiếp."]},{"k":"s5","n":"Đi đâu cũng ăn","c":["Tui là Tèo, người ta gọi là ku Tèo, đi du lịch chủ yếu để ăn. | Máy bay vừa hạ cánh Đà Nẵng, bụng tui đã réo. | Ở quán cà phê, anh Danh bờrồ dặn: \"Ăn từ từ, còn ba ngày lận!\" | Tui gật đầu, nhưng tay đã cầm ổ bánh mì.","Đà Nẵng có mì Quảng sợi vàng, nước ít mà đậm. | Đi Cầu Vàng, ngắm ba cây cầu sông Hàn, lên Sơn Trà thăm tượng Quan Âm chùa Linh Ứng. | Tui nhớ đường bằng quán ăn: qua cầu này là tới quán kia. | Chị Tám chụp cảnh, tui chụp món.","Xe buýt hai tầng về Quảng Ngãi, gió mát làm tui buồn ngủ, nhưng nghĩ tới đồ ăn là tỉnh. | Qua cầu Trà Khúc, anh Danh kể sông Trà có cá bống nhỏ mà thơm. | Ngang chùa Minh Đức có tượng Phật Quan Âm, cả đoàn chắp tay, tui cũng bớt nghĩ chuyện ăn một chút. | Rồi xe tới cảng Sa Kỳ.","Lên tàu cao tốc, còn khoảng mười lăm hải lý. | Bác Bảy say sóng, tui nhường bác viên kẹo gừng. | Anh Danh dặn: ra đảo nhớ thử rong biển, ốc và mực một nắng. | Tui ghi hết vào điện thoại, kỹ hơn cả lịch trình.","Tới nhà Đạt, mâm cơm đảo dọn ra: tôm, ram, ốc luộc, cá nướng. | Chén nước chấm tỏi đảo thơm tới mức tui chấm cả rau. | Chị Tám chụp trước, tui ăn sau, nhưng ăn nhiều nhất. | Đạt cười: \"Ăn chậm thôi anh, chiều còn đi ruộng tỏi.\"","Buổi chiều đi một vòng đảo: Cột cờ trên núi Thới Lới, Chùa Hang, Hang Câu, nhìn ra biển Đông là Hoàng Sa và Trường Sa. | Tới ruộng tỏi lúc hoàng hôn, tui xin thử một tép tỏi cô đơn ăn sống. | Cay tới chảy nước mắt, nhưng ngọt hậu. | Người ta dùng tỏi theo kinh nghiệm dân gian, còn tui thì dùng để khóc cho vui.","Ngày hội đua thuyền, bờ biển đông vui, tiếng trống rộn ràng. | Tám thuyền Rồng, Lân, Quy, Phụng của An Hải và An Vĩnh rẽ sóng về đích. | Anh Danh bờrồ phát quà về bờ: tỏi, hành, hải sản khô. | Thùng quà của tui nặng nhất, vì tui xin thêm một túi tỏi cô đơn."]},{"k":"s6","n":"Anh Tư dẫn đường","c":["Anh Tư tuyên bố: \"Đường nào tui cũng rành!\" | Máy bay hạ cánh Đà Nẵng, anh Tư chỉ cổng ra, nhưng đó là cổng vào. | Anh Danh bờrồ giơ lá cờ: \"Đi theo lá cờ nha cả nhà!\" | Cả đoàn ra quán cà phê đúng giờ, anh Tư nói: \"Thấy chưa, tui dẫn đó.\"","Ở Cầu Vàng, anh Tư bảo đôi bàn tay đá chỉ đường về khách sạn. | Bên sông Hàn có ba cây cầu, anh Tư đếm thành bốn vì tính luôn cái bóng dưới nước. | Lên Sơn Trà thăm tượng Quan Âm chùa Linh Ứng, anh Tư lần này đi đúng, vì chỉ có một đường lên. | Anh Danh khen, anh Tư vui cả buổi.","Lên xe buýt hai tầng về Quảng Ngãi, anh Tư ngồi tầng trên làm \"hoa tiêu\". | Thấy đoàn tàu Bắc – Nam chạy song song, anh Tư bảo tài xế đua thử. | Qua cầu Trà Khúc, ngang chùa Minh Đức có tượng Phật Quan Âm, anh Tư chắp tay xin đừng lạc nữa. | Xe tới cảng Sa Kỳ đúng giờ, nhờ tài xế.","Ở nhà ga tàu Sa Kỳ, anh Tư cầm vé đứng nhầm hàng. | Tàu cao tốc rẽ sóng, còn khoảng mười lăm hải lý. | Anh Tư chỉ một đám mây và hét: \"Đảo kìa!\" | Bé Tý cười cả chuyến, còn anh Danh dặn: trên biển thì đảo không bay.","Tàu cập cảng Lý Sơn, anh Tư nói nhà Đạt ở bên trái. | Lá cờ của anh Danh bờrồ quẹo phải, cả đoàn theo lá cờ. | Mâm cơm nhà Đạt chờ sẵn: tôm, ram, ốc, cá nướng, nước chấm tỏi đảo. | Anh Tư ăn xong bảo: \"Lần sau tui dẫn đường bằng mùi nước chấm.\"","Buổi chiều đi một vòng đảo theo lá cờ. | Lên Cột cờ trên núi Thới Lới, nhìn ra biển Đông là quần đảo Hoàng Sa và Trường Sa của Việt Nam. | Chùa Hang, Hang Câu, rồi ruộng tỏi có lưới xanh chắn gió, anh Tư suýt đi lạc vào giữa luống. | Hoàng hôn, anh Tư hỏi đường về, cả đoàn đồng thanh: \"Đi theo lá cờ!\"","Ngày cuối có hội đua thuyền, tám làn rõ ràng nên anh Tư không chỉ sai được. | Trên bờ, tượng thế lính Hoàng Sa nhìn ra biển. | Anh Tư định đi bộ ra Đảo Bé, anh Danh chỉ chiếc canô ở bến phía đông. | Về bờ, anh Tư nói: \"Chuyến sau tui vẫn dẫn đường\", cả đoàn cười vang."]}]);
+let storyK='goc',lastStory='';try{const s=localStorage.getItem('lsd_3d_story');if(s&&STORIES.some(x=>x.k===s))storyK=s;}catch(e){}
+const storyBtn=$('#b-story'),storyEl=$('#story');
+function drawStory(){const st=STORIES.find(s=>s.k===storyK);storyBtn.innerHTML='📖<span class="tx"> '+(st.c?st.n:'Câu chuyện')+'</span>';storyBtn.title='Câu chuyện kể: '+st.n+' (bấm để đổi)';storyBtn.classList.toggle('on',!!st.c);lastStory='';}
+storyBtn.onclick=()=>{const i=STORIES.findIndex(s=>s.k===storyK);storyK=STORIES[(i+1)%STORIES.length].k;try{localStorage.setItem('lsd_3d_story',storyK);}catch(e){}drawStory();
+  const h=$('#hint');h.textContent='📖 '+STORIES.find(s=>s.k===storyK).n+(storyK==='goc'?'':' · chữ, chưa có giọng đọc');h.classList.remove('hide');clearTimeout(styTip);styTip=setTimeout(()=>h.classList.add('hide'),1800);syncVoice(true);};
+function updStory(){const st=STORIES.find(s=>s.k===storyK);if(!st.c){if(!storyEl.hidden){storyEl.hidden=true;measure();}return;}
+  const parts=(st.c[si]||'').split(' | '),dur=STEPS[si].dur||20,k=Math.max(0,Math.min(parts.length-1,Math.floor(lt/dur*parts.length)));
+  const key=storyK+'|'+si+'|'+k;if(key!==lastStory){lastStory=key;storyEl.textContent=parts[k];if(storyEl.hidden){storyEl.hidden=false;}measure();}}
+drawStory();
 const VO=STEPS.map((s,i)=>'audio/tm2_c'+i+'.mp3');   // tm2 = bản 44,1 kHz 64 kbps
 let soundOn=true,gest=false,voEl=null,voIdx=-1,voRate=0;
 try{if(localStorage.getItem('lsd_3d_sound')==='0')soundOn=false;}catch(e){}
@@ -2192,7 +2226,7 @@ document.addEventListener('visibilitychange',()=>syncVoice(true));
 function syncVoice(force){
   if(voIdx!==si){if(voEl)voEl.pause();voIdx=si;voEl=new Audio(VO[si]);voEl.preload='auto';force=true;voRate=0;if(VO[si+1]){const nx=new Audio(VO[si+1]);nx.preload='auto';}}
   if(!voEl)return;
-  const want=soundOn&&gest&&playing&&!document.hidden;
+  const want=soundOn&&gest&&playing&&!document.hidden&&storyK==='goc';   // câu chuyện khác chưa có giọng → tắt giọng gốc cho khỏi lệch lời
   if(voRate!==speed){try{voEl.playbackRate=speed;}catch(e){}voRate=speed;}   // chỉ đặt khi đổi tốc độ
   if(!want){if(!voEl.paused)voEl.pause();return;}
   if(voEl.duration&&lt>voEl.duration-.05){if(!voEl.paused)voEl.pause();return;}
@@ -2441,6 +2475,7 @@ function frame(now){
   renderOverlay();
   isoOverlay();
   if(F.note!==lastNote){lastNote=F.note;$('#cap-now').textContent=F.note;if(innerWidth<=900)measure();}
+  updStory();
   updateStyle(dt);
   // góc nhìn cao ra Hoàng Sa, Trường Sa: đẩy sương mù ra xa
   farV+=((F.far||0)-farV)*(1-Math.exp(-dt*2));if(farV>.01){scene.fog.near=lerp(scene.fog.near,380,farV);scene.fog.far=lerp(scene.fog.far,1100,farV);}

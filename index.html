@@ -1705,7 +1705,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.63</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.64</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -2468,7 +2468,9 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   else{
     AUTO_EVT.forEach(function(t){document.addEventListener(t,firstTouch,true);});
     cur=0;showSong(0);renderList();ui();
-    loadApi(function(){if(!yt)makePlayer(cur);});
+    /* Tăng tốc (v1.64): trình phát YouTube nặng ~1–2 MB, nên chỉ tải sau khi trang hiện xong 2,5 giây (khách chạm sớm hơn thì unmute() tự mở ngay) */
+    var startYT=function(){if(!yt&&!apiLoading)loadApi(function(){if(!yt)makePlayer(cur);});};
+    if(document.readyState==="complete")setTimeout(startYT,2500);else window.addEventListener("load",function(){setTimeout(startYT,2500);});
   }
 
   /* ===== Thời tiết Lý Sơn, Quảng Ngãi – MET Norway (yr.no), miễn phí, dùng được cho trang bán hàng (CC BY 4.0) =====
