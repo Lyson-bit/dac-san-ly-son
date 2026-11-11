@@ -421,6 +421,7 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
       <option value="wc">💧 Màu nước</option>
       <option value="uki">🌊 Ukiyo-e</option>
       <option value="cr">🖍️ Sáp màu</option>
+<option value="kc">🖊️ Ký họa sáp màu</option>
       <option value="tm">🖌️ Thủy mặc</option>
       <option value="mx">✨ Hòa sắc</option>
       <option value="3d">🎨 3D màu</option>
@@ -820,7 +821,7 @@ const postMat=new THREE.ShaderMaterial({
 });
 // Tăng tốc (v1.64): shader hậu kỳ chỉ biên dịch phần của kiểu vẽ đang chọn (mặc định Ký họa gọn nhất); đổi kiểu thì biên dịch lại một lần
 let postKey='';
-function setPostDefs(m){const d={};if(m==='wc'||m==='auto'||m==='mx')d.S_WC='';if(m==='uki'||m==='mx')d.S_UK='';if(m==='cr'||m==='mx')d.S_CR='';if(m==='tm'||m==='mx')d.S_TM='';
+function setPostDefs(m){const d={};if(m==='wc'||m==='auto'||m==='mx')d.S_WC='';if(m==='uki'||m==='mx')d.S_UK='';if(m==='cr'||m==='kc'||m==='mx')d.S_CR='';if(m==='tm'||m==='mx')d.S_TM='';
   const k=Object.keys(d).join();if(k!==postKey){postKey=k;postMat.defines=d;postMat.needsUpdate=true;}}
 setPostDefs('sketch');
 const postScene=new THREE.Scene(),postCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
@@ -837,14 +838,14 @@ function applyStyle(){
 applyStyle();
 // Kiểu vẽ: auto = ký họa ở phố/đường bộ (Đà Nẵng, Quảng Ngãi), chuyển dần sang màu nước khi ra biển và lên đảo
 let styleMode='auto',wcw=0,wcUI=null;
-const STYLE_NAME={sketch:'✏️ Ký họa bút mực',wc:'💧 Màu nước sổ tay thực địa',uki:'🌊 Ukiyo-e tranh khắc gỗ',cr:'🖍️ Sáp màu sách tô thiếu nhi',tm:'🖌️ Thủy mặc tranh mực nước',mx:'✨ Hòa sắc: gần khắc gỗ, giữa màu nước, xa thủy mặc','3d':'🎨 3D màu'};
+const STYLE_NAME={sketch:'✏️ Ký họa bút mực',wc:'💧 Màu nước sổ tay thực địa',uki:'🌊 Ukiyo-e tranh khắc gỗ',cr:'🖍️ Sáp màu sách tô thiếu nhi',kc:'🖊️ Ký họa sáp màu: nét mực ký họa, tô sáp màu',tm:'🖌️ Thủy mặc tranh mực nước',mx:'✨ Hòa sắc: gần khắc gỗ, giữa màu nước, xa thủy mặc','3d':'🎨 3D màu'};
 let ukw=0,ukUI=null,crw=0,tmw=0,mxw=0;
 function updateStyle(dt){
   if(isoOn){setBadge('📐 Sa bàn: quy trình và cách vận chuyển');return;}
   if(!sketch){setBadge('🎨 3D màu');if(ukUI){ukUI=false;document.body.classList.remove('uki');}return;}
-  const tgt=styleMode==='wc'?1:(styleMode==='sketch'||styleMode==='uki'||styleMode==='cr'||styleMode==='tm'||styleMode==='mx')?0:sstep(-24,4,cam.t.x);
+  const tgt=styleMode==='wc'?1:(styleMode==='sketch'||styleMode==='uki'||styleMode==='cr'||styleMode==='kc'||styleMode==='tm'||styleMode==='mx')?0:sstep(-24,4,cam.t.x);
   const kf=firstFrame?1:1-Math.exp(-dt*(RM?6:1.6));
-  wcw+=(tgt-wcw)*kf;ukw+=((styleMode==='uki'?1:0)-ukw)*kf;crw+=((styleMode==='cr'?1:0)-crw)*kf;tmw+=((styleMode==='tm'?1:0)-tmw)*kf;mxw+=((styleMode==='mx'?1:0)-mxw)*kf;postMat.uniforms.mxw.value=mxw;
+  wcw+=(tgt-wcw)*kf;ukw+=((styleMode==='uki'?1:0)-ukw)*kf;crw+=((styleMode==='cr'?1:styleMode==='kc'?.5:0)-crw)*kf;tmw+=((styleMode==='tm'?1:0)-tmw)*kf;mxw+=((styleMode==='mx'?1:0)-mxw)*kf;postMat.uniforms.mxw.value=mxw;
   postMat.uniforms.wcw.value=wcw;postMat.uniforms.ukw.value=ukw;postMat.uniforms.crw.value=crw;postMat.uniforms.tmw.value=tmw;postMat.uniforms.camD.value=cam.d;
   const uu=ukw>.5||tmw>.5||mxw>.5;if(uu!==ukUI){ukUI=uu;document.body.classList.toggle('uki',uu);}
   scene.fog.near=lerp(90,Math.max(45,cam.d*1.2),wcw);scene.fog.far=lerp(260,Math.max(190,cam.d*3),wcw);
@@ -1113,6 +1114,29 @@ function makeBasketBoat(){const g=new THREE.Group();
     const k=i%3===2?'b':'t',g=k==='t'?makeFishBoat():makeBasketBoat();g.scale.setScalar(k==='t'?.55:.6);
     g.position.set(x,0,z);g.rotation.y=Math.atan2(ca,sa)+Math.PI/2+(rr()-.5)*.8;
     g.userData.drift={x0:x,z0:z,r:k==='b'?.5:1.1,ph:i*2.1,sp:.04+.02*(i%3)};scene.add(g);fishing.push(g);}})();
+// Đàn cá heo nhảy (anh khoanh 11/11/2026: biển ngoài khơi Đà Nẵng và đường tàu Sa Kỳ → Lý Sơn): mỗi đàn 3 con thay phiên phóng vòng cung lên khỏi mặt nước
+const dolphins=[];
+(function(){const G=toon(0x6f8fa8),W=toon(0xe6eef2),fin=new THREE.ConeGeometry(1,1,3);
+  function make(){const g=new THREE.Group(),b=new THREE.Group();g.add(b);
+    mk(GEO.sph,G,0,0,0,b).scale.set(.13,.12,.42);                                  // thân
+    mk(GEO.sph,W,0,-.05,.04,b).scale.set(.1,.07,.34);                              // bụng
+    mk(GEO.sph,G,0,.02,.4,b).scale.set(.08,.07,.12);                               // đầu
+    mk(GEO.sph,G,0,-.02,.53,b).scale.set(.035,.03,.08);                            // mõm
+    [-1,1].forEach(s=>mk(GEO.sph,bas(0x18232c),s*.06,.05,.44,b).scale.setScalar(.014));
+    const d=mk(fin,G,0,.15,-.02,b);d.scale.set(.03,.14,.1);d.rotation.x=-.5;        // vây lưng
+    [-1,1].forEach(s=>{const p=mk(fin,G,s*.13,-.05,.15,b);p.scale.set(.03,.1,.07);p.rotation.set(-1.2,0,s*1.1);});   // vây ngực
+    mk(GEO.sph,G,0,0,-.45,b).scale.set(.05,.05,.12);
+    const t=mk(GEO.box,G,0,0,-.55,b);t.scale.set(.32,.02,.09);                       // đuôi
+    return g;}
+  function seaAt(x,z,dx){let k=0;while(H(x,z)>-.3&&k<60){x+=dx;k++;}return x;}
+  [[-44.5,-14,1],[24.6,-3.2,1]].forEach(([z,x0,dir],pi)=>{const x=seaAt(x0,z,.3)+1.2;
+    for(let i=0;i<3;i++){const g=make();g.scale.setScalar(.8);g.visible=false;scene.add(g);g.userData={x0:x+(i-1)*.7,z0:z+(i%2?.5:-.5)+i*.2,ph:i*.33+pi*.17,P:3.4+pi*.4,dir:pi?0.35:-0.4,splash:0};dolphins.push(g);}});})();
+// Sóng lượn nhẹ: vệt bọt trắng cong trôi chậm, hiện rồi mờ theo 3 nhịp
+const waveSets=[];
+(function(){const rr=rng(4242),geo=new THREE.TorusGeometry(.6,.055,3,14,1.3),N=MOBILE?24:54;
+  for(let k=0;k<3;k++)waveSets.push({m:new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0,depthWrite:false}),L:[]});
+  let n=0,tries=0;while(n<N&&tries<2000){tries++;const x=-14+rr()*58,z=-52+rr()*92;if(H(x,z)>-.45)continue;
+    const w=waveSets[n%3],m=mk(geo,w.m,x,.04,z,scene);m.rotation.x=-Math.PI/2;m.rotation.z=rr()*.6-.3+Math.PI/2;m.scale.set(1+rr()*.8,1,1);m.userData={x0:x,z0:z,dr:rr()*Math.PI*2};w.L.push(m);n++;}})();
 // Canô đưa khách Đảo Lớn ⇄ Đảo Bé (anh khoanh mũi đông Đảo Lớn 11/11/2026): 2 bến gỗ ngắn ở mép nước, canô trắng sọc xanh, mui che, khách mặc áo phao cam
 // chu kỳ 36 giây: chờ 4 s ở bến Đảo Lớn → chạy 14 s → chờ 4 s ở Đảo Bé → chạy về 14 s
 const CANO=(function(){
@@ -1312,14 +1336,31 @@ const PLANE_CURVE=new THREE.CatmullRomCurve3([new V3(62,16,-80),new V3(30,12.5,-
 /* ---------- Đà Nẵng: Cầu Vàng (Bà Nà), Trung tâm Hành chính, Cầu Rồng, Quan Âm Linh Ứng · Quảng Ngãi: chùa Minh Đức ----------
    Dựng bằng hình học, phỏng theo ảnh anh gửi (không dùng ảnh mạng trên trang). */
 const LM={vang:[-45,-49],hc:[-25.2,-52.5],rong:[-20,-50.5],qa:[-16.8,-59.5],md:[-35.5,-11]};
-function makeQuanAm(parent,x,y,z,s){const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(s);parent.add(g);const W=toon(0xfbfaf5);
-  mk(GEO.cyl,toon(0xe9e4d8),0,.2,0,g).scale.set(.75,.4,.75);
-  for(let i=0;i<10;i++){const a=i/10*Math.PI*2;const p=mk(GEO.sph,W,Math.cos(a)*.5,.5,Math.sin(a)*.5,g);p.scale.set(.22,.12,.22);}
-  mk(new THREE.CylinderGeometry(.24,.6,3,18),W,0,2,0,g);
-  mk(GEO.sph,W,0,3.45,0,g).scale.set(.4,.32,.32);
-  mk(GEO.sph,W,0,3.95,0,g).scale.setScalar(.24);
-  mk(new THREE.ConeGeometry(.17,.45,12),W,0,4.32,0,g);
-  [-1,1].forEach(sd=>{const a=mk(GEO.sph,W,sd*.16,3.05,.2,g);a.scale.set(.09,.32,.09);a.rotation.z=-sd*.5;});
+// Tượng Phật Quan Âm đứng (phỏng theo ảnh anh gửi): bệ sen 2 tầng, áo dài xòe chân, tay áo rộng buông, hai tay chắp trước ngực, mũ miện nhiều tầng
+const QA_ROBE=(()=>{const P=[[.62,0],[.56,.25],[.47,.9],[.4,1.6],[.36,2.2],[.4,2.75],[.38,3.0],[.2,3.18],[.11,3.3]].map(([r,h])=>new THREE.Vector2(r,h));return new THREE.LatheGeometry(P,20);})();
+function makeQuanAm(parent,x,y,z,s){const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(s);parent.add(g);const W=toon(0xfbfaf5),W2=toon(0xe9e6dc);
+  mk(GEO.cyl,W2,0,.12,0,g).scale.set(.95,.24,.95);mk(GEO.cyl,W2,0,.34,0,g).scale.set(.78,.2,.78);
+  for(let i=0;i<12;i++){const a=i/12*Math.PI*2;const p=mk(GEO.sph,W,Math.cos(a)*.6,.5,Math.sin(a)*.6,g);p.scale.set(.2,.12,.2);}
+  mk(QA_ROBE,W,0,.45,0,g);
+  for(let i=0;i<5;i++){const f=mk(GEO.box,W2,(i-2)*.16,1.2,.5-.02*Math.abs(i-2),g);f.scale.set(.03,1.4,.04);}          // nếp áo
+  [-1,1].forEach(sd=>{const sl=mk(GEO.box,W,sd*.43,2.15,.05,g);sl.scale.set(.17,1.5,.34);sl.rotation.z=sd*.05;   // tay áo rộng buông
+    const ar=mk(GEO.sph,W,sd*.2,2.85,.2,g);ar.scale.set(.1,.22,.1);ar.rotation.z=-sd*.9;});
+  mk(GEO.sph,W,0,2.95,.34,g).scale.set(.09,.14,.08);                                                          // tay chắp
+  mk(GEO.cyl,W,0,3.82,0,g).scale.set(.09,.15,.09);
+  mk(GEO.sph,W,0,4.05,0,g).scale.set(.2,.24,.2);
+  mk(GEO.cyl,W2,0,4.3,0,g).scale.set(.2,.12,.2);mk(GEO.cyl,W2,0,4.42,0,g).scale.set(.15,.12,.15);             // mũ miện
+  mk(new THREE.ConeGeometry(.11,.3,10),W,0,4.62,0,g);
+  [-1,1].forEach(sd=>{const v=mk(GEO.box,W2,sd*.17,3.6,-.02,g);v.scale.set(.05,.6,.12);});                        // khăn choàng
+  return g;}
+function makeTemple(parent,x,y,z,s,ry){const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(s);g.rotation.y=ry||0;parent.add(g);   // chùa mái vàng nhiều tầng
+  const Y=toon(0xf2b429),C=toon(0xf3e6c8),rf=new THREE.ConeGeometry(1,1,4);rf.rotateY(Math.PI/4);
+  mk(GEO.box,toon(0xd8c9a8),0,.2,0,g).scale.set(5,.4,2.6);
+  mk(GEO.box,C,0,.85,0,g).scale.set(3.4,.9,1.8);
+  for(let i=0;i<8;i++)mk(GEO.box,toon(0xb8402f),-1.5+i*.43,.75,.92,g).scale.set(.08,.7,.03);
+  [[0,1.45,2.3,1.35,1],[0,2.05,1.7,1.0,.8],[0,2.6,1.1,.7,.6]].forEach(([px,yy,w,d,h],i)=>{const r=mk(rf,Y,px,yy,0,g);r.scale.set(w*1.25,.42*h+.1,d*1.2);
+    if(i<2)mk(GEO.box,C,px,yy+.33,0,g).scale.set(w*1.4,.4*h,d*1.15);});
+  [-2.1,2.1].forEach(px=>{mk(GEO.box,C,px,.9,0,g).scale.set(.8,1,.8);const r=mk(rf,Y,px,1.55,0,g);r.scale.set(.75,.4,.75);mk(GEO.box,C,px,1.8,0,g).scale.set(.45,.35,.45);const r2=mk(rf,Y,px,2.1,0,g);r2.scale.set(.5,.35,.5);});
+  mk(GEO.cone4,Y,0,3.05,0,g).scale.set(.1,.45,.1);
   return g;}
 function makePagoda(parent,x,y,z,s,ry){const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(s);g.rotation.y=ry||0;parent.add(g);
   mk(GEO.box,toon(0xd8c9a8),0,.15,0,g).scale.set(3.2,.3,2.2);
@@ -1334,18 +1375,66 @@ function makePagoda(parent,x,y,z,s,ry){const g=new THREE.Group();g.position.set(
   [-21.3,-18.7].forEach(x=>{const k=mk(GEO.box,std(0xd9d2c0),x,groundY(x,-53.5)+.08,-53.5,scene);k.scale.set(.18,.2,19);});})();
 // Cầu Rồng: thân rồng vàng uốn lượn trên mặt cầu, đầu rồng hướng ra biển (phun lửa ở cảnh tham quan)
 let dragonHead=null;
-(function(){const [x,z]=LM.rong;const y=groundY(x,z)+.55;const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
-  mk(GEO.box,toon(0x8d939c),0,0,0,g).scale.set(6.6,.18,1.0);
-  [-2.6,-.9,.9,2.6].forEach(px=>{const c=mk(GEO.cyl,toon(0x7a8089),px,-.35,0,g);c.scale.set(.18,.7,.18);});
-  for(let i=0;i<14;i++){const px=-3.1+i*.48;[-.48,.48].forEach(pz=>mk(GEO.sph,bas(0x58d6ff),px,.16,pz,g).scale.setScalar(.05));}
-  const pts=[];for(let i=0;i<=48;i++){const t=i/48,xx=-3.3+6.5*t;const yy=.2+Math.max(0,Math.sin(t*Math.PI*3.1))*1.45+Math.max(0,t-.9)*9;pts.push(new V3(xx,yy,0));}
-  mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),96,.15,8,false),toon(0xf2b632),0,0,0,g);
-  for(let i=1;i<48;i+=3){const p=pts[i];if(p.y>.5){const sp=mk(GEO.cone4,toon(0xe0892a),p.x,p.y+.17,0,g);sp.scale.set(.06,.16,.06);}}
-  const hd=new THREE.Group();hd.position.set(3.25,1.2,0);g.add(hd);
-  mk(GEO.sph,toon(0xf2b632),0,0,0,hd).scale.set(.4,.3,.28);
-  mk(GEO.box,toon(0xf2b632),.42,-.06,0,hd).scale.set(.5,.2,.24);
-  [-1,1].forEach(s=>{const hn=mk(GEO.cone4,toon(0xe0892a),-.15,.3,s*.12,hd);hn.scale.set(.05,.3,.05);hn.rotation.z=.6;mk(GEO.sph,bas(0xd62828),.18,.08,s*.15,hd).scale.setScalar(.05);});
-  dragonHead=hd;})();
+(function(){const [x,z]=LM.rong;const y=groundY(x,z)+.55;const g=new THREE.Group();g.position.set(x,y,z);   // phần tĩnh: gộp (bake)
+  // kiểu truyện tranh: thân vàng mập có bụng kem, vây lửa đỏ cam, đầu tròn mắt to, bờm lửa, sừng cong, râu uốn
+  const GD=toon(0xffc12e),BL=toon(0xfff0c2),FR=[toon(0xf0472b),toon(0xff8c1a)];
+  mk(GEO.box,toon(0x4a505c),0,0,0,g).scale.set(6.6,.18,1.0);                                                  // mặt cầu
+  [-.51,.51].forEach(pz=>{mk(GEO.box,bas(0x3a62ff),0,-.08,pz,g).scale.set(6.6,.06,.03);                      // dải LED xanh dọc mép cầu
+    mk(GEO.box,toon(0xd9dde3),0,.17,pz,g).scale.set(6.6,.035,.035);                                           // lan can
+    for(let i=0;i<22;i++)mk(GEO.sph,bas(0xfff1c0),-3.15+i*.3,.2,pz,g).scale.setScalar(.035);});               // đèn hạt
+  [-2.6,-.9,.9,2.6].forEach(px=>mk(GEO.box,toon(0x5d636e),px,-.42,0,g).scale.set(.3,.7,.75));
+  // thân rồng chạy giữa cầu: 5 nhịp vồng lên trên mặt cầu rồi luồn xuống dưới, đuôi phía tây, đầu ngẩng hướng ra biển (phía đông)
+  const pts=[];for(let i=0;i<=80;i++){const t=i/80,xx=-3.3+6.25*t;let yy=Math.max(-.42,.3+Math.sin(t*Math.PI*4.5-.3)*1.3);if(t>.9)yy+=(t-.9)*4;pts.push(new V3(xx,yy,0));}
+  const crv=new THREE.CatmullRomCurve3(pts);
+  mk(new THREE.TubeGeometry(crv,160,.17,10,false),GD,0,0,0,g);
+  for(let i=0;i<=56;i++){const u=i/56,p=crv.getPointAt(u),tg=crv.getTangentAt(u);if(p.y<-.32)continue;const a=Math.atan2(tg.y,tg.x),nx=-Math.sin(a),ny=Math.cos(a);
+    const b=mk(GEO.sph,BL,p.x-nx*.09,p.y-ny*.09,0,g);b.scale.set(.1,.07,.13);b.rotation.z=a;                  // vảy bụng màu kem
+    if(i%2===0){const f=mk(GEO.cone4,FR[(i/2)%2],p.x+nx*.24,p.y+ny*.24,0,g);f.scale.set(.1,.3,.03);f.rotation.z=a-.35;}}   // vây lửa dọc lưng
+  const tl=crv.getPointAt(0);[-.5,0,.5].forEach((o,k)=>{const f=mk(GEO.cone4,FR[k%2],tl.x-.25,tl.y+o*.4,0,g);f.scale.set(.1,.42,.03);f.rotation.z=Math.PI/2+o;});   // chóp đuôi lửa
+  const hd=new THREE.Group();const e=pts[80];hd.position.set(x+e.x+.15,y+e.y+.12,z);hd.scale.setScalar(1.25);scene.add(hd);   // đầu rồng (giữ riêng để phun lửa)
+  mk(GEO.sph,GD,0,0,0,hd).scale.set(.34,.3,.3);                                                               // sọ tròn
+  mk(GEO.sph,GD,.36,0,0,hd).scale.set(.34,.17,.23);                                                           // mõm
+  mk(GEO.sph,GD,.64,.04,0,hd).scale.set(.13,.11,.19);                                                         // chóp mũi
+  const jw=mk(GEO.sph,toon(0xf2a420),.36,-.2,0,hd);jw.scale.set(.3,.08,.19);jw.rotation.z=-.32;               // hàm dưới, miệng há
+  mk(GEO.sph,bas(0xb3202a),.42,-.11,0,hd).scale.set(.24,.06,.15);                                               // lòng miệng đỏ
+  for(let k=0;k<4;k++)[-.12,.12].forEach(pz=>{const t=mk(GEO.cone4,toon(0xffffff),.3+k*.1,-.1,pz,hd);t.scale.set(.025,.07,.025);t.rotation.z=Math.PI;});
+  [-1,1].forEach(sd=>{mk(GEO.sph,toon(0xffffff),.13,.13,sd*.19,hd).scale.set(.1,.11,.08);                     // mắt to
+    mk(GEO.sph,bas(0x1b1b1b),.19,.14,sd*.23,hd).scale.setScalar(.05);mk(GEO.sph,bas(0xffffff),.21,.16,sd*.26,hd).scale.setScalar(.015);
+    const br=mk(GEO.sph,toon(0xf2a420),.12,.25,sd*.18,hd);br.scale.set(.14,.05,.08);br.rotation.z=-.3;          // mày
+    mk(GEO.sph,bas(0x3a2a10),.75,.09,sd*.07,hd).scale.setScalar(.022);                                          // lỗ mũi
+    const hp=[new V3(-.05,.22,sd*.12),new V3(-.25,.48,sd*.2),new V3(-.5,.58,sd*.24),new V3(-.66,.5,sd*.24)];     // sừng cong
+    mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(hp),12,.04,6,false),toon(0xfff0c8),0,0,0,hd);
+    const wp=[new V3(.6,-.02,sd*.16),new V3(.55,-.12,sd*.45),new V3(.3,-.3,sd*.6),new V3(.05,-.25,sd*.62),new V3(-.1,-.38,sd*.55)];   // râu uốn
+    mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(wp),16,.016,5,false),toon(0xff8c1a),0,0,0,hd);});
+  for(let k=0;k<9;k++){const a=-1.4+k*.35;const m=mk(GEO.cone4,FR[k%2],-.22-Math.cos(a)*.16,Math.sin(a)*.26,0,hd);m.scale.set(.09,.48,.2);m.rotation.z=Math.PI/2+a*.9;}   // bờm lửa
+  dragonHead=hd;bake(g);})();
+// Cá chép hóa Rồng (bờ đông sông Hàn, cạnh Cầu Rồng): bệ tròn ốp gạch, đế sóng, thân cá vảy uốn cong, đầu rồng phun vòi nước ra sông
+let carpMouth=null;
+(function(){const x=-17.6,z=-48.7,y=groundY(x,z);const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(.72);
+  const S=toon(0xeef1f6),S2=toon(0xcfd6e2),B=toon(0x2d3550);
+  mk(GEO.circle,toon(0xbfc4cc),0,.03,0,g).rotation.x=-Math.PI/2;g.children[0].scale.set(1.6,1.6,1);              // sân tròn
+  for(let i=0;i<9;i++){const a=i/9*Math.PI*2;mk(GEO.box,toon(0xa7633f),Math.cos(a)*1.5,.22,Math.sin(a)*1.5,g).scale.set(.16,.44,.16);}   // cột rào
+  mk(GEO.cyl,B,0,.75,0,g).scale.set(.62,1.5,.62);                                                            // bệ ốp gạch
+  for(let k=0;k<5;k++)mk(GEO.cyl,toon(0x3b4566),0,.2+k*.3,0,g).scale.set(.635,.03,.635);
+  mk(GEO.cyl,S2,0,1.56,0,g).scale.set(.72,.12,.72);
+  for(let i=0;i<10;i++){const a=i/10*Math.PI*2;const w=mk(GEO.sph,S,Math.cos(a)*.5,1.72,Math.sin(a)*.5,g);w.scale.set(.24,.16,.24);}   // đế sóng
+  const P=[new V3(.05,1.75,0),new V3(.12,2.4,0),new V3(.08,3.1,0),new V3(-.08,3.7,0),new V3(-.32,4.05,0)],cv=new THREE.CatmullRomCurve3(P);
+  for(let i=0;i<=16;i++){const u=i/16,p=cv.getPointAt(u),r=.36-.14*u;const b=mk(GEO.sph,S,p.x,p.y,0,g);b.scale.set(r,.2,r*.92);
+    if(i%2===0&&i<15){const sp=mk(GEO.cone4,S2,p.x+r*.95,p.y+.05,0,g);sp.scale.set(.05,.2,.05);sp.rotation.z=-1.1;}}   // vảy + gai lưng
+  const fin=mk(GEO.cone4,S,.15,1.95,.0,g);fin.scale.set(.45,.5,.08);fin.rotation.z=-.5;                         // vây đuôi
+  const h=new THREE.Group();h.position.set(-.38,4.12,0);g.add(h);
+  mk(GEO.sph,S,0,0,0,h).scale.set(.3,.25,.25);mk(GEO.box,S,-.32,-.02,0,h).scale.set(.36,.13,.2);
+  for(let k=0;k<6;k++){const m=mk(GEO.cone4,S2,.12+k*.03,.05+k*.07,0,h);m.scale.set(.05,.32,.12);m.rotation.z=-.9-k*.12;}   // bờm
+  [-1,1].forEach(sd=>{const hn=mk(GEO.cone4,S2,.05,.25,sd*.09,h);hn.scale.set(.035,.26,.035);hn.rotation.z=-.5;});
+  const kid=mk(GEO.sph,S,-.3,1.95,.32,g);kid.scale.set(.24,.17,.15);kid.rotation.z=.6;                          // cá chép nhỏ dưới chân
+  g.updateMatrixWorld(true);carpMouth=new V3(-.68,4.1,0).applyMatrix4(g.matrixWorld);
+  const wp=[];for(let i=0;i<=24;i++){const t=i/24;wp.push(new V3(carpMouth.x-t*3.0,carpMouth.y+Math.sin(t*Math.PI*.82)*1.0-t*t*(carpMouth.y-y+.6),carpMouth.z+t*.4));}   // vòi nước vồng ra sông
+  const wj=mk(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(wp),48,.035,6,false),bas(0xbfe6ff,{transparent:true,opacity:.7}),0,0,0,scene);wj.userData.pts=wp;carpMouth.pts=wp;
+  bake(g);
+  // cột đèn lồng trái tim đỏ dọc mép nước
+  const L=new THREE.Group();[-48.1,-47.45,-46.85].forEach(pz=>{const px=-18.92,py=groundY(px,pz);mk(GEO.cyl,toon(0x3a3f48),px,py+.65,pz,L).scale.set(.02,1.3,.02);
+    for(let k=0;k<3;k++)for(let j=0;j<6;j++){const a=j/6*Math.PI*2,r=.13-k*.025;mk(GEO.sph,bas(0xff3347),px+Math.cos(a)*r,py+1.05+k*.16,pz+Math.sin(a)*r,L).scale.set(.045,.05,.03);}});
+  bake(L);})();
 // Trung tâm Hành chính Đà Nẵng: tháp kính hình bắp ngô bên sông + tòa cao tầng cạnh bên
 (function(){const [x,z]=LM.hc,y=groundY(x,z);const prof=[];for(let i=0;i<=16;i++){const t=i/16;let r=.95*(.82+.28*Math.sin(Math.PI*Math.min(1,t*1.25)));if(t>.82)r*=1-(t-.82)/.18*.62;prof.push(new THREE.Vector2(Math.max(.05,r),t*10));}
   const tw=mk(new THREE.LatheGeometry(prof,28),std(0x3f86c4,{roughness:.35,metalness:.25}),x,y-.1,z,scene);tw.scale.set(1,1,.62);tw.rotation.y=.35;
@@ -1368,8 +1457,26 @@ let dragonHead=null;
     const th=mk(GEO.cyl,stone,-.42,3.0,-.62,hand);th.scale.set(.13,1.0,.13);th.rotation.x=-.5;});
   function sd0(j){return j%2?1:-1;}})();
 // Chùa Minh Đức (Quảng Ngãi): tượng Phật Quan Âm trên đồi, chùa mái vàng, mặt nước và bãi cát phía trước
-(function(){const [x,z]=LM.md;const hill=mk(GEO.ico,std(0x4c8f4f),x,groundY(x,z)-.6,z,scene);hill.scale.set(3.2,2.0,2.6);
-  makeQuanAm(scene,x+.4,groundY(x,z)+1.25,z-.3,1.15);makePagoda(scene,x-2.4,groundY(x,z)+.05,z+1.6,.7,.2);
+(function(){const [x,z]=LM.md;const hill=mk(GEO.ico,std(0x3f7d45),x,groundY(x,z)-.6,z,scene);hill.scale.set(3.2,2.0,2.6);
+  makeQuanAm(scene,x+.6,groundY(x,z)+1.25,z-.3,1.3);makeTemple(scene,x-2.3,groundY(x,z)+.35,z+.2,.62,.12);
+  // rừng phi lao phủ đồi
+  const TG=new THREE.Group(),tm=[toon(0x2f6b3a),toon(0x3d7d40),toon(0x285f34)];let sd=7;const rnd=()=>{sd=(sd*9301+49297)%233280;return sd/233280;};
+  for(let i=0;i<(MOBILE?26:48);i++){const a=rnd()*Math.PI*2,r=Math.sqrt(rnd())*.92,dx=Math.cos(a)*r*3.0,dz=Math.sin(a)*r*2.45;
+    if(Math.hypot(dx-.6,dz+.3)<.8||(dx<-1.2&&dz>-.9&&dz<1.4))continue;                                           // chừa chỗ tượng và chùa
+    const hy=groundY(x,z)-.6+2.0*Math.sqrt(Math.max(0,1-(dx/3.2)**2-(dz/2.6)**2))*.9;const t=mk(GEO.ico,tm[i%3],x+dx,hy+.15,z+dz,TG);t.scale.set(.28,.38,.28);}
+  bake(TG);
+  // cầu dây văng trụ đỏ vượt sông Trà Khúc trước chùa + ghe đánh cá xanh cam cắm cờ đỏ sao vàng
+  const B=new THREE.Group(),bx=-39.6,R=toon(0xd8433a),z0=-18.4,z1=-12.6;const by=Math.max(groundY(bx,-15.5),groundY(bx,z0),groundY(bx,z1))+.45;
+  mk(GEO.box,toon(0xe8e6e0),bx,by,(z0+z1)/2,B).scale.set(.75,.12,z1-z0);
+  for(let k=0;k<=8;k++){const pz=z0+.4+k*(z1-z0-.8)/8;mk(GEO.box,toon(0xd6d3cb),bx,(by+groundY(bx,pz))/2-.05,pz,B).scale.set(.22,Math.max(.1,by-groundY(bx,pz)),.22);}
+  const CP=[];[-16.4,-15.5,-14.6].forEach(tz=>{[-.3,.3].forEach(o=>{const l=mk(GEO.box,R,bx+o*.55,by+.75,tz,B);l.scale.set(.07,1.5,.09);l.rotation.z=-o*.42;});
+    for(let k=1;k<=3;k++)[-1,1].forEach(s=>[-.32,.32].forEach(o=>CP.push([new V3(bx,by+1.4,tz),new V3(bx+o,by+.06,tz+s*k*.14)])));});
+  bake(B);cables(CP,0xf3d6d0);
+  const FB=new THREE.Group();[[-34.6,-15.2,.2],[-33.6,-15.75,-.15],[-32.7,-15.3,.1]].forEach(([fx,fz,ry])=>{const fy=groundY(fx,fz)+.12,b=new THREE.Group();b.position.set(fx,fy,fz);b.rotation.y=ry;FB.add(b);
+    mk(GEO.box,toon(0x2a62b8),0,0,0,b).scale.set(.95,.18,.32);mk(GEO.box,toon(0xd23b2a),0,.1,0,b).scale.set(.97,.04,.33);
+    mk(GEO.box,toon(0xf08a24),-.15,.22,0,b).scale.set(.38,.24,.26);mk(GEO.cyl,toon(0x5a3a22),.2,.45,0,b).scale.set(.012,.7,.012);
+    mk(GEO.box,bas(0xda251d),.29,.72,0,b).scale.set(.18,.12,.01);mk(GEO.sph,bas(0xffde00),.29,.72,.008,b).scale.set(.03,.03,.005);});
+  bake(FB);
   const lake=mk(GEO.circle,std(0x4f9fd0),x+1.8,groundY(x+1.8,z+3.6)+.06,z+3.6,scene);lake.rotation.x=-Math.PI/2;lake.scale.set(2.6,1.5,1);
   const sand=mk(GEO.circle,std(0xe7c9a0),x+.6,groundY(x+.6,z+3.0)+.07,z+3.0,scene);sand.rotation.x=-Math.PI/2;sand.scale.set(1.6,.5,1);})();
 
@@ -1378,11 +1485,17 @@ function cables(pairs,color){const a=[];pairs.forEach(([p,q])=>{a.push(p.x,p.y,p
 function deck(z,col){const y=groundY(-20,z)+.55;const d=mk(GEO.box,toon(col||0x9aa0a8),-20,y,z,scene);d.scale.set(6.6,.16,1.0);
   [-22.4,-17.6].forEach(px=>{const c=mk(GEO.cyl,toon(0x7a8089),px,y-.35,z,scene);c.scale.set(.16,.7,.16);});
   for(let i=0;i<14;i++){const px=-23.1+i*.48;[-.48,.48].forEach(pz=>mk(GEO.sph,bas(0xffe9a0),px,y+.14,z+pz,scene).scale.setScalar(.04));}return y;}
-(function(){// cầu sông Hàn
-  const z=-55,y=deck(z,0xa7adb5),P=[];
-  [-21.6,-18.4].forEach(px=>{[-.45,.45].forEach(pz=>{const c=mk(GEO.box,toon(0xf2f2ee),px,y+1.1,z+pz,scene);c.scale.set(.16,2.2,.16);});const cb=mk(GEO.box,toon(0xf2f2ee),px,y+2.2,z,scene);cb.scale.set(.2,.18,1.05);
-    [-1,1].forEach(sd=>{for(let k=1;k<=4;k++){[-.45,.45].forEach(pz=>P.push([new V3(px,y+2.1,z+pz),new V3(px+sd*k*.38,y+.1,z+pz)]));}});});
-  cables(P);})();
+(function(){// cầu sông Hàn (cầu quay): 1 trụ chữ Y ngược xanh đen giữa sông, tượng trắng trên đỉnh, chân trụ tròn sơn đỏ, dây văng hồng tỏa 2 phía
+  const z=-55,y=deck(z,0xa7adb5),P=[],px=-20,g=new THREE.Group(),N=toon(0x1f2a4a);
+  const wy=groundY(px,z);mk(GEO.cyl,bas(0xe23b3b),px,wy+.12,z,g).scale.set(.62,.3,.62);mk(GEO.cyl,toon(0xd9b38c),px,y-.28,z,g).scale.set(.8,.24,.8);
+  for(let i=0;i<8;i++){const a=i/8*Math.PI*2;mk(GEO.sph,bas(0x3a0d0d),px+Math.cos(a)*.8,y-.28,z+Math.sin(a)*.8,g).scale.setScalar(.07);}
+  [-.42,.42].forEach(pz=>{const L=mk(GEO.box,N,px,y+1.0,z+pz*.55,g);L.scale.set(.14,2.1,.12);L.rotation.x=-pz*.32;});   // 2 chân chữ Y ngược
+  mk(GEO.box,N,px,y+2.75,z,g).scale.set(.18,1.5,.16);                                                         // thân trụ trên
+  const top=y+3.5;mk(GEO.cyl,bas(0xffffff),px,top+.25,z,g).scale.set(.07,.5,.07);
+  for(let k=0;k<7;k++){const a=k/7*Math.PI*2;const f=mk(GEO.cyl,bas(0xffffff),px+Math.cos(a)*.13,top+.52,z+Math.sin(a)*.13,g);f.scale.set(.02,.28,.02);f.rotation.set(Math.sin(a)*.9,0,-Math.cos(a)*.9);}   // tượng trắng trên đỉnh
+  bake(g);
+  [-1,1].forEach(sd=>{for(let k=0;k<9;k++){const ty=y+2.0+k*.16;[-.42,.42].forEach(pz=>P.push([new V3(px,ty,z+pz*.2),new V3(px+sd*(.5+k*.32),y+.1,z+pz)]));}});
+  cables(P,0xe04aa8);})();
 (function(){// cầu Trần Thị Lý
   const z=-46,y=deck(z,0xb3b9c1),P=[];
   const pts=[new V3(-17.4,y,z),new V3(-17.9,y+2.6,z),new V3(-18.9,y+5.2,z),new V3(-20.1,y+6.6,z)];
@@ -2221,13 +2334,13 @@ const STORIES=[{k:'goc',n:'Gốc (có giọng đọc)',c:null}].concat([{"k":"s1
 let storyK='goc',lastStory='';try{const s=localStorage.getItem('lsd_3d_story');if(s&&STORIES.some(x=>x.k===s))storyK=s;}catch(e){}
 const storyBtn=$('#b-story'),storyEl=$('#story'),buyEl=$('#buyNow');
 function drawStory(){const st=STORIES.find(s=>s.k===storyK);storyBtn.innerHTML='📖<span class="tx"> '+(st.c?st.n:'Câu chuyện')+'</span>';storyBtn.title='Câu chuyện kể: '+st.n+' (bấm để đổi)';storyBtn.classList.toggle('on',!!st.c);lastStory='';}
-storyBtn.onclick=()=>{const i=STORIES.findIndex(s=>s.k===storyK);storyK=STORIES[(i+1)%STORIES.length].k;try{localStorage.setItem('lsd_3d_story',storyK);}catch(e){}drawStory();
+storyBtn.onclick=()=>{const i=STORIES.findIndex(s=>s.k===storyK);storyK=STORIES[(i+1)%STORIES.length].k;try{localStorage.setItem('lsd_3d_story',storyK);}catch(e){}applyDur();drawStory();
   const h=$('#hint');h.textContent='📖 '+STORIES.find(s=>s.k===storyK).n+(storyK==='goc'||STORIES.find(s=>s.k===storyK).a?' · có giọng đọc':' · chữ, chưa có giọng đọc');h.classList.remove('hide');clearTimeout(styTip);styTip=setTimeout(()=>h.classList.add('hide'),1800);syncVoice(true);};
 function updStory(){const st=STORIES.find(s=>s.k===storyK);if(!st.c){if(!storyEl.hidden){storyEl.hidden=true;measure();}return;}
   const parts=(st.c[si]||'').split(' | '),dur=STEPS[si].dur||20,k=Math.max(0,Math.min(parts.length-1,Math.floor(lt/dur*parts.length)));
   const key=storyK+'|'+si+'|'+k;if(key!==lastStory){lastStory=key;storyEl.textContent=parts[k];if(storyEl.hidden){storyEl.hidden=false;}measure();}}
 // Giọng đọc (v1.65): Gốc đọc lại tên mới (tm3); câu chuyện có giọng riêng thì khai báo tiền tố + độ dài từng chặng
-const VOICED={s3:{a:'audio/st3_c',len:[19.6,15,14.3,14.4,13.2,19.6,17.4]}};
+const VOICED={s1:{a:'audio/nv1_c',len:[17.9,17.5,15.9,14.8,16.3,20.4,14.9]},s2:{a:'audio/nv2_c',len:[21.8,14.3,14.2,15.3,15,16.7,16.7]},s3:{a:'audio/nv3_c',len:[22.3,14.7,14,15.1,13.9,20.4,17.2]},s4:{a:'audio/nv4_c',len:[23,21.5,21.6,20.4,17.4,24.8,20.1]},s5:{a:'audio/nv5_c',len:[18,14.5,17.1,13.4,14.5,18.2,15.6]},s6:{a:'audio/nv6_c',len:[19,15.5,15.8,13.4,15,17.8,16.5]}};   // v1.66: mỗi nhân vật 1 giọng, người dẫn Hải Đăng (thuyet_minh/GIONG_NHAN_VAT.md)
 STORIES.forEach(s=>{if(VOICED[s.k]){s.a=VOICED[s.k].a;s.n+=' 🔊';}});
 drawStory();
 const VO=STEPS.map((s,i)=>'audio/tm3_c'+i+'.mp3');   // tm3 = đọc lại "anh Danh bờrồ", "ku Tèo" (44,1 kHz 64 kbps)
@@ -2254,7 +2367,7 @@ function syncVoice(force){
 }
 drawSound();
 // Điện thoại: nút 🎨 đổi lần lượt kiểu vẽ (thay ô chọn), báo tên kiểu trong 1,6 giây
-const STY_LIST=[['sketch','✏️','Ký họa'],['wc','💧','Màu nước'],['uki','🌊','Ukiyo-e'],['cr','🖍️','Sáp màu'],['tm','🖌️','Thủy mặc'],['mx','✨','Hòa sắc'],['auto','🧭','Theo chặng'],['3d','🎨','3D màu']];
+const STY_LIST=[['sketch','✏️','Ký họa'],['wc','💧','Màu nước'],['uki','🌊','Ukiyo-e'],['cr','🖍️','Sáp màu'],['kc','🖊️','Ký họa sáp màu'],['tm','🖌️','Thủy mặc'],['mx','✨','Hòa sắc'],['auto','🧭','Theo chặng'],['3d','🎨','3D màu']];
 const styBtn=$('#b-sty');let styTip=0;
 function drawSty(){const it=STY_LIST.find(s=>s[0]===styleMode)||STY_LIST[0];styBtn.textContent=it[1];styBtn.title='Kiểu vẽ: '+it[2]+' (bấm để đổi)';}
 styBtn.onclick=()=>{const i=STY_LIST.findIndex(s=>s[0]===styleMode);const nx=STY_LIST[(i+1)%STY_LIST.length];setStyleMode(nx[0]);drawSty();
@@ -2267,7 +2380,9 @@ uiBtn.onclick=()=>{const off=document.body.classList.toggle('noui');uiBtn.textCo
 setTimeout(()=>setStyleMode('sketch'),0);   // mặc định Ký họa (anh chọn); khách đổi được kiểu khác; chạy sau khi dựng xong (tránh lỗi TDZ)
 // Chặng nào lời thuyết minh dài hơn hoạt cảnh thì kéo dài chặng để giọng không bị cắt
 const VO_LEN=[17.6,15.8,12,12.6,10.9,17.4,15.5];   // tm3
-STEPS.forEach((s,i)=>{const L=Math.max(VO_LEN[i]||0,...Object.values(VOICED).map(v=>v.len[i]||0));if(L)s.dur=Math.max(s.dur,L+1.5);});
+STEPS.forEach(s=>{s.d0=s.dur;});
+function applyDur(){const v=VOICED[storyK],LL=v?v.len:VO_LEN;STEPS.forEach((s,i)=>{const L=LL[i]||0;s.dur=L?Math.max(s.d0,L+1.5):s.d0;});}   // thời lượng chặng theo câu chuyện đang chọn
+applyDur();
 let viewShift=0,topLimit=0;
 function measure(){document.documentElement.style.setProperty('--ctlh',$('#ctl').offsetHeight+'px');
   topLimit=$('#top').getBoundingClientRect().bottom;
@@ -2477,6 +2592,12 @@ function frame(now){
     c.moving=(ph>4&&ph<18)||ph>22;const p=c.curve.getPointAt(u);
     if(c.moving){const tg=c.curve.getTangentAt(u);c.ry=Math.atan2(tg.x*fw,tg.z*fw);}
     c.g.position.set(p.x,.05+Math.sin(T*2.2)*.03*WA,p.z);c.g.rotation.set(c.moving?-.07:0,c.ry,Math.sin(T*1.7)*.03*WA);}
+  // cá heo nhảy + sóng lượn
+  dolphins.forEach(g=>{const u=g.userData,c=RM?.21:((T/u.P)+u.ph)%1;if(c>=.42||isoOn){g.visible=false;return;}
+    const s=c/.42,f=s*2.4-1.2,cd=Math.cos(u.dir),sd=Math.sin(u.dir);g.visible=true;
+    g.position.set(u.x0+cd*f,Math.sin(Math.PI*s)*.85-.12,u.z0+sd*f);g.rotation.y=Math.atan2(cd,sd);g.children[0].rotation.x=-Math.cos(Math.PI*s)*.95;
+    if(s<.1||s>.9){const q=s<.1?s/.1:(1-s)/.1;for(let k=0;k<3;k++)soft(g.position.x+(k-1)*.12,.08+k*.04,g.position.z,.22+.25*(1-q),0xffffff,.65*(1-q*.5));}});
+  waveSets.forEach((w,k)=>{w.m.opacity=RM?.35:.5*Math.max(0,Math.sin(T*.45+k*2.094));if(!RM)w.L.forEach(m=>{const d=m.userData;m.position.x=d.x0+Math.sin(T*.22+d.dr)*.45;m.position.z=d.z0+Math.cos(T*.18+d.dr)*.3;});});
   fishing.forEach((g,i)=>{const d=g.userData.drift;if(d&&!RM){const a=T*d.sp+d.ph;g.position.x=d.x0+Math.cos(a)*d.r;g.position.z=d.z0+Math.sin(a)*d.r*.6;}
     g.position.y=waveY(g.position.x,g.position.z,T)*.6;g.rotation.z=Math.sin(T*1.3+i)*.06*WA;
     if(g.userData.oar)g.userData.oar.rotation.x=Math.sin(T*2.2+i)*.35*WA;});
@@ -2550,7 +2671,8 @@ function renderFx(){
     for(let i=0;i<2;i++){const ph=(T*2.6+i*.5+a.seed)%1;soft(r.x-fx*ph*.7,r.y+.08+ph*.25,r.z-fz*ph*.7,.22+ph*.4,0xe9dcc0,.45*(1-ph)*Math.min(1,a.spd-1.4));}});
   // Cầu Rồng phun lửa
   if(F.fire>=0&&dragonHead){dragonHead.getWorldPosition(_a);const on=Math.sin(F.fire*Math.PI);
-    for(let i=0;i<(MOBILE?10:18);i++){const ph=(T*1.8+i/18)%1;soft(_a.x+.5+ph*3.2,_a.y+.05+ph*.5+Math.sin(i*2.7+T*6)*.12*ph,_a.z+Math.sin(i*1.9)*.25*ph,(.25+ph*1.3)*on,ph<.35?0xffe39a:ph<.7?0xff8a2a:0xd2452a,.85*(1-ph)*on);}}
+    if(carpMouth)for(let i=0;i<(MOBILE?4:8);i++){const ph=(T*.9+i/8)%1,q=carpMouth.pts[Math.min(24,Math.floor(ph*25))];soft(q.x,q.y,q.z,.12+ph*.25,0xd8f1ff,.6*(1-ph*.6));}   // tia nước cá chép hóa rồng
+    for(let i=0;i<(MOBILE?10:18);i++){const ph=(T*1.8+i/18)%1;soft(_a.x+.95+ph*3.2,_a.y+.05+ph*.5+Math.sin(i*2.7+T*6)*.12*ph,_a.z+Math.sin(i*1.9)*.25*ph,(.25+ph*1.3)*on,ph<.35?0xffe39a:ph<.7?0xff8a2a:0xd2452a,.85*(1-ph)*on);}}
   // vầng sáng quanh tượng Quan Âm
   if(F.glow){soft(F.glow[0],F.glow[1],F.glow[2],2.2+.2*Math.sin(T*2),0xfff3c4,.45);}
   // bọt nước sau thuyền đua
