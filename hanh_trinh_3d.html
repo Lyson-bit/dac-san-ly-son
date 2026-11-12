@@ -606,13 +606,16 @@ function waveY(x,z,t){return WA*(0.16*Math.sin(0.28*x+1.1*t)+0.12*Math.sin(0.33*
 
 /* ---------------- Renderer / scene ---------------- */
 let renderer;
-try{ renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'}); }catch(e){ showError('webgl'); return; }
+// điện thoại: tắt khử răng cưa (lớp ký họa đã làm mịn), xin GPU tiết kiệm điện để đỡ nóng máy
+try{ renderer=new THREE.WebGLRenderer({antialias:!MOBILE,powerPreference:MOBILE?'low-power':'high-performance'}); }catch(e){ showError('webgl'); return; }
+const FCAP=MOBILE?33:0;let offView=false;   // điện thoại: tối đa 30 hình/giây; offView: khung nhúng đã cuộn khuất (trang chủ báo qua postMessage)
+addEventListener('message',e=>{if(e.origin===location.origin&&e.data&&e.data.ls3d==='vis')offView=!e.data.on;});
 /* Chất lượng hình: 2 = Đẹp, 1 = Nhẹ (mặc định điện thoại), 0 = Rất nhẹ (tự hạ khi máy giật).
    Mỗi mức: độ nét màn hình (pixel ratio) và tỷ lệ lớp vẽ ký họa / màu nước. */
 let QLV=MOBILE?1:2,qUser=false;
 try{const s=localStorage.getItem('lsd_3d_q');if(s!==null){QLV=Math.max(1,+s);qUser=true;}}catch(e){}
-const QPR=()=>QLV>=2?Math.min(window.devicePixelRatio||1,2):Math.max(1,Math.min(window.devicePixelRatio||1,1.5));
-const QPOST=()=>QLV>=2?1:.9;
+const QPR=()=>{const d=window.devicePixelRatio||1;return QLV>=2?Math.min(d,MOBILE?1.5:2):Math.max(1,Math.min(d,MOBILE?1.15:1.5));};   // điện thoại Nhẹ: ~1,15 (màn 3x vẽ ít điểm ảnh hơn ~7 lần)
+const QPOST=()=>QLV>=2?1:MOBILE?.85:.9;
 renderer.setPixelRatio(QPR());
 renderer.setSize(innerWidth,innerHeight);
 $('#stage').appendChild(renderer.domElement);
@@ -980,9 +983,15 @@ const rnd=rng(20261110);
 // Tăng tốc (v1.64): gộp vật tĩnh nhiều mảnh (cùng hình + cùng vật liệu) thành InstancedMesh → ít lần vẽ, điện thoại mượt hơn. root KHÔNG add vào scene.
 function bake(root){root.updateMatrixWorld(true);const G=new Map();
   root.traverse(o=>{if(!o.isMesh)return;const k=o.geometry.uuid+'|'+o.material.uuid;if(!G.has(k))G.set(k,{g:o.geometry,m:o.material,L:[]});G.get(k).L.push(o.matrixWorld.clone());});
-  G.forEach(v=>{const im=new THREE.InstancedMesh(v.g,v.m,v.L.length);v.L.forEach((M,i)=>im.setMatrixAt(i,M));im.instanceMatrix.needsUpdate=true;im.frustumCulled=false;scene.add(im);});
+  G.forEach(v=>{const im=new THREE.InstancedMesh(v.g,v.m,v.L.length);v.L.forEach((M,i)=>im.setMatrixAt(i,M));im.instanceMatrix.needsUpdate=true;cullFit(im);scene.add(im);});
   return G.size;}
-function instanced(geo,mat,list,fn){const im=new THREE.InstancedMesh(geo,mat,list.length);const m=new THREE.Matrix4(),c=new THREE.Color();list.forEach((it,i)=>{fn(m,it,i);im.setMatrixAt(i,m);if(it.color!==undefined){c.setHex(it.color);im.setColorAt(i,c);}});im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;scene.add(im);return im;}
+// v1.67: vùng bao cho cả nhóm InstancedMesh tĩnh → nhóm nằm ngoài khung nhìn thì không vẽ (r128 mặc định vẽ mọi nhóm mọi khung).
+// Hình mới dùng chung bộ đệm đỉnh với hình gốc (không tốn thêm bộ nhớ GPU), chỉ khác vùng bao.
+function cullFit(im){const g=im.geometry;if(!g.boundingSphere)g.computeBoundingSphere();const c0=g.boundingSphere.center,r0=g.boundingSphere.radius,M=new THREE.Matrix4(),p=new V3(),box=new THREE.Box3();let rm=0;
+  for(let i=0;i<im.count;i++){im.getMatrixAt(i,M);p.copy(c0).applyMatrix4(M);box.expandByPoint(p);rm=Math.max(rm,r0*M.getMaxScaleOnAxis());}
+  if(box.isEmpty())return;const s=new THREE.Sphere();box.getBoundingSphere(s);s.radius+=rm;
+  const g2=new THREE.BufferGeometry();if(g.index)g2.setIndex(g.index);for(const k in g.attributes)g2.setAttribute(k,g.attributes[k]);g2.groups=g.groups;g2.boundingSphere=s;im.geometry=g2;im.frustumCulled=true;}
+function instanced(geo,mat,list,fn){const im=new THREE.InstancedMesh(geo,mat,list.length);const m=new THREE.Matrix4(),c=new THREE.Color();list.forEach((it,i)=>{fn(m,it,i);im.setMatrixAt(i,m);if(it.color!==undefined){c.setHex(it.color);im.setColorAt(i,c);}});im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;cullFit(im);scene.add(im);return im;}
 const mcompose=(m,x,y,z,ry,sx,sy,sz)=>{const q=new THREE.Quaternion().setFromAxisAngle(new V3(0,1,0),ry||0);m.compose(new V3(x,y,z),q,new V3(sx,sy,sz));};
 // Nhà cao tầng Đà Nẵng
 (function(){
@@ -2544,6 +2553,8 @@ function fwd(id){const y=actors[id].yaw;return [Math.sin(y),Math.cos(y)];}
 function frame(now){
   requestAnimationFrame(frame);
   if(!firstFrame&&!playing&&now-lastInput>3000&&now-lastDraw<1000&&camMode!=='place'){last=now;return;}
+  if(!firstFrame&&offView){last=now;return;}                       // khung nhúng khuất màn hình: không vẽ
+  if(FCAP&&!firstFrame&&now-lastDraw<FCAP-3)return;                // điện thoại: bỏ bớt khung, giữ ~30 hình/giây
   lastDraw=now;
   const rawDt=Math.max(0,(now-last)/1000),dt=Math.min(.25,rawDt);last=now;T+=dt;
   if(playing)measureFps(rawDt);

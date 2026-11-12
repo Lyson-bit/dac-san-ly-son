@@ -109,9 +109,9 @@ nav a:hover{color:var(--sea)}
 .hero-photo{position:relative;margin:0;border-radius:22px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 18px 40px rgba(0,0,0,.28);background:var(--sea-soft)}
 .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
 .hero-photo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,22,28,.72) 0%,rgba(4,22,28,.38) 26%,rgba(4,22,28,0) 46%,rgba(4,22,28,0) 78%,rgba(4,22,28,.5) 100%)}
-.hp-top{position:absolute;z-index:2;top:0;left:0;right:0;padding:10px 18px 0;display:grid;justify-items:center;gap:0;text-align:center;color:#fff}
-/* 1: giống dải WELCOME TO LY SON */
-.hp-welcome{display:flex;align-items:center;gap:10px;font:600 .66rem/1.2 var(--f-body);letter-spacing:.32em;text-transform:uppercase;color:#7FE0E4;white-space:nowrap}
+.hp-top{position:absolute;z-index:2;top:0;left:0;right:0;padding:clamp(36px,7.5%,52px) 18px 0;display:grid;justify-items:center;gap:0;text-align:center;color:#fff}
+/* 1: dải WELCOME TO LY SON (v1.67: anh yêu cầu bỏ chữ "Đặc Sản Lý Sơn" trên ảnh, dải welcome xuống chỗ dòng đó, chữ lớn hơn) */
+.hp-welcome{display:flex;align-items:center;gap:10px;font:600 .66rem/1.2 var(--f-body);letter-spacing:.32em;text-transform:uppercase;color:#7FE0E4;white-space:nowrap;text-shadow:0 2px 10px rgba(0,0,0,.55)}
 .hp-welcome::before,.hp-welcome::after{content:"";height:1px;width:34px;background:linear-gradient(90deg,transparent,currentColor)}
 .hp-welcome::after{background:linear-gradient(90deg,currentColor,transparent)}
 .hp-welcome b{color:#fff;font-weight:700}
@@ -850,6 +850,8 @@ a.th-race{display:none}
   nav a.nav-race{display:none}
   a.th-race{display:block;margin-left:auto;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:500;line-height:1.3}
   a.th-race:hover{color:var(--sea)}
+#hanh-trinh-3d{scroll-margin-top:120px}@media (max-width:900px){#hanh-trinh-3d{scroll-margin-top:200px}}
+.th-links{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}.th-links a.th-race{margin-left:0}   /* v1.67: thêm mục Hành trình 3D dưới Xếp hạng thuyền đua */
 }
 @media (max-width:440px){a.th-race{font-size:.76rem}.th-row .th button{padding:0 7px}.th-row .hd-clock{padding:0 6px;gap:3px}.th-row .hd-clock svg{display:none}}
 @media (max-width:380px){.th-row{gap:4px}a.th-race{font-size:.74rem}.th-row .th button{padding:0 5px;gap:3px}.th-row .hd-clock{padding:0 5px}}
@@ -893,7 +895,7 @@ a.th-race{display:none}
 .th button[data-th="dark"] i{background:#111614}
 .th button[aria-pressed="true"]{background:var(--sea);color:var(--on-sea)}
 /* 2 dòng thư pháp ở phần dưới ảnh bìa */
-.hp-low{position:absolute;z-index:2;left:0;right:0;bottom:max(15.4%,63px);margin:0;padding:0 18px;display:grid;justify-items:center;gap:8px;text-align:center}
+.hp-low{position:absolute;z-index:2;left:0;right:0;bottom:max(12.4%,60px);margin:0;padding:0 18px;display:grid;justify-items:center;gap:6px;text-align:center}   /* v1.67: hạ xuống, tránh đè lên đảo */
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 
@@ -928,7 +930,7 @@ a.th-race{display:none}
       <div class="th-row">
         <div class="th" role="group" aria-label="Chọn nền trang"><button type="button" data-th="light" aria-pressed="false"><i aria-hidden="true"></i>Sáng</button><button type="button" data-th="dark" aria-pressed="false"><i aria-hidden="true"></i>Tối</button></div>
         <span class="hd-clock" title="Giờ Lý Sơn (giờ Việt Nam)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><time id="hdClock"></time></span>
-        <a class="th-race" href="#thuyen-dua">Xếp hạng thuyền đua</a>
+        <span class="th-links"><a class="th-race" href="#thuyen-dua">Xếp hạng thuyền đua</a><a class="th-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a></span>
       </div>
     </div>
     <nav aria-label="Mục lục">
@@ -938,7 +940,7 @@ a.th-race{display:none}
       <a href="#du-lich">Du lịch</a>
       <a href="#nhac">Nghe nhạc</a>
       <a href="#hoi-dap">Hỏi đáp</a>
-      <span class="nav-end"><span class="nav-end-top"><a class="nav-sp" href="#san-pham">Sản phẩm</a><a class="cta-link" href="#dat-hang">Đặt hàng</a></span><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
+      <span class="nav-end"><span class="nav-end-top"><a class="nav-sp" href="#san-pham">Sản phẩm</a><a class="cta-link" href="#dat-hang">Đặt hàng</a></span><a class="nav-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
     </nav>
   </div>
   <div class="wx-panel" id="wxPanel" role="region" aria-label="Thời tiết Lý Sơn, Quảng Ngãi" hidden>
@@ -1028,7 +1030,6 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         <img src="images/hanh_trinh/hero_dao_ly_son_tren_cao.webp" width="676" height="874" alt="Đảo Lý Sơn nhìn từ trên cao lúc hoàng hôn, rạn san hô rộng giữa biển xanh" fetchpriority="high">
         <figcaption class="hp-top">
           <span class="hp-welcome" lang="en">Welcome to <b>Ly Son</b></span>
-          <span class="hp-brand">Đặc Sản Lý Sơn</span>
         </figcaption>
         <p class="hp-low">
           <span class="hp-tag">Lý Sơn – nhà của Đạt</span>
@@ -1039,7 +1040,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       </figure>
     </div>
     <!-- Khung hành trình 3D: chỉ tải khi khách bấm (trang chủ không nặng thêm) -->
-    <div class="wrap j3d-box">
+    <div class="wrap j3d-box" id="hanh-trinh-3d">
       <div class="j3d-frame">
         <button class="j3d-play" id="j3dPlay" type="button" aria-label="Phát hành trình 3D Đà Nẵng đến Lý Sơn">
           <img class="j3d-img" src="images/hanh_trinh_3d/poster_3d_v1.webp" width="769" height="445" loading="lazy" alt="Ảnh chụp mô hình 3D: Đà Nẵng, Quảng Ngãi, cảng Sa Kỳ và đảo Lý Sơn">
@@ -1050,7 +1051,9 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
       </div>
     </div>
     <script>/* Khung 3D: bấm mới tải iframe. Bản xem trước (claude.ai) không có trang 3D: mở web chính ở tab mới */(function(){var b=document.getElementById('j3dPlay');if(!b)return;var live=/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname);var url=live?'hanh_trinh_3d.html':'https://lyson-bit.github.io/dac-san-ly-son/hanh_trinh_3d.html';var full=document.getElementById('j3dFull');if(!live){full.href=url;full.target='_blank';full.rel='noopener';}
-b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopener');return;}b.parentNode.classList.add('on');var f=document.createElement('iframe');f.src=url+'?embed=1';f.title='Hành trình 3D Đà Nẵng đến Lý Sơn';f.setAttribute('allowfullscreen','');b.parentNode.replaceChild(f,b);});})();</script>
+b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopener');return;}b.parentNode.classList.add('on');var f=document.createElement('iframe');f.src=url+'?embed=1';f.title='Hành trình 3D Đà Nẵng đến Lý Sơn';f.setAttribute('allowfullscreen','');b.parentNode.replaceChild(f,b);
+  /* cuộn khuất khung 3D thì báo trang 3D ngừng vẽ, đỡ nóng máy */
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){try{f.contentWindow.postMessage({ls3d:'vis',on:es[0].isIntersecting},location.origin);}catch(e){}},{threshold:.05}).observe(f);});})();</script>
     <div class="strata" aria-hidden="true"></div>
   </div>
 
@@ -1427,9 +1430,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
           <h3>Về đảo là về nhà</h3>
           <div class="nd-pics">
             <a href="images/hanh_trinh/nha_san.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_san.webp" width="720" height="960" loading="lazy" alt="Sân cát nhà Đạt, rổ cua ghẹ ốc vừa luộc, hoa giấy và xe máy"><span>Sân cát, rổ hải sản vừa luộc</span></a>
-            <a href="images/hanh_trinh/nha_phong_khach.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_phong_khach.webp" width="720" height="960" loading="lazy" alt="Phòng khách nhà với cây quất và bộ bàn ghế gỗ"><span>Phòng khách nhà Đạt</span></a>
-            <a class="wide" href="images/hanh_trinh/nha_ban_com.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_ban_com.webp" width="683" height="899" loading="lazy" alt="Bàn ăn trong nhà Đạt với tôm luộc, ram chiên, chả, canh rau củ và rau xanh"><span>Bữa cơm trong nhà Đạt</span></a>
-          </div>
+            <a href="images/hanh_trinh/nha_phong_khach.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/nha_phong_khach.webp" width="720" height="960" loading="lazy" alt="Phòng khách nhà với cây quất và bộ bàn ghế gỗ"><span>Phòng khách nhà Đạt</span></a>          </div>
           <ul class="nd-list">
             <li>Ghé chơi như người thân, ăn cơm chung mâm.</li>
             <li>Sân cát rộng, hoa giấy, ngồi ăn hải sản ngay trước hiên.</li>
@@ -1448,7 +1449,6 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
             <li><img src="images/hanh_trinh/g_nau_an.webp" width="480" height="640" loading="lazy" alt="Bếp nấu nghêu, tôm hấp sả"><span>Nghêu, tôm hấp sả</span></li>
             <li><img src="images/hanh_trinh/g_bach_tuoc.webp" width="320" height="640" loading="lazy" alt="Nồi bạch tuộc luộc và rổ rau thơm"><span>Bạch tuộc luộc</span></li>
             <li><img src="images/hanh_trinh/g_goi.webp" width="480" height="640" loading="lazy" alt="Gỏi trộn hành tây và rau quế"><span>Gỏi hành tây, rau quế</span></li>
-            <li><img src="images/hanh_trinh/g_com_bach_tuoc.webp" width="640" height="480" loading="lazy" alt="Cơm canh mướp và chén bạch tuộc rim"><span>Canh mướp, bạch tuộc rim</span></li>
           </ul>
           <p class="dat-says">Món nào cũng có tỏi đảo: đập dập vào nước chấm, phi thơm vào món xào. Hải sản đảo chỉ cần luộc, chấm muối tiêu chanh là ngon.</p>
         </article>
@@ -1705,7 +1705,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.66</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.67</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -2206,11 +2206,16 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     var NS="lyson-bit-dac-san-ly-son",KEY="khach",API="https://abacus.jasoncameron.dev/";
     var live=location.hostname==="lyson-bit.github.io",seen=false;
     try{seen=localStorage.getItem("lsd_da_dem")==="1";}catch(e){}
-    var url=API+((live&&!seen)?"hit/":"get/")+NS+"/"+KEY;
-    fetch(url,{cache:"no-store"}).then(function(r){return r.ok?r.json():(r.status===404?{value:0}:null);}).then(function(j){
-      if(j&&typeof j.value==="number"){el.textContent=j.value.toLocaleString("vi-VN");if(live&&!seen){try{localStorage.setItem("lsd_da_dem","1");}catch(e){}}}
-      else el.textContent="–";
-    }).catch(function(){el.textContent="–";});
+    var last=null;try{last=localStorage.getItem("lsd_so_khach");}catch(e){}
+    if(last)el.textContent=(+last).toLocaleString("vi-VN");                       // hiện ngay số lần trước, có số mới thì thay
+    function fail(){el.textContent=last?(+last).toLocaleString("vi-VN"):"–";}
+    function ask(n){
+      var url=API+((live&&!seen)?"hit/":"get/")+NS+"/"+KEY,ac=window.AbortController?new AbortController():null,to=setTimeout(function(){if(ac)ac.abort();},6000);
+      fetch(url,{cache:"no-store",signal:ac?ac.signal:undefined}).then(function(r){return r.ok?r.json():(r.status===404?{value:0}:null);}).then(function(j){clearTimeout(to);
+        if(j&&typeof j.value==="number"){el.textContent=j.value.toLocaleString("vi-VN");try{localStorage.setItem("lsd_so_khach",String(j.value));if(live&&!seen)localStorage.setItem("lsd_da_dem","1");}catch(e){}seen=true;}
+        else if(n<2)setTimeout(function(){ask(n+1);},2500*(n+1));else fail();
+      }).catch(function(){clearTimeout(to);if(n<2)setTimeout(function(){ask(n+1);},2500*(n+1));else fail();});}
+    ask(0);
   })();
 
   /* Ẩn nút Zalo nổi khi đang ở khu đặt hàng để không che chữ */
@@ -2363,14 +2368,18 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     document.head.appendChild(sc);
   }
   /* Tạo trình phát một lần. Mở trang là phát ngay ở chế độ tắt tiếng (trình duyệt cho phép), chạm lần đầu thì bật tiếng */
+  /* v1.67: điện thoại (màn cảm ứng) không phát ngầm lúc còn tắt tiếng – video chạy ngầm làm nóng máy mà khách chưa nghe được; chạm lần đầu unmute() mới phát */
+  var COARSE=window.matchMedia&&matchMedia("(pointer: coarse)").matches;
   function makePlayer(idx){
     var holder=document.createElement("div");holder.id="ytHolder";screen.appendChild(holder);
+    var quiet=COARSE&&muted;
     yt=new YT.Player("ytHolder",{host:"https://www.youtube-nocookie.com",videoId:songs[idx].id,
-      playerVars:{autoplay:1,mute:muted?1:0,playsinline:1,rel:0,modestbranding:1},
+      playerVars:{autoplay:quiet?0:1,mute:muted?1:0,playsinline:1,rel:0,modestbranding:1},
       events:{
         onReady:function(e){
           ytReady=true;cover.hidden=true;startTimer();
           if(muted)e.target.mute();else{e.target.unMute();e.target.setVolume(100);}
+          if(COARSE&&muted){return;}                                   /* xếp sẵn, chờ khách chạm */
           if(cur!==idx)e.target.loadVideoById(songs[cur].id);else e.target.playVideo();
         },
         onStateChange:function(e){
@@ -2470,7 +2479,9 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     cur=0;showSong(0);renderList();ui();
     /* Tăng tốc (v1.64): trình phát YouTube nặng ~1–2 MB, nên chỉ tải sau khi trang hiện xong 2,5 giây (khách chạm sớm hơn thì unmute() tự mở ngay) */
     var startYT=function(){if(!yt&&!apiLoading)loadApi(function(){if(!yt)makePlayer(cur);});};
-    if(document.readyState==="complete")setTimeout(startYT,2500);else window.addEventListener("load",function(){setTimeout(startYT,2500);});
+    /* v1.67: điện thoại tải trình phát trễ hơn (5 giây) và chỉ "xếp sẵn" bài, không phát ngầm khi tắt tiếng (xem makePlayer) */
+    var dly=COARSE?5000:2500;
+    if(document.readyState==="complete")setTimeout(startYT,dly);else window.addEventListener("load",function(){setTimeout(startYT,dly);});
   }
 
   /* ===== Thời tiết Lý Sơn, Quảng Ngãi – MET Norway (yr.no), miễn phí, dùng được cho trang bán hàng (CC BY 4.0) =====
