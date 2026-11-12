@@ -852,6 +852,9 @@ a.th-race{display:none}
   nav a.nav-race{display:none}
   a.th-race{display:block;margin-left:auto;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:500;line-height:1.3}
   a.th-race:hover{color:var(--sea)}
+  .th-links{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}.th-links a.th-race{margin-left:0}   /* v1.67: thêm mục Hành trình 3D dưới Xếp hạng thuyền đua */
+}
+/* v1.72: các quy tắc dưới đây trước nằm nhầm trong @media (max-width:640px) nên máy tính không nhận */
 #hanh-trinh-3d,#huong-dan-app{scroll-margin-top:200px}
 .nav-pair,.th-pair{display:flex;justify-content:flex-end;align-items:baseline;gap:14px;white-space:nowrap}.th-pair{gap:10px}
 /* v1.71: khối video hướng dẫn dùng app (mở từ mục menu "Hướng dẫn app") */
@@ -862,6 +865,9 @@ a.th-race{display:none}
 .tim-sub{margin:14px 0 6px;font:600 .78rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .tim-days{list-style:none;margin:0;padding:0;display:grid;gap:5px}.tim-days li{display:grid;grid-template-columns:72px 1fr 34px;align-items:center;gap:8px}
 .tim-days i{display:block;height:10px;border-radius:6px;background:linear-gradient(90deg,#E5484D var(--w),var(--sea-soft) var(--w))}.tim-days b{text-align:right}
+/* v1.72: bảng thống kê có nhãn dài (nguồn, thiết bị, nút bấm) */
+.tim-days.w li{grid-template-columns:minmax(0,150px) 1fr 66px}.tim-days.w span{font-size:.84rem;line-height:1.25}.tim-days b small{font-weight:400;color:var(--muted);font-size:.78em}
+#admTim .tim-st{max-height:62vh;overflow:auto}
 .hd-det{align-self:start;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:0 14px}
 .hd-det[open]{padding-bottom:12px}
 /* v1.70: chữ gọn, một phông thân (Be Vietnam Pro), bước có số tròn */
@@ -884,8 +890,6 @@ a.th-race{display:none}
 @supports not (aspect-ratio:1/1){.hd-vid{height:0;padding-top:177.78%}}
 .hd-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#0b1416}
 @media (max-width:640px){.hd-box{grid-template-columns:1fr}.hd-vid{margin:0 auto}}
-.th-links{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}.th-links a.th-race{margin-left:0}   /* v1.67: thêm mục Hành trình 3D dưới Xếp hạng thuyền đua */
-}
 @media (max-width:440px){a.th-race{font-size:.76rem}.th-row .th button{padding:0 7px}.th-row .hd-clock{padding:0 6px;gap:3px}.th-row .hd-clock svg{display:none}}
 @media (max-width:380px){.th-row{gap:4px}a.th-race{font-size:.74rem}.th-row .th button{padding:0 5px;gap:3px}.th-row .hd-clock{padding:0 5px}}
 .tools{position:relative;display:flex;align-items:center;gap:6px}
@@ -1772,7 +1776,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.71</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.72</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1884,7 +1888,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   <span class="adm-t"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.6-1.8"/></svg>Quản trị</span>
   <button type="button" id="admFbBtn">Duyệt phản hồi <b id="admCho"></b></button>
   <button type="button" id="admMucBtn">Ẩn/hiện mục</button>
-  <button type="button" id="admTimBtn">♥ Thả tim</button>
+  <button type="button" id="admTimBtn">📊 Thống kê</button>
   <button type="button" class="eye-btn" id="admAll" aria-pressed="true"><svg class="e-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3.2"/></svg><svg class="e-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.8.7 5.3 1.7M22 12s-3.6 7-10 7c-2 0-3.8-.7-5.3-1.7"/><circle cx="12" cy="12" r="3.2"/><path d="M4 20 20 4"/></svg><span>Toàn trang: đang hiện</span></button>
   <a class="adm-link" id="admSheet" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>Dữ liệu (Sheet)</a>
   <button type="button" id="admOut">Thoát</button>
@@ -1913,9 +1917,9 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   </div>
 </dialog>
 <dialog class="story adm-box" id="admTim" aria-labelledby="admTimT">
-  <div class="story-head"><p class="eyebrow">Quản trị</p><h3 id="admTimT">Lượt thả tim</h3></div>
+  <div class="story-head"><p class="eyebrow">Quản trị</p><h3 id="admTimT">Thống kê trang</h3></div>
   <div class="tim-st" id="admTimBody" aria-live="polite">Đang tải…</div>
-  <p class="adm-hint">Mỗi máy chỉ thả tim được 1 lần, nên số lượt thích cũng là số người (máy) khác nhau đã thích. Trang chỉ đếm số, không lưu tên hay thông tin người bấm. Số theo ngày bắt đầu đếm từ 12/11/2026 (giờ Việt Nam).</p>
+  <p class="adm-hint">Trang chỉ đếm số, không lưu tên, số điện thoại hay thông tin của khách. Mỗi máy chỉ thả tim được 1 lần, nên số lượt thích cũng là số người (máy) khác nhau đã thích. Khách theo ngày, nguồn, thiết bị và nút bấm: mỗi máy tính 1 lần mỗi ngày, bắt đầu đếm từ 12/11/2026 (giờ Việt Nam), trước đó chưa có số. Quét mã QR không phân biệt được với gõ link, nên gộp chung "Trực tiếp".</p>
   <div class="story-actions"><button class="btn ghost" type="button" id="admTimReload">Tải lại</button><button class="btn ghost" type="button" id="admTimClose">Đóng</button></div>
 </dialog>
 <script>/* v1.71: bảng thống kê thả tim cho người bán (đọc số đếm Abacus: tổng, theo ngày, lượt truy cập) */
@@ -1923,19 +1927,59 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   var API="https://abacus.jasoncameron.dev/get/lyson-bit-dac-san-ly-son/",GOC=204;
   function lay(k){return fetch(API+k,{cache:"no-store"}).then(function(r){return r.ok?r.json():{value:0};}).then(function(j){return j&&typeof j.value==="number"?j.value:0;}).catch(function(){return null;});}
   function f(n){return n===null?"–":n.toLocaleString("vi-VN");}
+  /* v1.72: thêm khách theo ngày, nguồn khách, thiết bị, nút bấm (khóa do script đếm ẩn danh bên dưới tạo) */
+  var NGUON=[["tructiep","Trực tiếp (QR, gõ link)"],["zalo","Zalo"],["facebook","Facebook"],["google","Google"],["tiktok","TikTok"],["app","Mở từ app đã cài"],["khac","Trang khác"]],
+      TB=[["dt","Điện thoại, máy tính bảng"],["mt","Máy tính"]],
+      BAM=[["taodon","Tạo đơn hàng"],["guidon","Gửi đơn qua Zalo"],["zalo","Nhắn Zalo"],["goi","Gọi điện"],["3d","Xem hành trình 3D"],["video","Xem video hướng dẫn"],["nhac","Bấm nghe nhạc"]];
+  function layHet(keys){var out=new Array(keys.length),i=0;  // tải lần lượt 6 khóa một lúc, tránh bị máy chủ đếm từ chối
+    return new Promise(function(done){var chay=0;function tiep(){if(i>=keys.length&&!chay)return done(out);while(chay<6&&i<keys.length){(function(k){chay++;lay(keys[k]).then(function(v){out[k]=v;chay--;tiep();});})(i++);}}tiep();});}
+  function cot(ds,rong){var max=Math.max.apply(null,ds.map(function(x){return x[1]||0;}).concat([1])),tg=ds.reduce(function(s,x){return s+(x[1]||0);},0),h='<ul class="tim-days'+(rong?' w':'')+'">';
+    ds.forEach(function(x){var n=x[1]||0;h+='<li><span>'+x[0]+'</span><i style="--w:'+Math.round(n/max*100)+'%"></i><b>'+n+(rong&&tg?' <small>'+Math.round(n/tg*100)+'%</small>':'')+'</b></li>';});return h+'</ul>';}
   function nap(){body.innerHTML="Đang tải…";var ngay=[];for(var i=0;i<7;i++){var d=new Date(Date.now()+7*36e5-i*864e5);ngay.push(d.toISOString().slice(0,10));}
-    Promise.all([lay("thich"),lay("khach")].concat(ngay.map(function(d){return lay("thich-"+d.replace(/-/g,""));}))).then(function(v){
-      var moi=v[0],kh=v[1],ds=v.slice(2),max=Math.max.apply(null,ds.map(function(x){return x||0;}).concat([1]));
-      var tong=moi===null?null:GOC+moi,tl=(moi!==null&&kh)?Math.round(moi/kh*1000)/10:null;
+    var dk=ngay.map(function(d){return d.replace(/-/g,"");}),nhan=ngay.map(function(d,i){var p=d.split("-");return i===0?"Hôm nay":i===1?"Hôm qua":p[2]+"/"+p[1];});
+    var keys=["thich","khach"].concat(dk.map(function(d){return "thich-"+d;}),dk.map(function(d){return "khach-"+d;}),NGUON.map(function(x){return "nguon-"+x[0];}),TB.map(function(x){return "tb-"+x[0];}),BAM.map(function(x){return "bam-"+x[0];}));
+    layHet(keys).then(function(v){
+      var moi=v[0],kh=v[1],th=v.slice(2,9),kd=v.slice(9,16),ng=v.slice(16,23),tb=v.slice(23,25),bm=v.slice(25,32);
+      var tong=moi===null?null:GOC+moi,tl=(moi!==null&&kh)?Math.round(moi/kh*1000)/10:null,luot=ng.reduce(function(s,x){return s+(x||0);},0),don=bm[1]||0;
       var h='<div class="tim-big"><b>'+f(tong)+'</b><span>lượt thích (người khác nhau)</span></div>'+
         '<div class="tim-row"><span>Có từ trước</span><b>'+f(GOC)+'</b></div><div class="tim-row"><span>Mới qua web</span><b>'+f(moi)+'</b></div>'+
         '<div class="tim-row"><span>Lượt truy cập (mỗi máy 1 lần)</span><b>'+f(kh)+'</b></div><div class="tim-row"><span>Tỷ lệ thích trên truy cập</span><b>'+(tl===null?"–":tl.toLocaleString("vi-VN")+"%")+'</b></div>'+
-        '<p class="tim-sub">7 ngày gần nhất</p><ul class="tim-days">';
-      ngay.forEach(function(d,i){var n=ds[i]||0,p=d.split("-");h+='<li><span>'+(i===0?"Hôm nay":i===1?"Hôm qua":p[2]+"/"+p[1])+'</span><i style="--w:'+Math.round(n/max*100)+'%"></i><b>'+n+'</b></li>';});
-      body.innerHTML=h+"</ul>";});}
+        '<p class="tim-sub">Thả tim 7 ngày gần nhất</p>'+cot(nhan.map(function(n,i){return [n,th[i]];}))+
+        '<p class="tim-sub">Khách 7 ngày gần nhất (mỗi máy 1 lần/ngày)</p>'+cot(nhan.map(function(n,i){return [n,kd[i]];}))+
+        '<p class="tim-sub">Khách đến từ đâu (cộng dồn)</p>'+cot(NGUON.map(function(x,i){return [x[1],ng[i]];}),1)+
+        '<p class="tim-sub">Thiết bị (cộng dồn)</p>'+cot(TB.map(function(x,i){return [x[1],tb[i]];}),1)+
+        '<p class="tim-sub">Khách bấm nút (số máy, mỗi ngày 1 lần)</p>'+cot(BAM.map(function(x,i){return [x[1],bm[i]];}),0).replace('tim-days','tim-days w')+
+        '<div class="tim-row"><span>Gửi đơn / lượt khách (cộng dồn)</span><b>'+(luot?(Math.round(don/luot*1000)/10).toLocaleString("vi-VN")+"%":"–")+'</b></div>';
+      body.innerHTML=h;});}
   btn.addEventListener("click",function(){if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");nap();});
   document.getElementById("admTimReload").addEventListener("click",nap);
   document.getElementById("admTimClose").addEventListener("click",function(){dlg.close?dlg.close():dlg.removeAttribute("open");});})();</script>
+<script>/* v1.72: đếm ẩn danh cho bảng Thống kê (Abacus, chỉ cộng số, không lưu tên, số điện thoại, địa chỉ IP hay thông tin khách).
+   Chỉ chạy trên web thật lyson-bit.github.io. Mỗi máy tính 1 lần mỗi ngày (nhớ ngày trong localStorage của chính máy khách). */
+(function(){if(location.hostname!=="lyson-bit.github.io"||!window.fetch)return;
+  var H="https://abacus.jasoncameron.dev/hit/lyson-bit-dac-san-ly-son/",D=new Date(Date.now()+7*36e5).toISOString().slice(0,10).replace(/-/g,"");
+  function hit(k){try{fetch(H+k,{cache:"no-store",keepalive:true}).catch(function(){});}catch(e){}}
+  function moiNgay(k){try{if(localStorage.getItem("lsd_tk_"+k)===D)return false;localStorage.setItem("lsd_tk_"+k,D);return true;}catch(e){return false;}}
+  var ua=navigator.userAgent||"",r=document.referrer||"",src,dev;
+  if((window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone)src="app";
+  else if(/Zalo/i.test(ua)||/zalo/i.test(r))src="zalo";
+  else if(/FBAN|FBAV|FB_IAB|FBIOS|Instagram/i.test(ua)||/facebook\.|fb\.(com|me)|instagram\./i.test(r))src="facebook";
+  else if(/tiktok|musical_ly|BytedanceWebview/i.test(ua)||/tiktok\./i.test(r))src="tiktok";
+  else if(/google\./i.test(r))src="google";
+  else if(r&&r.indexOf(location.host)<0)src="khac";
+  else src="tructiep";
+  dev=(/Mobi|Android|iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/.test(ua)))?"dt":"mt";
+  if(moiNgay("ngay")){hit("khach-"+D);hit("nguon-"+src);hit("tb-"+dev);}
+  function bam(k){if(moiNgay(k))hit("bam-"+k);}
+  var cb=document.getElementById("createBtn");if(cb&&cb.form)cb.form.addEventListener("submit",function(){bam("taodon");});
+  document.addEventListener("click",function(e){var t=e.target&&e.target.closest?e.target.closest("a,button"):null;if(!t)return;
+    var id=t.id||"",h=t.getAttribute("href")||"";
+    if(id==="sendBtn")bam("guidon");
+    else if(/zalo\.me/i.test(h))bam("zalo");
+    else if(/^tel:/i.test(h))bam("goi");
+    else if(id==="j3dPlay"||/hanh_trinh_3d\.html/.test(h))bam("3d");
+    else if(t.closest("#mini,#nhac"))bam("nhac");},true);
+  document.addEventListener("play",function(e){if(e.target&&e.target.id==="hdVideo")bam("video");},true);})();</script>
 <dialog class="story adm-box" id="admMuc" aria-labelledby="admMucT">
   <div class="story-head"><p class="eyebrow">Quản trị</p><h3 id="admMucT">Ẩn/hiện mục trên trang</h3></div>
   <p class="adm-hint">Bấm con mắt để ẩn hoặc hiện. Mục bị ẩn: khách không thấy, các link dẫn tới mục đó cũng ẩn. Anh vẫn thấy mục mờ, viền cam, để bật lại.</p>
