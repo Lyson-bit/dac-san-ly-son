@@ -868,6 +868,20 @@ a.th-race{display:none}
 /* v1.72: bảng thống kê có nhãn dài (nguồn, thiết bị, nút bấm) */
 .tim-days.w li{grid-template-columns:minmax(0,150px) 1fr 66px}.tim-days.w span{font-size:.84rem;line-height:1.25}.tim-days b small{font-weight:400;color:var(--muted);font-size:.78em}
 #admTim .tim-st{max-height:62vh;overflow:auto}
+#admAll.xn{background:#C8591A!important;border-color:#C8591A!important;color:#fff!important}
+/* v1.73: bảng Thống kê gọn */
+.tk-top{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:2px 0 8px}
+.tk-c{border-radius:12px;background:var(--sea-soft);padding:8px 10px;display:flex;flex-direction:column;gap:1px;min-width:0}
+.tk-c b{font:700 1.6rem/1.05 var(--f-body);color:var(--sea);font-variant-numeric:tabular-nums}.tk-c.tim b{color:#E5484D}
+.tk-c span{font:600 .82rem/1.25 var(--f-body);color:var(--fg)}.tk-c small{font-size:.72rem;line-height:1.25;color:var(--muted)}
+#admTim table.tk-t{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;font-size:.84rem;font-variant-numeric:tabular-nums}
+.tk-t th{font:600 .7rem/1.2 var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right;padding:3px 6px;border-bottom:1px solid var(--line)}
+#admTim .tk-t th{color:var(--muted);background:none}.tk-t th:first-child,.tk-t td:first-child{text-align:left;width:44%}.tk-t.k6 th:first-child,.tk-t.k6 td:first-child{width:27%}.tk-t.k6 th,.tk-t.k6 td{padding-left:3px;padding-right:3px}.tk-t.k6 tr:last-child td{border-bottom:0;color:var(--muted)}
+.tk-ct{margin:4px 0 2px;font-size:.72rem;line-height:1.35;color:var(--muted)}
+.tk-t.k5 th:first-child,.tk-t.k5 td:first-child{width:31%}.tk-t.k5 th,.tk-t.k5 td{padding-left:3px;padding-right:3px}.tk-t.k5 th{text-transform:none;letter-spacing:0;font-size:.72rem}
+.tk-t.k5 tr.g td{text-align:left;padding-top:9px;font:700 .72rem/1.2 var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--sea);border-bottom:1px solid var(--line)}
+.tk-t.k5 tr.tc td{font-weight:700;background:var(--sea-soft)}.tk-t.k5 td:last-child{color:var(--muted)}.tk-t td small{color:var(--muted);font-size:.78em}.tk-t td{text-align:right;padding:3px 6px;border-bottom:1px solid var(--line)}.tk-t td+td{font-weight:700}
+.tk-l{margin:6px 0 0;font-size:.84rem;line-height:1.45}.tk-l>span{display:inline-block;min-width:66px;font-weight:600;color:var(--muted)}.tk-l small{color:var(--muted)}.tk-l em{color:var(--muted)}
 .hd-det{align-self:start;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:0 14px}
 .hd-det[open]{padding-bottom:12px}
 /* v1.70: chữ gọn, một phông thân (Be Vietnam Pro), bước có số tròn */
@@ -1024,6 +1038,11 @@ var NS="lyson-bit-dac-san-ly-son",API="https://abacus.jasoncameron.dev/",live=lo
 var red=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 try{da=localStorage.getItem("lsd_thich")==="1";}catch(e){}
 function ve(){b.setAttribute("aria-pressed",da?"true":"false");n.textContent=so===null?"":so.toLocaleString("vi-VN");b.setAttribute("aria-label",(da?"Bạn đã thả tim":"Thả tim cho trang")+(so===null?"":", "+so+" lượt thích"));b.title=da?"Cảm ơn bạn đã thả tim!":"Thả tim cho trang";}
+/* v1.73: hậu tố khóa đếm theo giờ Việt Nam: ngày "YYYYMMDD", tuần "tYYYYMMDD" (ngày thứ Hai), tháng "mYYYYMM".
+   Bảng quản trị đọc thẳng các khóa này (ít lần đọc, vì máy chủ Abacus chỉ cho 30 lần / 10 giây). */
+function lsKy(){var n=new Date(Date.now()+7*36e5),s=function(x){return x.toISOString().slice(0,10).replace(/-/g,"");},d=s(n);
+  return [d,"t"+s(new Date(n.getTime()-((n.getUTCDay()+6)%7)*864e5)),"m"+d.slice(0,6)];}
+window.lsKy=lsKy;
 function lay(u,cb,loi){if(!window.fetch){if(loi)loi();return;}fetch(u,{cache:"no-store"}).then(function(x){return x.ok?x.json():(x.status===404?{value:0}:null);}).then(function(j){if(j&&typeof j.value==="number")cb(j.value);else if(loi)loi();}).catch(function(){if(loi)loi();});}
 function an(){tip.hidden=true;clearTimeout(tt);}
 function noi(html,giay){tip.innerHTML=html+'<button type="button" class="x" aria-label="Đóng">×</button>';tip.hidden=false;clearTimeout(tt);tt=setTimeout(an,giay*1000);}
@@ -1037,7 +1056,7 @@ if(da){noi("Bạn đã thả tim rồi, cảm ơn nhé! ♥",4);return;}
 da=true;try{localStorage.setItem("lsd_thich","1");}catch(e){}
 if(live){lay(API+"hit/"+NS+"/thich",function(v){so=GOC+v;ve();camOn();},function(){if(so!==null)so++;ve();camOn();});
   /* v1.71: đếm thêm theo ngày (giờ Việt Nam) để trang quản trị xem lượt thích từng ngày; chỉ là con số, không lưu ai bấm */
-  lay(API+"hit/"+NS+"/thich-"+new Date(Date.now()+7*36e5).toISOString().slice(0,10).replace(/-/g,""),function(){});}else{if(so!==null)so++;ve();camOn();}});
+  lsKy().forEach(function(k){lay(API+"hit/"+NS+"/thich-"+k,function(){});});}else{if(so!==null)so++;ve();camOn();}});
 tip.addEventListener("click",function(e){var t=e.target;if(t.closest(".x"))an();else if(t.closest("[data-share]")){an();var sb=document.querySelector('.qr-acts[data-qr="web"] [data-act="share"]');if(sb)sb.click();}});
 if(!da){var t0=Date.now(),nhac=false;try{nhac=sessionStorage.getItem("lsd_nhac_tim")==="1";}catch(e){}
 var iv=setInterval(function(){if(da||nhac){clearInterval(iv);return;}var h=document.documentElement,sau=(window.scrollY+innerHeight)/h.scrollHeight;
@@ -1776,7 +1795,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.72</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.73</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1919,38 +1938,43 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
 <dialog class="story adm-box" id="admTim" aria-labelledby="admTimT">
   <div class="story-head"><p class="eyebrow">Quản trị</p><h3 id="admTimT">Thống kê trang</h3></div>
   <div class="tim-st" id="admTimBody" aria-live="polite">Đang tải…</div>
-  <p class="adm-hint">Trang chỉ đếm số, không lưu tên, số điện thoại hay thông tin của khách. Mỗi máy chỉ thả tim được 1 lần, nên số lượt thích cũng là số người (máy) khác nhau đã thích. Khách theo ngày, nguồn, thiết bị và nút bấm: mỗi máy tính 1 lần mỗi ngày, bắt đầu đếm từ 12/11/2026 (giờ Việt Nam), trước đó chưa có số. Quét mã QR không phân biệt được với gõ link, nên gộp chung "Trực tiếp".</p>
+  <p class="adm-hint">Zalo: khách mở trang từ tin nhắn Zalo. Web: từ Google, Facebook, trang khác. QR: quét mã QR, gõ link hoặc mở app (mã QR là link cố định nên không tách riêng được). Mỗi máy tính 1 lần/ngày; tim mỗi máy 1 lần. Chỉ đếm số, không lưu tên hay SĐT. Bảng đếm từ 12/11/2026.</p>
   <div class="story-actions"><button class="btn ghost" type="button" id="admTimReload">Tải lại</button><button class="btn ghost" type="button" id="admTimClose">Đóng</button></div>
 </dialog>
 <script>/* v1.71: bảng thống kê thả tim cho người bán (đọc số đếm Abacus: tổng, theo ngày, lượt truy cập) */
 (function(){var btn=document.getElementById("admTimBtn"),dlg=document.getElementById("admTim"),body=document.getElementById("admTimBody");if(!btn||!dlg)return;
   var API="https://abacus.jasoncameron.dev/get/lyson-bit-dac-san-ly-son/",GOC=204;
-  function lay(k){return fetch(API+k,{cache:"no-store"}).then(function(r){return r.ok?r.json():{value:0};}).then(function(j){return j&&typeof j.value==="number"?j.value:0;}).catch(function(){return null;});}
-  function f(n){return n===null?"–":n.toLocaleString("vi-VN");}
-  /* v1.72: thêm khách theo ngày, nguồn khách, thiết bị, nút bấm (khóa do script đếm ẩn danh bên dưới tạo) */
-  var NGUON=[["tructiep","Trực tiếp (QR, gõ link)"],["zalo","Zalo"],["facebook","Facebook"],["google","Google"],["tiktok","TikTok"],["app","Mở từ app đã cài"],["khac","Trang khác"]],
-      TB=[["dt","Điện thoại, máy tính bảng"],["mt","Máy tính"]],
-      BAM=[["taodon","Tạo đơn hàng"],["guidon","Gửi đơn qua Zalo"],["zalo","Nhắn Zalo"],["goi","Gọi điện"],["3d","Xem hành trình 3D"],["video","Xem video hướng dẫn"],["nhac","Bấm nghe nhạc"]];
-  function layHet(keys){var out=new Array(keys.length),i=0;  // tải lần lượt 6 khóa một lúc, tránh bị máy chủ đếm từ chối
-    return new Promise(function(done){var chay=0;function tiep(){if(i>=keys.length&&!chay)return done(out);while(chay<6&&i<keys.length){(function(k){chay++;lay(keys[k]).then(function(v){out[k]=v;chay--;tiep();});})(i++);}}tiep();});}
-  function cot(ds,rong){var max=Math.max.apply(null,ds.map(function(x){return x[1]||0;}).concat([1])),tg=ds.reduce(function(s,x){return s+(x[1]||0);},0),h='<ul class="tim-days'+(rong?' w':'')+'">';
-    ds.forEach(function(x){var n=x[1]||0;h+='<li><span>'+x[0]+'</span><i style="--w:'+Math.round(n/max*100)+'%"></i><b>'+n+(rong&&tg?' <small>'+Math.round(n/tg*100)+'%</small>':'')+'</b></li>';});return h+'</ul>';}
-  function nap(){body.innerHTML="Đang tải…";var ngay=[];for(var i=0;i<7;i++){var d=new Date(Date.now()+7*36e5-i*864e5);ngay.push(d.toISOString().slice(0,10));}
-    var dk=ngay.map(function(d){return d.replace(/-/g,"");}),nhan=ngay.map(function(d,i){var p=d.split("-");return i===0?"Hôm nay":i===1?"Hôm qua":p[2]+"/"+p[1];});
-    var keys=["thich","khach"].concat(dk.map(function(d){return "thich-"+d;}),dk.map(function(d){return "khach-"+d;}),NGUON.map(function(x){return "nguon-"+x[0];}),TB.map(function(x){return "tb-"+x[0];}),BAM.map(function(x){return "bam-"+x[0];}));
-    layHet(keys).then(function(v){
-      var moi=v[0],kh=v[1],th=v.slice(2,9),kd=v.slice(9,16),ng=v.slice(16,23),tb=v.slice(23,25),bm=v.slice(25,32);
-      var tong=moi===null?null:GOC+moi,tl=(moi!==null&&kh)?Math.round(moi/kh*1000)/10:null,luot=ng.reduce(function(s,x){return s+(x||0);},0),don=bm[1]||0;
-      var h='<div class="tim-big"><b>'+f(tong)+'</b><span>lượt thích (người khác nhau)</span></div>'+
-        '<div class="tim-row"><span>Có từ trước</span><b>'+f(GOC)+'</b></div><div class="tim-row"><span>Mới qua web</span><b>'+f(moi)+'</b></div>'+
-        '<div class="tim-row"><span>Lượt truy cập (mỗi máy 1 lần)</span><b>'+f(kh)+'</b></div><div class="tim-row"><span>Tỷ lệ thích trên truy cập</span><b>'+(tl===null?"–":tl.toLocaleString("vi-VN")+"%")+'</b></div>'+
-        '<p class="tim-sub">Thả tim 7 ngày gần nhất</p>'+cot(nhan.map(function(n,i){return [n,th[i]];}))+
-        '<p class="tim-sub">Khách 7 ngày gần nhất (mỗi máy 1 lần/ngày)</p>'+cot(nhan.map(function(n,i){return [n,kd[i]];}))+
-        '<p class="tim-sub">Khách đến từ đâu (cộng dồn)</p>'+cot(NGUON.map(function(x,i){return [x[1],ng[i]];}),1)+
-        '<p class="tim-sub">Thiết bị (cộng dồn)</p>'+cot(TB.map(function(x,i){return [x[1],tb[i]];}),1)+
-        '<p class="tim-sub">Khách bấm nút (số máy, mỗi ngày 1 lần)</p>'+cot(BAM.map(function(x,i){return [x[1],bm[i]];}),0).replace('tim-days','tim-days w')+
-        '<div class="tim-row"><span>Gửi đơn / lượt khách (cộng dồn)</span><b>'+(luot?(Math.round(don/luot*1000)/10).toLocaleString("vi-VN")+"%":"–")+'</b></div>';
-      body.innerHTML=h;});}
+  /* v1.73: máy chủ Abacus chỉ cho 30 lần đọc / 10 giây mỗi máy. Đọc tối đa 20 khóa mỗi 10,5 giây; bị từ chối (429) thì chờ rồi đọc lại;
+     lỗi hẳn hiện "–" (không hiện 0 như trước). Ô đang chờ hiện "…". Bảng đọc thẳng khóa ngày/tuần/tháng: 29 lần đọc, 20 lần đầu hiện ngay, phần còn lại sau khoảng 10 giây. */
+  var moc=[];
+  function cho(){var t=Date.now();moc=moc.filter(function(x){return t-x<10500;});if(moc.length<20){moc.push(t);return Promise.resolve();}
+    return new Promise(function(r){setTimeout(r,10550-(t-moc[0]));}).then(cho);}
+  function lay(k,lan){lan=lan||0;return cho().then(function(){return fetch(API+k,{cache:"no-store"});}).then(function(r){
+      if(r.status===404)return 0;
+      if(r.status===429&&lan<3)return new Promise(function(ok){setTimeout(ok,10600);}).then(function(){return lay(k,lan+1);});
+      if(!r.ok)return null;return r.json().then(function(j){return j&&typeof j.value==="number"?j.value:null;});}).catch(function(){return null;});}
+  function f(n){return n===undefined?"…":n===null?"–":n.toLocaleString("vi-VN");}
+  function pt(a,b){return (typeof a==="number"&&b)?(Math.round(a/b*1000)/10).toLocaleString("vi-VN")+"%":"–";}
+  var VAO=[["vao-zalo","Zalo"],["vao-web","Web"],["vao-qr","QR, gõ link"]],
+      LH=[["bam-zalo","Nhắn Zalo"],["bam-goi","Gọi SĐT"],["bam-guidon","Gửi đơn"],["thich","Thả tim"]];
+  var lanNap=0;
+  function nap(){var my=++lanNap,v={},n=new Date(Date.now()+7*36e5),ky=(window.lsKy?lsKy():[n.toISOString().slice(0,10).replace(/-/g,"")]),
+      HAU=["-"+ky[0],"-"+ky[1],"-"+ky[2],""],COT=["Hôm nay","Tuần này","Tháng "+(n.getUTCMonth()+1),"Tất cả"];
+    function ve(){if(my!==lanNap)return;
+      var tong=typeof v.thich==="number"?GOC+v.thich:v.thich,
+          h='<div class="tk-top"><div class="tk-c tim"><b>'+f(tong)+'</b><span>♥ người thả tim</span><small>'+f(GOC)+' có từ trước + '+f(v.thich)+' mới</small></div>'+
+            '<div class="tk-c"><b>'+f(v.khach)+'</b><span>người truy cập</span><small>mỗi máy 1 lần · thích '+pt(v.thich,v.khach)+'</small></div></div>'+
+            '<table class="tk-t k5"><thead><tr><th></th>'+COT.map(function(c){return '<th>'+c+'</th>';}).join("")+'</tr></thead><tbody>';
+      function hang(ten,ho,cls){h+='<tr'+(cls?' class="'+cls+'"':'')+'><td>'+ten+'</td>'+HAU.map(function(s){return '<td>'+f(v[ho+s])+'</td>';}).join("")+'</tr>';}
+      h+='<tr class="g"><td colspan="5">Khách vào trang từ</td></tr>';
+      VAO.forEach(function(x){hang(x[1],x[0]);});
+      h+='<tr class="tc"><td>Tổng khách</td>'+HAU.map(function(s){var c=0,du=true;VAO.forEach(function(x){var a=v[x[0]+s];if(typeof a==="number")c+=a;else du=false;});return '<td>'+(du?f(c):"…")+'</td>';}).join("")+'</tr>';
+      h+='<tr class="g"><td colspan="5">Khách liên hệ</td></tr>';
+      LH.forEach(function(x){hang(x[1],x[0]);});
+      body.innerHTML=h+'</tbody></table>';}
+    var keys=["khach","thich"];
+    [0,3,1,2].forEach(function(c){VAO.concat(LH).forEach(function(x){var k=x[0]+HAU[c];if(keys.indexOf(k)<0)keys.push(k);});});  // Hôm nay, Tất cả trước; Tuần, Tháng sau
+    ve();keys.forEach(function(k){lay(k).then(function(x){if(my!==lanNap)return;v[k]=x;ve();});});}
   btn.addEventListener("click",function(){if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");nap();});
   document.getElementById("admTimReload").addEventListener("click",nap);
   document.getElementById("admTimClose").addEventListener("click",function(){dlg.close?dlg.close():dlg.removeAttribute("open");});})();</script>
@@ -1969,8 +1993,10 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   else if(r&&r.indexOf(location.host)<0)src="khac";
   else src="tructiep";
   dev=(/Mobi|Android|iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Macintosh/.test(ua)))?"dt":"mt";
-  if(moiNgay("ngay")){hit("khach-"+D);hit("nguon-"+src);hit("tb-"+dev);}
-  function bam(k){if(moiNgay(k))hit("bam-"+k);}
+  /* v1.73: gộp nguồn thành 3 nhóm cho bảng quản trị: zalo · web (Google, Facebook, TikTok, trang khác) · qr (quét QR, gõ link, mở app – không tách được vì QR là link cố định) */
+  var s3=src==="zalo"?"zalo":(src==="tructiep"||src==="app")?"qr":"web",KY=window.lsKy?lsKy():[D];
+  if(moiNgay("ngay")){hit("vao-"+s3);KY.forEach(function(k){hit("vao-"+s3+"-"+k);});hit("nguon-"+src);hit("tb-"+dev);}
+  function bam(k){if(moiNgay(k)){hit("bam-"+k);if(k==="zalo"||k==="goi"||k==="guidon")KY.forEach(function(x){hit("bam-"+k+"-"+x);});}}  // nút liên hệ: thêm khóa ngày, tuần, tháng
   var cb=document.getElementById("createBtn");if(cb&&cb.form)cb.form.addEventListener("submit",function(){bam("taodon");});
   document.addEventListener("click",function(e){var t=e.target&&e.target.closest?e.target.closest("a,button"):null;if(!t)return;
     var id=t.id||"",h=t.getAttribute("href")||"";
@@ -2095,8 +2121,13 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   [fbD,$("admMuc"),dl].forEach(function(d){d.addEventListener("click",function(e){if(e.target===d)d.close();});});
   $("admOut").addEventListener("click",function(){ra(false);});
   /* Ẩn toàn bộ trang: khách chỉ còn thấy đầu trang (header) */
-  function doiAll(){var tat=an.indexOf("toan-trang")>=0;
-    if(!tat&&!confirm("Ẩn toàn bộ trang? Khách chỉ còn thấy phần đầu trang (tên trang, nút, thời tiết). Anh vẫn thấy đầy đủ để bật lại."))return;doiMuc("toan-trang");}
+  /* v1.73: bỏ confirm() (khung trình duyệt của app, Zalo, Facebook chặn hộp hỏi nên nút không chạy). Ẩn toàn trang = bấm 2 lần trong 5 giây; hiện lại = bấm 1 lần */
+  var xnAll=0,xnT=0;
+  function doiAll(){var tat=an.indexOf("toan-trang")>=0,b=$("admAll");
+    if(!tat&&Date.now()-xnAll>5000){xnAll=Date.now();if(b){b.classList.add("xn");b.lastChild.textContent="Bấm lần nữa để ẨN toàn trang";}
+      note("Bấm lần nữa trong 5 giây để ẩn toàn trang: khách chỉ còn thấy đầu trang, anh vẫn thấy đầy đủ để bật lại.");
+      clearTimeout(xnT);xnT=setTimeout(function(){xnAll=0;if(b)b.classList.remove("xn");veAll();},5000);return;}
+    xnAll=0;clearTimeout(xnT);if(b)b.classList.remove("xn");doiMuc("toan-trang");}
   $("admAll").addEventListener("click",doiAll);
   if(tk())vao(tk(),null);
 })();
