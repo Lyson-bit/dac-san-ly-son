@@ -1200,7 +1200,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     <div class="wrap" id="huong-dan-app">
       <!-- v1.70: video luôn hiện; phần chữ hướng dẫn mặc định thu gọn, bấm nút mới xổ ra (anh yêu cầu cho gọn app) -->
       <div class="hd-box">
-        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" data-poster="videos/huong_dan_app_v5.jpg" src="videos/huong_dan_app_v5.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
+        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" data-poster="videos/huong_dan_app_v6.jpg" src="videos/huong_dan_app_v6.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
         <details class="hd-det" id="hdDet">
           <summary><span class="hd-sum-t">📘 Hướng dẫn app</span><span class="hd-sum-s">Giới thiệu trang và cách dùng</span><span class="hd-tg"><span class="hd-o">Mở xem ▾</span><span class="hd-c">Thu gọn ▴</span></span></summary>
           <h3>Giới thiệu trang và cách dùng trên điện thoại</h3>
@@ -1219,7 +1219,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     </div>
     <script>/* mục menu "Hướng dẫn app": mở khối hướng dẫn rồi cuộn tới ngay dưới thanh đầu trang; thu gọn thì dừng video.
        Bản xem trước (claude.ai) không có file video: lấy video từ web chính. */(function(){var box=document.getElementById('huong-dan-app'),det=document.getElementById('hdDet'),v=document.getElementById('hdVideo');if(!box)return;
-      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.setAttribute('data-poster',L+'videos/huong_dan_app_v5.jpg');v.src=L+'videos/huong_dan_app_v5.mp4';}
+      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.setAttribute('data-poster',L+'videos/huong_dan_app_v6.jpg');v.src=L+'videos/huong_dan_app_v6.mp4';}
       /* v1.77: ảnh bìa video (48 KB) chỉ tải khi khách cuộn tới gần */
       if(v){var dp=function(){var u=v.getAttribute('data-poster');if(u&&!v.poster)v.poster=u;};if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting;})){dp();io.disconnect();}},{rootMargin:'150px 0px'});io.observe(v);}else dp();}
       function go(e){e.preventDefault();var hd=document.querySelector('header.top'),hb=0;if(hd){var cs=getComputedStyle(hd);hb=(cs.position==='sticky'||cs.position==='fixed')?hd.getBoundingClientRect().height:0;}
@@ -1865,7 +1865,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.77</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.78</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
