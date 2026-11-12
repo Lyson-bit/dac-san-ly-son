@@ -1140,6 +1140,21 @@ const dolphins=[];
   function seaAt(x,z,dx){let k=0;while(H(x,z)>-.3&&k<60){x+=dx;k++;}return x;}
   [[-44.5,-14,1],[24.6,-3.2,1]].forEach(([z,x0,dir],pi)=>{const x=seaAt(x0,z,.3)+1.2;
     for(let i=0;i<3;i++){const g=make();g.scale.setScalar(.8);g.visible=false;scene.add(g);g.userData={x0:x+(i-1)*.7,z0:z+(i%2?.5:-.5)+i*.2,ph:i*.33+pi*.17,P:3.4+pi*.4,dir:pi?0.35:-0.4,splash:0};dolphins.push(g);}});})();
+// Khinh khí cầu trên biển Đà Nẵng (anh khoanh 12/11/2026): 3 quả sọc màu, giỏ mây, dây treo, lửa đốt; nhấp nhô và trôi chậm
+const balloons=[];
+(function(){const GEn=new THREE.SphereGeometry(1,MOBILE?14:20,MOBILE?10:14),GSk=new THREE.CylinderGeometry(.62,.2,.55,MOBILE?14:20,1,true);
+  const PAL=[['#e8452b','#f6c443','#ffffff'],['#2f7fd0','#ffffff','#f08a24'],['#e0457a','#7d4fd0','#f6e7a8']];
+  [[-9.2,-48.2,7.4],[-6.6,-44.2,8.8],[-11.6,-41.6,6.2]].forEach(([x,z,y],i)=>{const cs=PAL[i];
+    const tex=canvasTex(256,128,(g,w,h)=>{const n=12;for(let k=0;k<n;k++){g.fillStyle=cs[k%cs.length];g.fillRect(k*w/n,0,w/n+1,h);}g.fillStyle='rgba(0,0,0,.18)';g.fillRect(0,h*.72,w,h*.06);});
+    const mat=new THREE.MeshToonMaterial({map:tex});const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
+    mk(GEn,mat,0,0,0,g).scale.set(1,1.15,1);                                                   // bóng
+    mk(GSk,mat,0,-1.05,0,g);                                                                   // vạt dưới
+    mk(GEO.box,toon(0x8a5a2b),0,-1.95,0,g).scale.set(.32,.24,.32);                             // giỏ mây
+    mk(GEO.box,toon(0x6a4220),0,-1.82,0,g).scale.set(.35,.04,.35);
+    const rp=[];[[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([a,b])=>rp.push(a*.15,-1.84,b*.15,a*.2,-1.3,b*.2));
+    const lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(rp,3));g.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0x4a3a2a})));   // dây treo
+    const fl=mk(GEO.cone4,bas(0xffb03a),0,-1.55,0,g);fl.scale.set(.06,.16,.06);                  // lửa đốt
+    g.userData={y0:y,x0:x,ph:i*2.1,fl};balloons.push(g);});})();
 // Sóng lượn nhẹ: vệt bọt trắng cong trôi chậm, hiện rồi mờ theo 3 nhịp
 const waveSets=[];
 (function(){const rr=rng(4242),geo=new THREE.TorusGeometry(.6,.055,3,14,1.3),N=MOBILE?24:54;
@@ -1608,31 +1623,33 @@ const raceBoats=RACE_NAMES.map(([nm,lang],i)=>{const g=new THREE.Group();const c
   // anh chỉnh 11/11/2026: không dựng đầu linh vật 3D, không ghi tên thuyền; mũi thuyền chỉ vuốt nhọn thấp, màu thân phân biệt đội
   const hd=mk(GEO.cone4,toon(c),2.62,0,0,g);hd.scale.set(.2,.45,.2);hd.rotation.z=-Math.PI/2;
   const tl=mk(GEO.cone4,toon(c),-2.6,.22,0,g);tl.scale.set(.16,.55,.16);tl.rotation.z=1.1;   // đuôi cong, không cắm cờ (như thuyền thật)
-  const n=MOBILE?9:16,oars=[];
+  const n=MOBILE?9:16,oars=[],crew=new THREE.Group();g.add(crew);   // crew: người chèo + mái chèo (ẩn khi nhìn xa)
   for(let k=0;k<n;k++){const x=-1.9+k*(3.9/(n-1)),sd=k%2?1:-1;
-    mk(GEO.sph,toon(0xc8323c),x,.2,0,g).scale.set(.075,.1,.075);   // áo đỏ, cỡ người ngồi
-    mk(GEO.sph,toon(0xb0222c),x,.34,0,g).scale.setScalar(.055);    // khăn đỏ
-    const o=new THREE.Group();o.position.set(x,.22,sd*.12);g.add(o);const pd=mk(GEO.box,toon(0xffd166),0,-.18,sd*.08,o);pd.scale.set(.035,.42,.03);oars.push({o,sd,ph:k*.5});}
-  g.userData={oars,i};g.visible=false;scene.add(g);return g;});
+    mk(GEO.sph,toon(0xc8323c),x,.2,0,crew).scale.set(.075,.1,.075);   // áo đỏ, cỡ người ngồi
+    mk(GEO.sph,toon(0xb0222c),x,.34,0,crew).scale.setScalar(.055);    // khăn đỏ
+    const o=new THREE.Group();o.position.set(x,.22,sd*.12);crew.add(o);const pd=mk(GEO.box,toon(0xffd166),0,-.18,sd*.08,o);pd.scale.set(.035,.42,.03);oars.push({o,sd,ph:k*.5});}
+  g.userData={oars,i,crew};scene.add(g);return g;});
 // Khung cảnh lễ hội (phỏng theo ảnh anh gửi): cọc cờ phân làn, cột đích, người xem dọc bờ, mảng nước xanh ngọc trên rạn
 const raceDeco=new THREE.Group();raceDeco.visible=false;scene.add(raceDeco);
 (function(){
   // Không cắm hàng cờ dọc làn (anh chỉnh 11/11/2026): mỗi làn chỉ 1 cờ ở vạch xuất phát và 1 cờ ở đích, đối đầu nhau, màu đúng đội → 8 cờ mỗi bên
+  // v1.68: cờ dùng chung hình + vật liệu theo màu rồi gộp (bake) → ít lệnh vẽ, vì khu đua giờ luôn hiện
+  const FG=new THREE.Group(),PF=new THREE.PlaneGeometry(.6,.4),PS=new THREE.PlaneGeometry(.6,.08),FM={},fm=c=>FM[c]||(FM[c]=new THREE.MeshToonMaterial({color:c,side:THREE.DoubleSide}));
   RACE_NAMES.forEach(([nm,lang],i)=>{const z=17.6+i*1.1,col=RACE_COL[nm],vc=lang==='An Hải'?0x2a6fdb:0xffd23f;
-    [[RACE_X0-3.6,1],[RACE_X1+3.2,-1]].forEach(([x,s])=>{mk(GEO.cyl,toon(0xeeeeee),x,.75,z,raceDeco).scale.set(.04,1.6,.04);
-      const f=mk(new THREE.PlaneGeometry(.6,.4),new THREE.MeshToonMaterial({color:col,side:THREE.DoubleSide}),x+s*.3,1.35,z,raceDeco);
-      mk(new THREE.PlaneGeometry(.6,.08),new THREE.MeshToonMaterial({color:vc,side:THREE.DoubleSide}),x+s*.3,1.13,z,raceDeco);});});
+    [[RACE_X0-3.6,1],[RACE_X1+3.2,-1]].forEach(([x,s])=>{mk(GEO.cyl,toon(0xeeeeee),x,.75,z,FG).scale.set(.04,1.6,.04);
+      mk(PF,fm(col),x+s*.3,1.35,z,FG);mk(PS,fm(vc),x+s*.3,1.13,z,FG);});});
+  bake(FG);
   // người xem dọc bờ nam của đảo
   const pal=[0xd62828,0xf2c230,0x2a6fdb,0xffffff,0xec5a86,0x2fb36b,0xf5961f],L=[],r=rng(77);
   for(let x=17;x<=46;x+=MOBILE?.7:.38){let z=8;while(z<18&&H(x,z)>.15)z+=.2;for(let row=0;row<2;row++){const zz=z-.35-row*.45+(r()-.5)*.15;if(H(x,zz)<.05)continue;L.push({x:x+(r()-.5)*.2,z:zz,y:groundY(x,zz),color:pal[Math.floor(r()*pal.length)]});}}
   const im=new THREE.InstancedMesh(GEO.sph,std(0xffffff),L.length),m4=new THREE.Matrix4(),c=new THREE.Color();
   L.forEach((p,i)=>{m4.compose(new V3(p.x,p.y+.28,p.z),new THREE.Quaternion(),new V3(.13,.28,.13));im.setMatrixAt(i,m4);c.setHex(p.color);im.setColorAt(i,c);});
-  im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;raceDeco.add(im);
+  im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;cullFit(im);raceDeco.add(im);
   // dù che nắng nhiều màu trên đầu người xem (như ảnh)
   const U=L.filter((p,i)=>i%3===0),uc=[0xec5a86,0x2a6fdb,0xf2c230,0x2fb36b,0x9a68e0,0xff8a3d,0x17aebf];
   const ug=new THREE.ConeGeometry(.34,.16,10);const um=new THREE.InstancedMesh(ug,std(0xffffff),U.length);
   U.forEach((p,i)=>{m4.compose(new V3(p.x,p.y+.78,p.z),new THREE.Quaternion(),new V3(1,1,1));um.setMatrixAt(i,m4);c.setHex(uc[i%uc.length]);um.setColorAt(i,c);});
-  um.instanceMatrix.needsUpdate=true;if(um.instanceColor)um.instanceColor.needsUpdate=true;raceDeco.add(um);
+  um.instanceMatrix.needsUpdate=true;if(um.instanceColor)um.instanceColor.needsUpdate=true;cullFit(um);raceDeco.add(um);
   // hàng phao đỏ trắng dọc làn đua
   if(false)for(let x=15;x<=47;x+=1.1){[17.0,25.9].forEach((z,j)=>{const b=mk(GEO.sph,toon((Math.round(x/1.1)+j)%2?0xd62828:0xffffff),x,.1,z,raceDeco);b.scale.set(.12,.09,.12);});}
 })();
@@ -1661,7 +1678,7 @@ const bus=new THREE.Group();
   scene.add(bus);
 })();
 /* ---------- Tàu cao tốc ---------- */
-const boat=new THREE.Group(); boat.rotation.order='YXZ';
+const boat=new THREE.Group(); boat.rotation.order='YXZ'; boat.scale.setScalar(.75);   // v1.68: anh yêu cầu tàu nhỏ lại cho cân (ghế ngồi tính bằng localToWorld nên co theo)
 (function(){
   // Tàu cao tốc ra đảo (phỏng theo ảnh anh gửi): thân trắng, viền xanh, dải cửa sổ, đuôi đỏ sao vàng, ca-bin lái phía trước
   const white=toon(0xffffff),blue=toon(0x1f5fb8),dark=toon(0x22303f),red=toon(0xd62828),yel=toon(0xf2c230);
@@ -2578,9 +2595,11 @@ function frame(now){
   // tàu hỏa Bắc – Nam: chặng 2 chạy song song xe buýt; các chặng khác đi lại giữa hai ga
   if(F.train>=0)placeTrain(F.train,1);else{const tt=((T*.01)%2+2)%2;placeTrain(sstep(0,1,tt<1?tt:2-tt)*.999,tt<1?1:-1);}
   // đua thuyền: 8 thuyền chạy theo làn, mái chèo khua nhịp
-  const rOn=F.race>=0&&!isoOn;raceDeco.visible=rOn;
-  raceBoats.forEach((g,i)=>{g.visible=rOn;if(!rOn)return;const x=Math.min(RACE_X1,RACE_X0+F.race*33*RACE_SPD[i]),z=17.6+i*1.1;
+  // v1.68 (anh yêu cầu): khu đua luôn hiện ở bờ nam đảo; ngoài cảnh lễ hội thuyền đậu ở vạch xuất phát, nhìn xa thì ẩn người chèo cho nhẹ máy
+  const rOn=F.race>=0&&!isoOn;raceDeco.visible=!isoOn;const near=rOn||cam.d<26;
+  raceBoats.forEach((g,i)=>{g.visible=!isoOn;if(isoOn)return;const x=rOn?Math.min(RACE_X1,RACE_X0+F.race*33*RACE_SPD[i]):RACE_X0,z=17.6+i*1.1;
     g.position.set(x,waveY(x,z,T)*.5+.05,z);g.rotation.set(Math.sin(T*1.6+i)*.03*WA,0,Math.sin(T*2+i)*.02*WA);
+    g.userData.crew.visible=near;if(!near)return;
     const sp=F.race>0&&F.race<1?1:.15;g.userData.oars.forEach(o=>{o.o.rotation.z=Math.sin(T*7*sp+o.ph)*.55*sp;o.o.rotation.x=o.sd*.25;});});
   // người còn ngồi trong máy bay thì ẩn
   ORDER.forEach(id=>{actors[id].root.visible=!F.hideAll;});
@@ -2603,6 +2622,8 @@ function frame(now){
     c.moving=(ph>4&&ph<18)||ph>22;const p=c.curve.getPointAt(u);
     if(c.moving){const tg=c.curve.getTangentAt(u);c.ry=Math.atan2(tg.x*fw,tg.z*fw);}
     c.g.position.set(p.x,.05+Math.sin(T*2.2)*.03*WA,p.z);c.g.rotation.set(c.moving?-.07:0,c.ry,Math.sin(T*1.7)*.03*WA);}
+  // khinh khí cầu nhấp nhô, trôi chậm, lửa đốt chớp
+  if(!RM)balloons.forEach(g=>{const u=g.userData;g.position.y=u.y0+Math.sin(T*.35+u.ph)*.35;g.position.x=u.x0+Math.sin(T*.06+u.ph)*1.2;g.rotation.y=T*.05+u.ph;const f=.7+.3*Math.sin(T*9+u.ph*3);u.fl.scale.set(.06*f,.16*f,.06*f);});
   // cá heo nhảy + sóng lượn
   dolphins.forEach(g=>{const u=g.userData,c=RM?.21:((T/u.P)+u.ph)%1;if(c>=.42||isoOn){g.visible=false;return;}
     const s=c/.42,f=s*2.4-1.2,cd=Math.cos(u.dir),sd=Math.sin(u.dir);g.visible=true;
