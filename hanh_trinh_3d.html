@@ -1146,7 +1146,7 @@ const balloons=[];
   const PAL=[['#e8452b','#f6c443','#ffffff'],['#2f7fd0','#ffffff','#f08a24'],['#e0457a','#7d4fd0','#f6e7a8']];
   [[-9.2,-48.2,7.4],[-6.6,-44.2,8.8],[-11.6,-41.6,6.2]].forEach(([x,z,y],i)=>{const cs=PAL[i];
     const tex=canvasTex(256,128,(g,w,h)=>{const n=12;for(let k=0;k<n;k++){g.fillStyle=cs[k%cs.length];g.fillRect(k*w/n,0,w/n+1,h);}g.fillStyle='rgba(0,0,0,.18)';g.fillRect(0,h*.72,w,h*.06);});
-    const mat=new THREE.MeshToonMaterial({map:tex});const g=new THREE.Group();g.position.set(x,y,z);scene.add(g);
+    const mat=new THREE.MeshToonMaterial({map:tex});const g=new THREE.Group();g.position.set(x,y,z);g.scale.setScalar(.7);scene.add(g);   // v1.69: anh yêu cầu nhỏ lại
     mk(GEn,mat,0,0,0,g).scale.set(1,1.15,1);                                                   // bóng
     mk(GSk,mat,0,-1.05,0,g);                                                                   // vạt dưới
     mk(GEO.box,toon(0x8a5a2b),0,-1.95,0,g).scale.set(.32,.24,.32);                             // giỏ mây
