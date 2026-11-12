@@ -1,6 +1,6 @@
 // Service worker – Đặc Sản Lý Sơn Quê Tôi
 // Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v83, v3...) để app trên điện thoại tự cập nhật.
-const CACHE = "lyson-v94";
+const CACHE = "lyson-v95";
 // Ảnh để riêng, KHÔNG xóa khi cập nhật trang: khách quay lại không phải tải lại ảnh (tiết kiệm băng thông).
 // Quy tắc: thay ảnh thì đặt TÊN FILE MỚI, đừng ghi đè ảnh cũ cùng tên.
 const IMG = "lyson-img-1";
@@ -8,9 +8,10 @@ const ASSETS = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icons/icon-180.png",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icons/dao-32.png",
+  "./icons/dao-180.png",
+  "./icons/dao-192.png",
+  "./icons/dao-512.png"
 ];
 
 self.addEventListener("install", (e) => {

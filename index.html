@@ -8,8 +8,9 @@
 <meta name="description" content="Tỏi cô đơn, tỏi nhiều tép, hành tím và hải sản khô đảo Lý Sơn. Đặt hàng qua Zalo 0363 594 167.">
 <meta name="theme-color" content="#0D6B72">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/dao-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/dao-192.png">
+<link rel="apple-touch-icon" href="icons/dao-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Đặc sản Lý Sơn">
@@ -110,6 +111,14 @@ nav a:hover{color:var(--sea)}
 /* Ảnh đại diện: ảnh biển Lý Sơn từ trên cao + 4 dòng chữ theo kiểu đầu trang */
 .hero-photo{position:relative;margin:0;border-radius:22px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 18px 40px rgba(0,0,0,.28);background:var(--sea-soft)}
 .hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+/* v1.74: 2 ảnh bìa mờ dần sang nhau; ảnh 2 giữ nguyên khung trên nền cùng màu biển (giữ chữ ký tác giả) */
+.hero-photo .hp-s{opacity:0;transition:opacity 1.4s ease}.hero-photo .hp-s.on{opacity:1}
+.hero-photo .hp-s2{object-fit:contain;object-position:50% 50%;background:var(--bia2,#0C3A34)}
+.hp-dots{position:absolute;z-index:3;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px}
+.hp-dots button{width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.hp-dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);transition:height .3s,background .3s}
+.hp-dots button[aria-pressed="true"]::before{height:20px;border-radius:5px;background:#fff}
+@media (prefers-reduced-motion: reduce){.hero-photo .hp-s{transition:none}}
 .hero-photo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,22,28,.72) 0%,rgba(4,22,28,.38) 26%,rgba(4,22,28,0) 46%,rgba(4,22,28,0) 78%,rgba(4,22,28,.5) 100%)}
 .hp-top{position:absolute;z-index:2;top:0;left:0;right:0;padding:clamp(36px,7.5%,52px) 18px 0;display:grid;justify-items:center;gap:0;text-align:center;color:#fff}
 /* 1: dải WELCOME TO LY SON (v1.67: anh yêu cầu bỏ chữ "Đặc Sản Lý Sơn" trên ảnh, dải welcome xuống chỗ dòng đó, chữ lớn hơn) */
@@ -402,6 +411,21 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .rs-tb .rt{display:flex;align-items:center;gap:7px}
 .r-ico{flex:none;width:20px;height:20px;border-radius:5px;background:var(--sea-soft);color:var(--sea);display:grid;place-items:center}
 .r-ico svg{width:13px;height:13px}
+/* v1.74: Cách dùng và bảo quản: 2 bảng gọn cạnh nhau (điện thoại xếp chồng) */
+.cd-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+.cd-tb thead th:first-child{width:38%}
+@media (max-width:760px){.cd-two{grid-template-columns:1fr;gap:10px}.cd-tb thead th:first-child{width:42%}}
+/* v1.74: Tỏi cô đơn: bảng thông tin (giá trị chữ đậm) + bảng điểm nổi bật số tròn + lưu ý nhỏ */
+.sp-tb thead th:first-child{width:34%}.sp-tb tbody th{font-weight:500;color:var(--muted)}.sp-tb tbody td{color:var(--fg);font-weight:600}
+.r-so{font:700 .7rem/1 var(--f-body);border-radius:50%;background:var(--sea);color:var(--on-sea,#fff)}
+.tc-note{margin:10px 0 0;padding:8px 12px;font-size:.76rem;line-height:1.45}
+/* điện thoại: bảng thông tin ngắn nên vẫn giữ 2 cột (không xếp chồng như các bảng khác) */
+@media (max-width:560px){.rs-tb.sp-tb tbody th,.rs-tb.sp-tb tbody td{display:table-cell}.rs-tb.sp-tb thead{display:table-header-group}.rs-tb.sp-tb tbody th{padding:4px 10px}.rs-tb.sp-tb tbody td{padding:4px 10px;border-top:1px solid var(--line)}.rs-tb.sp-tb tbody tr:first-child>*{border-top:0}}
+/* v1.74: Phân biệt tỏi: 3 cột, cột Tỏi Lý Sơn tô màu biển */
+.pb-tb thead th:first-child{width:28%}.pb-tb thead th.pb-ls{color:var(--sea)}.pb-tb tbody td.pb-ls{color:var(--fg);font-weight:500}
+/* điện thoại: bảng xếp chồng mất tiêu đề cột, nên mỗi dòng có nhãn nhỏ "Lý Sơn" / "Tỏi nhập" */
+@media (max-width:560px){.pb-tb tbody td::before{display:inline-block;min-width:64px;margin-right:6px;font:600 .68rem/1.3 var(--f-body);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .pb-tb tbody td.pb-ls::before{content:"Lý Sơn";color:var(--sea)}.pb-tb tbody td:not(.pb-ls)::before{content:"Tỏi nhập"}.pb-tb tbody td.pb-ls{padding-bottom:1px}}
 @media (max-width:560px){
   .rs-tb thead{display:none}
   .rs-tb tbody th,.rs-tb tbody td{display:block;width:auto}
@@ -491,6 +515,10 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .nd-list{margin:0;padding-left:18px;display:grid;gap:4px;font-size:.92rem}
 .nd-call{justify-self:start;display:inline-flex;gap:6px;align-items:center;padding:9px 16px;border-radius:999px;background:var(--shallot);color:#fff;font-weight:600;font-size:.92rem;text-decoration:none}
 .nd-call b{letter-spacing:.03em}
+/* v1.74: số điện thoại không bị bẻ dòng; chật thì cả số xuống dòng dưới, căn giữa */
+.nd-call{flex-wrap:wrap;justify-content:center;column-gap:6px;row-gap:1px;text-align:center;line-height:1.3;max-width:100%}
+.nd-call b{white-space:nowrap}.nd-t{text-wrap:balance}
+@media (max-width:420px){.nd-call{font-size:.86rem;padding:8px 14px}}
 .nd-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 @media (max-width:1000px){.nd-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:640px){.nd-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -1069,7 +1097,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
   <div class="hero" id="gioi-thieu" data-ten="Ảnh bìa và giới thiệu">
     <div class="wrap">
       <div class="hero-text">
-        <figure class="hero-qr" title="Mã QR cố định của trang: quét là vào đúng web, nội dung cập nhật thì mã vẫn giữ nguyên"><svg viewBox="0 0 45 45" shape-rendering="crispEdges" role="img" aria-label="Mã QR trang web lyson-bit.github.io/dac-san-ly-son"><rect width="45" height="45" fill="#fff"/><path fill="#0B1A1B" d="M2 2h7v1h-7zM10 2h1v1h-1zM12 2h1v1h-1zM14 2h2v1h-2zM17 2h2v1h-2zM20 2h1v1h-1zM22 2h3v1h-3zM26 2h3v1h-3zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM12 3h3v1h-3zM21 3h1v1h-1zM24 3h6v1h-6zM31 3h1v1h-1zM34 3h1v1h-1zM36 3h1v1h-1zM42 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM20 4h4v1h-4zM25 4h1v1h-1zM27 4h1v1h-1zM29 4h1v1h-1zM31 4h1v1h-1zM36 4h1v1h-1zM38 4h3v1h-3zM42 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM13 5h3v1h-3zM18 5h2v1h-2zM21 5h2v1h-2zM24 5h1v1h-1zM27 5h2v1h-2zM31 5h1v1h-1zM36 5h1v1h-1zM38 5h3v1h-3zM42 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h2v1h-2zM21 6h1v1h-1zM23 6h3v1h-3zM28 6h4v1h-4zM36 6h1v1h-1zM38 6h3v1h-3zM42 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM18 7h1v1h-1zM22 7h1v1h-1zM27 7h1v1h-1zM29 7h2v1h-2zM32 7h2v1h-2zM36 7h1v1h-1zM42 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM34 8h1v1h-1zM36 8h7v1h-7zM11 9h3v1h-3zM16 9h3v1h-3zM21 9h1v1h-1zM23 9h1v1h-1zM25 9h2v1h-2zM28 9h1v1h-1zM31 9h1v1h-1zM34 9h1v1h-1zM5 10h1v1h-1zM8 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h3v1h-3zM22 10h2v1h-2zM27 10h1v1h-1zM29 10h2v1h-2zM37 10h3v1h-3zM41 10h2v1h-2zM2 11h2v1h-2zM7 11h1v1h-1zM10 11h1v1h-1zM13 11h3v1h-3zM21 11h2v1h-2zM24 11h1v1h-1zM31 11h2v1h-2zM34 11h3v1h-3zM39 11h2v1h-2zM3 12h3v1h-3zM8 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM21 12h1v1h-1zM25 12h1v1h-1zM31 12h3v1h-3zM37 12h4v1h-4zM2 13h1v1h-1zM5 13h3v1h-3zM11 13h2v1h-2zM14 13h2v1h-2zM22 13h3v1h-3zM26 13h1v1h-1zM28 13h1v1h-1zM30 13h1v1h-1zM40 13h1v1h-1zM2 14h1v1h-1zM5 14h1v1h-1zM8 14h1v1h-1zM11 14h1v1h-1zM14 14h3v1h-3zM18 14h1v1h-1zM23 14h7v1h-7zM31 14h4v1h-4zM36 14h1v1h-1zM39 14h1v1h-1zM42 14h1v1h-1zM3 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM10 15h2v1h-2zM15 15h2v1h-2zM20 15h1v1h-1zM23 15h2v1h-2zM26 15h5v1h-5zM34 15h1v1h-1zM36 15h1v1h-1zM40 15h2v1h-2zM4 16h1v1h-1zM6 16h3v1h-3zM12 16h2v1h-2zM16 16h5v1h-5zM23 16h1v1h-1zM25 16h1v1h-1zM31 16h1v1h-1zM33 16h1v1h-1zM36 16h1v1h-1zM39 16h1v1h-1zM41 16h2v1h-2zM3 17h5v1h-5zM10 17h5v1h-5zM16 17h1v1h-1zM18 17h1v1h-1zM22 17h3v1h-3zM27 17h1v1h-1zM29 17h1v1h-1zM31 17h2v1h-2zM34 17h1v1h-1zM36 17h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM10 18h5v1h-5zM16 18h3v1h-3zM20 18h2v1h-2zM25 18h1v1h-1zM31 18h1v1h-1zM37 18h1v1h-1zM2 19h1v1h-1zM5 19h1v1h-1zM9 19h1v1h-1zM13 19h1v1h-1zM15 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM23 19h1v1h-1zM25 19h3v1h-3zM31 19h2v1h-2zM36 19h2v1h-2zM39 19h4v1h-4zM3 20h1v1h-1zM5 20h6v1h-6zM12 20h1v1h-1zM14 20h1v1h-1zM20 20h4v1h-4zM25 20h4v1h-4zM30 20h2v1h-2zM34 20h1v1h-1zM38 20h2v1h-2zM41 20h2v1h-2zM3 21h1v1h-1zM5 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM15 21h4v1h-4zM22 21h1v1h-1zM26 21h1v1h-1zM34 21h1v1h-1zM36 21h2v1h-2zM41 21h1v1h-1zM3 22h3v1h-3zM8 22h2v1h-2zM13 22h5v1h-5zM19 22h2v1h-2zM22 22h4v1h-4zM27 22h5v1h-5zM33 22h6v1h-6zM40 22h1v1h-1zM42 22h1v1h-1zM4 23h1v1h-1zM9 23h4v1h-4zM15 23h1v1h-1zM17 23h6v1h-6zM25 23h1v1h-1zM27 23h2v1h-2zM34 23h1v1h-1zM36 23h1v1h-1zM38 23h1v1h-1zM40 23h3v1h-3zM3 24h1v1h-1zM5 24h7v1h-7zM13 24h5v1h-5zM21 24h2v1h-2zM24 24h1v1h-1zM27 24h2v1h-2zM30 24h1v1h-1zM32 24h5v1h-5zM39 24h1v1h-1zM41 24h1v1h-1zM2 25h2v1h-2zM6 25h1v1h-1zM10 25h3v1h-3zM14 25h1v1h-1zM16 25h2v1h-2zM19 25h2v1h-2zM22 25h2v1h-2zM25 25h1v1h-1zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h7v1h-7zM42 25h1v1h-1zM4 26h2v1h-2zM8 26h1v1h-1zM11 26h1v1h-1zM13 26h6v1h-6zM20 26h1v1h-1zM23 26h1v1h-1zM25 26h2v1h-2zM29 26h3v1h-3zM33 26h2v1h-2zM36 26h1v1h-1zM40 26h1v1h-1zM2 27h1v1h-1zM5 27h1v1h-1zM9 27h1v1h-1zM15 27h2v1h-2zM21 27h1v1h-1zM27 27h2v1h-2zM32 27h2v1h-2zM35 27h1v1h-1zM39 27h1v1h-1zM41 27h2v1h-2zM6 28h1v1h-1zM8 28h1v1h-1zM11 28h2v1h-2zM16 28h2v1h-2zM19 28h7v1h-7zM27 28h1v1h-1zM34 28h2v1h-2zM41 28h1v1h-1zM2 29h3v1h-3zM14 29h1v1h-1zM16 29h2v1h-2zM22 29h1v1h-1zM25 29h2v1h-2zM28 29h1v1h-1zM30 29h2v1h-2zM34 29h4v1h-4zM41 29h2v1h-2zM2 30h3v1h-3zM8 30h3v1h-3zM12 30h2v1h-2zM15 30h1v1h-1zM17 30h1v1h-1zM20 30h1v1h-1zM29 30h1v1h-1zM31 30h1v1h-1zM35 30h2v1h-2zM41 30h2v1h-2zM3 31h1v1h-1zM5 31h1v1h-1zM10 31h2v1h-2zM14 31h2v1h-2zM18 31h1v1h-1zM23 31h2v1h-2zM29 31h2v1h-2zM33 31h3v1h-3zM37 31h1v1h-1zM40 31h3v1h-3zM2 32h1v1h-1zM4 32h1v1h-1zM6 32h4v1h-4zM11 32h1v1h-1zM16 32h5v1h-5zM22 32h1v1h-1zM26 32h7v1h-7zM40 32h3v1h-3zM4 33h1v1h-1zM6 33h1v1h-1zM9 33h2v1h-2zM12 33h1v1h-1zM17 33h3v1h-3zM21 33h1v1h-1zM23 33h1v1h-1zM25 33h1v1h-1zM28 33h1v1h-1zM31 33h2v1h-2zM35 33h1v1h-1zM38 33h1v1h-1zM41 33h2v1h-2zM2 34h1v1h-1zM5 34h2v1h-2zM8 34h2v1h-2zM14 34h1v1h-1zM16 34h2v1h-2zM22 34h9v1h-9zM34 34h5v1h-5zM40 34h3v1h-3zM10 35h1v1h-1zM12 35h1v1h-1zM18 35h2v1h-2zM22 35h5v1h-5zM28 35h1v1h-1zM30 35h2v1h-2zM33 35h2v1h-2zM38 35h1v1h-1zM40 35h3v1h-3zM2 36h7v1h-7zM11 36h4v1h-4zM16 36h1v1h-1zM19 36h1v1h-1zM24 36h1v1h-1zM28 36h1v1h-1zM30 36h1v1h-1zM32 36h1v1h-1zM34 36h1v1h-1zM36 36h1v1h-1zM38 36h1v1h-1zM40 36h2v1h-2zM2 37h1v1h-1zM8 37h1v1h-1zM11 37h2v1h-2zM16 37h2v1h-2zM19 37h1v1h-1zM22 37h1v1h-1zM25 37h3v1h-3zM30 37h1v1h-1zM32 37h1v1h-1zM34 37h1v1h-1zM38 37h1v1h-1zM40 37h1v1h-1zM2 38h1v1h-1zM4 38h3v1h-3zM8 38h1v1h-1zM17 38h1v1h-1zM19 38h1v1h-1zM22 38h2v1h-2zM26 38h1v1h-1zM29 38h2v1h-2zM32 38h1v1h-1zM34 38h6v1h-6zM41 38h1v1h-1zM2 39h1v1h-1zM4 39h3v1h-3zM8 39h1v1h-1zM10 39h4v1h-4zM16 39h3v1h-3zM22 39h1v1h-1zM24 39h2v1h-2zM27 39h1v1h-1zM31 39h3v1h-3zM35 39h2v1h-2zM38 39h1v1h-1zM41 39h1v1h-1zM2 40h1v1h-1zM4 40h3v1h-3zM8 40h1v1h-1zM12 40h3v1h-3zM17 40h4v1h-4zM22 40h1v1h-1zM25 40h2v1h-2zM32 40h3v1h-3zM38 40h2v1h-2zM42 40h1v1h-1zM2 41h1v1h-1zM8 41h1v1h-1zM13 41h1v1h-1zM15 41h1v1h-1zM18 41h2v1h-2zM21 41h1v1h-1zM29 41h1v1h-1zM31 41h4v1h-4zM37 41h1v1h-1zM39 41h1v1h-1zM41 41h1v1h-1zM2 42h7v1h-7zM14 42h1v1h-1zM19 42h1v1h-1zM21 42h1v1h-1zM25 42h2v1h-2zM28 42h2v1h-2zM31 42h1v1h-1zM34 42h1v1h-1zM37 42h2v1h-2zM40 42h2v1h-2z"/></svg><figcaption>Quét vào trang<small>Mã cố định</small></figcaption><div class="qr-acts" data-qr="web"><button type="button" data-act="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Chia sẻ</button><button type="button" data-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Chép link</button></div><p class="qr-msg" aria-live="polite"></p></figure>
+        <figure class="hero-qr" title="Mã QR cố định của trang: quét là vào đúng web, nội dung cập nhật thì mã vẫn giữ nguyên"><svg viewBox="0 0 45 45" shape-rendering="crispEdges" role="img" aria-label="Mã QR trang web lyson-bit.github.io/dac-san-ly-son"><rect width="45" height="45" fill="#fff"/><g class="qr-dao" opacity=".3" shape-rendering="geometricPrecision" aria-hidden="true" transform="translate(2 2) scale(.0801)"><defs><clipPath id="qrcu1"><path d="M256 34C270 80 279 106 284 128C396 160 452 252 430 340C410 420 342 466 256 466C170 466 102 420 82 340C60 252 116 160 228 128C233 106 242 80 256 34Z"/></clipPath></defs><path d="M256 34C270 80 279 106 284 128C396 160 452 252 430 340C410 420 342 466 256 466C170 466 102 420 82 340C60 252 116 160 228 128C233 106 242 80 256 34Z" fill="#F6CD98"/><g clip-path="url(#qrcu1)"><rect width="512" height="150" fill="#EE9A73"/><circle cx="328" cy="216" r="44" fill="#E8553D"/><path d="M40 336L136 270L170 282L228 222L246 230L270 226L292 222L352 282L476 322V420H40Z" fill="#9A7FA8"/><path d="M40 352C96 318 150 304 196 316C236 326 262 318 300 298C334 280 372 290 410 312C440 328 462 340 480 346V440H40Z" fill="#3E7079"/><rect y="380" width="512" height="140" fill="#1E3B3F"/></g></g><text class="qr-chu" x="22.5" y="33" text-anchor="middle" font-family="'Dancing Script',cursive" font-style="italic" font-weight="700" font-size="6.6" fill="#7C3A68" opacity=".45" aria-hidden="true">Nhà của Đạt</text><path fill="#0B1A1B" d="M2 2h7v1h-7zM10 2h1v1h-1zM12 2h1v1h-1zM14 2h2v1h-2zM17 2h2v1h-2zM20 2h1v1h-1zM22 2h3v1h-3zM26 2h3v1h-3zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM12 3h3v1h-3zM21 3h1v1h-1zM24 3h6v1h-6zM31 3h1v1h-1zM34 3h1v1h-1zM36 3h1v1h-1zM42 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM20 4h4v1h-4zM25 4h1v1h-1zM27 4h1v1h-1zM29 4h1v1h-1zM31 4h1v1h-1zM36 4h1v1h-1zM38 4h3v1h-3zM42 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM13 5h3v1h-3zM18 5h2v1h-2zM21 5h2v1h-2zM24 5h1v1h-1zM27 5h2v1h-2zM31 5h1v1h-1zM36 5h1v1h-1zM38 5h3v1h-3zM42 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h2v1h-2zM21 6h1v1h-1zM23 6h3v1h-3zM28 6h4v1h-4zM36 6h1v1h-1zM38 6h3v1h-3zM42 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM18 7h1v1h-1zM22 7h1v1h-1zM27 7h1v1h-1zM29 7h2v1h-2zM32 7h2v1h-2zM36 7h1v1h-1zM42 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM34 8h1v1h-1zM36 8h7v1h-7zM11 9h3v1h-3zM16 9h3v1h-3zM21 9h1v1h-1zM23 9h1v1h-1zM25 9h2v1h-2zM28 9h1v1h-1zM31 9h1v1h-1zM34 9h1v1h-1zM5 10h1v1h-1zM8 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h3v1h-3zM22 10h2v1h-2zM27 10h1v1h-1zM29 10h2v1h-2zM37 10h3v1h-3zM41 10h2v1h-2zM2 11h2v1h-2zM7 11h1v1h-1zM10 11h1v1h-1zM13 11h3v1h-3zM21 11h2v1h-2zM24 11h1v1h-1zM31 11h2v1h-2zM34 11h3v1h-3zM39 11h2v1h-2zM3 12h3v1h-3zM8 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM21 12h1v1h-1zM25 12h1v1h-1zM31 12h3v1h-3zM37 12h4v1h-4zM2 13h1v1h-1zM5 13h3v1h-3zM11 13h2v1h-2zM14 13h2v1h-2zM22 13h3v1h-3zM26 13h1v1h-1zM28 13h1v1h-1zM30 13h1v1h-1zM40 13h1v1h-1zM2 14h1v1h-1zM5 14h1v1h-1zM8 14h1v1h-1zM11 14h1v1h-1zM14 14h3v1h-3zM18 14h1v1h-1zM23 14h7v1h-7zM31 14h4v1h-4zM36 14h1v1h-1zM39 14h1v1h-1zM42 14h1v1h-1zM3 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM10 15h2v1h-2zM15 15h2v1h-2zM20 15h1v1h-1zM23 15h2v1h-2zM26 15h5v1h-5zM34 15h1v1h-1zM36 15h1v1h-1zM40 15h2v1h-2zM4 16h1v1h-1zM6 16h3v1h-3zM12 16h2v1h-2zM16 16h5v1h-5zM23 16h1v1h-1zM25 16h1v1h-1zM31 16h1v1h-1zM33 16h1v1h-1zM36 16h1v1h-1zM39 16h1v1h-1zM41 16h2v1h-2zM3 17h5v1h-5zM10 17h5v1h-5zM16 17h1v1h-1zM18 17h1v1h-1zM22 17h3v1h-3zM27 17h1v1h-1zM29 17h1v1h-1zM31 17h2v1h-2zM34 17h1v1h-1zM36 17h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM10 18h5v1h-5zM16 18h3v1h-3zM20 18h2v1h-2zM25 18h1v1h-1zM31 18h1v1h-1zM37 18h1v1h-1zM2 19h1v1h-1zM5 19h1v1h-1zM9 19h1v1h-1zM13 19h1v1h-1zM15 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM23 19h1v1h-1zM25 19h3v1h-3zM31 19h2v1h-2zM36 19h2v1h-2zM39 19h4v1h-4zM3 20h1v1h-1zM5 20h6v1h-6zM12 20h1v1h-1zM14 20h1v1h-1zM20 20h4v1h-4zM25 20h4v1h-4zM30 20h2v1h-2zM34 20h1v1h-1zM38 20h2v1h-2zM41 20h2v1h-2zM3 21h1v1h-1zM5 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM15 21h4v1h-4zM22 21h1v1h-1zM26 21h1v1h-1zM34 21h1v1h-1zM36 21h2v1h-2zM41 21h1v1h-1zM3 22h3v1h-3zM8 22h2v1h-2zM13 22h5v1h-5zM19 22h2v1h-2zM22 22h4v1h-4zM27 22h5v1h-5zM33 22h6v1h-6zM40 22h1v1h-1zM42 22h1v1h-1zM4 23h1v1h-1zM9 23h4v1h-4zM15 23h1v1h-1zM17 23h6v1h-6zM25 23h1v1h-1zM27 23h2v1h-2zM34 23h1v1h-1zM36 23h1v1h-1zM38 23h1v1h-1zM40 23h3v1h-3zM3 24h1v1h-1zM5 24h7v1h-7zM13 24h5v1h-5zM21 24h2v1h-2zM24 24h1v1h-1zM27 24h2v1h-2zM30 24h1v1h-1zM32 24h5v1h-5zM39 24h1v1h-1zM41 24h1v1h-1zM2 25h2v1h-2zM6 25h1v1h-1zM10 25h3v1h-3zM14 25h1v1h-1zM16 25h2v1h-2zM19 25h2v1h-2zM22 25h2v1h-2zM25 25h1v1h-1zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h7v1h-7zM42 25h1v1h-1zM4 26h2v1h-2zM8 26h1v1h-1zM11 26h1v1h-1zM13 26h6v1h-6zM20 26h1v1h-1zM23 26h1v1h-1zM25 26h2v1h-2zM29 26h3v1h-3zM33 26h2v1h-2zM36 26h1v1h-1zM40 26h1v1h-1zM2 27h1v1h-1zM5 27h1v1h-1zM9 27h1v1h-1zM15 27h2v1h-2zM21 27h1v1h-1zM27 27h2v1h-2zM32 27h2v1h-2zM35 27h1v1h-1zM39 27h1v1h-1zM41 27h2v1h-2zM6 28h1v1h-1zM8 28h1v1h-1zM11 28h2v1h-2zM16 28h2v1h-2zM19 28h7v1h-7zM27 28h1v1h-1zM34 28h2v1h-2zM41 28h1v1h-1zM2 29h3v1h-3zM14 29h1v1h-1zM16 29h2v1h-2zM22 29h1v1h-1zM25 29h2v1h-2zM28 29h1v1h-1zM30 29h2v1h-2zM34 29h4v1h-4zM41 29h2v1h-2zM2 30h3v1h-3zM8 30h3v1h-3zM12 30h2v1h-2zM15 30h1v1h-1zM17 30h1v1h-1zM20 30h1v1h-1zM29 30h1v1h-1zM31 30h1v1h-1zM35 30h2v1h-2zM41 30h2v1h-2zM3 31h1v1h-1zM5 31h1v1h-1zM10 31h2v1h-2zM14 31h2v1h-2zM18 31h1v1h-1zM23 31h2v1h-2zM29 31h2v1h-2zM33 31h3v1h-3zM37 31h1v1h-1zM40 31h3v1h-3zM2 32h1v1h-1zM4 32h1v1h-1zM6 32h4v1h-4zM11 32h1v1h-1zM16 32h5v1h-5zM22 32h1v1h-1zM26 32h7v1h-7zM40 32h3v1h-3zM4 33h1v1h-1zM6 33h1v1h-1zM9 33h2v1h-2zM12 33h1v1h-1zM17 33h3v1h-3zM21 33h1v1h-1zM23 33h1v1h-1zM25 33h1v1h-1zM28 33h1v1h-1zM31 33h2v1h-2zM35 33h1v1h-1zM38 33h1v1h-1zM41 33h2v1h-2zM2 34h1v1h-1zM5 34h2v1h-2zM8 34h2v1h-2zM14 34h1v1h-1zM16 34h2v1h-2zM22 34h9v1h-9zM34 34h5v1h-5zM40 34h3v1h-3zM10 35h1v1h-1zM12 35h1v1h-1zM18 35h2v1h-2zM22 35h5v1h-5zM28 35h1v1h-1zM30 35h2v1h-2zM33 35h2v1h-2zM38 35h1v1h-1zM40 35h3v1h-3zM2 36h7v1h-7zM11 36h4v1h-4zM16 36h1v1h-1zM19 36h1v1h-1zM24 36h1v1h-1zM28 36h1v1h-1zM30 36h1v1h-1zM32 36h1v1h-1zM34 36h1v1h-1zM36 36h1v1h-1zM38 36h1v1h-1zM40 36h2v1h-2zM2 37h1v1h-1zM8 37h1v1h-1zM11 37h2v1h-2zM16 37h2v1h-2zM19 37h1v1h-1zM22 37h1v1h-1zM25 37h3v1h-3zM30 37h1v1h-1zM32 37h1v1h-1zM34 37h1v1h-1zM38 37h1v1h-1zM40 37h1v1h-1zM2 38h1v1h-1zM4 38h3v1h-3zM8 38h1v1h-1zM17 38h1v1h-1zM19 38h1v1h-1zM22 38h2v1h-2zM26 38h1v1h-1zM29 38h2v1h-2zM32 38h1v1h-1zM34 38h6v1h-6zM41 38h1v1h-1zM2 39h1v1h-1zM4 39h3v1h-3zM8 39h1v1h-1zM10 39h4v1h-4zM16 39h3v1h-3zM22 39h1v1h-1zM24 39h2v1h-2zM27 39h1v1h-1zM31 39h3v1h-3zM35 39h2v1h-2zM38 39h1v1h-1zM41 39h1v1h-1zM2 40h1v1h-1zM4 40h3v1h-3zM8 40h1v1h-1zM12 40h3v1h-3zM17 40h4v1h-4zM22 40h1v1h-1zM25 40h2v1h-2zM32 40h3v1h-3zM38 40h2v1h-2zM42 40h1v1h-1zM2 41h1v1h-1zM8 41h1v1h-1zM13 41h1v1h-1zM15 41h1v1h-1zM18 41h2v1h-2zM21 41h1v1h-1zM29 41h1v1h-1zM31 41h4v1h-4zM37 41h1v1h-1zM39 41h1v1h-1zM41 41h1v1h-1zM2 42h7v1h-7zM14 42h1v1h-1zM19 42h1v1h-1zM21 42h1v1h-1zM25 42h2v1h-2zM28 42h2v1h-2zM31 42h1v1h-1zM34 42h1v1h-1zM37 42h2v1h-2zM40 42h2v1h-2z"/></svg><figcaption>Quét vào trang<small>Mã cố định</small></figcaption><div class="qr-acts" data-qr="web"><button type="button" data-act="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Chia sẻ</button><button type="button" data-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Chép link</button></div><p class="qr-msg" aria-live="polite"></p></figure>
         <div class="hero-top"><span class="badge">Mùa mới</span><p class="eyebrow">Đảo Lý Sơn · Quảng Ngãi</p></div>
         <h1>ĐẶC SẢN LÝ SƠN <span>QUÊ TÔI</span></h1>
         <p class="lead">Tỏi, hành tím và hải sản khô từ hòn đảo núi lửa giữa biển miền Trung. Hàng nhà trồng và làm trên đảo, gửi về đất liền theo từng đợt.</p>
@@ -1085,7 +1113,10 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         </ul>
       </div>
       <figure class="hero-art hero-photo">
-        <img src="images/hanh_trinh/hero_dao_ly_son_tren_cao.webp" width="676" height="874" alt="Đảo Lý Sơn nhìn từ trên cao lúc hoàng hôn, rạn san hô rộng giữa biển xanh" fetchpriority="high">
+        <!-- v1.74: 2 ảnh bìa chạy luân phiên (6 giây). Ảnh 2 tải sau khi trang hiện; thiếu file thì tự bỏ, chỉ còn ảnh 1.
+             Ảnh 2 để nguyên khung (contain) trên nền cùng màu biển để GIỮ chữ ký tác giả ở góc ảnh. -->
+        <img class="hp-s on" src="images/hanh_trinh/hero_dao_ly_son_tren_cao.webp" width="676" height="874" alt="Đảo Lý Sơn nhìn từ trên cao lúc hoàng hôn, rạn san hô rộng giữa biển xanh" fetchpriority="high">
+        <img class="hp-s hp-s2" data-src="images/hanh_trinh/bia_luoi_ca_alex_cao.webp" width="1200" height="800" alt="Thuyền đánh cá thả lưới giữa biển nhìn từ trên cao, lưới xòe như một bông hoa xanh" hidden>
         <figcaption class="hp-top">
           <span class="hp-welcome" lang="en">Welcome to <b>Ly Son</b></span>
         </figcaption>
@@ -1094,8 +1125,18 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
           <span class="hp-line">Hành trình trải nghiệm là của bạn</span>
         </p>
         <a class="hp-go" href="#hanh-trinh">Xem hành trình 3 ngày →</a>
-        <p class="hp-credit">Ảnh tham khảo · bản quyền thuộc tác giả</p>
+        <p class="hp-credit" id="hpCredit">Ảnh tham khảo · bản quyền thuộc tác giả</p>
+        <div class="hp-dots" id="hpDots" hidden><button type="button" aria-label="Ảnh bìa 1" aria-pressed="true"></button><button type="button" aria-label="Ảnh bìa 2" aria-pressed="false"></button></div>
       </figure>
+      <script>/* v1.74: ảnh bìa luân phiên */
+      (function(){var f=document.querySelector(".hero-photo"),s=f&&f.querySelectorAll(".hp-s"),d=document.getElementById("hpDots"),c=document.getElementById("hpCredit");if(!s||s.length<2)return;
+        var CR=["Ảnh tham khảo · bản quyền thuộc tác giả","Ảnh: Alex Cao Photography · bản quyền thuộc tác giả"],k=0,t=0,
+            rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches,b=d.querySelectorAll("button");
+        function di(i){k=i;[].forEach.call(s,function(x,j){x.classList.toggle("on",j===i);});[].forEach.call(b,function(x,j){x.setAttribute("aria-pressed",j===i?"true":"false");});c.textContent=CR[i];}
+        function chay(){clearInterval(t);if(!rm)t=setInterval(function(){if(!document.hidden)di((k+1)%2);},6000);}
+        [].forEach.call(b,function(x,j){x.addEventListener("click",function(){di(j);chay();});});
+        function nap(){var a=s[1];a.onload=function(){a.hidden=false;d.hidden=false;chay();};a.onerror=function(){a.remove();};a.src=a.getAttribute("data-src");}
+        if(document.readyState==="complete")setTimeout(nap,1500);else window.addEventListener("load",function(){setTimeout(nap,1500);});})();</script>
     </div>
     <!-- Khung hành trình 3D: chỉ tải khi khách bấm (trang chủ không nặng thêm) -->
     <div class="wrap j3d-box" id="hanh-trinh-3d">
@@ -1203,22 +1244,23 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
         <h2>Tỏi cô đơn Lý Sơn</h2>
         <p>Tỏi cô đơn không phải một giống riêng. Trong ruộng tỏi thường, một số cây chỉ tạo một tép duy nhất. Nhiều người ăn thấy tép này thơm, vị đậm hơn tỏi nhiều tép.</p>
       </div>
-      <div class="spot-grid">
-        <div class="spec">
-          <dl>
-            <dt>Xuất xứ</dt><dd>Đảo Lý Sơn, Quảng Ngãi</dd>
-            <dt>Quy cách</dt><dd>Túi lưới 500 g · 1 kg</dd>
-            <dt>Hình dạng</dt><dd>Một tép, củ tròn, đều</dd>
-            <dt>Canh tác</dt><dd>Phân chuồng ủ hoai, nhổ cỏ bằng tay</dd>
-            <dt>Sản lượng</dt><dd>Rất ít, thay đổi theo từng vụ</dd>
-            <dt>Giá</dt><dd>Báo theo đợt hàng</dd>
-          </dl>
-        </div>
-        <div class="points">
-          <div class="point"><span class="dot">1</span><div><h3>Chọn từng củ</h3><p>Tỏi cô đơn được nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới cho thoáng.</p></div></div>
-          <div class="point"><span class="dot">2</span><div><h3>Vị đậm, ít hăng gắt</h3><p>Ăn sống có vị cay ấm, hậu ngọt. Mùi thơm rõ hơn tỏi nhập khẩu củ to.</p></div></div>
-          <div class="point"><span class="dot">3</span><div><h3>Ăn theo kinh nghiệm dân gian</h3><p>Người trên đảo quen ăn vài củ trong bữa cơm hoặc ngâm rượu để dùng dần khi trời trở lạnh. Đây là thói quen ăn uống, không phải thuốc.</p></div></div>
-          <p class="note">Công dụng nêu trên là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người đang điều trị bệnh, đặc biệt đang dùng thuốc chống đông máu, nên hỏi bác sĩ trước khi dùng nhiều tỏi.</p>
+      <!-- v1.74: 2 bảng gọn giống "Sáu điều chúng tôi giữ" (rs-panel/rs-tb), nội dung giữ nguyên -->
+      <div class="cd-two">
+        <div class="rs-panel"><table class="rs-tb sp-tb"><thead><tr><th scope="col">Thông tin</th><th scope="col">Chi tiết</th></tr></thead><tbody>
+          <tr><th scope="row">Xuất xứ</th><td>Đảo Lý Sơn, Quảng Ngãi</td></tr>
+          <tr><th scope="row">Quy cách</th><td>Túi lưới 500 g · 1 kg</td></tr>
+          <tr><th scope="row">Hình dạng</th><td>Một tép, củ tròn, đều</td></tr>
+          <tr><th scope="row">Canh tác</th><td>Phân chuồng ủ hoai, nhổ cỏ bằng tay</td></tr>
+          <tr><th scope="row">Sản lượng</th><td>Rất ít, thay đổi theo từng vụ</td></tr>
+          <tr><th scope="row">Giá</th><td>Báo theo đợt hàng</td></tr>
+        </tbody></table></div>
+        <div>
+          <div class="rs-panel"><table class="rs-tb cd-tb"><thead><tr><th scope="col">Điểm nổi bật</th><th scope="col">Vì sao</th></tr></thead><tbody>
+            <tr><th scope="row"><span class="rt"><span class="r-ico r-so" aria-hidden="true">1</span>Chọn từng củ</span></th><td>Tỏi cô đơn được nhặt riêng khi thu hoạch, phơi khô rồi mới đóng túi lưới cho thoáng.</td></tr>
+            <tr><th scope="row"><span class="rt"><span class="r-ico r-so" aria-hidden="true">2</span>Vị đậm, ít hăng gắt</span></th><td>Ăn sống có vị cay ấm, hậu ngọt. Mùi thơm rõ hơn tỏi nhập khẩu củ to.</td></tr>
+            <tr><th scope="row"><span class="rt"><span class="r-ico r-so" aria-hidden="true">3</span>Ăn theo kinh nghiệm dân gian</span></th><td>Người trên đảo quen ăn vài củ trong bữa cơm hoặc ngâm rượu để dùng dần khi trời trở lạnh. Đây là thói quen ăn uống, không phải thuốc.</td></tr>
+          </tbody></table></div>
+          <p class="note tc-note">Công dụng nêu trên là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người đang điều trị bệnh, đặc biệt đang dùng thuốc chống đông máu, nên hỏi bác sĩ trước khi dùng nhiều tỏi.</p>
         </div>
       </div>
     </div>
@@ -1261,18 +1303,17 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
         <h2>Phân biệt tỏi Lý Sơn với tỏi nhập</h2>
         <p>Trên thị trường có nhiều tỏi cô đơn trồng nơi khác nhưng ghi là Lý Sơn. Một số dấu hiệu bà con hay dùng để nhận biết (mẹo dân gian, chỉ để tham khảo; chắc nhất là mua đúng nơi trồng):</p>
       </div>
-      <div class="cmp-scroll">
-        <table>
-          <thead><tr><th scope="col">Đặc điểm</th><th scope="col">Tỏi Lý Sơn</th><th scope="col">Tỏi nhập củ to</th></tr></thead>
+      <!-- v1.74: bảng gọn giống "Sáu điều chúng tôi giữ" (rs-panel/rs-tb) -->
+      <div class="rs-panel"><table class="rs-tb pb-tb">
+          <thead><tr><th scope="col">Đặc điểm</th><th scope="col" class="pb-ls">Tỏi Lý Sơn</th><th scope="col">Tỏi nhập củ to</th></tr></thead>
           <tbody>
-            <tr><td>Kích thước</td><td>Củ nhỏ, chắc tay</td><td>Củ to, đều, nhẹ hơn so với kích thước</td></tr>
-            <tr><td>Vỏ</td><td>Trắng ngà, mỏng, đôi khi lẫn vết đất cát</td><td>Trắng bóng, sạch, dày hơn</td></tr>
-            <tr><td>Mùi</td><td>Thơm nồng ngay khi bóc</td><td>Mùi nhẹ hơn</td></tr>
-            <tr><td>Vị khi ăn sống</td><td>Cay ấm rồi ngọt hậu</td><td>Cay gắt, ít hậu ngọt</td></tr>
-            <tr><td>Khi đập dập</td><td>Tinh dầu nhiều, dính tay</td><td>Ít tinh dầu, khô hơn</td></tr>
+            <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 15 15 3l6 6L9 21zM7 11l2 2M10 8l2 2M13 5l2 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></span>Kích thước</span></th><td class="pb-ls">Củ nhỏ, chắc tay</td><td>Củ to, đều, nhẹ hơn so với kích thước</td></tr>
+            <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c1 2.5 1.5 3.5 1.5 4.5 4.5 1.5 6.5 5.5 5.5 9.5-1 4.5-4 6-7 6s-6-1.5-7-6c-1-4 1-8 5.5-9.5 0-1 .5-2 1.5-4.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Vỏ</span></th><td class="pb-ls">Trắng ngà, mỏng, đôi khi lẫn vết đất cát</td><td>Trắng bóng, sạch, dày hơn</td></tr>
+            <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9c2-2 4 2 6 0s4-2 6 0 3 1 4 0M4 15c2-2 4 2 6 0s4-2 6 0 3 1 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Mùi</span></th><td class="pb-ls">Thơm nồng ngay khi bóc</td><td>Mùi nhẹ hơn</td></tr>
+            <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.5 6 11a6 6 0 0 1-12 0c0-2.5 1.5-4 3-5 0 2 1 3 2 3 0-3-1-6 1-9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Vị khi ăn sống</span></th><td class="pb-ls">Cay ấm rồi ngọt hậu</td><td>Cay gắt, ít hậu ngọt</td></tr>
+            <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Khi đập dập</span></th><td class="pb-ls">Tinh dầu nhiều, dính tay</td><td>Ít tinh dầu, khô hơn</td></tr>
           </tbody>
-        </table>
-      </div>
+      </table></div>
     </div>
   </section>
 
@@ -1282,25 +1323,20 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
         <p class="eyebrow">Hướng dẫn</p>
         <h2>Cách dùng và bảo quản</h2>
       </div>
-      <div class="two">
-        <div class="panel">
-          <h3>Cách dùng</h3>
-          <ul>
-            <li>Ăn sống: bóc vỏ, đập dập, để 10 phút cho dậy mùi rồi ăn kèm bữa.</li>
-            <li>Ngâm mật ong: tỏi bóc vỏ cho vào hũ thủy tinh, đổ mật ong ngập mặt, đậy kín. Mật ong không dùng cho trẻ dưới 1 tuổi.</li>
-            <li>Ngâm rượu: tỏi bóc vỏ ngâm với rượu trắng trong bình thủy tinh, để nơi mát.</li>
-            <li>Nấu ăn: phi thơm, làm nước chấm, ướp thịt cá, xào rau.</li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h3>Bảo quản</h3>
-          <ul>
-            <li>Để nguyên túi lưới, treo nơi khô, thoáng, tránh nắng trực tiếp.</li>
-            <li>Không để trong túi nilon kín vì dễ ẩm, mốc.</li>
-            <li>Không cần để tủ lạnh. Để lâu trong ngăn mát tỏi dễ mọc mầm.</li>
-            <li>Tỏi đã bóc vỏ nên dùng trong vài ngày hoặc đem ngâm.</li>
-          </ul>
-        </div>
+      <!-- v1.74: trình bày dạng bảng gọn giống bảng "Sáu điều chúng tôi giữ" (cùng class rs-panel/rs-tb) -->
+      <div class="cd-two">
+        <div class="rs-panel"><table class="rs-tb cd-tb"><thead><tr><th scope="col">Cách dùng</th><th scope="col">Làm thế nào</th></tr></thead><tbody>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3M17 21V3c-2 0-3.5 2.5-3.5 7H17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ăn sống</span></th><td>Bóc vỏ, đập dập, để 10 phút cho dậy mùi rồi ăn kèm bữa.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10M8 3v3L6 8.5V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8.5L16 6V3M6 12h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Ngâm mật ong</span></th><td>Tỏi bóc vỏ cho vào hũ thủy tinh, đổ mật ong ngập mặt, đậy kín. Mật ong không dùng cho trẻ dưới 1 tuổi.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 2h4v4l2 3v12a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9l2-3zM8 13h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>Ngâm rượu</span></th><td>Tỏi bóc vỏ ngâm với rượu trắng trong bình thủy tinh, để nơi mát.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11h13a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM16 11h5M8 7c0-1 1-1 1-2M12 7c0-1 1-1 1-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nấu ăn</span></th><td>Phi thơm, làm nước chấm, ướp thịt cá, xào rau.</td></tr>
+        </tbody></table></div>
+        <div class="rs-panel"><table class="rs-tb cd-tb"><thead><tr><th scope="col">Bảo quản</th><th scope="col">Lưu ý</th></tr></thead><tbody>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Treo nơi thoáng</span></th><td>Để nguyên túi lưới, treo nơi khô, thoáng, tránh nắng trực tiếp.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11zM5 5l14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tránh túi kín</span></th><td>Không để trong túi nilon kín vì dễ ẩm, mốc.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 2h12v20H6zM6 10h12M9 5v2M9 13v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Không cần tủ lạnh</span></th><td>Để lâu trong ngăn mát tỏi dễ mọc mầm.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>Tỏi đã bóc vỏ</span></th><td>Dùng trong vài ngày hoặc đem ngâm.</td></tr>
+        </tbody></table></div>
       </div>
     </div>
   </section>
@@ -1526,7 +1562,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
             <li>Sân cát rộng, hoa giấy, ngồi ăn hải sản ngay trước hiên.</li>
             <li>Muốn đi đâu, ăn gì, Đạt chỉ chỗ như người trong nhà.</li>
           </ul>
-          <a class="nd-call" href="tel:0333216563">📞 Liên hệ trải nghiệm cùng nhà Đạt: <b>0333 216 563</b></a>
+          <a class="nd-call" href="tel:0333216563"><span class="nd-t">📞 Liên hệ trải nghiệm cùng nhà Đạt:</span> <b>0333 216 563</b></a>
         </article>
 
         <article class="nd-card nd-food">
@@ -1774,7 +1810,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <p style="margin-top:8px">Địa chỉ: <b style="color:var(--fg)">An Hải - Lý Sơn - Quảng Ngãi</b></p>
       <p>Zalo / điện thoại: <b style="color:var(--fg);user-select:all">0363 594 167</b></p>
       <p>Gọi điện liên hệ: <a href="tel:0333216563" style="color:var(--fg);font-weight:700">0333 216 563</a></p>
-      <div class="foot-qr-box"><a class="foot-qr" href="tel:0333216563" aria-label="Gọi 0333 216 563 – Nhà của Đạt"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="Mã QR gọi 0333 216 563 – Nhà của Đạt"><rect width="33" height="33" fill="#fff"/><path fill="#0B1A1B" d="M2 2h7v1h-7zM11 2h1v1h-1zM14 2h1v1h-1zM16 2h2v1h-2zM20 2h2v1h-2zM24 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h3v1h-3zM17 3h1v1h-1zM19 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM12 4h3v1h-3zM17 4h1v1h-1zM19 4h1v1h-1zM21 4h2v1h-2zM24 4h1v1h-1zM26 4h3v1h-3zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM11 5h1v1h-1zM13 5h2v1h-2zM18 5h1v1h-1zM21 5h2v1h-2zM24 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM15 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h3v1h-3zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM14 7h5v1h-5zM20 7h2v1h-2zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h7v1h-7zM10 9h1v1h-1zM14 9h1v1h-1zM16 9h2v1h-2zM19 9h2v1h-2zM6 10h4v1h-4zM13 10h2v1h-2zM20 10h2v1h-2zM24 10h2v1h-2zM29 10h1v1h-1zM4 11h2v1h-2zM9 11h1v1h-1zM11 11h1v1h-1zM13 11h4v1h-4zM18 11h1v1h-1zM21 11h3v1h-3zM26 11h3v1h-3zM30 11h1v1h-1zM2 12h3v1h-3zM6 12h3v1h-3zM11 12h1v1h-1zM13 12h1v1h-1zM15 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM22 12h3v1h-3zM27 12h2v1h-2zM30 12h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM25 13h1v1h-1zM29 13h2v1h-2zM3 14h2v1h-2zM7 14h3v1h-3zM12 14h2v1h-2zM15 14h1v1h-1zM17 14h1v1h-1zM20 14h2v1h-2zM25 14h1v1h-1zM27 14h3v1h-3zM2 15h2v1h-2zM9 15h3v1h-3zM18 15h2v1h-2zM22 15h3v1h-3zM26 15h1v1h-1zM28 15h3v1h-3zM3 16h1v1h-1zM6 16h1v1h-1zM8 16h2v1h-2zM12 16h7v1h-7zM25 16h1v1h-1zM27 16h1v1h-1zM29 16h2v1h-2zM5 17h1v1h-1zM9 17h1v1h-1zM12 17h1v1h-1zM15 17h2v1h-2zM20 17h2v1h-2zM23 17h1v1h-1zM25 17h1v1h-1zM27 17h1v1h-1zM29 17h1v1h-1zM6 18h3v1h-3zM12 18h1v1h-1zM15 18h2v1h-2zM20 18h5v1h-5zM26 18h2v1h-2zM29 18h1v1h-1zM2 19h1v1h-1zM6 19h2v1h-2zM10 19h2v1h-2zM14 19h2v1h-2zM17 19h1v1h-1zM20 19h2v1h-2zM25 19h1v1h-1zM29 19h2v1h-2zM5 20h1v1h-1zM7 20h2v1h-2zM10 20h2v1h-2zM13 20h2v1h-2zM16 20h2v1h-2zM19 20h3v1h-3zM23 20h4v1h-4zM28 20h1v1h-1zM30 20h1v1h-1zM6 21h2v1h-2zM11 21h3v1h-3zM15 21h8v1h-8zM26 21h4v1h-4zM2 22h2v1h-2zM5 22h1v1h-1zM8 22h2v1h-2zM11 22h6v1h-6zM19 22h2v1h-2zM22 22h9v1h-9zM10 23h1v1h-1zM14 23h1v1h-1zM16 23h5v1h-5zM22 23h1v1h-1zM26 23h1v1h-1zM29 23h2v1h-2zM2 24h7v1h-7zM10 24h1v1h-1zM15 24h3v1h-3zM21 24h2v1h-2zM24 24h1v1h-1zM26 24h1v1h-1zM29 24h2v1h-2zM2 25h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM15 25h1v1h-1zM17 25h1v1h-1zM19 25h2v1h-2zM22 25h1v1h-1zM26 25h1v1h-1zM30 25h1v1h-1zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h1v1h-1zM10 26h2v1h-2zM14 26h1v1h-1zM18 26h1v1h-1zM20 26h7v1h-7zM29 26h1v1h-1zM2 27h1v1h-1zM4 27h3v1h-3zM8 27h1v1h-1zM13 27h6v1h-6zM20 27h1v1h-1zM25 27h1v1h-1zM27 27h2v1h-2zM2 28h1v1h-1zM4 28h3v1h-3zM8 28h1v1h-1zM17 28h1v1h-1zM20 28h1v1h-1zM25 28h1v1h-1zM27 28h1v1h-1zM29 28h2v1h-2zM2 29h1v1h-1zM8 29h1v1h-1zM11 29h3v1h-3zM15 29h2v1h-2zM21 29h1v1h-1zM23 29h4v1h-4zM29 29h2v1h-2zM2 30h7v1h-7zM12 30h1v1h-1zM15 30h5v1h-5zM21 30h3v1h-3zM28 30h2v1h-2z"/></svg><span><b>Nhà của Đạt</b>Quét mã để gọi<br>0333 216 563</span></a><div class="qr-acts" data-qr="tel"><button type="button" data-act="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Chia sẻ mã</button><button type="button" data-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Chép số</button></div><p class="qr-msg" aria-live="polite"></p></div>
+      <div class="foot-qr-box"><a class="foot-qr" href="tel:0333216563" aria-label="Gọi 0333 216 563 – Nhà của Đạt"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="Mã QR gọi 0333 216 563 – Nhà của Đạt"><rect width="33" height="33" fill="#fff"/><g class="qr-dao" opacity=".3" shape-rendering="geometricPrecision" aria-hidden="true" transform="translate(2 2) scale(.0566)"><defs><clipPath id="qrcu2"><path d="M256 34C270 80 279 106 284 128C396 160 452 252 430 340C410 420 342 466 256 466C170 466 102 420 82 340C60 252 116 160 228 128C233 106 242 80 256 34Z"/></clipPath></defs><path d="M256 34C270 80 279 106 284 128C396 160 452 252 430 340C410 420 342 466 256 466C170 466 102 420 82 340C60 252 116 160 228 128C233 106 242 80 256 34Z" fill="#F6CD98"/><g clip-path="url(#qrcu2)"><rect width="512" height="150" fill="#EE9A73"/><circle cx="328" cy="216" r="44" fill="#E8553D"/><path d="M40 336L136 270L170 282L228 222L246 230L270 226L292 222L352 282L476 322V420H40Z" fill="#9A7FA8"/><path d="M40 352C96 318 150 304 196 316C236 326 262 318 300 298C334 280 372 290 410 312C440 328 462 340 480 346V440H40Z" fill="#3E7079"/><rect y="380" width="512" height="140" fill="#1E3B3F"/></g></g><text class="qr-chu" x="16.5" y="24.2" text-anchor="middle" font-family="'Dancing Script',cursive" font-style="italic" font-weight="700" font-size="4.9" fill="#7C3A68" opacity=".45" aria-hidden="true">Nhà của Đạt</text><path fill="#0B1A1B" d="M2 2h7v1h-7zM11 2h1v1h-1zM14 2h1v1h-1zM16 2h2v1h-2zM20 2h2v1h-2zM24 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h3v1h-3zM17 3h1v1h-1zM19 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM30 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM12 4h3v1h-3zM17 4h1v1h-1zM19 4h1v1h-1zM21 4h2v1h-2zM24 4h1v1h-1zM26 4h3v1h-3zM30 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM11 5h1v1h-1zM13 5h2v1h-2zM18 5h1v1h-1zM21 5h2v1h-2zM24 5h1v1h-1zM26 5h3v1h-3zM30 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM15 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h3v1h-3zM30 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM14 7h5v1h-5zM20 7h2v1h-2zM24 7h1v1h-1zM30 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h7v1h-7zM10 9h1v1h-1zM14 9h1v1h-1zM16 9h2v1h-2zM19 9h2v1h-2zM6 10h4v1h-4zM13 10h2v1h-2zM20 10h2v1h-2zM24 10h2v1h-2zM29 10h1v1h-1zM4 11h2v1h-2zM9 11h1v1h-1zM11 11h1v1h-1zM13 11h4v1h-4zM18 11h1v1h-1zM21 11h3v1h-3zM26 11h3v1h-3zM30 11h1v1h-1zM2 12h3v1h-3zM6 12h3v1h-3zM11 12h1v1h-1zM13 12h1v1h-1zM15 12h1v1h-1zM18 12h1v1h-1zM20 12h1v1h-1zM22 12h3v1h-3zM27 12h2v1h-2zM30 12h1v1h-1zM5 13h1v1h-1zM10 13h1v1h-1zM25 13h1v1h-1zM29 13h2v1h-2zM3 14h2v1h-2zM7 14h3v1h-3zM12 14h2v1h-2zM15 14h1v1h-1zM17 14h1v1h-1zM20 14h2v1h-2zM25 14h1v1h-1zM27 14h3v1h-3zM2 15h2v1h-2zM9 15h3v1h-3zM18 15h2v1h-2zM22 15h3v1h-3zM26 15h1v1h-1zM28 15h3v1h-3zM3 16h1v1h-1zM6 16h1v1h-1zM8 16h2v1h-2zM12 16h7v1h-7zM25 16h1v1h-1zM27 16h1v1h-1zM29 16h2v1h-2zM5 17h1v1h-1zM9 17h1v1h-1zM12 17h1v1h-1zM15 17h2v1h-2zM20 17h2v1h-2zM23 17h1v1h-1zM25 17h1v1h-1zM27 17h1v1h-1zM29 17h1v1h-1zM6 18h3v1h-3zM12 18h1v1h-1zM15 18h2v1h-2zM20 18h5v1h-5zM26 18h2v1h-2zM29 18h1v1h-1zM2 19h1v1h-1zM6 19h2v1h-2zM10 19h2v1h-2zM14 19h2v1h-2zM17 19h1v1h-1zM20 19h2v1h-2zM25 19h1v1h-1zM29 19h2v1h-2zM5 20h1v1h-1zM7 20h2v1h-2zM10 20h2v1h-2zM13 20h2v1h-2zM16 20h2v1h-2zM19 20h3v1h-3zM23 20h4v1h-4zM28 20h1v1h-1zM30 20h1v1h-1zM6 21h2v1h-2zM11 21h3v1h-3zM15 21h8v1h-8zM26 21h4v1h-4zM2 22h2v1h-2zM5 22h1v1h-1zM8 22h2v1h-2zM11 22h6v1h-6zM19 22h2v1h-2zM22 22h9v1h-9zM10 23h1v1h-1zM14 23h1v1h-1zM16 23h5v1h-5zM22 23h1v1h-1zM26 23h1v1h-1zM29 23h2v1h-2zM2 24h7v1h-7zM10 24h1v1h-1zM15 24h3v1h-3zM21 24h2v1h-2zM24 24h1v1h-1zM26 24h1v1h-1zM29 24h2v1h-2zM2 25h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM15 25h1v1h-1zM17 25h1v1h-1zM19 25h2v1h-2zM22 25h1v1h-1zM26 25h1v1h-1zM30 25h1v1h-1zM2 26h1v1h-1zM4 26h3v1h-3zM8 26h1v1h-1zM10 26h2v1h-2zM14 26h1v1h-1zM18 26h1v1h-1zM20 26h7v1h-7zM29 26h1v1h-1zM2 27h1v1h-1zM4 27h3v1h-3zM8 27h1v1h-1zM13 27h6v1h-6zM20 27h1v1h-1zM25 27h1v1h-1zM27 27h2v1h-2zM2 28h1v1h-1zM4 28h3v1h-3zM8 28h1v1h-1zM17 28h1v1h-1zM20 28h1v1h-1zM25 28h1v1h-1zM27 28h1v1h-1zM29 28h2v1h-2zM2 29h1v1h-1zM8 29h1v1h-1zM11 29h3v1h-3zM15 29h2v1h-2zM21 29h1v1h-1zM23 29h4v1h-4zM29 29h2v1h-2zM2 30h7v1h-7zM12 30h1v1h-1zM15 30h5v1h-5zM21 30h3v1h-3zM28 30h2v1h-2z"/></svg><span><b>Nhà của Đạt</b>Quét mã để gọi<br>0333 216 563</span></a><div class="qr-acts" data-qr="tel"><button type="button" data-act="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Chia sẻ mã</button><button type="button" data-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Chép số</button></div><p class="qr-msg" aria-live="polite"></p></div>
     </div>
     <nav class="foot-links" aria-label="Sản phẩm">
       <h3>Sản phẩm</h3>
@@ -1795,7 +1831,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.73</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.74</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
