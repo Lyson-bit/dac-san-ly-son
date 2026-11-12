@@ -126,10 +126,13 @@ nav a:hover{color:var(--sea)}
 /* v1.74: 2 ảnh bìa mờ dần sang nhau; ảnh 2 giữ nguyên khung trên nền cùng màu biển (giữ chữ ký tác giả) */
 .hero-photo .hp-s{opacity:0;transition:opacity 1.4s ease}.hero-photo .hp-s.on{opacity:1}
 .hero-photo .hp-s2{object-fit:contain;object-position:50% 50%;background:var(--bia2,#082D28)}
-.hp-dots{position:absolute;z-index:3;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px}
-.hp-dots button{width:22px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
-.hp-dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);transition:height .3s,background .3s}
-.hp-dots button[aria-pressed="true"]::before{height:20px;border-radius:5px;background:#fff}
+/* v1.76: nút chọn ảnh + nút tự chạy ở mép trái trên (dưới dòng WELCOME), xếp dọc */
+.hp-dots{position:absolute;z-index:3;left:8px;top:42px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;border-radius:14px;background:rgba(4,22,28,.32)}
+.hp-dots button{width:24px;height:22px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center;color:#fff}
+.hp-dots .hp-d::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);transition:height .3s,background .3s}
+.hp-dots .hp-d[aria-pressed="true"]::before{height:20px;border-radius:5px;background:#fff}
+.hp-dots .hp-auto{height:24px;margin-top:2px}.hp-auto svg{width:13px;height:13px;fill:currentColor}
+.hp-auto .ic-play{display:none}.hp-auto[aria-pressed="false"] .ic-play{display:block}.hp-auto[aria-pressed="false"] .ic-pause{display:none}
 @media (prefers-reduced-motion: reduce){.hero-photo .hp-s{transition:none}}
 .hero-photo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,22,28,.72) 0%,rgba(4,22,28,.38) 26%,rgba(4,22,28,0) 46%,rgba(4,22,28,0) 78%,rgba(4,22,28,.5) 100%)}
 .hp-top{position:absolute;z-index:2;top:0;left:0;right:0;padding:clamp(36px,7.5%,52px) 18px 0;display:grid;justify-items:center;gap:0;text-align:center;color:#fff}
@@ -1138,15 +1141,17 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         </p>
         <a class="hp-go" href="#hanh-trinh">Xem hành trình 3 ngày →</a>
         <p class="hp-credit" id="hpCredit">Ảnh tham khảo · bản quyền thuộc tác giả</p>
-        <div class="hp-dots" id="hpDots" hidden><button type="button" aria-label="Ảnh bìa 1" aria-pressed="true"></button><button type="button" aria-label="Ảnh bìa 2" aria-pressed="false"></button></div>
+        <div class="hp-dots" id="hpDots" hidden><button type="button" class="hp-d" aria-label="Ảnh bìa 1" aria-pressed="true"></button><button type="button" class="hp-d" aria-label="Ảnh bìa 2" aria-pressed="false"></button><button type="button" class="hp-auto" id="hpAuto" aria-pressed="true" aria-label="Tự chạy luân phiên: đang bật (bấm để dừng)" title="Tự chạy luân phiên"><svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13 5h3v14h-3z"/></svg><svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button></div>
       </figure>
-      <script>/* v1.74: ảnh bìa luân phiên */
-      (function(){var f=document.querySelector(".hero-photo"),s=f&&f.querySelectorAll(".hp-s"),d=document.getElementById("hpDots"),c=document.getElementById("hpCredit");if(!s||s.length<2)return;
-        var CR=["Ảnh tham khảo · bản quyền thuộc tác giả","Ảnh: Alex Cao Photography · bản quyền thuộc tác giả"],k=0,t=0,
-            rm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches,b=d.querySelectorAll("button");
+      <script>/* v1.74: ảnh bìa luân phiên. v1.76: nút ở mép trái trên, thêm nút Tự chạy / Dừng (mặc định tự chạy, kể cả máy bật giảm chuyển động – khi đó đổi ảnh ngay không mờ dần) */
+      (function(){var f=document.querySelector(".hero-photo"),s=f&&f.querySelectorAll(".hp-s"),d=document.getElementById("hpDots"),c=document.getElementById("hpCredit"),au=document.getElementById("hpAuto");if(!s||s.length<2)return;
+        var CR=["Ảnh tham khảo · bản quyền thuộc tác giả","Ảnh: Alex Cao Photography · bản quyền thuộc tác giả"],k=0,t=0,bat=true,b=d.querySelectorAll(".hp-d");
+        try{bat=localStorage.getItem("lsd_bia_auto")!=="0";}catch(e){}
         function di(i){k=i;[].forEach.call(s,function(x,j){x.classList.toggle("on",j===i);});[].forEach.call(b,function(x,j){x.setAttribute("aria-pressed",j===i?"true":"false");});c.textContent=CR[i];}
-        function chay(){clearInterval(t);if(!rm)t=setInterval(function(){if(!document.hidden)di((k+1)%2);},6000);}
+        function veAu(){au.setAttribute("aria-pressed",bat?"true":"false");au.setAttribute("aria-label",bat?"Tự chạy luân phiên: đang bật (bấm để dừng)":"Tự chạy luân phiên: đang dừng (bấm để chạy)");}
+        function chay(){clearInterval(t);if(bat)t=setInterval(function(){if(!document.hidden)di((k+1)%2);},6000);}
         [].forEach.call(b,function(x,j){x.addEventListener("click",function(){di(j);chay();});});
+        au.addEventListener("click",function(){bat=!bat;try{localStorage.setItem("lsd_bia_auto",bat?"1":"0");}catch(e){}veAu();if(bat)di((k+1)%2);chay();});veAu();
         function nap(){var a=s[1];a.onload=function(){a.hidden=false;d.hidden=false;chay();};a.onerror=function(){a.remove();};a.src=a.getAttribute("data-src");}
         if(document.readyState==="complete")setTimeout(nap,1500);else window.addEventListener("load",function(){setTimeout(nap,1500);});})();</script>
     </div>
@@ -1843,7 +1848,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.75</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.76</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
