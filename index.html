@@ -391,21 +391,22 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 /* Sáu điều chúng tôi giữ: bảng gọn, kiểu bảng kê xếp hạng thuyền */
 .rs-panel{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
 .rs-tb{width:100%;min-width:0;table-layout:fixed;border-collapse:collapse;line-height:1.35}
-.rs-tb thead th{width:auto;padding:7px 12px;background:var(--surface);color:var(--muted);font:600 .78rem/1.3 var(--f-body);text-align:left;border-bottom:0;box-shadow:inset 0 -1px 0 var(--line)}
-.rs-tb thead th:first-child{width:40%}
-.rs-tb tbody th,.rs-tb tbody td{padding:7px 12px;border-bottom:0;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
+/* v1.70: gọn như bảng năm vô địch thuyền đua: hàng thấp, chữ nhỏ, cùng phông thân */
+.rs-tb thead th{width:auto;padding:5px 10px;background:var(--surface);color:var(--muted);font:600 .74rem/1.3 var(--f-body);text-align:left;border-bottom:0;box-shadow:inset 0 -1px 0 var(--line)}
+.rs-tb thead th:first-child{width:42%}
+.rs-tb tbody th,.rs-tb tbody td{padding:4px 10px;border-bottom:0;border-top:1px solid var(--line);text-align:left;vertical-align:middle}
 .rs-tb tbody tr:first-child>*{border-top:0}
-.rs-tb tbody th{font:600 .95rem/1.3 var(--f-display);color:var(--fg)}
-.rs-tb tbody td{font:400 .88rem/1.4 var(--f-body);color:var(--muted)}
+.rs-tb tbody th{font:600 .84rem/1.3 var(--f-body);color:var(--fg)}
+.rs-tb tbody td{font:400 .8rem/1.35 var(--f-body);color:var(--muted)}
 .rs-tb tbody tr:hover>*{background:var(--sea-soft)}
-.rs-tb .rt{display:flex;align-items:center;gap:10px}
-.r-ico{flex:none;width:30px;height:30px;border-radius:8px;background:var(--sea-soft);color:var(--sea);display:grid;place-items:center}
-.r-ico svg{width:18px;height:18px}
+.rs-tb .rt{display:flex;align-items:center;gap:7px}
+.r-ico{flex:none;width:20px;height:20px;border-radius:5px;background:var(--sea-soft);color:var(--sea);display:grid;place-items:center}
+.r-ico svg{width:13px;height:13px}
 @media (max-width:560px){
   .rs-tb thead{display:none}
   .rs-tb tbody th,.rs-tb tbody td{display:block;width:auto}
-  .rs-tb tbody th{padding:8px 12px 1px}
-  .rs-tb tbody td{padding:0 12px 8px 52px;border-top:0}
+  .rs-tb tbody th{padding:5px 10px 0}
+  .rs-tb tbody td{padding:0 10px 5px 37px;border-top:0}
 }
 
 
@@ -851,7 +852,31 @@ a.th-race{display:none}
   nav a.nav-race{display:none}
   a.th-race{display:block;margin-left:auto;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:500;line-height:1.3}
   a.th-race:hover{color:var(--sea)}
-#hanh-trinh-3d{scroll-margin-top:120px}@media (max-width:900px){#hanh-trinh-3d{scroll-margin-top:200px}}
+#hanh-trinh-3d,#huong-dan-app{scroll-margin-top:200px}
+.nav-pair,.th-pair{display:flex;justify-content:flex-end;align-items:baseline;gap:14px;white-space:nowrap}.th-pair{gap:10px}
+/* v1.71: khối video hướng dẫn dùng app (mở từ mục menu "Hướng dẫn app") */
+.hd-det{align-self:start;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:0 14px}
+.hd-det[open]{padding-bottom:12px}
+/* v1.70: chữ gọn, một phông thân (Be Vietnam Pro), bước có số tròn */
+.hd-det h3{margin:12px 0 6px;font:700 1rem/1.35 var(--f-body);letter-spacing:0;color:var(--fg)}
+.hd-det .hd-intro{margin:0;font:400 .88rem/1.6 var(--f-body);color:var(--muted)}
+.hd-det ol{list-style:none;counter-reset:hd;padding:0;margin:12px 0 0;display:grid;gap:6px}
+.hd-det ol li{counter-increment:hd;position:relative;padding:7px 10px 7px 40px;border-radius:10px;background:var(--sea-soft);font:400 .85rem/1.45 var(--f-body);color:var(--fg)}
+.hd-det ol li b{font-weight:600;color:var(--sea)}
+.hd-det ol li::before{content:counter(hd);position:absolute;left:10px;top:7px;width:21px;height:21px;border-radius:50%;background:var(--sea);color:var(--on-sea,#fff);font:700 .72rem/21px var(--f-body);text-align:center}
+.hd-sum-t{font:600 .95rem/1.3 var(--f-body)}.hd-sum-s{font:400 .82rem/1.3 var(--f-body)}
+.hd-det>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 0;-webkit-tap-highlight-color:transparent}
+.hd-det>summary::-webkit-details-marker{display:none}
+.hd-sum-t{font:700 1rem/1.3 var(--f-body);color:var(--fg)}
+.hd-sum-s{color:var(--muted);font-size:.86rem;flex:1 1 160px}
+.hd-tg{margin-left:auto;flex:none;padding:5px 12px;border-radius:999px;background:var(--sea);color:var(--on-sea,#fff);font:600 .82rem/1.2 var(--f-body)}
+.hd-det .hd-c{display:none}.hd-det[open] .hd-o{display:none}.hd-det[open] .hd-c{display:inline}
+.hd-det[open]>summary{border-bottom:1px solid var(--line)}
+.hd-box{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:22px;align-items:start;margin:18px 0 16px}
+.hd-vid{position:relative;width:100%;max-width:300px;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#0b1416}
+@supports not (aspect-ratio:1/1){.hd-vid{height:0;padding-top:177.78%}}
+.hd-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#0b1416}
+@media (max-width:640px){.hd-box{grid-template-columns:1fr}.hd-vid{margin:0 auto}}
 .th-links{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}.th-links a.th-race{margin-left:0}   /* v1.67: thêm mục Hành trình 3D dưới Xếp hạng thuyền đua */
 }
 @media (max-width:440px){a.th-race{font-size:.76rem}.th-row .th button{padding:0 7px}.th-row .hd-clock{padding:0 6px;gap:3px}.th-row .hd-clock svg{display:none}}
@@ -931,7 +956,7 @@ a.th-race{display:none}
       <div class="th-row">
         <div class="th" role="group" aria-label="Chọn nền trang"><button type="button" data-th="light" aria-pressed="false"><i aria-hidden="true"></i>Sáng</button><button type="button" data-th="dark" aria-pressed="false"><i aria-hidden="true"></i>Tối</button></div>
         <span class="hd-clock" title="Giờ Lý Sơn (giờ Việt Nam)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><time id="hdClock"></time></span>
-        <span class="th-links"><a class="th-race" href="#thuyen-dua">Xếp hạng thuyền đua</a><a class="th-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a></span>
+        <span class="th-links"><a class="th-race" href="#thuyen-dua">Xếp hạng thuyền đua</a><span class="th-pair"><a class="th-race" href="#huong-dan-app">📘 Hướng dẫn app</a><a class="th-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a></span></span>
       </div>
     </div>
     <nav aria-label="Mục lục">
@@ -941,7 +966,7 @@ a.th-race{display:none}
       <a href="#du-lich">Du lịch</a>
       <a href="#nhac">Nghe nhạc</a>
       <a href="#hoi-dap">Hỏi đáp</a>
-      <span class="nav-end"><span class="nav-end-top"><a class="nav-sp" href="#san-pham">Sản phẩm</a><a class="cta-link" href="#dat-hang">Đặt hàng</a></span><a class="nav-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
+      <span class="nav-end"><span class="nav-end-top"><a class="nav-sp" href="#san-pham">Sản phẩm</a><a class="cta-link" href="#dat-hang">Đặt hàng</a></span><span class="nav-pair"><a class="nav-race" href="#huong-dan-app">📘 Hướng dẫn app</a><a class="nav-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a></span><a class="nav-race" href="#thuyen-dua">Xếp hạng thuyền đua</a></span>
     </nav>
   </div>
   <div class="wx-panel" id="wxPanel" role="region" aria-label="Thời tiết Lý Sơn, Quảng Ngãi" hidden>
@@ -1053,8 +1078,40 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
     </div>
     <script>/* Khung 3D: bấm mới tải iframe. Bản xem trước (claude.ai) không có trang 3D: mở web chính ở tab mới */(function(){var b=document.getElementById('j3dPlay');if(!b)return;var live=/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname);var url=live?'hanh_trinh_3d.html':'https://lyson-bit.github.io/dac-san-ly-son/hanh_trinh_3d.html';var full=document.getElementById('j3dFull');if(!live){full.href=url;full.target='_blank';full.rel='noopener';}
 b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopener');return;}b.parentNode.classList.add('on');var f=document.createElement('iframe');f.src=url+'?embed=1';f.title='Hành trình 3D Đà Nẵng đến Lý Sơn';f.setAttribute('allowfullscreen','');b.parentNode.replaceChild(f,b);
-  /* cuộn khuất khung 3D thì báo trang 3D ngừng vẽ, đỡ nóng máy */
-  if('IntersectionObserver' in window)new IntersectionObserver(function(es){try{f.contentWindow.postMessage({ls3d:'vis',on:es[0].isIntersecting},location.origin);}catch(e){}},{threshold:.05}).observe(f);});})();</script>
+  /* (mục menu "Hành trình 3D" xử lý ở khối dưới) cuộn khuất khung 3D thì báo trang 3D ngừng vẽ, đỡ nóng máy */
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){try{f.contentWindow.postMessage({ls3d:'vis',on:es[0].isIntersecting},location.origin);}catch(e){}},{threshold:.05}).observe(f);});})();
+    /* v1.70: mục menu "🎬 Hành trình 3D" cuộn tới đúng khung 3D, ngay dưới thanh đầu trang (đo chiều cao thật, máy tính và điện thoại đều đúng) */
+    (function(){var box=document.getElementById('hanh-trinh-3d');if(!box)return;
+      function go(e){e.preventDefault();var hd=document.querySelector('header.top'),hb=0;if(hd){var cs=getComputedStyle(hd);hb=(cs.position==='sticky'||cs.position==='fixed')?hd.getBoundingClientRect().height:0;}
+        var y=box.getBoundingClientRect().top+window.scrollY-hb-12;window.scrollTo({top:Math.max(0,y),behavior:'smooth'});if(history.replaceState)history.replaceState(null,'','#hanh-trinh-3d');}
+      document.querySelectorAll('a[href="#hanh-trinh-3d"]').forEach(function(a){a.addEventListener('click',go);});})();</script>
+    <!-- v1.71: video hướng dẫn dùng app (mục menu "Hướng dẫn app"); preload none: chỉ tải khi khách bấm phát -->
+    <div class="wrap" id="huong-dan-app">
+      <!-- v1.70: video luôn hiện; phần chữ hướng dẫn mặc định thu gọn, bấm nút mới xổ ra (anh yêu cầu cho gọn app) -->
+      <div class="hd-box">
+        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" poster="videos/huong_dan_app_v4.jpg" src="videos/huong_dan_app_v4.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
+        <details class="hd-det" id="hdDet">
+          <summary><span class="hd-sum-t">📘 Hướng dẫn app</span><span class="hd-sum-s">Giới thiệu trang và cách dùng</span><span class="hd-tg"><span class="hd-o">Mở xem ▾</span><span class="hd-c">Thu gọn ▴</span></span></summary>
+          <h3>Giới thiệu trang và cách dùng trên điện thoại</h3>
+          <p class="hd-intro">Đặc Sản Lý Sơn Quê Tôi là gian hàng nhỏ của nhà Đạt trên đảo Lý Sơn: tỏi cô đơn, tỏi nhiều tép, hành tím, hải sản khô và tỏi ngâm nhà làm. Trang có chuyện đảo tỏi trồng trên đất núi lửa, cách phân biệt tỏi thật, gợi ý du lịch, hành trình 3 ngày bằng ảnh thật, chuyến đi hoạt hình 3D, nhạc quê hương, xếp hạng thuyền đua, hỏi đáp và mẫu đặt hàng gửi qua Zalo. Video dưới đây giới thiệu chung rồi hướng dẫn từng nút.</p>
+          <ol>
+            <li><b>Ngôi nhà</b> về đầu trang · <b>A− A+</b> chỉnh cỡ chữ</li>
+            <li><b>Trái tim</b> thả tim cho trang, mỗi máy một lần</li>
+            <li><b>Thời tiết</b> 7 ngày Lý Sơn, Quảng Ngãi · <b>Sáng / Tối</b> · đồng hồ</li>
+            <li><b>Chia sẻ</b> link · <b>Phản hồi</b> đọc và gửi cảm nhận</li>
+            <li><b>Thanh nhạc</b> ở đáy: phát, chuyển bài, trộn, danh sách</li>
+            <li><b>Lối tắt</b> Sản phẩm, Đặt hàng, Hành trình 3D, Xếp hạng thuyền đua</li>
+            <li><b>Trang 3D</b> kéo xa xem toàn cảnh, đổi kiểu vẽ</li>
+          </ol>
+        </details>
+      </div>
+    </div>
+    <script>/* mục menu "Hướng dẫn app": mở khối hướng dẫn rồi cuộn tới ngay dưới thanh đầu trang; thu gọn thì dừng video.
+       Bản xem trước (claude.ai) không có file video: lấy video từ web chính. */(function(){var box=document.getElementById('huong-dan-app'),det=document.getElementById('hdDet'),v=document.getElementById('hdVideo');if(!box)return;
+      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.poster=L+'videos/huong_dan_app_v4.jpg';v.src=L+'videos/huong_dan_app_v4.mp4';}
+      function go(e){e.preventDefault();var hd=document.querySelector('header.top'),hb=0;if(hd){var cs=getComputedStyle(hd);hb=(cs.position==='sticky'||cs.position==='fixed')?hd.getBoundingClientRect().height:0;}
+        window.scrollTo({top:Math.max(0,box.getBoundingClientRect().top+window.scrollY-hb-12),behavior:'smooth'});if(history.replaceState)history.replaceState(null,'','#huong-dan-app');}
+      document.querySelectorAll('a[href="#huong-dan-app"]').forEach(function(a){a.addEventListener('click',go);});})();</script>
     <div class="strata" aria-hidden="true"></div>
   </div>
 
@@ -1394,8 +1451,8 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
           <li class="stop"><figure><img src="images/hanh_trinh/d2_chua_hang.webp" width="720" height="960" loading="lazy" alt="Chùa Hang với tượng Quan Âm bên vách núi sát biển"></figure><p><b>📍 Chùa Hang</b>Chùa trong hang đá, sóng vỗ ngay bậc thềm.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_hang_cau.webp" width="960" height="640" loading="lazy" alt="Vách đá xếp lớp và bãi cát trắng ở Hang Câu"></figure><p><b>📍 Hang Câu</b>Vách đá xếp lớp như trang sách, cát trắng mịn.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d3_san_ho_dao_be.webp" width="960" height="720" loading="lazy" alt="Rạn san hô xanh ngọc, xa xa là Đảo Bé"></figure><p><b>📍 Rạn san hô, Đảo Bé</b>Nước trong thấy đáy, Đảo Bé nằm phía chân trời.</p></li>
-          <li class="stop"><figure><img src="images/hanh_trinh/d2_goi_rong_bien.webp" width="960" height="720" loading="lazy" alt="Đĩa gỏi rong biển với rau thơm, đậu phộng, bánh tráng và chén tỏi cô đơn"></figure><p><b>🍽️ Gỏi rong biển</b>Ăn kèm tép tỏi cô đơn sống: cay nồng, ngọt hậu.</p></li>
           <li class="stop"><figure class="duo"><img src="images/hanh_trinh/d2_hoang_hon_ruong.webp" width="540" height="960" loading="lazy" alt="Mặt trời cuối ngày trên ruộng hành tỏi"><img src="images/hanh_trinh/d2_ruong_hanh_cat.webp" width="720" height="665" loading="lazy" alt="Những luống hành xanh trên nền cát trắng"></figure><p><b>🌇 Hoàng hôn trên ruộng</b>Nắng cuối ngày rọi qua những luống xanh.</p></li>
+          <li class="stop"><figure><img src="images/hanh_trinh/d2_goi_rong_bien.webp" width="960" height="720" loading="lazy" alt="Đĩa gỏi rong biển với rau thơm, đậu phộng, bánh tráng và chén tỏi cô đơn"></figure><p><b>🍽️ Gỏi rong biển</b>Ăn kèm tép tỏi cô đơn sống: cay nồng, ngọt hậu.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_cua_ghe_oc.webp" width="720" height="960" loading="lazy" alt="Rổ cua, ghẹ, ốc luộc và chén muối tiêu chanh ớt"></figure><p><b>🍽️ Cua, ghẹ, ốc luộc</b>Chấm muối tiêu chanh ớt, ăn bằng tay mới ngon.</p></li>
           <li class="stop"><figure><img src="images/hanh_trinh/d2_oc_mat_meo.webp" width="720" height="960" loading="lazy" alt="Rổ ốc mắt mèo luộc, rau thơm và chén muối ớt"></figure><p><b>🍽️ Ốc mắt mèo</b>Luộc vừa chín, chấm muối ớt, thêm rau thơm.</p></li>
 
@@ -1617,7 +1674,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
             <div class="cover" id="cover">
               <svg viewBox="0 0 120 48" aria-hidden="true"><path d="M2 30 Q17 14 32 30 T62 30 T92 30 T118 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".9"/><path d="M2 40 Q17 26 32 40 T62 40 T92 40 T118 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/><circle cx="90" cy="12" r="6" fill="currentColor" opacity=".8"/></svg>
               <b>Chọn một bài để nghe</b>
-              <span>26 bài · Lý Sơn · Quảng Ngãi · Biển đảo · Không lời</span>
+              <span>25 bài · Lý Sơn · Quảng Ngãi · Biển đảo · Không lời</span>
             </div>
           </div>
           <div aria-live="polite"><div class="now-title" id="nowTitle">Chưa phát bài nào</div><div class="now-artist" id="nowArtist">Bấm vào một bài trong danh sách</div></div>
@@ -1706,7 +1763,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.69</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.70</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -2311,7 +2368,6 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     {g:"tet",t:"Đoản Xuân Ca",a:"Lê Ngọc Thúy, Lê Thu Uyên",id:"yKVsKsMHf2Q",d:"3:28"},
     {g:"tet",t:"Cánh Thiệp Đầu Xuân",a:"Phương Anh",id:"bs9glhBF8po",d:"4:56"},
     {g:"tet",t:"Ước Nguyện Đầu Xuân",a:"Ngọc Diệp",id:"Ql92Xx2d6D4",d:"3:35"},
-    {g:"tet",t:"Con Bướm Xuân",a:"Hồ Quang Hiếu",id:"-41E5B85rTI",d:"3:59"},
     {g:"khong-loi",t:"Quảng Ngãi Nghĩa Tình (Hòa tấu)",a:"Ngọc Nam Music",id:"U9A6oNHinY8",d:"5:31"},
     {g:"khong-loi",t:"Biển Hát Chiều Nay (Hòa tấu)",a:"Nhạc Hồng Đăng · Hòa Tấu",id:"UwESShlgqgI",d:"4:15"},
     {g:"khong-loi",t:"Thoáng Hương Quê (Đàn tranh)",a:"NSƯT Hải Phượng",id:"E8UWkK47OyI",d:"8:37"},

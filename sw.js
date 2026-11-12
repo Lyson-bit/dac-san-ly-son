@@ -1,6 +1,6 @@
 // Service worker – Đặc Sản Lý Sơn Quê Tôi
 // Mỗi lần sửa trang: tăng số phiên bản CACHE (lyson-v83, v3...) để app trên điện thoại tự cập nhật.
-const CACHE = "lyson-v90";
+const CACHE = "lyson-v91";
 // Ảnh để riêng, KHÔNG xóa khi cập nhật trang: khách quay lại không phải tải lại ảnh (tiết kiệm băng thông).
 // Quy tắc: thay ảnh thì đặt TÊN FILE MỚI, đừng ghi đè ảnh cũ cùng tên.
 const IMG = "lyson-img-1";
@@ -31,6 +31,8 @@ self.addEventListener("fetch", (e) => {
   // Chỉ lưu file của trang, phông chữ Google và thư viện bản đồ; bỏ qua ô bản đồ, tìm địa chỉ, YouTube
   const url = new URL(req.url);
   if (url.origin !== self.location.origin && !/fonts\.(googleapis|gstatic)\.com$|cdnjs\.cloudflare\.com$/.test(url.hostname)) return;
+  // Video (videos/*.mp4): để trình duyệt tự tải theo đoạn (Range), không qua bộ nhớ đệm, iPhone phát được
+  if (url.pathname.indexOf("/videos/") >= 0) return;
 
   // Trang HTML: lấy bản mới từ mạng, mất mạng thì dùng bản đã lưu.
   // Trang chủ lưu vào "./index.html"; trang khác (hanh_trinh_3d.html) lưu theo đúng địa chỉ của nó,
