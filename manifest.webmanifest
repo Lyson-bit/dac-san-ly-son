@@ -10,8 +10,8 @@
   "background_color": "#F3F5F1",
   "theme_color": "#0D6B72",
   "icons": [
-    { "src": "icons/dao-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/dao-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/dao-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "icons/logo-v2-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/logo-v2-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/logo-v2-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
