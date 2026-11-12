@@ -855,6 +855,13 @@ a.th-race{display:none}
 #hanh-trinh-3d,#huong-dan-app{scroll-margin-top:200px}
 .nav-pair,.th-pair{display:flex;justify-content:flex-end;align-items:baseline;gap:14px;white-space:nowrap}.th-pair{gap:10px}
 /* v1.71: khối video hướng dẫn dùng app (mở từ mục menu "Hướng dẫn app") */
+/* v1.71: bảng thống kê thả tim (quản trị) */
+.tim-st{padding:4px 22px 0;font:400 .9rem/1.45 var(--f-body)}
+.tim-big{display:flex;align-items:baseline;gap:10px;margin:4px 0 10px}.tim-big b{font:700 2.2rem/1 var(--f-body);color:#E5484D}.tim-big span{color:var(--muted)}
+.tim-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-top:1px solid var(--line)}.tim-row b{font-weight:700}
+.tim-sub{margin:14px 0 6px;font:600 .78rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tim-days{list-style:none;margin:0;padding:0;display:grid;gap:5px}.tim-days li{display:grid;grid-template-columns:72px 1fr 34px;align-items:center;gap:8px}
+.tim-days i{display:block;height:10px;border-radius:6px;background:linear-gradient(90deg,#E5484D var(--w),var(--sea-soft) var(--w))}.tim-days b{text-align:right}
 .hd-det{align-self:start;border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:0 14px}
 .hd-det[open]{padding-bottom:12px}
 /* v1.70: chữ gọn, một phông thân (Be Vietnam Pro), bước có số tròn */
@@ -1024,7 +1031,9 @@ ve();lay(API+"get/"+NS+"/thich",function(v){so=GOC+v;ve();},function(){so=GOC;ve
 b.addEventListener("click",function(){b.classList.remove("pop","nudge");void b.offsetWidth;b.classList.add("pop");bay(da?3:7);
 if(da){noi("Bạn đã thả tim rồi, cảm ơn nhé! ♥",4);return;}
 da=true;try{localStorage.setItem("lsd_thich","1");}catch(e){}
-if(live){lay(API+"hit/"+NS+"/thich",function(v){so=GOC+v;ve();camOn();},function(){if(so!==null)so++;ve();camOn();});}else{if(so!==null)so++;ve();camOn();}});
+if(live){lay(API+"hit/"+NS+"/thich",function(v){so=GOC+v;ve();camOn();},function(){if(so!==null)so++;ve();camOn();});
+  /* v1.71: đếm thêm theo ngày (giờ Việt Nam) để trang quản trị xem lượt thích từng ngày; chỉ là con số, không lưu ai bấm */
+  lay(API+"hit/"+NS+"/thich-"+new Date(Date.now()+7*36e5).toISOString().slice(0,10).replace(/-/g,""),function(){});}else{if(so!==null)so++;ve();camOn();}});
 tip.addEventListener("click",function(e){var t=e.target;if(t.closest(".x"))an();else if(t.closest("[data-share]")){an();var sb=document.querySelector('.qr-acts[data-qr="web"] [data-act="share"]');if(sb)sb.click();}});
 if(!da){var t0=Date.now(),nhac=false;try{nhac=sessionStorage.getItem("lsd_nhac_tim")==="1";}catch(e){}
 var iv=setInterval(function(){if(da||nhac){clearInterval(iv);return;}var h=document.documentElement,sau=(window.scrollY+innerHeight)/h.scrollHeight;
@@ -1089,7 +1098,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     <div class="wrap" id="huong-dan-app">
       <!-- v1.70: video luôn hiện; phần chữ hướng dẫn mặc định thu gọn, bấm nút mới xổ ra (anh yêu cầu cho gọn app) -->
       <div class="hd-box">
-        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" poster="videos/huong_dan_app_v4.jpg" src="videos/huong_dan_app_v4.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
+        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" poster="videos/huong_dan_app_v5.jpg" src="videos/huong_dan_app_v5.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
         <details class="hd-det" id="hdDet">
           <summary><span class="hd-sum-t">📘 Hướng dẫn app</span><span class="hd-sum-s">Giới thiệu trang và cách dùng</span><span class="hd-tg"><span class="hd-o">Mở xem ▾</span><span class="hd-c">Thu gọn ▴</span></span></summary>
           <h3>Giới thiệu trang và cách dùng trên điện thoại</h3>
@@ -1108,7 +1117,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     </div>
     <script>/* mục menu "Hướng dẫn app": mở khối hướng dẫn rồi cuộn tới ngay dưới thanh đầu trang; thu gọn thì dừng video.
        Bản xem trước (claude.ai) không có file video: lấy video từ web chính. */(function(){var box=document.getElementById('huong-dan-app'),det=document.getElementById('hdDet'),v=document.getElementById('hdVideo');if(!box)return;
-      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.poster=L+'videos/huong_dan_app_v4.jpg';v.src=L+'videos/huong_dan_app_v4.mp4';}
+      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.poster=L+'videos/huong_dan_app_v5.jpg';v.src=L+'videos/huong_dan_app_v5.mp4';}
       function go(e){e.preventDefault();var hd=document.querySelector('header.top'),hb=0;if(hd){var cs=getComputedStyle(hd);hb=(cs.position==='sticky'||cs.position==='fixed')?hd.getBoundingClientRect().height:0;}
         window.scrollTo({top:Math.max(0,box.getBoundingClientRect().top+window.scrollY-hb-12),behavior:'smooth'});if(history.replaceState)history.replaceState(null,'','#huong-dan-app');}
       document.querySelectorAll('a[href="#huong-dan-app"]').forEach(function(a){a.addEventListener('click',go);});})();</script>
@@ -1763,7 +1772,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.70</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.71</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -1875,6 +1884,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   <span class="adm-t"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.6-1.8"/></svg>Quản trị</span>
   <button type="button" id="admFbBtn">Duyệt phản hồi <b id="admCho"></b></button>
   <button type="button" id="admMucBtn">Ẩn/hiện mục</button>
+  <button type="button" id="admTimBtn">♥ Thả tim</button>
   <button type="button" class="eye-btn" id="admAll" aria-pressed="true"><svg class="e-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3.2"/></svg><svg class="e-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.8.7 5.3 1.7M22 12s-3.6 7-10 7c-2 0-3.8-.7-5.3-1.7"/><circle cx="12" cy="12" r="3.2"/><path d="M4 20 20 4"/></svg><span>Toàn trang: đang hiện</span></button>
   <a class="adm-link" id="admSheet" target="_blank" rel="noopener noreferrer" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>Dữ liệu (Sheet)</a>
   <button type="button" id="admOut">Thoát</button>
@@ -1902,6 +1912,30 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     <div class="story-actions"><button class="btn ghost" type="button" id="admReload">Tải lại</button><button class="btn ghost" type="button" id="admFbClose">Đóng</button></div>
   </div>
 </dialog>
+<dialog class="story adm-box" id="admTim" aria-labelledby="admTimT">
+  <div class="story-head"><p class="eyebrow">Quản trị</p><h3 id="admTimT">Lượt thả tim</h3></div>
+  <div class="tim-st" id="admTimBody" aria-live="polite">Đang tải…</div>
+  <p class="adm-hint">Mỗi máy chỉ thả tim được 1 lần, nên số lượt thích cũng là số người (máy) khác nhau đã thích. Trang chỉ đếm số, không lưu tên hay thông tin người bấm. Số theo ngày bắt đầu đếm từ 12/11/2026 (giờ Việt Nam).</p>
+  <div class="story-actions"><button class="btn ghost" type="button" id="admTimReload">Tải lại</button><button class="btn ghost" type="button" id="admTimClose">Đóng</button></div>
+</dialog>
+<script>/* v1.71: bảng thống kê thả tim cho người bán (đọc số đếm Abacus: tổng, theo ngày, lượt truy cập) */
+(function(){var btn=document.getElementById("admTimBtn"),dlg=document.getElementById("admTim"),body=document.getElementById("admTimBody");if(!btn||!dlg)return;
+  var API="https://abacus.jasoncameron.dev/get/lyson-bit-dac-san-ly-son/",GOC=204;
+  function lay(k){return fetch(API+k,{cache:"no-store"}).then(function(r){return r.ok?r.json():{value:0};}).then(function(j){return j&&typeof j.value==="number"?j.value:0;}).catch(function(){return null;});}
+  function f(n){return n===null?"–":n.toLocaleString("vi-VN");}
+  function nap(){body.innerHTML="Đang tải…";var ngay=[];for(var i=0;i<7;i++){var d=new Date(Date.now()+7*36e5-i*864e5);ngay.push(d.toISOString().slice(0,10));}
+    Promise.all([lay("thich"),lay("khach")].concat(ngay.map(function(d){return lay("thich-"+d.replace(/-/g,""));}))).then(function(v){
+      var moi=v[0],kh=v[1],ds=v.slice(2),max=Math.max.apply(null,ds.map(function(x){return x||0;}).concat([1]));
+      var tong=moi===null?null:GOC+moi,tl=(moi!==null&&kh)?Math.round(moi/kh*1000)/10:null;
+      var h='<div class="tim-big"><b>'+f(tong)+'</b><span>lượt thích (người khác nhau)</span></div>'+
+        '<div class="tim-row"><span>Có từ trước</span><b>'+f(GOC)+'</b></div><div class="tim-row"><span>Mới qua web</span><b>'+f(moi)+'</b></div>'+
+        '<div class="tim-row"><span>Lượt truy cập (mỗi máy 1 lần)</span><b>'+f(kh)+'</b></div><div class="tim-row"><span>Tỷ lệ thích trên truy cập</span><b>'+(tl===null?"–":tl.toLocaleString("vi-VN")+"%")+'</b></div>'+
+        '<p class="tim-sub">7 ngày gần nhất</p><ul class="tim-days">';
+      ngay.forEach(function(d,i){var n=ds[i]||0,p=d.split("-");h+='<li><span>'+(i===0?"Hôm nay":i===1?"Hôm qua":p[2]+"/"+p[1])+'</span><i style="--w:'+Math.round(n/max*100)+'%"></i><b>'+n+'</b></li>';});
+      body.innerHTML=h+"</ul>";});}
+  btn.addEventListener("click",function(){if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");nap();});
+  document.getElementById("admTimReload").addEventListener("click",nap);
+  document.getElementById("admTimClose").addEventListener("click",function(){dlg.close?dlg.close():dlg.removeAttribute("open");});})();</script>
 <dialog class="story adm-box" id="admMuc" aria-labelledby="admMucT">
   <div class="story-head"><p class="eyebrow">Quản trị</p><h3 id="admMucT">Ẩn/hiện mục trên trang</h3></div>
   <p class="adm-hint">Bấm con mắt để ẩn hoặc hiện. Mục bị ẩn: khách không thấy, các link dẫn tới mục đó cũng ẩn. Anh vẫn thấy mục mờ, viền cam, để bật lại.</p>
