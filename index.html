@@ -967,6 +967,13 @@ a.th-race{display:none}
 @supports not (aspect-ratio:1/1){.hd-vid{height:0;padding-top:177.78%}}
 .hd-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#0b1416}
 @media (max-width:640px){.hd-box{grid-template-columns:1fr}.hd-vid{margin:0 auto}}
+/* v1.79: nút Phóng to riêng + chế độ phủ kín màn hình trong trang khi trình duyệt chặn toàn màn hình */
+.hd-fs,.hd-fs-x{position:absolute;z-index:3;top:8px;right:8px;padding:6px 11px;border:0;border-radius:999px;background:rgba(8,20,22,.72);color:#fff;font:600 .78rem/1 var(--f-body);cursor:pointer;backdrop-filter:blur(4px)}
+.hd-fs:hover,.hd-fs-x:hover{background:rgba(8,20,22,.9)}.hd-fs-x{display:none}
+.hd-vid.hd-full{position:fixed!important;inset:0;z-index:2147483000;width:100vw!important;max-width:none!important;height:100vh;height:100dvh;aspect-ratio:auto!important;padding:0!important;margin:0!important;border-radius:0!important;background:#000}
+.hd-vid.hd-full video{object-fit:contain}.hd-vid.hd-full .hd-fs{display:none}.hd-vid.hd-full .hd-fs-x{display:block;top:max(10px,env(safe-area-inset-top));right:10px;font-size:.9rem;padding:9px 14px}
+.hd-vid.hd-fs-that .hd-fs{display:none}
+html.hd-full-on,html.hd-full-on body{overflow:hidden}
 @media (max-width:440px){a.th-race{font-size:.76rem}.th-row .th button{padding:0 7px}.th-row .hd-clock{padding:0 6px;gap:3px}.th-row .hd-clock svg{display:none}}
 @media (max-width:380px){.th-row{gap:4px}a.th-race{font-size:.74rem}.th-row .th button{padding:0 5px;gap:3px}.th-row .hd-clock{padding:0 5px}}
 .tools{position:relative;display:flex;align-items:center;gap:6px}
@@ -1200,7 +1207,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     <div class="wrap" id="huong-dan-app">
       <!-- v1.70: video luôn hiện; phần chữ hướng dẫn mặc định thu gọn, bấm nút mới xổ ra (anh yêu cầu cho gọn app) -->
       <div class="hd-box">
-        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" data-poster="videos/huong_dan_app_v6.jpg" src="videos/huong_dan_app_v6.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
+        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" data-poster="videos/huong_dan_app_v7.jpg" src="videos/huong_dan_app_v7.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video><button type="button" class="hd-fs" id="hdFs" aria-label="Phóng to video">⛶ Phóng to</button><button type="button" class="hd-fs-x" id="hdFsX" aria-label="Thu nhỏ video">✕ Thu nhỏ</button></div>
         <details class="hd-det" id="hdDet">
           <summary><span class="hd-sum-t">📘 Hướng dẫn app</span><span class="hd-sum-s">Giới thiệu trang và cách dùng</span><span class="hd-tg"><span class="hd-o">Mở xem ▾</span><span class="hd-c">Thu gọn ▴</span></span></summary>
           <h3>Giới thiệu trang và cách dùng trên điện thoại</h3>
@@ -1219,7 +1226,22 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     </div>
     <script>/* mục menu "Hướng dẫn app": mở khối hướng dẫn rồi cuộn tới ngay dưới thanh đầu trang; thu gọn thì dừng video.
        Bản xem trước (claude.ai) không có file video: lấy video từ web chính. */(function(){var box=document.getElementById('huong-dan-app'),det=document.getElementById('hdDet'),v=document.getElementById('hdVideo');if(!box)return;
-      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.setAttribute('data-poster',L+'videos/huong_dan_app_v6.jpg');v.src=L+'videos/huong_dan_app_v6.mp4';}
+      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.setAttribute('data-poster',L+'videos/huong_dan_app_v7.jpg');v.src=L+'videos/huong_dan_app_v7.mp4';}
+      /* v1.79: nút Phóng to riêng. Trình duyệt nhúng (khung app, Zalo, Facebook) hay chặn toàn màn hình thật ("Permissions check failed"):
+         thử requestFullscreen / webkitEnterFullscreen (iPhone), bị chặn thì phóng video phủ kín màn hình trong trang (lớp .hd-full). */
+      if(v){var vb=v.parentNode,fs=document.getElementById('hdFs'),fx=document.getElementById('hdFsX');
+        var moTrang=function(){vb.classList.add('hd-full');document.documentElement.classList.add('hd-full-on');if(fx)fx.focus();};
+        var dongTrang=function(){vb.classList.remove('hd-full');document.documentElement.classList.remove('hd-full-on');if(fs)fs.focus();};
+        var phong=function(){var dp=v.getAttribute('data-poster');if(dp&&!v.poster)v.poster=dp;
+          var rq=vb.requestFullscreen||vb.webkitRequestFullscreen;
+          if(rq){try{var pr=rq.call(vb);if(pr&&pr.catch)pr.catch(function(){});
+              /* có trình duyệt không báo lỗi mà cũng không mở: sau 0,4 s chưa vào toàn màn hình thì phủ kín trong trang */
+              setTimeout(function(){if(!(document.fullscreenElement||document.webkitFullscreenElement)){if(v.webkitEnterFullscreen&&!vb.requestFullscreen){try{v.webkitEnterFullscreen();return;}catch(e){}}moTrang();}},400);return;}catch(e){}}
+          if(v.webkitEnterFullscreen){try{v.webkitEnterFullscreen();return;}catch(e){}}moTrang();};
+        if(fs)fs.addEventListener('click',phong);if(fx)fx.addEventListener('click',dongTrang);
+        document.addEventListener('keydown',function(e){if(e.key==='Escape'&&vb.classList.contains('hd-full'))dongTrang();});
+        document.addEventListener('fullscreenerror',function(e){if(e.target===v||e.target===vb)moTrang();});
+        document.addEventListener('fullscreenchange',function(){vb.classList.toggle('hd-fs-that',document.fullscreenElement===vb);});}
       /* v1.77: ảnh bìa video (48 KB) chỉ tải khi khách cuộn tới gần */
       if(v){var dp=function(){var u=v.getAttribute('data-poster');if(u&&!v.poster)v.poster=u;};if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting;})){dp();io.disconnect();}},{rootMargin:'150px 0px'});io.observe(v);}else dp();}
       function go(e){e.preventDefault();var hd=document.querySelector('header.top'),hb=0;if(hd){var cs=getComputedStyle(hd);hb=(cs.position==='sticky'||cs.position==='fixed')?hd.getBoundingClientRect().height:0;}
@@ -1609,6 +1631,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
             <li><img src="images/hanh_trinh/g_nau_an.webp" width="480" height="640" loading="lazy" alt="Bếp nấu nghêu, tôm hấp sả"><span>Nghêu, tôm hấp sả</span></li>
             <li><img src="images/hanh_trinh/g_bach_tuoc.webp" width="320" height="640" loading="lazy" alt="Nồi bạch tuộc luộc và rổ rau thơm"><span>Bạch tuộc luộc</span></li>
             <li><img src="images/hanh_trinh/g_goi.webp" width="480" height="640" loading="lazy" alt="Gỏi trộn hành tây và rau quế"><span>Gỏi hành tây, rau quế</span></li>
+            <li><img src="images/hanh_trinh/g_ca_ro_gung.webp" width="480" height="640" loading="lazy" alt="Rổ cá tươi ướp gừng và rau thơm"><span>Cá tươi ướp gừng, rau thơm</span></li>
           </ul>
           <p class="dat-says">Món nào cũng có tỏi đảo: đập dập vào nước chấm, phi thơm vào món xào. Hải sản đảo chỉ cần luộc, chấm muối tiêu chanh là ngon.</p>
         </article>
@@ -1621,8 +1644,9 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
         </div>
 
         <div class="ck-group">
-          <h4><span aria-hidden="true">🌊</span>Biển &amp; cảnh đẹp <small>16 ảnh</small></h4>
+          <h4><span aria-hidden="true">🌊</span>Biển &amp; cảnh đẹp <small>17 ảnh</small></h4>
           <ul class="ck-grid">
+            <li><a href="images/hanh_trinh/g_bien_thuyen_da.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bien_thuyen_da.webp" width="640" height="480" loading="lazy" alt="Bãi đá ven biển, thuyền neo dưới chân núi"></a><span>Bãi đá, thuyền neo ven bờ</span></li>
             <li><a href="images/hanh_trinh/g_nuoc_trong.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_trong.webp" width="640" height="640" loading="lazy" alt="Nước biển trong xanh thấy đáy, khối kè dưới nước"></a><span>Nước trong thấy đáy</span></li>
             <li><a href="images/hanh_trinh/g_hang_cau_2.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hang_cau_2.webp" width="640" height="427" loading="lazy" alt="Vách đá Hang Câu bên bãi cát"></a><span>Vách đá Hang Câu</span></li>
             <li><a href="images/hanh_trinh/g_vach_da.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_vach_da.webp" width="640" height="427" loading="lazy" alt="Vách đá và bãi cát nhìn từ trên cao"></a><span>Bãi cát dưới vách núi</span></li>
@@ -1836,7 +1860,8 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   </section>
 </main>
 
-<footer>
+<footer class="ft-bien">
+  <canvas class="ca-nen" id="caNen" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
       <h3>ĐẶC SẢN LÝ SƠN QUÊ TÔI</h3>
@@ -1865,9 +1890,39 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.78</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.79</span>_<span id="visits">…</span></p>
   </div>
 </footer>
+<style>/* v1.79: nền biển có đàn cá bơi ẩn mờ ở chân trang (tự vẽ bằng canvas, không tải video) */
+footer.ft-bien{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,transparent 0,color-mix(in srgb,var(--sea) 10%,transparent) 45%,color-mix(in srgb,var(--sea) 22%,transparent) 100%)}
+footer.ft-bien>.wrap{position:relative;z-index:1}
+.ca-nen{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}</style>
+<script>/* Đàn cá bơi ẩn sau chân trang: ~46 con theo 2 đàn, tia nắng xiên. Chỉ chạy khi chân trang hiện trên màn hình; giảm chuyển động thì vẽ đứng yên. */
+(function(){var cv=document.getElementById('caNen');if(!cv||!cv.getContext)return;var x=cv.getContext('2d'),W=0,H=0,R=Math.min(1.5,window.devicePixelRatio||1),on=false,raf=0,last=0,t=0;
+  var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function sz(){var b=cv.getBoundingClientRect();W=b.width;H=b.height;cv.width=Math.round(W*R);cv.height=Math.round(H*R);x.setTransform(R,0,0,R,0,0);}
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  var D=[{n:28,sp:.055,ph:0,y:.62,dir:1,s:1},{n:18,sp:.04,ph:2.1,y:.32,dir:-1,s:.75}],F=[];
+  D.forEach(function(d,k){for(var i=0;i<d.n;i++)F.push({k:k,ox:rnd(-70,70),oy:rnd(-26,26),ph:rnd(0,6.28),sz:rnd(.7,1.15)*d.s,w:rnd(.8,1.2)});});
+  function col(){var c=getComputedStyle(document.documentElement).getPropertyValue('--sea').trim()||'#0D6B72';return c;}
+  var C=col();
+  function leader(d,tt){var u=(tt*d.sp+d.ph)%1.6/1.6;var px=d.dir>0?(-0.15+u*1.3)*W:(1.15-u*1.3)*W;return [px,(d.y+Math.sin(tt*.5+d.ph)*.08)*H];}
+  function fish(px,py,a,s,fl){x.save();x.translate(px,py);x.rotate(a);x.scale(s,s);x.beginPath();x.ellipse(0,0,9,3.4,0,0,6.283);x.fill();x.beginPath();x.moveTo(-7,0);x.lineTo(-14,-4.2+fl);x.lineTo(-12.5,0);x.lineTo(-14,4.2+fl);x.closePath();x.fill();x.restore();}
+  function draw(){x.clearRect(0,0,W,H);
+    x.globalAlpha=.10;x.fillStyle='#ffffff';for(var r=0;r<4;r++){var bx=(r*.27+.08+Math.sin(t*.07+r)*.03)*W;x.beginPath();x.moveTo(bx,0);x.lineTo(bx+40,0);x.lineTo(bx-60+90,H);x.lineTo(bx-120+90,H);x.closePath();x.fill();}
+    x.globalAlpha=.55;x.fillStyle=C;
+    F.forEach(function(f){var d=D[f.k],L=leader(d,t),L2=leader(d,t+.05),a=Math.atan2(L2[1]-L[1],L2[0]-L[0]);
+      var px=L[0]+f.ox+Math.sin(t*f.w+f.ph)*6,py=L[1]+f.oy+Math.cos(t*.8*f.w+f.ph)*4;fish(px,py,a+Math.sin(t*2.2+f.ph)*.08,f.sz,Math.sin(t*9*f.w+f.ph)*1.6);});
+    x.globalAlpha=1;}
+  function loop(now){raf=0;if(!on)return;if(now-last>32){t+=Math.min(.1,(now-last)/1000)||0;last=now;draw();}raf=requestAnimationFrame(loop);}
+  function start(){if(RM){draw();return;}if(!raf){last=performance.now();raf=requestAnimationFrame(loop);}}
+  sz();t=rnd(0,20);draw();
+  window.addEventListener('resize',function(){sz();draw();},{passive:true});
+  new MutationObserver(function(){C=col();draw();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','class']});
+  var vis=!('IntersectionObserver' in window);
+  function upd(){on=vis&&!document.hidden;if(on)start();}
+  if(!vis)new IntersectionObserver(function(es){vis=es[0].isIntersecting;upd();},{rootMargin:'100px'}).observe(cv);else upd();
+  document.addEventListener('visibilitychange',upd);})();</script>
 
 <dialog class="story" id="storyBox" aria-labelledby="storyTitle">
   <div class="story-head"><p class="eyebrow" id="storyProduct"></p><h3 id="storyTitle"></h3></div>
@@ -2070,7 +2125,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   var cb=document.getElementById("createBtn");if(cb&&cb.form)cb.form.addEventListener("submit",function(){bam("taodon");});
   document.addEventListener("click",function(e){var t=e.target&&e.target.closest?e.target.closest("a,button"):null;if(!t)return;
     var id=t.id||"",h=t.getAttribute("href")||"";
-    if(id==="sendBtn")bam("guidon");
+    if(id==="sendBtn"||id==="zaloBtn")bam("guidon");   /* v1.79: nút gửi đơn thật là #zaloBtn (trước đếm nhầm vào Nhắn Zalo) */
     else if(/zalo\.me/i.test(h))bam("zalo");
     else if(/^tel:/i.test(h))bam("goi");
     else if(id==="j3dPlay"||/hanh_trinh_3d\.html/.test(h))bam("3d");

@@ -380,6 +380,29 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
   body #b-sty{display:inline-flex;align-items:center;justify-content:center}
   body #stylebadge{display:none}   /* điện thoại: bỏ ô kiểu vẽ và tốc độ cho gọn (mặc định 3D màu, 1×) */
   #b-ui{width:36px;height:36px;font-size:16px;right:8px}
+}
+/* v1.79: điện thoại XOAY NGANG – thu bảng về 2 mép, chừa trọn cảnh 3D (xem Toàn cảnh) */
+@media (orientation:landscape) and (max-height:500px){
+  #top{left:8px;top:6px;gap:4px;max-width:52vw}
+  body .brand{display:flex;align-items:center;gap:8px;width:auto;padding:3px 10px;border-radius:12px}
+  body .brand .home{margin:0;font-size:11px;padding:1px 8px;flex:none}
+  body .brand b{display:block;font-size:12px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  body .brand>span,body .brand>br,body #cast,body #stylebadge,body #ukiSeal{display:none}
+  body #cap{left:auto;right:8px;top:6px;bottom:auto;width:min(40vw,340px);padding:3px 10px;border-radius:12px}
+  body #cap-body{display:none}
+  body #cap-title{font-size:12px;line-height:1.3}
+  body #cap-step{font-size:10px;padding:1px 7px}
+  body #ctl{left:50%;right:auto;transform:translateX(-50%);bottom:6px;width:auto;max-width:calc(100vw - 70px);padding:4px 6px;border-radius:12px}
+  body #steps,body #ctl .bar{display:none}
+  body .btns{flex-wrap:nowrap;gap:4px;overflow-x:auto;scrollbar-width:none}
+  body .btns::-webkit-scrollbar{display:none}
+  body .cbtn{height:32px;min-width:32px;padding:0 6px;font-size:14px;border-radius:9px;flex:none}
+  body .cbtn.main{min-width:40px}
+  body #b-style,body .sp,body #speed{display:none}
+  body #b-sty{display:inline-flex;align-items:center;justify-content:center}
+  #b-ui{width:34px;height:34px;font-size:15px;right:8px;bottom:8px}
+  #buyNow{top:auto;bottom:8px;left:8px;right:auto}
+  body.pano-on #cap{display:none}
 }</style>
 </head>
 <body>
@@ -476,7 +499,8 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
 'use strict';
 const $=s=>document.querySelector(s);
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-const MOBILE=(window.matchMedia&&matchMedia('(pointer: coarse)').matches)||Math.min(innerWidth,innerHeight)<600;
+// v1.79: ?hq=1 ép chế độ đầy đủ (biển, đất liền vẽ xa) – dùng khi quay video hướng dẫn trên khổ điện thoại
+const MOBILE=!/[?&]hq=1/.test(location.search)&&((window.matchMedia&&matchMedia('(pointer: coarse)').matches)||Math.min(innerWidth,innerHeight)<600);
 // Nhúng trong trang chủ (?embed=1): giao diện gọn, không chặn cuộn trang
 const EMBED=/[?&]embed=1/.test(location.search);if(EMBED){document.body.classList.add('embed');const h=document.getElementById('hint');if(h)h.textContent='Kéo ngang để xoay · Ctrl + cuộn để zoom · bấm nhân vật xem thẻ';}
 const WA=RM?0.3:1; // biên độ chuyển động môi trường
@@ -2281,7 +2305,10 @@ function setCamMode(m,id){camMode=m;followId=id||null;camBtn.classList.toggle('o
   ORDER.forEach(k=>nameTags[k].classList.toggle('on',m==='follow'&&k===id));}
 camBtn.onclick=()=>setCamMode('auto');
 // Góc quay điện ảnh: chồng lên camera tự bay của từng chặng (giữ đúng chủ thể, chỉ đổi hướng, độ cao, khoảng cách)
-const SHOTS=[['def','🎥','Mặc định'],['dir','🎬','Đạo diễn tự đổi góc'],['orbit','🔄','Xoay vòng 360°'],['drone','🚁','Flycam trên cao'],['low','🦶','Góc thấp hùng vĩ'],['side','↔️','Lia ngang'],['dolly','🔍','Đẩy – kéo ống kính'],['crane','🏗️','Cần cẩu nâng – hạ'],['diag','🗺️','Bản đồ chéo 45°']];
+// v1.79: góc Toàn cảnh (anh yêu cầu): camera cố định cao, xa, chéo từ biển nhìn vào bờ Đà Nẵng – Quảng Ngãi – Sa Kỳ – Lý Sơn.
+// Chỉnh thử bằng ?pano=tx,tz,az,el,d trên đường dẫn.
+const PANO=(()=>{const m=/[?&]pano=([-\d.,]+)/.exec(location.search);const a=m?m[1].split(',').map(Number):[-8.5,-53.8,.49,.26,149];return{t:new V3(a[0],0,a[1]),az:a[2],el:a[3],d:a[4]};})();
+const SHOTS=[['def','🎥','Mặc định'],['pano','🌏','Toàn cảnh'],['dir','🎬','Đạo diễn tự đổi góc'],['orbit','🔄','Xoay vòng 360°'],['drone','🚁','Flycam trên cao'],['low','🦶','Góc thấp hùng vĩ'],['side','↔️','Lia ngang'],['dolly','🔍','Đẩy – kéo ống kính'],['crane','🏗️','Cần cẩu nâng – hạ'],['diag','🗺️','Bản đồ chéo 45°']];
 const DIR_SEQ=['orbit','low','side','drone','dolly','crane'];   // chế độ đạo diễn: đổi góc mỗi 9 giây, chuyển êm
 let SHOT='def';
 function shotMod(s,az,el,d,t){switch(s){
@@ -2295,7 +2322,7 @@ function shotMod(s,az,el,d,t){switch(s){
   return[az,el,d,0];}
 const shotBtn=$('#b-shot');
 function drawShot(){const it=SHOTS.find(s=>s[0]===SHOT);shotBtn.innerHTML=it[1]+'<span class="tx"> '+it[2]+'</span>';shotBtn.title='Góc quay: '+it[2]+' (bấm để đổi)';shotBtn.classList.toggle('on',SHOT!=='def');}
-shotBtn.onclick=()=>{const i=SHOTS.findIndex(s=>s[0]===SHOT);SHOT=SHOTS[(i+1)%SHOTS.length][0];setCamMode('auto');drawShot();};
+shotBtn.onclick=()=>{const i=SHOTS.findIndex(s=>s[0]===SHOT);SHOT=SHOTS[(i+1)%SHOTS.length][0];setCamMode('auto');drawShot();lastInput=performance.now()+4000;document.body.classList.toggle('pano-on',SHOT==='pano');};   // vẽ đủ khung để máy quay bay mượt cả khi đang tạm dừng
 drawShot();
 let prevStyle='auto';
 function setStyleMode(v){
@@ -2650,7 +2677,7 @@ function frame(now){
   {const show=!isoOn&&(si===4||(si===5&&lt>STEPS[5].dur*.5)||si===6);if(show===buyEl.hidden){buyEl.hidden=!show;}}   // nút 🛒 ở mâm cơm nhà Đạt, ruộng tỏi, quà về bờ
   updateStyle(dt);
   // góc nhìn cao ra Hoàng Sa, Trường Sa: đẩy sương mù ra xa
-  farV+=((F.far||0)-farV)*(1-Math.exp(-dt*2));if(farV>.01){scene.fog.near=lerp(scene.fog.near,380,farV);scene.fog.far=lerp(scene.fog.far,1100,farV);}
+  farV+=(((SHOT==='pano'&&camMode==='auto')?1:(F.far||0))-farV)*(1-Math.exp(-dt*2));if(farV>.01){scene.fog.near=lerp(scene.fog.near,380,farV);scene.fog.far=lerp(scene.fog.far,1100,farV);}
   renderAll();
   if(firstFrame){firstFrame=false;const L=$('#loader');L.classList.add('hide');setTimeout(()=>L.remove(),700);updatePlay();}
 }
@@ -2659,7 +2686,8 @@ function updateCam(dt){
   const C=F.C||{t:cam.t,d:cam.d,az:cam.az,el:cam.el};
   if(camMode==='follow'&&followId){tgt=actorPos(followId,1.1);}else if(camMode==='place'&&placeT)tgt=placeT;else tgt=C.t;
   if(camMode==='auto'){az=C.az;elv=C.el;d=C.d;}else{az=user.az;elv=user.el;d=user.d;}
-  if(camMode==='auto'&&SHOT!=='def'){const s=SHOT==='dir'?DIR_SEQ[Math.floor(T/9)%DIR_SEQ.length]:SHOT;const r=shotMod(s,az,elv,d,T);az=r[0];elv=r[1];d=r[2];if(r[3])tgt=tgt.clone().add(new V3(0,r[3],0));}
+  if(camMode==='auto'&&SHOT==='pano'){tgt=PANO.t;az=PANO.az;elv=PANO.el;d=PANO.d;}
+  else if(camMode==='auto'&&SHOT!=='def'){const s=SHOT==='dir'?DIR_SEQ[Math.floor(T/9)%DIR_SEQ.length]:SHOT;const r=shotMod(s,az,elv,d,T);az=r[0];elv=r[1];d=r[2];if(r[3])tgt=tgt.clone().add(new V3(0,r[3],0));}
   const kt=firstFrame?1:1-Math.exp(-dt*(RM?8:2.4)),ka=firstFrame?1:1-Math.exp(-dt*(camMode==='auto'?(RM?8:1.8):14));
   cam.t.lerp(tgt,kt);cam.az+=angDiff(az,cam.az)*ka;cam.el+=(elv-cam.el)*ka;cam.d+=(d-cam.d)*ka;
   const ce=Math.cos(cam.el);
@@ -2667,6 +2695,7 @@ function updateCam(dt){
   if(camera.position.y<groundY(camera.position.x,camera.position.z)+.8)camera.position.y=groundY(camera.position.x,camera.position.z)+.8;
   camera.lookAt(cam.t);camera.updateMatrixWorld();
 }
+if(/[?&]dbg=1/.test(location.search))window.__dbg={camera,cam,PANO,get SHOT(){return SHOT},get mode(){return camMode},get iso(){return isoOn}};
 let fileTags=[];
 function renderFiles(){
   let a=0,b=0;fileTags=[];
