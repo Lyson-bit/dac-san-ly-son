@@ -42,9 +42,9 @@ try{var lsdAn=JSON.parse(localStorage.getItem("lsd_an")||"[]");if(lsdAn&&lsdAn.l
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- v1.68: font tải không chặn hiển thị (media=print → all khi tải xong); bỏ Dancing Script 700 vì chữ "Đặc Sản Lý Sơn" trên ảnh bìa đã gỡ -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@400&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@400&display=swap"></noscript>
+<!-- v1.77: Fraunces cố định cỡ quang học (opsz 48 chữ đứng, 24 chữ nghiêng), bỏ Fraunces 500 đứng không dùng: phông nhẹ ~45%. v1.68: font tải không chặn hiển thị (media=print → all khi tải xong); bỏ Dancing Script 700 vì chữ "Đặc Sản Lý Sơn" trên ảnh bìa đã gỡ -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,48,700;0,48,900;1,24,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,48,700;0,48,900;1,24,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@400&display=swap"></noscript>
 <style>
 /* Bố cục: đảo núi lửa – dải đất bazan + lớp cát biển làm “nhịp” chia mục; nội dung 1 cột rộng ~1080px, lưới sản phẩm tự gãy cột */
 :root{
@@ -149,6 +149,10 @@ nav a:hover{color:var(--sea)}
 .hp-tag::before,.hp-tag::after{content:"—";margin:0 .4em;opacity:.6}
 /* Mã QR cố định của trang, góc phải cột chữ hero */
 .hero-text{position:relative}
+/* v1.77: logo củ tỏi mờ chìm sau khối chữ đầu trang: véc-tơ nhúng sẵn (~1,5 KB, nguồn web/images/logo_mo_v1.svg), không thêm lượt tải */
+.hero-text{isolation:isolate}
+.hero-text::before{content:"";position:absolute;z-index:-1;left:46%;top:52%;width:min(66%,440px);aspect-ratio:400/410;transform:translate(-50%,-50%) rotate(-8deg);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='60 50 400 410'%3E%3Cdefs%3E%3CclipPath id='c'%3E%3Cpath d='M256 98C263 124 270 142 279 158C368 178 422 248 412 324C402 400 338 442 256 442C174 442 110 400 100 324C90 248 144 178 233 158C242 142 249 124 256 98Z'/%3E%3C/clipPath%3E%3C/defs%3E%3Ccircle cx='368' cy='164' r='86' fill='%23FF8A5B'/%3E%3Cpath d='M256 98C263 124 270 142 279 158C368 178 422 248 412 324C402 400 338 442 256 442C174 442 110 400 100 324C90 248 144 178 233 158C242 142 249 124 256 98Z' fill='%23FFFCF5'/%3E%3Cpath d='M256 104C262 82 276 68 296 62' fill='none' stroke='%23FFFCF5' stroke-width='15' stroke-linecap='round'/%3E%3Cg clip-path='url(%23c)'%3E%3Cpath d='M256 172C236 228 232 290 244 350M256 172C276 228 280 290 268 350M206 192C178 246 172 308 188 366M306 192C334 246 340 308 324 366' fill='none' stroke='%23D3ECE8' stroke-width='8' stroke-linecap='round'/%3E%3Cpath d='M70 360V346L182 270L214 282L240 262L276 262L304 282L336 270L450 346V360Z' fill='%237A5C8E'/%3E%3Cpath d='M60 330C112 304 160 356 214 330S318 304 370 330S430 352 460 336V470H60Z' fill='%232CC4BE'/%3E%3Cpath d='M60 372C112 348 160 398 214 372S318 348 370 372S430 392 460 380V470H60Z' fill='%230B6A78'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;opacity:.11;pointer-events:none}
+@media (max-width:640px){.hero-text::before{left:60%;top:30%;width:78%;opacity:.08}}
 .hero-qr{position:absolute;top:-6px;right:0;margin:0;width:128px;padding:8px 8px 6px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,.18);text-align:center}
 .hero-qr svg{display:block;width:100%;height:auto;border-radius:6px}
 .hero-qr figcaption{margin-top:5px;font:600 .72rem/1.25 var(--f-body);color:var(--sea)}
@@ -430,7 +434,11 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .cd-two{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
 .cd-tb thead th:first-child{width:38%}
 @media (max-width:760px){.cd-two{grid-template-columns:1fr;gap:10px}.cd-tb thead th:first-child{width:42%}}
-/* v1.74: Tỏi cô đơn: bảng thông tin (giá trị chữ đậm) + bảng điểm nổi bật số tròn + lưu ý nhỏ */
+/* v1.77: mục Đảo tỏi gọn: chữ nhỏ lại, bên phải 2 bảng rs-tb (Lớp đất + Đảo và mùa vụ) */
+.dao-gon{align-items:start}.dao-gon .text p:not(.eyebrow){font-size:.92rem;line-height:1.6}
+.dao-bang{display:grid;gap:12px}
+.r-sw{flex:none;width:26px;height:16px;border-radius:4px;box-shadow:inset 0 0 0 1px var(--line)}
+.dao-tb thead th:first-child{width:40%}.dao-tb2 thead th:first-child{width:44%}/* v1.74: Tỏi cô đơn: bảng thông tin (giá trị chữ đậm) + bảng điểm nổi bật số tròn + lưu ý nhỏ */
 .sp-tb thead th:first-child{width:34%}.sp-tb tbody th{font-weight:500;color:var(--muted)}.sp-tb tbody td{color:var(--fg);font-weight:600}
 .r-so{font:700 .7rem/1 var(--f-body);border-radius:50%;background:var(--sea);color:var(--on-sea,#fff)}
 .tc-note{margin:10px 0 0;padding:8px 12px;font-size:.76rem;line-height:1.45}
@@ -478,6 +486,8 @@ dialog.story::backdrop{background:rgba(10,20,20,.55)}
 .tspot p{margin:0;color:var(--muted);font-size:.8rem;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .tspot a{font-size:.78rem;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--sea);text-decoration:none;white-space:nowrap;background:var(--surface)}
 .tspot a:hover{border-color:var(--sea)}
+/* v1.77: dòng Nhà của Đạt nổi bật màu hành tím */
+.tspot.nha{background:color-mix(in srgb,var(--shallot) 14%,transparent)}.tspot.nha .n{background:var(--shallot);color:#fff;font-size:1rem}.tspot.nha b{color:var(--shallot)}
 .trip-cta{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:12px;background:var(--sea);color:var(--on-sea)}
 .trip-cta p{font-weight:500;max-width:40em}
 .trip-cta .btn.primary{background:var(--on-sea);color:var(--sea);border-color:var(--on-sea)}
@@ -896,6 +906,16 @@ a.th-race{display:none}
   a.th-race{display:block;margin-left:auto;white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:500;line-height:1.3}
   a.th-race:hover{color:var(--sea)}
   .th-links{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}.th-links a.th-race{margin-left:0}   /* v1.67: thêm mục Hành trình 3D dưới Xếp hạng thuyền đua */
+  /* v1.77 (anh chỉ định): đồng hồ cạnh nút Sáng/Tối; cụm Xếp hạng thuyền đua · Hướng dẫn app · Hành trình 3D lên cột phải ngay dưới Đặt hàng */
+  header.top .brand-box>.brand-line{grid-row:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  header.top .brand-box>.brand-tag{grid-row:2}
+  header.top .brand-box>.wx{grid-row:3}
+  header.top .brand-box>.th-row{grid-column:1;grid-row:4;margin-top:3px;flex-wrap:nowrap}
+  header.top .brand-box>.th-links{grid-column:2;grid-row:3/span 2;align-self:start;margin-top:2px}
+  header.top .wrap>nav{grid-row:1/span 2;align-self:start}
+  header.top .th-links .th-pair{flex-direction:column;align-items:flex-end;gap:3px}
+  header.top .th-links a.th-race{font-size:.78rem}
+  header.top .brand-box>.brand-line{flex-wrap:nowrap;white-space:nowrap}
 }
 /* v1.72: các quy tắc dưới đây trước nằm nhầm trong @media (max-width:640px) nên máy tính không nhận */
 #hanh-trinh-3d,#huong-dan-app{scroll-margin-top:200px}
@@ -1018,14 +1038,14 @@ a.th-race{display:none}
   </div>
   <div class="wrap">
     <div class="brand-box">
-      <a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a>
+      <div class="brand-line"><a class="brand" href="#top">ĐẶC SẢN LÝ SƠN</a></div>
       <span class="brand-tag">Lý Sơn – nhà của Đạt</span>
       <button class="wx" id="wx" type="button" aria-expanded="false" aria-controls="wxPanel" hidden><span class="wx-i" id="wxIco" aria-hidden="true">⛅</span><span id="wxTxt">Lý Sơn</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <div class="th-row">
         <div class="th" role="group" aria-label="Chọn nền trang"><button type="button" data-th="light" aria-pressed="false"><i aria-hidden="true"></i>Sáng</button><button type="button" data-th="dark" aria-pressed="false"><i aria-hidden="true"></i>Tối</button></div>
         <span class="hd-clock" title="Giờ Lý Sơn (giờ Việt Nam)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><time id="hdClock"></time></span>
-        <span class="th-links"><a class="th-race" href="#thuyen-dua">Xếp hạng thuyền đua</a><span class="th-pair"><a class="th-race" href="#huong-dan-app">📘 Hướng dẫn app</a><a class="th-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a></span></span>
       </div>
+      <span class="th-links"><a class="th-race" href="#thuyen-dua">Xếp hạng thuyền đua</a><span class="th-pair"><a class="th-race" href="#huong-dan-app">📘 Hướng dẫn app</a><a class="th-race" href="#hanh-trinh-3d">🎬 Hành trình 3D</a></span></span>
     </div>
     <nav aria-label="Mục lục">
       <a href="#toi-co-don">Tỏi cô đơn</a>
@@ -1051,6 +1071,7 @@ a.th-race{display:none}
     </div>
   </div>
 </header>
+
 <script>
 (function(){var r=document.documentElement,b=[].slice.call(document.querySelectorAll(".th button")),q=window.matchMedia("(prefers-color-scheme: dark)");
 function cur(){return r.getAttribute("data-theme")||(q.matches?"dark":"light");}
@@ -1179,7 +1200,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     <div class="wrap" id="huong-dan-app">
       <!-- v1.70: video luôn hiện; phần chữ hướng dẫn mặc định thu gọn, bấm nút mới xổ ra (anh yêu cầu cho gọn app) -->
       <div class="hd-box">
-        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" poster="videos/huong_dan_app_v5.jpg" src="videos/huong_dan_app_v5.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
+        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" data-poster="videos/huong_dan_app_v5.jpg" src="videos/huong_dan_app_v5.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video></div>
         <details class="hd-det" id="hdDet">
           <summary><span class="hd-sum-t">📘 Hướng dẫn app</span><span class="hd-sum-s">Giới thiệu trang và cách dùng</span><span class="hd-tg"><span class="hd-o">Mở xem ▾</span><span class="hd-c">Thu gọn ▴</span></span></summary>
           <h3>Giới thiệu trang và cách dùng trên điện thoại</h3>
@@ -1198,7 +1219,9 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     </div>
     <script>/* mục menu "Hướng dẫn app": mở khối hướng dẫn rồi cuộn tới ngay dưới thanh đầu trang; thu gọn thì dừng video.
        Bản xem trước (claude.ai) không có file video: lấy video từ web chính. */(function(){var box=document.getElementById('huong-dan-app'),det=document.getElementById('hdDet'),v=document.getElementById('hdVideo');if(!box)return;
-      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.poster=L+'videos/huong_dan_app_v5.jpg';v.src=L+'videos/huong_dan_app_v5.mp4';}
+      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.setAttribute('data-poster',L+'videos/huong_dan_app_v5.jpg');v.src=L+'videos/huong_dan_app_v5.mp4';}
+      /* v1.77: ảnh bìa video (48 KB) chỉ tải khi khách cuộn tới gần */
+      if(v){var dp=function(){var u=v.getAttribute('data-poster');if(u&&!v.poster)v.poster=u;};if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting;})){dp();io.disconnect();}},{rootMargin:'150px 0px'});io.observe(v);}else dp();}
       function go(e){e.preventDefault();var hd=document.querySelector('header.top'),hb=0;if(hd){var cs=getComputedStyle(hd);hb=(cs.position==='sticky'||cs.position==='fixed')?hd.getBoundingClientRect().height:0;}
         window.scrollTo({top:Math.max(0,box.getBoundingClientRect().top+window.scrollY-hb-12),behavior:'smooth'});if(history.replaceState)history.replaceState(null,'','#huong-dan-app');}
       document.querySelectorAll('a[href="#huong-dan-app"]').forEach(function(a){a.addEventListener('click',go);});})();</script>
@@ -1284,31 +1307,25 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   </section>
 
   <section id="dao">
-    <div class="wrap island">
+    <!-- v1.77: trình bày gọn kiểu bảng "Sáu điều" (rs-panel/rs-tb): đoạn giới thiệu ngắn bên trái, bên phải 2 bảng Lớp đất + Mùa vụ. Nội dung giữ nguyên. -->
+    <div class="wrap island dao-gon">
       <div class="text">
         <p class="eyebrow">Vì sao tỏi Lý Sơn khác</p>
         <h2>Trồng trên đất núi lửa, phủ cát biển</h2>
         <p>Lý Sơn là đảo hình thành từ núi lửa. Bà con đào đất đỏ bazan trên núi Thới Lới, núi Giếng Tiền chở về rải lên ruộng, trộn phân chuồng, rồi phủ lớp cát san hô lấy từ biển. Lớp cát giữ ẩm, thoát nước nhanh và làm củ tỏi, củ hành chắc, thơm. Cát thay sau vài vụ, đất bazan thay sau vài năm.</p>
         <p>Nước tưới lấy từ giếng trên đảo. Phân chủ yếu là phân chuồng ủ hoai với lá cây và rong. Mỗi năm thường chỉ có một vụ chính.</p>
-        <div class="facts">
-          <span class="fact">Cách cảng Sa Kỳ khoảng <b>15 hải lý</b></span>
-          <span class="fact">Xuống giống tỏi <b>tháng 9</b></span>
-          <span class="fact">Nhổ tỏi <b>tháng 2–3</b> năm sau</span>
-        </div>
       </div>
-      <div class="layers" role="list" aria-label="Các lớp đất trên ruộng tỏi Lý Sơn">
-        <div class="layer" role="listitem">
-          <div class="swatch" style="background:linear-gradient(var(--surface),var(--sand))"></div>
-          <div><b>Lớp cát biển</b><small>Phủ trên mặt ruộng, thay mới định kỳ. Giữ ẩm và hạn chế cỏ dại.</small></div>
-        </div>
-        <div class="layer" role="listitem">
-          <div class="swatch" style="background:repeating-linear-gradient(135deg,var(--basalt) 0 8px,color-mix(in srgb,var(--basalt) 70%,var(--sand)) 8px 12px)"></div>
-          <div><b>Đất bazan</b><small>Đất đỏ núi lửa, nhiều khoáng chất. Rễ tỏi hút dinh dưỡng từ lớp này.</small></div>
-        </div>
-        <div class="layer" role="listitem">
-          <div class="swatch" style="background:var(--fg)"></div>
-          <div><b>Đá nền núi lửa</b><small>Đá bazan bên dưới, chỗ mạch nước ngầm của giếng trên đảo.</small></div>
-        </div>
+      <div class="dao-bang">
+        <div class="rs-panel"><table class="rs-tb cd-tb dao-tb" aria-label="Các lớp đất trên ruộng tỏi Lý Sơn, từ trên xuống"><thead><tr><th scope="col">Lớp đất (trên xuống)</th><th scope="col">Vai trò</th></tr></thead><tbody>
+          <tr><th scope="row"><span class="rt"><span class="r-sw" aria-hidden="true" style="background:linear-gradient(var(--surface),var(--sand))"></span>Lớp cát biển</span></th><td>Phủ trên mặt ruộng, thay mới định kỳ. Giữ ẩm và hạn chế cỏ dại.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-sw" aria-hidden="true" style="background:repeating-linear-gradient(135deg,var(--basalt) 0 4px,color-mix(in srgb,var(--basalt) 70%,var(--sand)) 4px 6px)"></span>Đất bazan</span></th><td>Đất đỏ núi lửa, nhiều khoáng chất. Rễ tỏi hút dinh dưỡng từ lớp này.</td></tr>
+          <tr><th scope="row"><span class="rt"><span class="r-sw" aria-hidden="true" style="background:var(--fg)"></span>Đá nền núi lửa</span></th><td>Đá bazan bên dưới, chỗ mạch nước ngầm của giếng trên đảo.</td></tr>
+        </tbody></table></div>
+        <div class="rs-panel"><table class="rs-tb sp-tb dao-tb2"><thead><tr><th scope="col">Đảo và mùa vụ</th><th scope="col">Chi tiết</th></tr></thead><tbody>
+          <tr><th scope="row">Cách cảng Sa Kỳ</th><td>Khoảng 15 hải lý</td></tr>
+          <tr><th scope="row">Xuống giống tỏi</th><td>Tháng 9</td></tr>
+          <tr><th scope="row">Nhổ tỏi</th><td>Tháng 2–3 năm sau</td></tr>
+        </tbody></table></div>
       </div>
     </div>
   </section>
@@ -1848,7 +1865,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.76</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.77</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 
@@ -2818,6 +2835,8 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
 
   /* Điểm tham quan – tọa độ từ OpenStreetMap (Photon); Cổng Tò Vò, Hang Câu tìm theo tên trên Google Maps */
   var spots=[
+    /* v1.77: ghim nhà Đạt đầu danh sách. Chưa có tọa độ chính xác (anh chưa gửi) nên ghim theo địa chỉ An Hải; có link/tọa độ thật thì đổi q thành ll:"vĩ độ,kinh độ" */
+    {n:"Nhà của Đạt",d:"An Hải - Lý Sơn - Quảng Ngãi. Gọi 0333 216 563 để được chỉ đường tận nhà.",q:"An Hải, Lý Sơn, Quảng Ngãi",nha:1},
     {n:"Cảng Lý Sơn",d:"Nơi tàu từ cảng Sa Kỳ cập đảo Lớn.",ll:"15.37931,109.09535"},
     {n:"Chùa Hang (Thiên Khổng Thạch Tự)",d:"Chùa nằm trong hang đá dưới chân núi Thới Lới, di tích quốc gia từ năm 1994.",ll:"15.39085,109.12484"},
     {n:"Núi Thới Lới – cột cờ Tổ quốc",d:"Miệng núi lửa cao khoảng 170 m, có hồ trên đỉnh và cột cờ Tổ quốc.",ll:"15.38424,109.12627"},
@@ -2835,8 +2854,8 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
   function showIsland(q,z,title){islandOn=true;frameIn(islandEl,gEmbed(q||ISLAND,z||12),title||"Bản đồ đảo Lý Sơn");islandOpen.href=gLink(q||ISLAND);}
   spots.forEach(function(s,i){
     var key=s.ll||s.q;
-    var li=document.createElement("li");li.className="tspot";li.tabIndex=0;
-    var n=document.createElement("span");n.className="n";n.textContent=i+1;
+    var li=document.createElement("li");li.className="tspot"+(s.nha?" nha":"");li.tabIndex=0;
+    var n=document.createElement("span");n.className="n";n.textContent=s.nha?"⌂":(spots[0].nha?i:i+1);
     var b=document.createElement("div"),t=document.createElement("b"),p=document.createElement("p"),a=document.createElement("a");
     t.textContent=s.n;p.textContent=s.d;a.textContent="Chỉ đường ↗";a.target="_blank";a.rel="noopener noreferrer";a.href=gDir(key);a.title="Mở Google Maps ở tab mới";
     a.addEventListener("click",function(e){e.stopPropagation();});
