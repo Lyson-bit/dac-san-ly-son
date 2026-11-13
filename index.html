@@ -1139,7 +1139,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
 
   <div class="hero" id="gioi-thieu" data-ten="Ảnh bìa và giới thiệu">
     <div class="wrap">
-      <div class="hero-text">
+      <div class="hero-text"><canvas class="ca-nen ca-hero" id="caHero" aria-hidden="true"></canvas>
         <figure class="hero-qr" title="Mã QR cố định của trang: quét là vào đúng web, nội dung cập nhật thì mã vẫn giữ nguyên"><svg viewBox="0 0 45 45" shape-rendering="crispEdges" role="img" aria-label="Mã QR trang web lyson-bit.github.io/dac-san-ly-son"><rect width="45" height="45" fill="#fff"/><g class="qr-dao" opacity=".3" shape-rendering="geometricPrecision" aria-hidden="true" transform="translate(2 2) scale(.0801)"><defs><clipPath id="qrcu1"><path d="M256 98C263 124 270 142 279 158C368 178 422 248 412 324C402 400 338 442 256 442C174 442 110 400 100 324C90 248 144 178 233 158C242 142 249 124 256 98Z"/></clipPath></defs><circle cx="368" cy="164" r="86" fill="#FF8A5B"/><path d="M256 98C263 124 270 142 279 158C368 178 422 248 412 324C402 400 338 442 256 442C174 442 110 400 100 324C90 248 144 178 233 158C242 142 249 124 256 98Z" fill="#BFE9E6"/><g clip-path="url(#qrcu1)"><path d="M70 360V346L182 270L214 282L240 262L276 262L304 282L336 270L450 346V360Z" fill="#7A5C8E"/><path d="M60 330C112 304 160 356 214 330S318 304 370 330S430 352 460 336V470H60Z" fill="#2CC4BE"/><path d="M60 372C112 348 160 398 214 372S318 348 370 372S430 392 460 380V470H60Z" fill="#0B6A78"/></g></g><text class="qr-chu" x="22.5" y="33" text-anchor="middle" font-family="'Dancing Script',cursive" font-style="italic" font-weight="700" font-size="6.6" fill="#7C3A68" opacity=".45" aria-hidden="true">Nhà của Đạt</text><path fill="#0B1A1B" d="M2 2h7v1h-7zM10 2h1v1h-1zM12 2h1v1h-1zM14 2h2v1h-2zM17 2h2v1h-2zM20 2h1v1h-1zM22 2h3v1h-3zM26 2h3v1h-3zM30 2h1v1h-1zM32 2h3v1h-3zM36 2h7v1h-7zM2 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM12 3h3v1h-3zM21 3h1v1h-1zM24 3h6v1h-6zM31 3h1v1h-1zM34 3h1v1h-1zM36 3h1v1h-1zM42 3h1v1h-1zM2 4h1v1h-1zM4 4h3v1h-3zM8 4h1v1h-1zM13 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM20 4h4v1h-4zM25 4h1v1h-1zM27 4h1v1h-1zM29 4h1v1h-1zM31 4h1v1h-1zM36 4h1v1h-1zM38 4h3v1h-3zM42 4h1v1h-1zM2 5h1v1h-1zM4 5h3v1h-3zM8 5h1v1h-1zM10 5h1v1h-1zM13 5h3v1h-3zM18 5h2v1h-2zM21 5h2v1h-2zM24 5h1v1h-1zM27 5h2v1h-2zM31 5h1v1h-1zM36 5h1v1h-1zM38 5h3v1h-3zM42 5h1v1h-1zM2 6h1v1h-1zM4 6h3v1h-3zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM15 6h2v1h-2zM21 6h1v1h-1zM23 6h3v1h-3zM28 6h4v1h-4zM36 6h1v1h-1zM38 6h3v1h-3zM42 6h1v1h-1zM2 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM18 7h1v1h-1zM22 7h1v1h-1zM27 7h1v1h-1zM29 7h2v1h-2zM32 7h2v1h-2zM36 7h1v1h-1zM42 7h1v1h-1zM2 8h7v1h-7zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h1v1h-1zM20 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM28 8h1v1h-1zM30 8h1v1h-1zM32 8h1v1h-1zM34 8h1v1h-1zM36 8h7v1h-7zM11 9h3v1h-3zM16 9h3v1h-3zM21 9h1v1h-1zM23 9h1v1h-1zM25 9h2v1h-2zM28 9h1v1h-1zM31 9h1v1h-1zM34 9h1v1h-1zM5 10h1v1h-1zM8 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h3v1h-3zM22 10h2v1h-2zM27 10h1v1h-1zM29 10h2v1h-2zM37 10h3v1h-3zM41 10h2v1h-2zM2 11h2v1h-2zM7 11h1v1h-1zM10 11h1v1h-1zM13 11h3v1h-3zM21 11h2v1h-2zM24 11h1v1h-1zM31 11h2v1h-2zM34 11h3v1h-3zM39 11h2v1h-2zM3 12h3v1h-3zM8 12h1v1h-1zM16 12h1v1h-1zM18 12h1v1h-1zM21 12h1v1h-1zM25 12h1v1h-1zM31 12h3v1h-3zM37 12h4v1h-4zM2 13h1v1h-1zM5 13h3v1h-3zM11 13h2v1h-2zM14 13h2v1h-2zM22 13h3v1h-3zM26 13h1v1h-1zM28 13h1v1h-1zM30 13h1v1h-1zM40 13h1v1h-1zM2 14h1v1h-1zM5 14h1v1h-1zM8 14h1v1h-1zM11 14h1v1h-1zM14 14h3v1h-3zM18 14h1v1h-1zM23 14h7v1h-7zM31 14h4v1h-4zM36 14h1v1h-1zM39 14h1v1h-1zM42 14h1v1h-1zM3 15h1v1h-1zM5 15h1v1h-1zM7 15h1v1h-1zM10 15h2v1h-2zM15 15h2v1h-2zM20 15h1v1h-1zM23 15h2v1h-2zM26 15h5v1h-5zM34 15h1v1h-1zM36 15h1v1h-1zM40 15h2v1h-2zM4 16h1v1h-1zM6 16h3v1h-3zM12 16h2v1h-2zM16 16h5v1h-5zM23 16h1v1h-1zM25 16h1v1h-1zM31 16h1v1h-1zM33 16h1v1h-1zM36 16h1v1h-1zM39 16h1v1h-1zM41 16h2v1h-2zM3 17h5v1h-5zM10 17h5v1h-5zM16 17h1v1h-1zM18 17h1v1h-1zM22 17h3v1h-3zM27 17h1v1h-1zM29 17h1v1h-1zM31 17h2v1h-2zM34 17h1v1h-1zM36 17h1v1h-1zM2 18h1v1h-1zM4 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM10 18h5v1h-5zM16 18h3v1h-3zM20 18h2v1h-2zM25 18h1v1h-1zM31 18h1v1h-1zM37 18h1v1h-1zM2 19h1v1h-1zM5 19h1v1h-1zM9 19h1v1h-1zM13 19h1v1h-1zM15 19h1v1h-1zM18 19h1v1h-1zM20 19h1v1h-1zM23 19h1v1h-1zM25 19h3v1h-3zM31 19h2v1h-2zM36 19h2v1h-2zM39 19h4v1h-4zM3 20h1v1h-1zM5 20h6v1h-6zM12 20h1v1h-1zM14 20h1v1h-1zM20 20h4v1h-4zM25 20h4v1h-4zM30 20h2v1h-2zM34 20h1v1h-1zM38 20h2v1h-2zM41 20h2v1h-2zM3 21h1v1h-1zM5 21h1v1h-1zM9 21h1v1h-1zM12 21h2v1h-2zM15 21h4v1h-4zM22 21h1v1h-1zM26 21h1v1h-1zM34 21h1v1h-1zM36 21h2v1h-2zM41 21h1v1h-1zM3 22h3v1h-3zM8 22h2v1h-2zM13 22h5v1h-5zM19 22h2v1h-2zM22 22h4v1h-4zM27 22h5v1h-5zM33 22h6v1h-6zM40 22h1v1h-1zM42 22h1v1h-1zM4 23h1v1h-1zM9 23h4v1h-4zM15 23h1v1h-1zM17 23h6v1h-6zM25 23h1v1h-1zM27 23h2v1h-2zM34 23h1v1h-1zM36 23h1v1h-1zM38 23h1v1h-1zM40 23h3v1h-3zM3 24h1v1h-1zM5 24h7v1h-7zM13 24h5v1h-5zM21 24h2v1h-2zM24 24h1v1h-1zM27 24h2v1h-2zM30 24h1v1h-1zM32 24h5v1h-5zM39 24h1v1h-1zM41 24h1v1h-1zM2 25h2v1h-2zM6 25h1v1h-1zM10 25h3v1h-3zM14 25h1v1h-1zM16 25h2v1h-2zM19 25h2v1h-2zM22 25h2v1h-2zM25 25h1v1h-1zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h7v1h-7zM42 25h1v1h-1zM4 26h2v1h-2zM8 26h1v1h-1zM11 26h1v1h-1zM13 26h6v1h-6zM20 26h1v1h-1zM23 26h1v1h-1zM25 26h2v1h-2zM29 26h3v1h-3zM33 26h2v1h-2zM36 26h1v1h-1zM40 26h1v1h-1zM2 27h1v1h-1zM5 27h1v1h-1zM9 27h1v1h-1zM15 27h2v1h-2zM21 27h1v1h-1zM27 27h2v1h-2zM32 27h2v1h-2zM35 27h1v1h-1zM39 27h1v1h-1zM41 27h2v1h-2zM6 28h1v1h-1zM8 28h1v1h-1zM11 28h2v1h-2zM16 28h2v1h-2zM19 28h7v1h-7zM27 28h1v1h-1zM34 28h2v1h-2zM41 28h1v1h-1zM2 29h3v1h-3zM14 29h1v1h-1zM16 29h2v1h-2zM22 29h1v1h-1zM25 29h2v1h-2zM28 29h1v1h-1zM30 29h2v1h-2zM34 29h4v1h-4zM41 29h2v1h-2zM2 30h3v1h-3zM8 30h3v1h-3zM12 30h2v1h-2zM15 30h1v1h-1zM17 30h1v1h-1zM20 30h1v1h-1zM29 30h1v1h-1zM31 30h1v1h-1zM35 30h2v1h-2zM41 30h2v1h-2zM3 31h1v1h-1zM5 31h1v1h-1zM10 31h2v1h-2zM14 31h2v1h-2zM18 31h1v1h-1zM23 31h2v1h-2zM29 31h2v1h-2zM33 31h3v1h-3zM37 31h1v1h-1zM40 31h3v1h-3zM2 32h1v1h-1zM4 32h1v1h-1zM6 32h4v1h-4zM11 32h1v1h-1zM16 32h5v1h-5zM22 32h1v1h-1zM26 32h7v1h-7zM40 32h3v1h-3zM4 33h1v1h-1zM6 33h1v1h-1zM9 33h2v1h-2zM12 33h1v1h-1zM17 33h3v1h-3zM21 33h1v1h-1zM23 33h1v1h-1zM25 33h1v1h-1zM28 33h1v1h-1zM31 33h2v1h-2zM35 33h1v1h-1zM38 33h1v1h-1zM41 33h2v1h-2zM2 34h1v1h-1zM5 34h2v1h-2zM8 34h2v1h-2zM14 34h1v1h-1zM16 34h2v1h-2zM22 34h9v1h-9zM34 34h5v1h-5zM40 34h3v1h-3zM10 35h1v1h-1zM12 35h1v1h-1zM18 35h2v1h-2zM22 35h5v1h-5zM28 35h1v1h-1zM30 35h2v1h-2zM33 35h2v1h-2zM38 35h1v1h-1zM40 35h3v1h-3zM2 36h7v1h-7zM11 36h4v1h-4zM16 36h1v1h-1zM19 36h1v1h-1zM24 36h1v1h-1zM28 36h1v1h-1zM30 36h1v1h-1zM32 36h1v1h-1zM34 36h1v1h-1zM36 36h1v1h-1zM38 36h1v1h-1zM40 36h2v1h-2zM2 37h1v1h-1zM8 37h1v1h-1zM11 37h2v1h-2zM16 37h2v1h-2zM19 37h1v1h-1zM22 37h1v1h-1zM25 37h3v1h-3zM30 37h1v1h-1zM32 37h1v1h-1zM34 37h1v1h-1zM38 37h1v1h-1zM40 37h1v1h-1zM2 38h1v1h-1zM4 38h3v1h-3zM8 38h1v1h-1zM17 38h1v1h-1zM19 38h1v1h-1zM22 38h2v1h-2zM26 38h1v1h-1zM29 38h2v1h-2zM32 38h1v1h-1zM34 38h6v1h-6zM41 38h1v1h-1zM2 39h1v1h-1zM4 39h3v1h-3zM8 39h1v1h-1zM10 39h4v1h-4zM16 39h3v1h-3zM22 39h1v1h-1zM24 39h2v1h-2zM27 39h1v1h-1zM31 39h3v1h-3zM35 39h2v1h-2zM38 39h1v1h-1zM41 39h1v1h-1zM2 40h1v1h-1zM4 40h3v1h-3zM8 40h1v1h-1zM12 40h3v1h-3zM17 40h4v1h-4zM22 40h1v1h-1zM25 40h2v1h-2zM32 40h3v1h-3zM38 40h2v1h-2zM42 40h1v1h-1zM2 41h1v1h-1zM8 41h1v1h-1zM13 41h1v1h-1zM15 41h1v1h-1zM18 41h2v1h-2zM21 41h1v1h-1zM29 41h1v1h-1zM31 41h4v1h-4zM37 41h1v1h-1zM39 41h1v1h-1zM41 41h1v1h-1zM2 42h7v1h-7zM14 42h1v1h-1zM19 42h1v1h-1zM21 42h1v1h-1zM25 42h2v1h-2zM28 42h2v1h-2zM31 42h1v1h-1zM34 42h1v1h-1zM37 42h2v1h-2zM40 42h2v1h-2z"/></svg><figcaption>Quét vào trang<small>Mã cố định</small></figcaption><div class="qr-acts" data-qr="web"><button type="button" data-act="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Chia sẻ</button><button type="button" data-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Chép link</button></div><p class="qr-msg" aria-live="polite"></p></figure>
         <div class="hero-top"><span class="badge">Mùa mới</span><p class="eyebrow">Đảo Lý Sơn · Quảng Ngãi</p></div>
         <h1>ĐẶC SẢN LÝ SƠN <span>QUÊ TÔI</span></h1>
@@ -1177,7 +1177,7 @@ if(Date.now()-t0>=40000&&sau>=0.35){nhac=true;clearInterval(iv);try{sessionStora
         try{bat=localStorage.getItem("lsd_bia_auto")!=="0";}catch(e){}
         function di(i){k=i;[].forEach.call(s,function(x,j){x.classList.toggle("on",j===i);});[].forEach.call(b,function(x,j){x.setAttribute("aria-pressed",j===i?"true":"false");});c.textContent=CR[i];}
         function veAu(){au.setAttribute("aria-pressed",bat?"true":"false");au.setAttribute("aria-label",bat?"Tự chạy luân phiên: đang bật (bấm để dừng)":"Tự chạy luân phiên: đang dừng (bấm để chạy)");}
-        function chay(){clearInterval(t);if(bat)t=setInterval(function(){if(!document.hidden)di((k+1)%2);},6000);}
+        function chay(){clearInterval(t);if(bat)t=setInterval(function(){if(!document.hidden)di((k+1)%2);},3500);}   /* v1.80: anh muốn chuyển ảnh nhanh hơn (trước 6 s) */
         [].forEach.call(b,function(x,j){x.addEventListener("click",function(){di(j);chay();});});
         au.addEventListener("click",function(){bat=!bat;try{localStorage.setItem("lsd_bia_auto",bat?"1":"0");}catch(e){}veAu();if(bat)di((k+1)%2);chay();});veAu();
         function nap(){var a=s[1];a.onload=function(){a.hidden=false;d.hidden=false;chay();};a.onerror=function(){a.remove();};a.src=a.getAttribute("data-src");}
@@ -1207,7 +1207,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     <div class="wrap" id="huong-dan-app">
       <!-- v1.70: video luôn hiện; phần chữ hướng dẫn mặc định thu gọn, bấm nút mới xổ ra (anh yêu cầu cho gọn app) -->
       <div class="hd-box">
-        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" data-poster="videos/huong_dan_app_v7.jpg" src="videos/huong_dan_app_v7.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video><button type="button" class="hd-fs" id="hdFs" aria-label="Phóng to video">⛶ Phóng to</button><button type="button" class="hd-fs-x" id="hdFsX" aria-label="Thu nhỏ video">✕ Thu nhỏ</button></div>
+        <div class="hd-vid"><video id="hdVideo" controls playsinline preload="none" width="540" height="960" data-poster="videos/huong_dan_app_v8.jpg" src="videos/huong_dan_app_v8.mp4" aria-label="Video giới thiệu và hướng dẫn dùng trang trên điện thoại"></video><button type="button" class="hd-fs" id="hdFs" aria-label="Phóng to video">⛶ Phóng to</button><button type="button" class="hd-fs-x" id="hdFsX" aria-label="Thu nhỏ video">✕ Thu nhỏ</button></div>
         <details class="hd-det" id="hdDet">
           <summary><span class="hd-sum-t">📘 Hướng dẫn app</span><span class="hd-sum-s">Giới thiệu trang và cách dùng</span><span class="hd-tg"><span class="hd-o">Mở xem ▾</span><span class="hd-c">Thu gọn ▴</span></span></summary>
           <h3>Giới thiệu trang và cách dùng trên điện thoại</h3>
@@ -1226,7 +1226,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     </div>
     <script>/* mục menu "Hướng dẫn app": mở khối hướng dẫn rồi cuộn tới ngay dưới thanh đầu trang; thu gọn thì dừng video.
        Bản xem trước (claude.ai) không có file video: lấy video từ web chính. */(function(){var box=document.getElementById('huong-dan-app'),det=document.getElementById('hdDet'),v=document.getElementById('hdVideo');if(!box)return;
-      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.setAttribute('data-poster',L+'videos/huong_dan_app_v7.jpg');v.src=L+'videos/huong_dan_app_v7.mp4';}
+      if(v&&!/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname)){var L='https://lyson-bit.github.io/dac-san-ly-son/';v.setAttribute('data-poster',L+'videos/huong_dan_app_v8.jpg');v.src=L+'videos/huong_dan_app_v8.mp4';}
       /* v1.79: nút Phóng to riêng. Trình duyệt nhúng (khung app, Zalo, Facebook) hay chặn toàn màn hình thật ("Permissions check failed"):
          thử requestFullscreen / webkitEnterFullscreen (iPhone), bị chặn thì phóng video phủ kín màn hình trong trang (lớp .hd-full). */
       if(v){var vb=v.parentNode,fs=document.getElementById('hdFs'),fx=document.getElementById('hdFsX');
@@ -1631,7 +1631,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
             <li><img src="images/hanh_trinh/g_nau_an.webp" width="480" height="640" loading="lazy" alt="Bếp nấu nghêu, tôm hấp sả"><span>Nghêu, tôm hấp sả</span></li>
             <li><img src="images/hanh_trinh/g_bach_tuoc.webp" width="320" height="640" loading="lazy" alt="Nồi bạch tuộc luộc và rổ rau thơm"><span>Bạch tuộc luộc</span></li>
             <li><img src="images/hanh_trinh/g_goi.webp" width="480" height="640" loading="lazy" alt="Gỏi trộn hành tây và rau quế"><span>Gỏi hành tây, rau quế</span></li>
-            <li><img src="images/hanh_trinh/g_ca_ro_gung.webp" width="480" height="640" loading="lazy" alt="Rổ cá tươi ướp gừng và rau thơm"><span>Cá tươi ướp gừng, rau thơm</span></li>
+            <li><img src="images/hanh_trinh/g_ca_ro_gung.webp" width="480" height="640" loading="lazy" alt="Cá tươi nấu với khế chua và rau thơm"><span>Cá tươi nấu khế chua, rau thơm</span></li>
           </ul>
           <p class="dat-says">Món nào cũng có tỏi đảo: đập dập vào nước chấm, phi thơm vào món xào. Hải sản đảo chỉ cần luộc, chấm muối tiêu chanh là ngon.</p>
         </article>
@@ -1890,15 +1890,17 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.79</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.80</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 <style>/* v1.79: nền biển có đàn cá bơi ẩn mờ ở chân trang (tự vẽ bằng canvas, không tải video) */
 footer.ft-bien{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,transparent 0,color-mix(in srgb,var(--sea) 10%,transparent) 45%,color-mix(in srgb,var(--sea) 22%,transparent) 100%)}
 footer.ft-bien>.wrap{position:relative;z-index:1}
-.ca-nen{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}</style>
+.ca-nen{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}
+.hero-text>.ca-hero{z-index:-1;opacity:.4}</style>
 <script>/* Đàn cá bơi ẩn sau chân trang: ~46 con theo 2 đàn, tia nắng xiên. Chỉ chạy khi chân trang hiện trên màn hình; giảm chuyển động thì vẽ đứng yên. */
-(function(){var cv=document.getElementById('caNen');if(!cv||!cv.getContext)return;var x=cv.getContext('2d'),W=0,H=0,R=Math.min(1.5,window.devicePixelRatio||1),on=false,raf=0,last=0,t=0;
+/* v1.80: dùng chung cho chân trang (#caNen, có tia nắng) và khối chữ đầu trang (#caHero, chỉ cá) */
+function caBoi(cv,O){O=O||{};if(!cv||!cv.getContext)return;var x=cv.getContext('2d'),W=0,H=0,R=Math.min(1.5,window.devicePixelRatio||1),on=false,raf=0,last=0,t=0;
   var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function sz(){var b=cv.getBoundingClientRect();W=b.width;H=b.height;cv.width=Math.round(W*R);cv.height=Math.round(H*R);x.setTransform(R,0,0,R,0,0);}
   function rnd(a,b){return a+Math.random()*(b-a);}
@@ -1909,7 +1911,7 @@ footer.ft-bien>.wrap{position:relative;z-index:1}
   function leader(d,tt){var u=(tt*d.sp+d.ph)%1.6/1.6;var px=d.dir>0?(-0.15+u*1.3)*W:(1.15-u*1.3)*W;return [px,(d.y+Math.sin(tt*.5+d.ph)*.08)*H];}
   function fish(px,py,a,s,fl){x.save();x.translate(px,py);x.rotate(a);x.scale(s,s);x.beginPath();x.ellipse(0,0,9,3.4,0,0,6.283);x.fill();x.beginPath();x.moveTo(-7,0);x.lineTo(-14,-4.2+fl);x.lineTo(-12.5,0);x.lineTo(-14,4.2+fl);x.closePath();x.fill();x.restore();}
   function draw(){x.clearRect(0,0,W,H);
-    x.globalAlpha=.10;x.fillStyle='#ffffff';for(var r=0;r<4;r++){var bx=(r*.27+.08+Math.sin(t*.07+r)*.03)*W;x.beginPath();x.moveTo(bx,0);x.lineTo(bx+40,0);x.lineTo(bx-60+90,H);x.lineTo(bx-120+90,H);x.closePath();x.fill();}
+    for(var r=0;O.ray!==false&&r<7;r++){var bx=(r*.145+.05+Math.sin(t*.07+r*1.7)*.02)*W,w0=1.5+(r%3),w1=w0*2.2,g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(255,255,255,.10)');g.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=g;x.globalAlpha=1;x.beginPath();x.moveTo(bx,0);x.lineTo(bx+w0,0);x.lineTo(bx-H*.18+w1,H);x.lineTo(bx-H*.18,H);x.closePath();x.fill();}   // tia nắng mảnh, mờ dần xuống đáy (anh yêu cầu sọc nhỏ xíu)
     x.globalAlpha=.55;x.fillStyle=C;
     F.forEach(function(f){var d=D[f.k],L=leader(d,t),L2=leader(d,t+.05),a=Math.atan2(L2[1]-L[1],L2[0]-L[0]);
       var px=L[0]+f.ox+Math.sin(t*f.w+f.ph)*6,py=L[1]+f.oy+Math.cos(t*.8*f.w+f.ph)*4;fish(px,py,a+Math.sin(t*2.2+f.ph)*.08,f.sz,Math.sin(t*9*f.w+f.ph)*1.6);});
@@ -1922,7 +1924,8 @@ footer.ft-bien>.wrap{position:relative;z-index:1}
   var vis=!('IntersectionObserver' in window);
   function upd(){on=vis&&!document.hidden;if(on)start();}
   if(!vis)new IntersectionObserver(function(es){vis=es[0].isIntersecting;upd();},{rootMargin:'100px'}).observe(cv);else upd();
-  document.addEventListener('visibilitychange',upd);})();</script>
+  document.addEventListener('visibilitychange',upd);}
+caBoi(document.getElementById('caNen'));caBoi(document.getElementById('caHero'),{ray:false});</script>
 
 <dialog class="story" id="storyBox" aria-labelledby="storyTitle">
   <div class="story-head"><p class="eyebrow" id="storyProduct"></p><h3 id="storyTitle"></h3></div>
@@ -2270,10 +2273,29 @@ footer.ft-bien>.wrap{position:relative;z-index:1}
   <i class="ring" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg></i>
   <span>0333 216 563</span>
 </a>
-<a class="fab direct-only" href="https://zalo.me/0363594167" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0363 594 167">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-  <span>Zalo 0363 594 167</span>
-</a>
+<div class="fab fab-zalo direct-only" id="fabZalo">
+  <button type="button" class="fz-ico" aria-label="Nhắn Zalo – chọn 1 trong 2 số" aria-expanded="false" aria-controls="fzList"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+  <span class="fz-list" id="fzList"><a href="https://zalo.me/0363594167" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0363 594 167">Zalo 0363 594 167</a><a href="https://zalo.me/0333216563" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0333 216 563">Zalo 0333 216 563</a></span>
+</div>
+<style>/* v1.80: nút Zalo nổi có 2 số (anh yêu cầu). Máy tính: hiện cả 2 số; điện thoại: chạm biểu tượng để chọn số */
+.fab-zalo{padding:8px 16px 8px 12px;gap:10px}
+.fab-zalo .fz-ico{display:grid;place-items:center;background:none;border:0;padding:0;color:inherit;cursor:default}
+.fab-zalo .fz-ico svg{width:22px;height:22px}
+.fab-zalo .fz-list{display:flex;flex-direction:column;line-height:1.3}
+.fab-zalo .fz-list a{color:inherit;text-decoration:none;font-weight:700;padding:2px 0}
+.fab-zalo .fz-list a:hover{text-decoration:underline}
+.fab-call{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+@media (max-width:640px){
+  .fab-call{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .fab-zalo{padding:0;gap:0}
+  .fab-zalo .fz-ico{width:56px;height:56px;cursor:pointer}
+  .fab-zalo .fz-list{display:none;position:absolute;right:64px;bottom:0;width:auto;height:auto;overflow:visible;clip-path:none;background:var(--sea);color:var(--on-sea);border-radius:16px;padding:8px 14px;box-shadow:0 6px 20px rgba(0,0,0,.28);white-space:nowrap}
+  .fab-zalo .fz-list a{padding:7px 0;font-size:1rem}
+  .fab-zalo.open .fz-list{display:flex}
+}</style>
+<script>(function(){var f=document.getElementById('fabZalo');if(!f)return;var b=f.querySelector('.fz-ico');
+  b.addEventListener('click',function(e){e.stopPropagation();var o=f.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+  document.addEventListener('click',function(e){if(!f.contains(e.target)){f.classList.remove('open');b.setAttribute('aria-expanded','false');}});})();</script>
 
 <script>
 (function(){
