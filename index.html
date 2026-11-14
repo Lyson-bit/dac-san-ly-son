@@ -46,6 +46,9 @@ try{var lsdAn=JSON.parse(localStorage.getItem("lsd_an")||"[]");if(lsdAn&&lsdAn.l
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,48,700;0,48,900;1,24,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@400&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,48,700;0,48,900;1,24,500&family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@400&display=swap"></noscript>
 <style>
+/* v1.81: mục nằm dưới màn hình chưa cần vẽ thì trình duyệt bỏ qua tính bố cục (trang dài ~25 000 px, máy yếu khựng ~300 ms lúc mở). Không áp cho #nhac (trình phát YouTube chạy nền). */
+main>section:not(#nhac){content-visibility:auto;contain-intrinsic-size:auto 900px}
+
 /* Bố cục: đảo núi lửa – dải đất bazan + lớp cát biển làm “nhịp” chia mục; nội dung 1 cột rộng ~1080px, lưới sản phẩm tự gãy cột */
 :root{
   --bg:#F3F5F1;        /* cát biển dưới trời nắng */
@@ -1092,7 +1095,7 @@ f();setInterval(f,15000);document.addEventListener("visibilitychange",function()
 /* Nút ngôi nhà: cuộn về đầu trang, không để lại #top trên địa chỉ */
 (function(){var h=document.getElementById("homeBtn");if(!h)return;h.addEventListener("click",function(e){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});if(location.hash&&history.replaceState)history.replaceState(null,"",location.pathname+location.search);});})();
 /* Khoảng đệm cuộn theo chiều cao thật của thanh đầu trang (đổi theo cỡ chữ, màn hình) */
-(function(){var h=document.querySelector("header.top");if(!h)return;function f(){document.documentElement.style.setProperty("--hdr",(h.offsetHeight+14)+"px");}f();if(window.ResizeObserver)new ResizeObserver(f).observe(h);else window.addEventListener("resize",f);})();
+(function(){var h=document.querySelector("header.top");if(!h)return;function f(){document.documentElement.style.setProperty("--hdr",(h.offsetHeight+14)+"px");}if(window.ResizeObserver)new ResizeObserver(f).observe(h);else{f();window.addEventListener("resize",f);}})();
 /* Cỡ chữ: 5 mức, lưu lsd_co trên máy khách (script trong head áp dụng ngay khi mở trang) */
 (function(){var r=document.documentElement,L=[87.5,100,112.5,125,137.5],dn=document.getElementById("fsDown"),up=document.getElementById("fsUp"),lv=document.getElementById("fsLv"),bars=[].slice.call(lv.children);
 var k=L.indexOf(parseFloat(r.style.fontSize)||100);if(k<0)k=1;
@@ -1780,7 +1783,8 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
     BTN.addEventListener("click",function(){if(auto)tay();else{auto=true;dau=false;if(cur>=Y1)show(Y0);play();}});
     R.addEventListener("input",function(){tay();show(+R.value);});
     LOG.addEventListener("click",function(e){var tr=e.target.closest("tr");if(tr){tay();show(+tr.getAttribute("data-y"));}});
-    show(Y1);ico();
+    /* v1.81: vẽ bảng lần đầu khi máy rảnh (trước làm trang khựng ~340 ms lúc đang tải) */
+    ico();(function(){var xong=false;function ve0(){if(xong)return;xong=true;if(!tm)show(cur||Y1);}if(window.requestIdleCallback)requestIdleCallback(ve0,{timeout:3000});else setTimeout(ve0,800);})();
     if("IntersectionObserver" in window){
       new IntersectionObserver(function(e){if(e[0].isIntersecting){if(auto&&!tm)vao();}else if(tm)stop();},{threshold:.4}).observe(L);
     }else vao();
@@ -1890,7 +1894,7 @@ b.addEventListener('click',function(){if(!live){window.open(url,'_blank','noopen
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.80</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.81</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 <style>/* v1.79: nền biển có đàn cá bơi ẩn mờ ở chân trang (tự vẽ bằng canvas, không tải video) */
@@ -1925,7 +1929,8 @@ function caBoi(cv,O){O=O||{};if(!cv||!cv.getContext)return;var x=cv.getContext('
   function upd(){on=vis&&!document.hidden;if(on)start();}
   if(!vis)new IntersectionObserver(function(es){vis=es[0].isIntersecting;upd();},{rootMargin:'100px'}).observe(cv);else upd();
   document.addEventListener('visibilitychange',upd);}
-caBoi(document.getElementById('caNen'));caBoi(document.getElementById('caHero'),{ray:false});</script>
+/* v1.81: khởi động sau khi trang tải xong + lúc máy rảnh, để không bắt trình duyệt tính bố cục giữa lúc đang tải (trước tốn ~390 ms trên máy yếu) */
+(function(){function go(){caBoi(document.getElementById('caHero'),{ray:false});caBoi(document.getElementById('caNen'));}function cho(){if(window.requestIdleCallback)requestIdleCallback(go,{timeout:2500});else setTimeout(go,600);}if(document.readyState==='complete')cho();else window.addEventListener('load',cho);})();</script>
 
 <dialog class="story" id="storyBox" aria-labelledby="storyTitle">
   <div class="story-head"><p class="eyebrow" id="storyProduct"></p><h3 id="storyTitle"></h3></div>
@@ -2478,7 +2483,7 @@ caBoi(document.getElementById('caNen'));caBoi(document.getElementById('caHero'),
       });
     }
     /* Tạo sẵn ảnh để khi bấm Chia sẻ là gọi được ngay (trình duyệt đòi gọi ngay sau lần chạm) */
-    setTimeout(function(){["web","tel"].forEach(function(k){makePng(k).catch(function(){});});},1500);
+    (function(){function g(){["web","tel"].forEach(function(k){makePng(k).catch(function(){});});}setTimeout(function(){if(window.requestIdleCallback)requestIdleCallback(g,{timeout:4000});else g();},4000);})();   /* v1.81: vẽ sẵn ảnh QR lúc máy rảnh */
     function say(box,t){var p=box.parentNode.querySelector(".qr-msg");if(!p)return;p.textContent=t;clearTimeout(p._t);p._t=setTimeout(function(){p.textContent="";},4500);}
     function execCopy(t){var a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(a);a.focus();a.select();try{a.setSelectionRange(0,t.length);}catch(e){}var r=false;try{r=document.execCommand("copy");}catch(e){}a.remove();return r;}
     function copyText(t){
