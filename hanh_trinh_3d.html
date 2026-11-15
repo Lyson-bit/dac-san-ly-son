@@ -493,7 +493,7 @@ body.noui .brand{padding:4px!important;background:none!important;box-shadow:none
 <!-- three.js r128 (MIT) chép từ cdnjs vào repo: không phụ thuộc trang ngoài, app lưu lại được -->
 <script src="lib/three.r128.min.js"></script>
 <!-- Dự phòng: tải thư viện trong repo không được (mạng chập chờn, trình duyệt trong app) thì lấy bản cdnjs cùng phiên bản -->
-<script>if(typeof THREE==='undefined')document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" onerror="window.__threeFail=1"><\/script>');</script>
+<script>if(typeof THREE==='undefined')document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" onerror="window.__threeFail=1"><\/script>');</script>
 <script>
 (function(){
 'use strict';
