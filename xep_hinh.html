@@ -7,7 +7,10 @@
 <meta name="description" content="Trò xếp hình trượt 4 thầy trò Tây Du Ký, tranh tự vẽ – trên trang Đặc Sản Lý Sơn Quê Tôi.">
 <link rel="icon" href="icons/logo-v2-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- (trang web Lý Sơn) font tải không chặn hiển thị: trang hiện ngay bằng font máy, Baloo 2 thay vào khi tải xong -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --paper:#e9e4da; --ink:#3a2a22; --muted:#7b6e66;
@@ -50,7 +53,7 @@ h1{margin:0;font-size:clamp(26px,5vw,38px);line-height:1.1}
 .who small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
 .mini{width:52px;height:68px;object-fit:cover;border:2px solid #fff;box-shadow:0 0 0 1px #0003;border-radius:2px}
 .boardWrap{perspective:1100px;padding:4px 2px 18px}
-.board{position:relative;width:100%;background:#3a2a20;border-radius:8px;transform:rotateX(8deg);transform-origin:50% 100%;
+.board{position:relative;width:100%;aspect-ratio:3/4;/* (trang web Lý Sơn) giữ chỗ trước khi tranh 600×800 tải xong, nút bên dưới khỏi nhảy */background:#3a2a20;border-radius:8px;transform:rotateX(8deg);transform-origin:50% 100%;
   box-shadow:inset 0 0 0 4px #24170f,inset 4px 4px 12px rgba(0,0,0,.65),0 12px 0 -1px #24170f,0 20px 26px rgba(40,20,5,.4);touch-action:manipulation;user-select:none}
 /* mảnh ghép dạng khối gỗ 3D: viền đậm, vát sáng trên trái, tối dưới phải, cạnh dày + bóng đổ */
 .tile{position:absolute;background-repeat:no-repeat;cursor:pointer;border-radius:2px;
@@ -1406,7 +1409,8 @@ footer{margin-top:24px;font-size:12px;color:var(--muted)}
   window.TRANH = {
     styles: Object.fromEntries(Object.entries(STYLES).map(([k, v]) => [k, { name: v.name, note: v.note }])),
     svg,
-    uri: (id, style) => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg(id, style))
+    // (trang web Lý Sơn) nhớ sẵn chuỗi ảnh, không dựng lại SVG mỗi lần đọc
+    uri: (() => { const m = {}; return (id, style) => m[id + '|' + style] || (m[id + '|' + style] = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg(id, style))); })()
   };
 })();
 
@@ -1467,12 +1471,13 @@ function build(doShuffle){
   const c=CH[cur];
   board.style.aspectRatio=ratio;
   tiles.forEach(t=>t.remove());tiles=[];
-  cover.style.backgroundImage=win.style.backgroundImage=`url("${c.img}")`;
+  const u=`url("${c.img}")`;
+  cover.style.backgroundImage=win.style.backgroundImage=u;
   for(let t=0;t<N;t++){
     const d=document.createElement('div');d.className='tile'+(t===N-1?' empty':'');
     const tc=t%C,tr=Math.floor(t/C);
     d.style.width=100/C+'%';d.style.height=100/R+'%';
-    d.style.backgroundImage=`url("${c.img}")`;
+    d.style.backgroundImage=u;
     d.style.backgroundSize=`${C*100}% ${R*100}%`;
     d.style.backgroundPosition=`${C>1?tc/(C-1)*100:0}% ${R>1?tr/(R-1)*100:0}%`;
     d.dataset.t=t;board.insertBefore(d,cover);tiles.push(d);
@@ -1565,14 +1570,18 @@ const SND=(()=>{
   const MEL=[9,7,4,7, 9,-1,12,9, 7,4,2,4, 7,-1,-1,-1, 4,7,9,12, 14,12,9,7, 9,7,4,2, 0,-1,-1,-1,
              12,14,12,9, 7,-1,9,12, 14,16,14,12, 9,-1,-1,-1, 7,9,7,4, 2,4,7,4, 2,0,2,4, 0,-1,-1,-1];
   const BASS=[-12,-5,-12,-5,-17,-10,-12,-12];
+  const MASTER_V=1.1,MUS_V=.3,SFX_V=.8;   // (trang web Lý Sơn) bản gốc: .85 / .2 / .55
   function init(){
     if(ctx)return true;
     const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return false;
-    ctx=new AC();master=ctx.createGain();master.gain.value=.85;master.connect(ctx.destination);
+    // (trang web Lý Sơn) tiếng to hơn ~2,5 lần: tăng mức tổng, qua bộ nén chống rè/vỡ tiếng trên loa điện thoại
+    ctx=new AC();master=ctx.createGain();master.gain.value=MASTER_V;
+    const lim=ctx.createDynamicsCompressor();lim.threshold.value=-12;lim.knee.value=8;lim.ratio.value=12;lim.attack.value=.003;lim.release.value=.2;
+    master.connect(lim);lim.connect(ctx.destination);
     rev=ctx.createConvolver();const len=ctx.sampleRate*2.4,b=ctx.createBuffer(2,len,ctx.sampleRate);
     for(let c=0;c<2;c++){const d=b.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6)}
     rev.buffer=b;const wet=ctx.createGain();wet.gain.value=.3;rev.connect(wet);wet.connect(master);
-    mus=ctx.createGain();mus.gain.value=musicOn?.2:0;sfx=ctx.createGain();sfx.gain.value=sfxOn?.55:0;
+    mus=ctx.createGain();mus.gain.value=musicOn?MUS_V:0;sfx=ctx.createGain();sfx.gain.value=sfxOn?SFX_V:0;
     [mus,sfx].forEach(g=>{g.connect(master);g.connect(rev)});
     return true;
   }
@@ -1617,8 +1626,8 @@ const SND=(()=>{
   const unlock=()=>{if(!init())return;ctx.resume();if(musicOn)startMusic()};
   ['pointerdown','keydown'].forEach(ev=>document.addEventListener(ev,unlock,{once:false,passive:true}));
   $('musicBtn').addEventListener('click',()=>{musicOn=!musicOn;store.set('tdk-music',musicOn?'1':'0');init();
-    mus.gain.setTargetAtTime(musicOn?.2:0,ctx.currentTime,.2);musicOn?startMusic():setTimeout(stopMusic,600);ui()});
-  $('sfxBtn').addEventListener('click',()=>{sfxOn=!sfxOn;store.set('tdk-sfx',sfxOn?'1':'0');init();sfx.gain.value=sfxOn?.55:0;ui()});
+    mus.gain.setTargetAtTime(musicOn?MUS_V:0,ctx.currentTime,.2);musicOn?startMusic():setTimeout(stopMusic,600);ui()});
+  $('sfxBtn').addEventListener('click',()=>{sfxOn=!sfxOn;store.set('tdk-sfx',sfxOn?'1':'0');init();sfx.gain.value=sfxOn?SFX_V:0;ui()});
   ui();
   const ok=()=>ctx&&ctx.state==='running';
   return{

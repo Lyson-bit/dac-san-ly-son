@@ -2408,7 +2408,9 @@ document.addEventListener('visibilitychange',()=>syncVoice(true));
 function syncVoice(force){
   const src=voSrc(),key=storyK+'|'+si;
   if(voIdx!==key){if(voEl)voEl.pause();voIdx=key;voEl=src?new Audio(src):null;force=true;voRate=0;
-    if(voEl){voEl.preload='auto';const nx=src.replace(/_c\d+\.mp3$/,'_c'+(si+1)+'.mp3');if(si+1<STEPS.length){const a=new Audio(nx);a.preload='auto';}}}
+    // v1.83: chưa chạm trang thì chưa tải giọng (trước đây tải sẵn 2 file ~260 KB lúc mở, giành mạng với three.js)
+    if(voEl){voEl.preload=gest?'auto':'none';const nx=src.replace(/_c\d+\.mp3$/,'_c'+(si+1)+'.mp3');if(gest&&si+1<STEPS.length){const a=new Audio(nx);a.preload='auto';}}}
+  else if(force&&gest&&voEl&&voEl.preload==='none'){voEl.preload='auto';try{voEl.load();}catch(e){}}
   if(!voEl)return;   // câu chuyện chưa có giọng → chỉ hiện chữ
   const want=soundOn&&gest&&playing&&!document.hidden;
   if(voRate!==speed){try{voEl.playbackRate=speed;}catch(e){}voRate=speed;}   // chỉ đặt khi đổi tốc độ
