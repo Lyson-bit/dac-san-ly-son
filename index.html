@@ -32,6 +32,10 @@ body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}
 img{max-width:100%}
 [hidden]{display:none!important}
 .install-btn{padding:8px 14px!important;font-size:.88rem!important;white-space:nowrap}
+/* v1.89: điện thoại – nút "Cài app" có ô cố định (hàng 5, dưới Sáng/Tối) và ô được giữ chỗ ngay từ đầu (::after), nên khi nút hiện
+   đầu trang không cao thêm, nội dung không nhảy xuống. App đã cài (standalone) không giữ chỗ. */
+@media (max-width:640px){header.top .wrap>.install-btn{grid-column:1;grid-row:5;justify-self:start;align-self:start;margin-top:4px}}
+@media (max-width:640px) and (display-mode:browser){header.top .wrap::after{content:"";grid-column:1;grid-row:5;height:40px}}
 .install-tip{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--fg);color:var(--bg);padding:14px 16px;border-radius:10px;font-size:.92rem;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.25)}
 </style>
 <title>Đặc Sản Lý Sơn Quê Tôi</title>
@@ -1046,6 +1050,31 @@ html.hd-full-on,html.hd-full-on body{overflow:hidden}
 /* 2 dòng thư pháp ở phần dưới ảnh bìa */
 .hp-low{position:absolute;z-index:2;left:0;right:0;bottom:max(12.4%,60px);margin:0;padding:0 18px;display:grid;justify-items:center;gap:6px;text-align:center}   /* v1.67: hạ xuống, tránh đè lên đảo */
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+/* v1.89 (tối ưu tải): 2 khối CSS dưới đây trước nằm cuối trang. Trình duyệt đọc tới cuối mới áp dụng → khung cá #caHero
+   (canvas chưa có kiểu = 300×150) đẩy cả đầu trang xuống rồi co lại (nhảy bố cục 0,14) và vẽ lại toàn trang ~0,46 s trên điện thoại chậm. */
+/* v1.79: nền biển có đàn cá bơi ẩn mờ ở chân trang (tự vẽ bằng canvas, không tải video) */
+footer.ft-bien{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,transparent 0,color-mix(in srgb,var(--sea) 10%,transparent) 45%,color-mix(in srgb,var(--sea) 22%,transparent) 100%)}
+footer.ft-bien>.wrap{position:relative;z-index:1}
+.ca-nen{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}
+.hero-text>.ca-hero{z-index:-1;opacity:.4}
+/* v1.80: nút Zalo nổi có 2 số (anh yêu cầu). Máy tính: hiện cả 2 số; điện thoại: chạm biểu tượng để chọn số */
+.fab-zalo{padding:8px 16px 8px 12px;gap:10px}
+.fab-zalo .fz-ico{display:grid;place-items:center;background:none;border:0;padding:0;color:inherit;cursor:default}
+.fab-zalo .fz-ico svg{width:22px;height:22px}
+.fab-zalo .fz-list{display:flex;flex-direction:column;line-height:1.3}
+.fab-zalo .fz-list a{color:inherit;text-decoration:none;font-weight:700;padding:2px 0}
+.fab-zalo .fz-list a:hover{text-decoration:underline}
+.fab-call{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+@media (max-width:640px){
+  .fab-call{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .fab-zalo{padding:0;gap:0}
+  .fab-zalo .fz-ico{width:56px;height:56px;cursor:pointer}
+  .fab-zalo .fz-list{display:none;position:absolute;right:64px;bottom:0;width:auto;height:auto;overflow:visible;clip-path:none;background:var(--sea);color:var(--on-sea);border-radius:16px;padding:8px 14px;box-shadow:0 6px 20px rgba(0,0,0,.28);white-space:nowrap}
+  .fab-zalo .fz-list a{padding:7px 0;font-size:1rem}
+  .fab-zalo.open .fz-list{display:flex}
+}
+/* v1.89: giữ sẵn chỗ dòng thời tiết ở đầu trang (trước ẩn rồi hiện khi có số → đầu trang cao thêm, nội dung nhảy xuống) */
+.wx[hidden]{display:inline-flex;visibility:hidden}
 </style>
 
 </head>
@@ -1338,11 +1367,17 @@ Lý Sơn chờ bạn! 💙</div>
     lb.addEventListener('click',function(e){if(e.target===lb)dong();});
     document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')dong();else if(e.key==='ArrowLeft')buoc(-1);else if(e.key==='ArrowRight')buoc(1);});
     function dung(){C.forEach(function(c,i){var b=document.createElement('button');b.type='button';b.className='rv-t'+(c[2]?' to':'');b.setAttribute('aria-label',(i+1)+'. '+c[1]);
-        if(c[0]){var v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.preload='none';v.setAttribute('aria-hidden','true');v.dataset.s=B+'videos/review/'+c[0]+'_nhac.mp4';v.poster=B+'images/review/'+c[0]+'.webp';b.appendChild(v);vids.push(v);b.addEventListener('click',function(){mo(i);});}
-        else{var im=document.createElement('img');im.alt='';im.src=B+'videos/huong_dan_app_v8.jpg';im.style.objectPosition='50% 30%';b.appendChild(im);b.addEventListener('click',function(){var a=document.querySelector('a[href="#huong-dan-app"]');if(a)a.click();else location.hash='huong-dan-app';});}
+        if(c[0]){var v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.preload='none';v.setAttribute('aria-hidden','true');v.dataset.s=B+'videos/review/'+c[0]+'_nhac.mp4';v.dataset.p=B+'images/review/'+c[0]+'.webp';b.appendChild(v);vids.push(v);b.addEventListener('click',function(){mo(i);});}
+        else{var im=document.createElement('img');im.alt='';im.loading='lazy';im.src=B+'videos/huong_dan_app_v8.jpg';im.style.objectPosition='50% 30%';b.appendChild(im);b.addEventListener('click',function(){var a=document.querySelector('a[href="#huong-dan-app"]');if(a)a.click();else location.hash='huong-dan-app';});}
         b.insertAdjacentHTML('beforeend','<span class="rv-n">'+(i+1)+'/10</span><span class="rv-c"></span>');b.lastChild.textContent=c[1];g.appendChild(b);});
-      /* v1.88: ảnh bìa gắn ngay khi dựng ô (9 ảnh ~120 KB) – trước đây chờ cuộn tới nên có máy thấy ô đen; hiện ≥ 55 %: tải + chạy */
-      if(!('IntersectionObserver' in window))return;
+      /* v1.89: ảnh bìa (9 ảnh ~120 KB) không tải lúc mở trang nữa: gắn khi ô còn cách màn hình ~800 px, và chắc chắn gắn hết
+         2,5 s sau khi trang tải xong (v1.88 gắn ngay để khỏi ô đen nhưng làm nặng lúc mở trang). Hiện ≥ 55 %: tải video + chạy */
+      var bia=function(v){if(!v.poster&&v.dataset.p)v.poster=v.dataset.p;};
+      var hetBia=function(){setTimeout(function(){vids.forEach(bia);},2500);};
+      if(document.readyState==='complete')hetBia();else window.addEventListener('load',hetBia);
+      if(!('IntersectionObserver' in window)){vids.forEach(bia);return;}
+      var gan=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){bia(e.target);gan.unobserve(e.target);}});},{rootMargin:'800px 0px'});
+      vids.forEach(function(v){gan.observe(v);});
       /* như ảnh bìa (v1.76): vẫn tự chạy khi máy bật "giảm chuyển động" (Windows tắt hiệu ứng là bật luôn); chỉ dừng khi khách bật tiết kiệm dữ liệu */
       var chay=function(v){if(SD||!lb.hidden||document.hidden)return;if(!v.src)v.src=v.dataset.s;var p=v.play();if(p&&p.catch)p.catch(function(){});};
       var hien=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;v._on=e.isIntersecting&&e.intersectionRatio>=.55;if(v._on)chay(v);else if(!v.paused)v.pause();});},{threshold:[0,.55]});
@@ -1993,14 +2028,10 @@ Lý Sơn chờ bạn! 💙</div>
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.88</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.89</span>_<span id="visits">…</span></p>
   </div>
 </footer>
-<style>/* v1.79: nền biển có đàn cá bơi ẩn mờ ở chân trang (tự vẽ bằng canvas, không tải video) */
-footer.ft-bien{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,transparent 0,color-mix(in srgb,var(--sea) 10%,transparent) 45%,color-mix(in srgb,var(--sea) 22%,transparent) 100%)}
-footer.ft-bien>.wrap{position:relative;z-index:1}
-.ca-nen{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}
-.hero-text>.ca-hero{z-index:-1;opacity:.4}</style>
+<!-- v1.89: CSS đàn cá (trước nằm ở đây) đã dời lên <head> – để cuối trang thì khung cá đầu trang chưa có kiểu, chiếm chỗ rồi co lại làm cả đầu trang nhảy -->
 <script>/* Đàn cá bơi ẩn sau chân trang: ~46 con theo 2 đàn, tia nắng xiên. Chỉ chạy khi chân trang hiện trên màn hình; giảm chuyển động thì vẽ đứng yên. */
 /* v1.80: dùng chung cho chân trang (#caNen, có tia nắng) và khối chữ đầu trang (#caHero, chỉ cá) */
 function caBoi(cv,O){O=O||{};if(!cv||!cv.getContext)return;var x=cv.getContext('2d'),W=0,H=0,R=Math.min(1.5,window.devicePixelRatio||1),on=false,raf=0,last=0,t=0;
@@ -2381,22 +2412,7 @@ function caBoi(cv,O){O=O||{};if(!cv||!cv.getContext)return;var x=cv.getContext('
   <button type="button" class="fz-ico" aria-label="Nhắn Zalo – chọn 1 trong 2 số" aria-expanded="false" aria-controls="fzList"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
   <span class="fz-list" id="fzList"><a href="https://zalo.me/0363594167" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0363 594 167">Zalo 0363 594 167</a><a href="https://zalo.me/0333216563" target="_blank" rel="noopener" aria-label="Nhắn Zalo 0333 216 563">Zalo 0333 216 563</a></span>
 </div>
-<style>/* v1.80: nút Zalo nổi có 2 số (anh yêu cầu). Máy tính: hiện cả 2 số; điện thoại: chạm biểu tượng để chọn số */
-.fab-zalo{padding:8px 16px 8px 12px;gap:10px}
-.fab-zalo .fz-ico{display:grid;place-items:center;background:none;border:0;padding:0;color:inherit;cursor:default}
-.fab-zalo .fz-ico svg{width:22px;height:22px}
-.fab-zalo .fz-list{display:flex;flex-direction:column;line-height:1.3}
-.fab-zalo .fz-list a{color:inherit;text-decoration:none;font-weight:700;padding:2px 0}
-.fab-zalo .fz-list a:hover{text-decoration:underline}
-.fab-call{bottom:calc(92px + env(safe-area-inset-bottom,0px))}
-@media (max-width:640px){
-  .fab-call{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
-  .fab-zalo{padding:0;gap:0}
-  .fab-zalo .fz-ico{width:56px;height:56px;cursor:pointer}
-  .fab-zalo .fz-list{display:none;position:absolute;right:64px;bottom:0;width:auto;height:auto;overflow:visible;clip-path:none;background:var(--sea);color:var(--on-sea);border-radius:16px;padding:8px 14px;box-shadow:0 6px 20px rgba(0,0,0,.28);white-space:nowrap}
-  .fab-zalo .fz-list a{padding:7px 0;font-size:1rem}
-  .fab-zalo.open .fz-list{display:flex}
-}</style>
+<!-- v1.89: CSS nút Zalo 2 số đã dời lên <head> -->
 <script>(function(){var f=document.getElementById('fabZalo');if(!f)return;var b=f.querySelector('.fz-ico');
   b.addEventListener('click',function(e){e.stopPropagation();var o=f.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
   document.addEventListener('click',function(e){if(!f.contains(e.target)){f.classList.remove('open');b.setAttribute('aria-expanded','false');}});})();</script>
@@ -3099,6 +3115,8 @@ function caBoi(cv,O){O=O||{};if(!cv||!cv.getContext)return;var x=cv.getContext('
   var deferred=null;
   var standalone=window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===true;
   var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  /* v1.89: điện thoại (chưa cài app) luôn hiện nút ngay – chỗ đã giữ sẵn trong CSS; trình duyệt chưa cho cài 1 chạm thì bấm sẽ hiện cách thêm vào màn hình chính */
+  if(!standalone&&window.matchMedia("(max-width:640px) and (display-mode: browser)").matches)btn.hidden=false;
   window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();deferred=e;if(!standalone)btn.hidden=false;});
   if(ios&&!standalone)btn.hidden=false;
   function showTip(t){tip.textContent=t;tip.hidden=false;clearTimeout(showTip.t);showTip.t=setTimeout(function(){tip.hidden=true;},10000);}
