@@ -1075,6 +1075,19 @@ footer.ft-bien>.wrap{position:relative;z-index:1}
 }
 /* v1.89: giữ sẵn chỗ dòng thời tiết ở đầu trang (trước ẩn rồi hiện khi có số → đầu trang cao thêm, nội dung nhảy xuống) */
 .wx[hidden]{display:inline-flex;visibility:hidden}
+/* v1.90: hộp xem ảnh lớn cho lưới ảnh (ảnh gốc nguyên chất lượng trong images/hanh_trinh/lon/) */
+.ck-lb{position:fixed;inset:0;z-index:2147483000;background:#060b0c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:6px;touch-action:pan-y}
+.ck-lb[hidden]{display:none}
+.ck-lb img{display:block;max-width:98vw;max-height:calc(100vh - 58px);border-radius:6px;background:#111;object-fit:contain}
+.ck-lb p{margin:0;max-width:96vw;color:#fff;font:600 .9rem/1.3 var(--f-body);text-align:center}
+.ck-lb p small{margin-left:8px;font-weight:400;font-size:.74rem;color:rgba(255,255,255,.7)}
+.ck-lb-bar{display:contents}
+.ck-lb button{position:absolute;border:0;border-radius:999px;padding:10px 15px;background:rgba(0,0,0,.45);color:#fff;font:600 .9rem var(--f-body);cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.25)}
+.ck-lb button:hover{background:rgba(0,0,0,.7)}
+.ck-lb button[data-d="-1"]{left:8px;top:50%;transform:translateY(-50%)}
+.ck-lb button[data-d="1"]{right:8px;top:50%;transform:translateY(-50%)}
+.ck-lb button[data-d="0"]{top:8px;right:8px}
+.ck-grid a{cursor:zoom-in}
 </style>
 
 </head>
@@ -1783,23 +1796,23 @@ Lý Sơn chờ bạn! 💙</div>
         <div class="ck-group">
           <h4><span aria-hidden="true">🌊</span>Biển &amp; cảnh đẹp <small>17 ảnh</small></h4>
           <ul class="ck-grid">
-            <li><a href="images/hanh_trinh/g_bien_thuyen_da.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bien_thuyen_da.webp" width="640" height="480" loading="lazy" alt="Bãi đá ven biển, thuyền neo dưới chân núi"></a><span>Bãi đá, thuyền neo ven bờ</span></li>
-            <li><a href="images/hanh_trinh/g_nuoc_trong.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_trong.webp" width="640" height="640" loading="lazy" alt="Nước biển trong xanh thấy đáy, khối kè dưới nước"></a><span>Nước trong thấy đáy</span></li>
-            <li><a href="images/hanh_trinh/g_hang_cau_2.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hang_cau_2.webp" width="640" height="427" loading="lazy" alt="Vách đá Hang Câu bên bãi cát"></a><span>Vách đá Hang Câu</span></li>
-            <li><a href="images/hanh_trinh/g_vach_da.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_vach_da.webp" width="640" height="427" loading="lazy" alt="Vách đá và bãi cát nhìn từ trên cao"></a><span>Bãi cát dưới vách núi</span></li>
-            <li><a href="images/hanh_trinh/g_dua_thuyen_doan.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_dua_thuyen_doan.webp" width="640" height="480" loading="lazy" alt="Các đội thuyền đua trên biển"></a><span>Các đội đua thuyền</span></li>
-            <li><a href="images/hanh_trinh/g_hoang_hon_2.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hoang_hon_2.webp" width="480" height="640" loading="lazy" alt="Hoàng hôn đỏ trên cánh đồng xanh"></a><span>Hoàng hôn trên đồng</span></li>
-            <li><a href="images/hanh_trinh/g_san_ho.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_san_ho.webp" width="960" height="719" loading="lazy" alt="Những cụm san hô nhiều màu trên ghềnh đá ven biển"></a><span>San hô nhiều màu</span></li>
-            <li><a href="images/hanh_trinh/g_boi_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_boi_bien.webp" width="960" height="705" loading="lazy" alt="Đông đảo người bơi biển mang phao màu cam gần bờ cát"></a><span>Bơi biển đông vui</span></li>
-            <li><a href="images/hanh_trinh/g_chay_ven_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chay_ven_bien.webp" width="960" height="889" loading="lazy" alt="Đoàn người chạy trên đường ven biển Lý Sơn lúc trời ráng đỏ"></a><span>Đường chạy ven biển</span></li>
-            <li><a href="images/hanh_trinh/g_chay_xuat_phat.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chay_xuat_phat.webp" width="960" height="709" loading="lazy" alt="Vận động viên áo đỏ xuất phát dưới cổng giải chạy Lý Sơn 2026"></a><span>Xuất phát giải chạy</span></li>
-            <li><a href="images/hanh_trinh/g_chay_qua_cau.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chay_qua_cau.webp" width="960" height="710" loading="lazy" alt="Người chạy qua cầu treo cờ đỏ sao vàng, dưới là thuyền neo đậu"></a><span>Chạy qua cầu, cờ bay</span></li>
-            <li><a href="images/hanh_trinh/g_bai_tam_cau_tay.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bai_tam_cau_tay.webp" width="670" height="868" loading="lazy" alt="Cột biển chỉ dẫn Bãi tắm Cầu Tây bên bờ biển"></a><span>Bãi tắm Cầu Tây</span></li>
-            <li><a href="images/hanh_trinh/g_du_bai_cat.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_du_bai_cat.webp" width="960" height="717" loading="lazy" alt="Dù che nhiều màu trên bãi cát, biển xanh và cầu cảng phía xa"></a><span>Dù che trên bãi cát</span></li>
-            <li><a href="images/hanh_trinh/g_cay_ben_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_cay_ben_bien.webp" width="685" height="885" loading="lazy" alt="Cây xanh tỏa bóng bên bờ biển, phía xa có thuyền và phao vàng"></a><span>Bóng cây bên biển</span></li>
-            <li><a href="images/hanh_trinh/g_bich_hoa_giu_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bich_hoa_giu_bien.webp" width="960" height="720" loading="lazy" alt="Bích họa trên tường kè biển: đôi bàn tay nâng con cá giữa sóng nước"></a><span>Bích họa giữ biển xanh</span></li>
-            <li><a href="images/hanh_trinh/g_chung_tay_xanh_sach_dep.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chung_tay_xanh_sach_dep.webp" width="960" height="720" loading="lazy" alt="Bích họa Chung tay giữ gìn biển đảo xanh, sạch, đẹp, các bạn trẻ nhặt rác trên bãi biển"></a><span>Chung tay xanh, sạch, đẹp</span></li>
-            <li><a href="images/hanh_trinh/g_con_duong_bich_hoa.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_con_duong_bich_hoa.webp" width="960" height="540" loading="lazy" alt="Các bạn đoàn viên cầm bảng công trình Con đường bích họa bên bức tường Lý Sơn Island"></a><span>Con đường bích họa</span></li>
+            <li><a href="images/hanh_trinh/lon/g_bien_thuyen_da.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bien_thuyen_da.webp" width="640" height="480" loading="lazy" alt="Bãi đá ven biển, thuyền neo dưới chân núi"></a><span>Bãi đá, thuyền neo ven bờ</span></li>
+            <li><a href="images/hanh_trinh/lon/g_nuoc_trong.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_trong.webp" width="640" height="640" loading="lazy" alt="Nước biển trong xanh thấy đáy, khối kè dưới nước"></a><span>Nước trong thấy đáy</span></li>
+            <li><a href="images/hanh_trinh/lon/g_hang_cau_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hang_cau_2.webp" width="640" height="427" loading="lazy" alt="Vách đá Hang Câu bên bãi cát"></a><span>Vách đá Hang Câu</span></li>
+            <li><a href="images/hanh_trinh/lon/g_vach_da.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_vach_da.webp" width="640" height="427" loading="lazy" alt="Vách đá và bãi cát nhìn từ trên cao"></a><span>Bãi cát dưới vách núi</span></li>
+            <li><a href="images/hanh_trinh/lon/g_dua_thuyen_doan.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_dua_thuyen_doan.webp" width="640" height="480" loading="lazy" alt="Các đội thuyền đua trên biển"></a><span>Các đội đua thuyền</span></li>
+            <li><a href="images/hanh_trinh/lon/g_hoang_hon_2.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_hoang_hon_2.webp" width="480" height="640" loading="lazy" alt="Hoàng hôn đỏ trên cánh đồng xanh"></a><span>Hoàng hôn trên đồng</span></li>
+            <li><a href="images/hanh_trinh/lon/g_san_ho.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_san_ho.webp" width="960" height="719" loading="lazy" alt="Những cụm san hô nhiều màu trên ghềnh đá ven biển"></a><span>San hô nhiều màu</span></li>
+            <li><a href="images/hanh_trinh/lon/g_boi_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_boi_bien.webp" width="960" height="705" loading="lazy" alt="Đông đảo người bơi biển mang phao màu cam gần bờ cát"></a><span>Bơi biển đông vui</span></li>
+            <li><a href="images/hanh_trinh/lon/g_chay_ven_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chay_ven_bien.webp" width="960" height="889" loading="lazy" alt="Đoàn người chạy trên đường ven biển Lý Sơn lúc trời ráng đỏ"></a><span>Đường chạy ven biển</span></li>
+            <li><a href="images/hanh_trinh/lon/g_chay_xuat_phat.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chay_xuat_phat.webp" width="960" height="709" loading="lazy" alt="Vận động viên áo đỏ xuất phát dưới cổng giải chạy Lý Sơn 2026"></a><span>Xuất phát giải chạy</span></li>
+            <li><a href="images/hanh_trinh/lon/g_chay_qua_cau.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chay_qua_cau.webp" width="960" height="710" loading="lazy" alt="Người chạy qua cầu treo cờ đỏ sao vàng, dưới là thuyền neo đậu"></a><span>Chạy qua cầu, cờ bay</span></li>
+            <li><a href="images/hanh_trinh/lon/g_bai_tam_cau_tay.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bai_tam_cau_tay.webp" width="670" height="868" loading="lazy" alt="Cột biển chỉ dẫn Bãi tắm Cầu Tây bên bờ biển"></a><span>Bãi tắm Cầu Tây</span></li>
+            <li><a href="images/hanh_trinh/lon/g_du_bai_cat.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_du_bai_cat.webp" width="960" height="717" loading="lazy" alt="Dù che nhiều màu trên bãi cát, biển xanh và cầu cảng phía xa"></a><span>Dù che trên bãi cát</span></li>
+            <li><a href="images/hanh_trinh/lon/g_cay_ben_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_cay_ben_bien.webp" width="685" height="885" loading="lazy" alt="Cây xanh tỏa bóng bên bờ biển, phía xa có thuyền và phao vàng"></a><span>Bóng cây bên biển</span></li>
+            <li><a href="images/hanh_trinh/lon/g_bich_hoa_giu_bien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_bich_hoa_giu_bien.webp" width="960" height="720" loading="lazy" alt="Bích họa trên tường kè biển: đôi bàn tay nâng con cá giữa sóng nước"></a><span>Bích họa giữ biển xanh</span></li>
+            <li><a href="images/hanh_trinh/lon/g_chung_tay_xanh_sach_dep.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_chung_tay_xanh_sach_dep.webp" width="960" height="720" loading="lazy" alt="Bích họa Chung tay giữ gìn biển đảo xanh, sạch, đẹp, các bạn trẻ nhặt rác trên bãi biển"></a><span>Chung tay xanh, sạch, đẹp</span></li>
+            <li><a href="images/hanh_trinh/lon/g_con_duong_bich_hoa.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_con_duong_bich_hoa.webp" width="960" height="540" loading="lazy" alt="Các bạn đoàn viên cầm bảng công trình Con đường bích họa bên bức tường Lý Sơn Island"></a><span>Con đường bích họa</span></li>
           </ul>
           <p class="ck-src">Ảnh giải chạy (3 ảnh): Hachi8 Media. Các ảnh còn lại: nguồn tham khảo photoflyson và internet, bản quyền thuộc tác giả.</p>
         </div>
@@ -1807,9 +1820,9 @@ Lý Sơn chờ bạn! 💙</div>
         <div class="ck-group">
           <h4><span aria-hidden="true">🤝</span>Hành động tốt lan toả <small>3 ảnh</small></h4>
           <ul class="ck-grid">
-            <li><a href="images/hanh_trinh/g_treo_co_tau.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_treo_co_tau.webp" width="960" height="618" loading="lazy" alt="Treo cờ Tổ quốc trên tàu cá"></a><span>Treo cờ trên tàu cá</span></li>
-            <li><a href="images/hanh_trinh/g_trao_co_ngu_dan.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_trao_co_ngu_dan.webp" width="960" height="685" loading="lazy" alt="Trao cờ Tổ quốc cho ngư dân trên tàu cá"></a><span>Trao cờ cho ngư dân</span></li>
-            <li><a href="images/hanh_trinh/g_ho_tro_thanh_nien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_ho_tro_thanh_nien.webp" width="667" height="878" loading="lazy" alt="Đoàn thanh niên Đặc khu Lý Sơn trao biển hỗ trợ thanh niên khởi nghiệp, lập nghiệp tại Bãi tắm Cầu Tây"></a><span>Hỗ trợ thanh niên khởi nghiệp</span></li>
+            <li><a href="images/hanh_trinh/lon/g_treo_co_tau.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_treo_co_tau.webp" width="960" height="618" loading="lazy" alt="Treo cờ Tổ quốc trên tàu cá"></a><span>Treo cờ trên tàu cá</span></li>
+            <li><a href="images/hanh_trinh/lon/g_trao_co_ngu_dan.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_trao_co_ngu_dan.webp" width="960" height="685" loading="lazy" alt="Trao cờ Tổ quốc cho ngư dân trên tàu cá"></a><span>Trao cờ cho ngư dân</span></li>
+            <li><a href="images/hanh_trinh/lon/g_ho_tro_thanh_nien.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_ho_tro_thanh_nien.webp" width="667" height="878" loading="lazy" alt="Đoàn thanh niên Đặc khu Lý Sơn trao biển hỗ trợ thanh niên khởi nghiệp, lập nghiệp tại Bãi tắm Cầu Tây"></a><span>Hỗ trợ thanh niên khởi nghiệp</span></li>
           </ul>
           <p class="ck-src">Nguồn ảnh: photoflyson, bản quyền thuộc tác giả.</p>
         </div>
@@ -1817,15 +1830,42 @@ Lý Sơn chờ bạn! 💙</div>
         <div class="ck-group">
           <h4><span aria-hidden="true">🦑</span>Hải sản &amp; quà quê <small>6 ảnh</small></h4>
           <ul class="ck-grid">
-            <li><a href="images/hanh_trinh/g_cua_oc_luoc.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_cua_oc_luoc.webp" width="960" height="794" loading="lazy" alt="Rổ cua và ốc luộc, bên cạnh chén muối ớt"></a><span>Cua, ốc luộc, chấm muối ớt</span></li>
-            <li><a href="images/hanh_trinh/g_muc_kho.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_kho.webp" width="383" height="640" loading="lazy" alt="Đĩa mực khô nướng xé"></a><span>Mực khô nướng xé</span></li>
-            <li><a href="images/hanh_trinh/g_muc_hap.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_hap.webp" width="480" height="640" loading="lazy" alt="Mực hấp hành, tôm luộc và đậu phộng rang"></a><span>Mực hấp hành, tôm</span></li>
-            <li><a href="images/hanh_trinh/g_tiec_hai_san.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_tiec_hai_san.webp" width="640" height="480" loading="lazy" alt="Bàn tiệc tôm nướng, mực xào"></a><span>Tôm nướng, mực xào</span></li>
-            <li><a href="images/hanh_trinh/g_banh.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_banh.webp" width="320" height="640" loading="lazy" alt="Những chiếc bánh vuông nhà làm"></a><span>Bánh nhà làm</span></li>
-            <li><a href="images/hanh_trinh/g_nuoc_quan.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_quan.webp" width="640" height="480" loading="lazy" alt="Hai ly nước đá ở quán ven biển"></a><span>Ly nước mát quán biển</span></li>
+            <li><a href="images/hanh_trinh/lon/g_cua_oc_luoc.webp" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_cua_oc_luoc.webp" width="960" height="794" loading="lazy" alt="Rổ cua và ốc luộc, bên cạnh chén muối ớt"></a><span>Cua, ốc luộc, chấm muối ớt</span></li>
+            <li><a href="images/hanh_trinh/lon/g_muc_kho.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_kho.webp" width="383" height="640" loading="lazy" alt="Đĩa mực khô nướng xé"></a><span>Mực khô nướng xé</span></li>
+            <li><a href="images/hanh_trinh/lon/g_muc_hap.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_muc_hap.webp" width="480" height="640" loading="lazy" alt="Mực hấp hành, tôm luộc và đậu phộng rang"></a><span>Mực hấp hành, tôm</span></li>
+            <li><a href="images/hanh_trinh/lon/g_tiec_hai_san.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_tiec_hai_san.webp" width="640" height="480" loading="lazy" alt="Bàn tiệc tôm nướng, mực xào"></a><span>Tôm nướng, mực xào</span></li>
+            <li><a href="images/hanh_trinh/lon/g_banh.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_banh.webp" width="320" height="640" loading="lazy" alt="Những chiếc bánh vuông nhà làm"></a><span>Bánh nhà làm</span></li>
+            <li><a href="images/hanh_trinh/lon/g_nuoc_quan.jpg" target="_blank" rel="noopener"><img src="images/hanh_trinh/g_nuoc_quan.webp" width="640" height="480" loading="lazy" alt="Hai ly nước đá ở quán ven biển"></a><span>Ly nước mát quán biển</span></li>
           </ul>
         </div>
       </div>
+      <script>/* v1.90 Xem ảnh lớn: lưới giữ ảnh nhỏ 520 px (trang nhẹ); bấm ảnh mới tải ảnh gốc nguyên chất lượng (href → images/hanh_trinh/lon/).
+         Hiện ngay ảnh nhỏ đã có sẵn, ảnh gốc tải xong thì thay vào. Ảnh vừa khít màn hình, ảnh gốc nhỏ phóng tối đa 1,5 lần.
+         Trước/Sau, phím ← → Esc, vuốt trên điện thoại. Hộp gắn thẳng body (section có content-visibility). Không JS thì link mở ảnh gốc ở tab mới. */
+      (function(){var as=[].slice.call(document.querySelectorAll('.ck-grid a'));if(!as.length)return;
+        var live=/^(lyson-bit\.github\.io|localhost|127\.0\.0\.1)$/.test(location.hostname),B=live?'':'https://lyson-bit.github.io/dac-san-ly-son/';
+        var lb=document.createElement('div');lb.className='ck-lb';lb.hidden=true;lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.setAttribute('aria-label','Xem ảnh lớn');
+        lb.innerHTML='<img alt=""><p></p><div class="ck-lb-bar"><button type="button" data-d="-1">‹ Trước</button><button type="button" data-d="0">✕ Đóng</button><button type="button" data-d="1">Sau ›</button></div>';
+        document.body.appendChild(lb);var im=lb.querySelector('img'),cap=lb.querySelector('p'),cur=0,tai=null,n=as.length;
+        function fit(w,h){if(!w||!h)return;var s=Math.min(innerWidth*.98/w,(innerHeight-58)/h,1.5);im.style.width=Math.round(w*s)+'px';im.style.height=Math.round(h*s)+'px';}
+        function goc(a){var h=a.getAttribute('href');return /^https?:/.test(h)?h:B+h;}
+        function mo(i){cur=(i+n)%n;var a=as[cur],t=a.querySelector('img'),ten=a.parentNode.querySelector('span');
+          fit(+t.getAttribute('width'),+t.getAttribute('height'));im.src=t.currentSrc||t.src;im.alt=t.alt;
+          cap.innerHTML='';cap.appendChild(document.createTextNode((cur+1)+'/'+n+' · '+(ten?ten.textContent:t.alt)));var sm=document.createElement('small');sm.textContent='Đang tải ảnh gốc…';cap.appendChild(sm);
+          if(tai)tai.onload=tai.onerror=null;var g=new Image(),k=cur;tai=g;g.decoding='async';
+          g.onload=function(){if(k!==cur)return;fit(g.naturalWidth,g.naturalHeight);im.src=g.src;sm.textContent='Ảnh gốc '+g.naturalWidth+' × '+g.naturalHeight+' px';[1,-1].forEach(function(d){new Image().src=goc(as[(k+d+n)%n]);});};
+          g.onerror=function(){if(k===cur)sm.textContent='';};g.src=goc(a);
+          if(lb.hidden){lb.hidden=false;document.documentElement.style.overflow='hidden';lb.querySelector('[data-d="0"]').focus();}}
+        /* lần bấm đầu trên trang tự bật nhạc → khung YouTube (iframe) giành focus, phím ← → Esc không tới trang → khi hộp đang mở thì kéo focus về nút Đóng */
+        addEventListener('blur',function(){if(lb.hidden)return;setTimeout(function(){var a=document.activeElement;if(!lb.hidden&&a&&a.tagName==='IFRAME')lb.querySelector('[data-d="0"]').focus();},0);});
+        function dong(){lb.hidden=true;im.removeAttribute('src');document.documentElement.style.overflow='';as[cur].focus();}
+        as.forEach(function(a,i){a.addEventListener('click',function(e){if(e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;e.preventDefault();mo(i);});});
+        lb.addEventListener('click',function(e){var b=e.target.closest('button');if(b){var d=+b.getAttribute('data-d');if(d)mo(cur+d);else dong();}else if(e.target===lb)dong();});
+        document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')dong();else if(e.key==='ArrowLeft')mo(cur-1);else if(e.key==='ArrowRight')mo(cur+1);});
+        var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+        lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50)mo(cur+(dx<0?1:-1));},{passive:true});
+        addEventListener('resize',function(){if(!lb.hidden&&im.naturalWidth)fit(im.naturalWidth,im.naturalHeight);});
+      })();</script>
 
       <div class="letter-end">
         <div>
@@ -2028,7 +2068,7 @@ Lý Sơn chờ bạn! 💙</div>
       <a href="#dat-hang">Đặt hàng</a>
     </nav>
     <p class="foot-bottom">Giá và hàng có sẵn thay đổi theo mùa vụ. Công dụng của tỏi nêu trên trang là kinh nghiệm dân gian, không thay thế thuốc chữa bệnh. Người bán không gửi link hay file cài đặt qua tin nhắn.</p>
-    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.89</span>_<span id="visits">…</span></p>
+    <p class="ver" title="Phiên bản trang _ số người đã truy cập (mỗi máy tính 1 lần)">Version: <span id="verNo">1.90</span>_<span id="visits">…</span></p>
   </div>
 </footer>
 <!-- v1.89: CSS đàn cá (trước nằm ở đây) đã dời lên <head> – để cuối trang thì khung cá đầu trang chưa có kiểu, chiếm chỗ rồi co lại làm cả đầu trang nhảy -->
